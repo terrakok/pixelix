@@ -1,7 +1,5 @@
 package com.daniebeler.pfpixelix.domain.model.nodeinfo
 
-import androidx.annotation.DrawableRes
-
 data class FediSoftware(
     val description: String,
     val id: Int,
@@ -12,7 +10,7 @@ data class FediSoftware(
     val statusCount: Int,
     val userCount: Int,
     val activeUserCount: Int,
-    @DrawableRes
+//    @DrawableRes todo
     var icon: Int?,
     val website: String
 )

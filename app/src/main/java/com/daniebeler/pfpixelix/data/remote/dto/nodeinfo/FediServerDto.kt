@@ -1,21 +1,16 @@
 package com.daniebeler.pfpixelix.data.remote.dto.nodeinfo
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class FediServerDto(
-    @SerializedName("banner_url")
-    val bannerUrl: String?,
-    @SerializedName("description")
-    val description: String?,
-    @SerializedName("domain")
-    val domain: String?,
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("open_registration")
-    val openRegistration: Boolean?,
-    @SerializedName("software")
-    val software: SoftwareSmallDto?,
-    @SerializedName("stats")
-    val stats: ServerStatsDto?
+    @SerialName("banner_url") val bannerUrl: String?,
+    @SerialName("description") val description: String?,
+    @SerialName("domain") val domain: String?,
+    @SerialName("id") val id: Int,
+    @SerialName("open_registration") val openRegistration: Boolean?,
+    @SerialName("software") val software: SoftwareSmallDto?,
+    @SerialName("stats") val stats: ServerStatsDto?
 )

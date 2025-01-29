@@ -4,10 +4,12 @@ import com.daniebeler.pfpixelix.data.remote.dto.DtoInterface
 import com.daniebeler.pfpixelix.domain.model.nodeinfo.FediServer
 import com.daniebeler.pfpixelix.domain.model.nodeinfo.ServerStats
 import com.daniebeler.pfpixelix.domain.model.nodeinfo.SoftwareSmall
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class WrapperDto(
-    @SerializedName("data") val data: FediServerDto
+    @SerialName("data") val data: FediServerDto
 ) : DtoInterface<FediServer> {
     override fun toModel(): FediServer {
         return FediServer(
