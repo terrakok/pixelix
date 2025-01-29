@@ -1,7 +1,10 @@
 package com.daniebeler.pfpixelix.data.remote.dto
 
 
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.Post
+import com.fleeksoft.ksoup.Ksoup
+import com.fleeksoft.ksoup.nodes.Document
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
@@ -60,8 +63,7 @@ data class PostDto(
                 tags = reblog.tags?.map { it.toModel() }.orEmpty(),
                 favouritesCount = reblog.favouritesCount ?: 0,
                 content = reblog.contentText?.let { it.takeIf { it.isNotEmpty() } }
-//                    ?: reblog.content?.let { htmlToText(it) } todo
-                    ?: "",
+                    ?: reblog.content?.let { htmlToText(it) } ?: "",
                 replyCount = reblog.replyCount ?: 0,
                 createdAt = reblog.createdAt ?: "",
                 url = reblog.url ?: "",
@@ -84,8 +86,7 @@ data class PostDto(
                 tags = tags?.map { it.toModel() }.orEmpty(),
                 favouritesCount = favouritesCount ?: 0,
                 content = contentText?.let { it.takeIf { it.isNotEmpty() } }
-//                    ?: content?.let { htmlToText(it) } todo
-                    ?: "",
+                    ?: content?.let { htmlToText(it) } ?: "",
                 replyCount = replyCount ?: 0,
                 createdAt = createdAt ?: "",
                 url = url ?: "",
@@ -104,15 +105,15 @@ data class PostDto(
     }
 }
 
-//private fun htmlToText(html: String): String {
-//    val document = Jsoup.parse(html)
-//    document.outputSettings(Document.OutputSettings().prettyPrint(false)) // Prevent auto formatting
-//    document.select("br").append("\\n") // Replace <br> with newlines
-//    document.select("p").prepend("\\n\\n") // Add double newline for paragraphs
-//
-//    val text = document.text().replace("\\n", "\n")
-//    val cleanedText = text.lines().joinToString("\n") { it.trimStart() } // Trim leading spaces
-//
-//    Log.d("htmlToText", cleanedText)
-//    return cleanedText.trim()
-//}
+private fun htmlToText(html: String): String {
+    val document = Ksoup.parse(html)
+    document.outputSettings(Document.OutputSettings().prettyPrint(false)) // Prevent auto formatting
+    document.select("br").append("\\n") // Replace <br> with newlines
+    document.select("p").prepend("\\n\\n") // Add double newline for paragraphs
+
+    val text = document.text().replace("\\n", "\n")
+    val cleanedText = text.lines().joinToString("\n") { it.trimStart() } // Trim leading spaces
+
+    Logger.d("htmlToText") { cleanedText }
+    return cleanedText.trim()
+}
