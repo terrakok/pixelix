@@ -17,6 +17,7 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.ksoup)
             implementation(libs.kermit)
+            implementation(libs.kotlinx.datetime)
         }
     }
 }
