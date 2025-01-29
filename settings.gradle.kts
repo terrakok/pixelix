@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Pixelix"
 include(":app")
- 
+include(":shared")

@@ -7,7 +7,9 @@ buildscript {
 
 plugins {
     alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    alias(libs.plugins.jetbrainsKotlinMultiplatform) apply false
     alias(libs.plugins.hilt) apply false
     id("com.google.devtools.ksp") version "2.0.0-1.0.22" apply false
     alias(libs.plugins.compose.compiler) apply false
