@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.jetbrainsKotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 kotlin {
@@ -10,6 +11,12 @@ kotlin {
     iosSimulatorArm64()
 
     jvmToolchain(17)
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.kotlinx.serialization.json)
+        }
+    }
 }
 
 android {

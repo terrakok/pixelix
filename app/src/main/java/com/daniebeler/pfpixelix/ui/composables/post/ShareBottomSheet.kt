@@ -93,9 +93,9 @@ fun ShareBottomSheet(
         }
         if (mediaAttachment?.license != null) {
             ButtonRowElement(icon = Icons.Outlined.Description, text = stringResource(
-                R.string.license, mediaAttachment.license.title
+                R.string.license, mediaAttachment.license?.title.orEmpty()
             ), onClick = {
-                viewModel.openUrl(context, mediaAttachment.license.url)
+                viewModel.openUrl(context, mediaAttachment.license?.url.orEmpty())
             })
         }
 

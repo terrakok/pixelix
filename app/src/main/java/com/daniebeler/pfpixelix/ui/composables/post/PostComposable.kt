@@ -156,7 +156,7 @@ fun PostComposable(
 
     LaunchedEffect(Unit) {
         if (post.reblogId != null) {
-            postId = post.reblogId
+            postId = post.reblogId.orEmpty()
         }
         if (viewModel.post == null) {
             viewModel.updatePost(post)
@@ -549,12 +549,12 @@ fun PostComposable(
                 Row {
                     if (post.likedBy?.username?.isNotBlank() == true) {
                         Text(text = stringResource(id = R.string.liked_by) + " ", fontSize = 14.sp)
-                        Text(text = post.likedBy.username,
+                        Text(text = post.likedBy?.username.orEmpty(),
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.clickable {
                                 Navigate.navigate(
-                                    "profile_screen/" + post.likedBy.id, navController
+                                    "profile_screen/" + post.likedBy?.id.orEmpty(), navController
                                 )
                             })
                         if (post.favouritesCount > 1) {
@@ -772,7 +772,7 @@ fun PostImage(
                     .clip(CircleShape)
                     .background(MaterialTheme.colorScheme.background.copy(alpha = 0.5f))
                     .clickable {
-                        altText = mediaAttachment.description
+                        altText = mediaAttachment.description.orEmpty()
                     }
                     .padding(10.dp),
             ) {

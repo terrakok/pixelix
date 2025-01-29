@@ -1,10 +1,8 @@
 package com.daniebeler.pfpixelix.domain.model
 
-import javax.annotation.concurrent.Immutable
 
-@Immutable
-data class
-Post(
+//@Immutable todo
+data class Post(
     val id: String,
     val mediaAttachments: List<MediaAttachment>,
     val account: Account,

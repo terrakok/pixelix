@@ -50,7 +50,7 @@ fun FollowerElementComposable(
         Column {
             if (account.displayname != null) {
                 Text(
-                    text = account.displayname,
+                    text = account.displayname.orEmpty(),
                     lineHeight = 8.sp)
             }
 

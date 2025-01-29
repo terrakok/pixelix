@@ -151,7 +151,7 @@ fun AboutInstanceComposable(
                             Spacer(modifier = Modifier.width(10.dp))
                             Column {
                                 if (account.displayname != null) {
-                                    Text(text = account.displayname)
+                                    Text(text = account.displayname.orEmpty())
                                 }
                                 Text(text = "@${account.username}")
                             }

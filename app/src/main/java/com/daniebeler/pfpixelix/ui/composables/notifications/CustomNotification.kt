@@ -66,8 +66,8 @@ fun CustomNotification(
     }
 
     LaunchedEffect(notification) {
-        if (notification.type == "mention" && notification.post?.inReplyToId != null && notification.post.inReplyToId.isNotBlank()) {
-            viewModel.loadAncestor(notification.post.inReplyToId)
+        if (notification.type == "mention" && notification.post?.inReplyToId != null && !notification.post?.inReplyToId.isNullOrBlank()) {
+            viewModel.loadAncestor(notification.post?.inReplyToId.orEmpty())
         }
     }
 
@@ -75,8 +75,8 @@ fun CustomNotification(
         Modifier
             .padding(horizontal = 12.dp, vertical = 8.dp)
             .fillMaxWidth().clickable {
-            if (notification.post != null && notification.post.mediaAttachments.isEmpty()) {
-                Navigate.navigate("mention/" + notification.post.id, navController)
+            if (notification.post != null && notification.post?.mediaAttachments.isNullOrEmpty()) {
+                Navigate.navigate("mention/" + notification.post?.id, navController)
             }
         },
         verticalAlignment = Alignment.CenterVertically

@@ -540,7 +540,7 @@ fun AlertTopSection(account: Account) {
                 if (account.displayname != null) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = account.displayname,
+                            text = account.displayname.orEmpty(),
                             lineHeight = 8.sp,
                             fontWeight = FontWeight.Bold
                         )
