@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
     alias(libs.plugins.jetbrainsKotlinMultiplatform) apply false
     alias(libs.plugins.hilt) apply false
-    id("com.google.devtools.ksp") version "2.0.0-1.0.22" apply false
+    id("com.google.devtools.ksp") version "2.0.21-1.0.27" apply false
     alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.ktorfit) apply false
 }
