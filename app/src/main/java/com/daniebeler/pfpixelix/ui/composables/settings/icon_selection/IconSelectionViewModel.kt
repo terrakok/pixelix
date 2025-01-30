@@ -92,10 +92,6 @@ class IconSelectionViewModel @Inject constructor(
         enableCustomAppIconUseCase(context, name)
         setEnabledValues(context)
     }
-
-    data class IconAndName(
-        val name: String, @DrawableRes val iconResourceId: Int
-    )
 }
 
 data class IconWithName(
