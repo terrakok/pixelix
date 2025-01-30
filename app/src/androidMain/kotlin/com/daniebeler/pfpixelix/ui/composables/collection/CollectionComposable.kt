@@ -44,12 +44,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.composables.InfinitePostsGrid
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
@@ -99,7 +101,7 @@ fun CollectionComposable(
                         )
                         Text(
                             stringResource(
-                                R.string.by, viewModel.collectionState.collection!!.username
+                                Res.string.by, viewModel.collectionState.collection!!.username
                             ), fontSize = 12.sp, lineHeight = 6.sp
                         )
                     }
@@ -118,12 +120,12 @@ fun CollectionComposable(
                 TextButton(onClick = {
                     viewModel.toggleEditMode()
                 }) {
-                    Text(stringResource(id = R.string.cancel))
+                    Text(stringResource(Res.string.cancel))
                 }
                 TextButton(onClick = {
                     viewModel.confirmEdit()
                 }) {
-                    Text(stringResource(id = R.string.confirm))
+                    Text(stringResource(Res.string.confirm))
                 }
             } else {
 
@@ -201,7 +203,7 @@ fun CollectionComposable(
                 ) {
 
                     ButtonRowElement(icon = Icons.Outlined.OpenInBrowser, text = stringResource(
-                        R.string.open_in_browser
+                        Res.string.open_in_browser
                     ), onClick = {
                         if (viewModel.collectionState.collection != null) {
                             viewModel.openUrl(
@@ -211,7 +213,7 @@ fun CollectionComposable(
                     })
 
                     ButtonRowElement(icon = Icons.Outlined.Share,
-                        text = stringResource(R.string.share_this_collection),
+                        text = stringResource(Res.string.share_this_collection),
                         onClick = {
                             if (viewModel.collectionState.collection != null) {
                                 Share.shareText(context, viewModel.collectionState.collection!!.url)

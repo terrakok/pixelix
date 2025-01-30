@@ -31,12 +31,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -99,11 +101,11 @@ fun FollowersMainComposable(
                     if (viewModel.accountState.account != null) {
                         Text(
                             viewModel.accountState.account?.followersCount.toString() + " " + stringResource(
-                                id = R.string.followers
+                                Res.string.followers
                             )
                         )
                     } else {
-                        Text(text = stringResource(id = R.string.followers))
+                        Text(text = stringResource(Res.string.followers))
                     }
                 },
                     selected = pagerState.currentPage == 0,
@@ -119,11 +121,11 @@ fun FollowersMainComposable(
                     if (viewModel.accountState.account != null) {
                         Text(
                             viewModel.accountState.account?.followingCount.toString() + " " + stringResource(
-                                id = R.string.following
+                                Res.string.following
                             )
                         )
                     } else {
-                        Text(text = stringResource(id = R.string.following))
+                        Text(text = stringResource(Res.string.following))
                     }
                 },
                     selected = pagerState.currentPage == 1,

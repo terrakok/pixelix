@@ -56,7 +56,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
@@ -65,6 +65,8 @@ import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.domain.model.SavedSearchItem
 import com.daniebeler.pfpixelix.domain.model.SavedSearchType
@@ -103,7 +105,7 @@ fun ExploreComposable(
                     },
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
-                    placeholder = { Text(stringResource(R.string.explore)) },
+                    placeholder = { Text(stringResource(Res.string.explore)) },
                     leadingIcon = {
                         if (!expanded) {
                             Icon(Icons.Default.Search, contentDescription = null)
@@ -214,7 +216,7 @@ private fun SearchResultComposable(searchState: SearchState, saveAccount: (Strin
     Column {
 
         PrimaryTabRow(selectedTabIndex = pagerState.currentPage) {
-            Tab(text = { Text(stringResource(id = R.string.accounts)) },
+            Tab(text = { Text(stringResource(Res.string.accounts)) },
                 selected = pagerState.currentPage == 0,
                 selectedContentColor = MaterialTheme.colorScheme.primary,
                 unselectedContentColor = MaterialTheme.colorScheme.onBackground,
@@ -225,7 +227,7 @@ private fun SearchResultComposable(searchState: SearchState, saveAccount: (Strin
 
                 })
 
-            Tab(text = { Text(stringResource(R.string.hashtags)) },
+            Tab(text = { Text(stringResource(Res.string.hashtags)) },
                 selected = pagerState.currentPage == 1,
                 selectedContentColor = MaterialTheme.colorScheme.primary,
                 unselectedContentColor = MaterialTheme.colorScheme.onBackground,

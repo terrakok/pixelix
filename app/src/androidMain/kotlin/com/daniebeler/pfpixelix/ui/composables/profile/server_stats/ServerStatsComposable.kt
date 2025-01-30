@@ -31,13 +31,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -106,7 +108,7 @@ fun DomainSoftwareComposable(
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Row {
-                            Text(stringResource(R.string.instances))
+                            Text(stringResource(Res.string.instances))
                             Spacer(Modifier.width(8.dp))
                             Text(
                                 text = String.format(
@@ -122,7 +124,7 @@ fun DomainSoftwareComposable(
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Row {
-                            Text(stringResource(R.string.total_posts))
+                            Text(stringResource(Res.string.total_posts))
                             Spacer(Modifier.width(8.dp))
                             Text(
                                 text = String.format(
@@ -138,7 +140,7 @@ fun DomainSoftwareComposable(
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Row {
-                            Text(stringResource(R.string.total_users))
+                            Text(stringResource(Res.string.total_users))
                             Spacer(Modifier.width(8.dp))
                             Text(
                                 text = String.format(
@@ -154,7 +156,7 @@ fun DomainSoftwareComposable(
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Row {
-                            Text(stringResource(R.string.active_users))
+                            Text(stringResource(Res.string.active_users))
                             Spacer(Modifier.width(8.dp))
                             Text(
                                 text = String.format(
@@ -177,7 +179,7 @@ fun DomainSoftwareComposable(
                         ) {
                             Text(
                                 text = stringResource(
-                                    R.string.visit_url, viewModel.statsState.fediSoftware!!.website
+                                    Res.string.visit_url, viewModel.statsState.fediSoftware!!.website
                                 )
                             )
                         }
@@ -209,7 +211,7 @@ fun DomainSoftwareComposable(
                     Row {
                         Text(
                             stringResource(
-                                R.string.server_version,
+                                Res.string.server_version,
                                 viewModel.statsState.fediServer!!.software.name,
                                 viewModel.statsState.fediServer!!.software.version
                             )
@@ -219,7 +221,7 @@ fun DomainSoftwareComposable(
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Row {
-                        Text(stringResource(R.string.total_posts))
+                        Text(stringResource(Res.string.total_posts))
                         Spacer(Modifier.width(8.dp))
                         Text(
                             text = String.format(
@@ -233,7 +235,7 @@ fun DomainSoftwareComposable(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Row {
-                        Text(stringResource(R.string.total_users))
+                        Text(stringResource(Res.string.total_users))
                         Spacer(Modifier.width(8.dp))
                         Text(
                             text = String.format(
@@ -247,7 +249,7 @@ fun DomainSoftwareComposable(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Row {
-                        Text(stringResource(R.string.active_users))
+                        Text(stringResource(Res.string.active_users))
                         Spacer(Modifier.width(8.dp))
                         Text(
                             text = String.format(
@@ -268,7 +270,7 @@ fun DomainSoftwareComposable(
                     ) {
                         Text(
                             text = stringResource(
-                                R.string.visit_url,
+                                Res.string.visit_url,
                                 ("https://" + viewModel.statsState.fediServer!!.domain)
                             )
                         )

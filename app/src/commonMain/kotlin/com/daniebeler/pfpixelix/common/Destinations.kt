@@ -1,6 +1,5 @@
 package com.daniebeler.pfpixelix.common
 
-import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.TrendingUp
 import androidx.compose.material.icons.filled.AccountCircle
@@ -14,40 +13,43 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import org.jetbrains.compose.resources.StringResource
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 
 sealed class Destinations(
     val route: String,
     val icon: ImageVector? = null,
     val activeIcon: ImageVector? = null,
-    @StringRes val label: Int = R.string.home
+    val label: StringResource = Res.string.home
 ) {
     data object HomeScreen : Destinations(
         route = "home_screen",
         icon = Icons.Outlined.Home,
         activeIcon = Icons.Filled.Home,
-        label = R.string.home
+        label = Res.string.home
     )
 
     data object TrendingScreen : Destinations(
         route = "trending_screen/{page}",
         icon = Icons.AutoMirrored.Rounded.TrendingUp,
         activeIcon = Icons.AutoMirrored.Rounded.TrendingUp,
-        label = R.string.trending
+        label = Res.string.trending
     )
 
     data object NotificationsScreen : Destinations(
         route = "notifications_screen",
         icon = Icons.Outlined.FavoriteBorder,
         activeIcon = Icons.Filled.Favorite,
-        label = R.string.alerts
+        label = Res.string.alerts
     )
 
     data object OwnProfile : Destinations(
         route = "own_profile_screen",
         icon = Icons.Outlined.AccountCircle,
         activeIcon = Icons.Filled.AccountCircle,
-        label = R.string.profile
+        label = Res.string.profile
     )
 
     data object Profile : Destinations(
@@ -144,7 +146,7 @@ sealed class Destinations(
         route = "search_screen",
         icon = Icons.Outlined.Search,
         activeIcon = Icons.Filled.Search,
-        label = R.string.search
+        label = Res.string.search
     )
 
     data object Conversation : Destinations(

@@ -44,7 +44,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
@@ -95,6 +94,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.stringResource
 
 class MainActivity : ComponentActivity() {
     lateinit var currentLoginDataUseCase: GetCurrentLoginDataUseCase

@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.utils.Navigate
 

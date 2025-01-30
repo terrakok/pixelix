@@ -82,7 +82,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -107,6 +107,8 @@ import coil.compose.AsyncImagePainter
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
@@ -223,7 +225,7 @@ fun PostComposable(
                     Icon(Icons.Outlined.Cached, contentDescription = "reblogged by")
                     Text(
                         stringResource(
-                            R.string.reblogged_by,
+                            Res.string.reblogged_by,
                             reblogAccount.displayname ?: reblogAccount.username
                         ), fontSize = 12.sp
                     )
@@ -548,7 +550,7 @@ fun PostComposable(
 
                 Row {
                     if (post.likedBy?.username?.isNotBlank() == true) {
-                        Text(text = stringResource(id = R.string.liked_by) + " ", fontSize = 14.sp)
+                        Text(text = stringResource(Res.string.liked_by) + " ", fontSize = 14.sp)
                         Text(text = post.likedBy?.username.orEmpty(),
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
@@ -559,11 +561,11 @@ fun PostComposable(
                             })
                         if (post.favouritesCount > 1) {
                             Text(
-                                text = " " + stringResource(id = R.string.and) + " ",
+                                text = " " + stringResource(Res.string.and) + " ",
                                 fontSize = 14.sp
                             )
                             Text(text = (post.favouritesCount - 1).toString() + " " + stringResource(
-                                id = R.string.others
+                                Res.string.others
                             ),
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 14.sp,
@@ -573,7 +575,7 @@ fun PostComposable(
                                 })
                         }
                     } else {
-                        Text(text = stringResource(id = R.string.no_likes_yet), fontSize = 14.sp)
+                        Text(text = stringResource(Res.string.no_likes_yet), fontSize = 14.sp)
                     }
                 }
 
@@ -593,7 +595,7 @@ fun PostComposable(
                     Spacer(modifier = Modifier.height(6.dp))
 
                     Text(text = stringResource(
-                        R.string.view_comments, viewModel.post!!.replyCount
+                        Res.string.view_comments, viewModel.post!!.replyCount
                     ),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.clickable {
@@ -654,22 +656,22 @@ fun PostComposable(
         AlertDialog(icon = {
             Icon(imageVector = Icons.Outlined.Delete, contentDescription = null)
         }, title = {
-            Text(text = stringResource(R.string.delete_post))
+            Text(text = stringResource(Res.string.delete_post))
         }, text = {
-            Text(text = stringResource(R.string.this_action_cannot_be_undone))
+            Text(text = stringResource(Res.string.this_action_cannot_be_undone))
         }, onDismissRequest = {
             viewModel.deleteDialog = null
         }, confirmButton = {
             TextButton(onClick = {
                 viewModel.deletePost(viewModel.deleteDialog!!)
             }) {
-                Text(stringResource(R.string.delete))
+                Text(stringResource(Res.string.delete))
             }
         }, dismissButton = {
             TextButton(onClick = {
                 viewModel.deleteDialog = null
             }) {
-                Text(stringResource(id = R.string.cancel))
+                Text(stringResource(Res.string.cancel))
             }
         })
 
@@ -799,7 +801,7 @@ fun PostImage(
 
         if (altText.isNotBlank()) {
             AlertDialog(title = {
-                Text(text = stringResource(R.string.media_description))
+                Text(text = stringResource(Res.string.media_description))
             }, text = {
                 Text(text = altText)
             }, onDismissRequest = {
@@ -808,7 +810,7 @@ fun PostImage(
                 TextButton(onClick = {
                     altText = ""
                 }) {
-                    Text(stringResource(id = android.R.string.ok))
+                    Text(stringResource(Res.string.ok))
                 }
             })
         }

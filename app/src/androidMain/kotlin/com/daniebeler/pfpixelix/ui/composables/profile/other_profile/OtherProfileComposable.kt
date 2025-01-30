@@ -57,7 +57,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -65,6 +65,8 @@ import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
@@ -225,9 +227,9 @@ fun OtherProfileComposable(
                                     )
                                 } else {
                                     if (viewModel.relationshipState.accountRelationship?.following == true) {
-                                        Text(text = stringResource(R.string.unfollow))
+                                        Text(text = stringResource(Res.string.unfollow))
                                     } else {
-                                        Text(text = stringResource(R.string.follow))
+                                        Text(text = stringResource(Res.string.follow))
                                     }
                                 }
                             }
@@ -248,7 +250,7 @@ fun OtherProfileComposable(
                                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
                             ) {
-                                Text(text = stringResource(R.string.message))
+                                Text(text = stringResource(Res.string.message))
                             }
                         }
 
@@ -302,7 +304,7 @@ fun OtherProfileComposable(
                     if (viewModel.relationshipState.accountRelationship!!.muting) {
                         ButtonRowElement(icon = Icons.AutoMirrored.Outlined.VolumeOff,
                             text = stringResource(
-                                R.string.unmute_this_profile
+                                Res.string.unmute_this_profile
                             ),
                             onClick = {
                                 showUnMuteAlert = true
@@ -310,7 +312,7 @@ fun OtherProfileComposable(
                     } else {
                         ButtonRowElement(icon = Icons.AutoMirrored.Outlined.VolumeOff,
                             text = stringResource(
-                                R.string.mute_this_profile
+                                Res.string.mute_this_profile
                             ),
                             onClick = {
                                 showMuteAlert = true
@@ -319,13 +321,13 @@ fun OtherProfileComposable(
 
                     if (viewModel.relationshipState.accountRelationship!!.blocking) {
                         ButtonRowElement(icon = Icons.Outlined.Block, text = stringResource(
-                            R.string.unblock_this_profile
+                            Res.string.unblock_this_profile
                         ), onClick = {
                             showUnBlockAlert = true
                         })
                     } else {
                         ButtonRowElement(icon = Icons.Outlined.Block, text = stringResource(
-                            R.string.block_this_profile
+                            Res.string.block_this_profile
                         ), onClick = {
                             showBlockAlert = true
                         })
@@ -335,13 +337,13 @@ fun OtherProfileComposable(
                 HorizontalDivider(Modifier.padding(12.dp))
 
                 ButtonRowElement(icon = Icons.Outlined.OpenInBrowser, text = stringResource(
-                    R.string.open_in_browser
+                    Res.string.open_in_browser
                 ), onClick = {
                     viewModel.openUrl(context, viewModel.accountState.account!!.url)
                 })
 
                 ButtonRowElement(icon = Icons.Outlined.Share,
-                    text = stringResource(R.string.share_this_profile),
+                    text = stringResource(Res.string.share_this_profile),
                     onClick = {
                         Share.shareText(context, viewModel.accountState.account!!.url)
                     })
@@ -384,7 +386,7 @@ fun MuteAccountAlert(
     onDismissRequest: () -> Unit, onConfirmation: () -> Unit, account: Account
 ) {
     AlertDialog(title = {
-        Text(text = stringResource(R.string.mute_account))
+        Text(text = stringResource(Res.string.mute_account))
     }, text = {
         Column {
 
@@ -392,14 +394,14 @@ fun MuteAccountAlert(
 
             HorizontalDivider(Modifier.padding(vertical = 12.dp))
 
-            Text(text = stringResource(R.string.mute_consequence_1))
-            Text(text = stringResource(R.string.mute_consequence_2))
-            Text(text = stringResource(R.string.mute_consequence_3))
-            Text(text = stringResource(R.string.mute_consequence_4))
+            Text(text = stringResource(Res.string.mute_consequence_1))
+            Text(text = stringResource(Res.string.mute_consequence_2))
+            Text(text = stringResource(Res.string.mute_consequence_3))
+            Text(text = stringResource(Res.string.mute_consequence_4))
 
             HorizontalDivider(Modifier.padding(vertical = 12.dp))
 
-            Text(text = stringResource(R.string.mute_consequence_5))
+            Text(text = stringResource(Res.string.mute_consequence_5))
 
         }
     }, onDismissRequest = {
@@ -408,13 +410,13 @@ fun MuteAccountAlert(
         TextButton(onClick = {
             onConfirmation()
         }) {
-            Text(stringResource(R.string.mute))
+            Text(stringResource(Res.string.mute))
         }
     }, dismissButton = {
         TextButton(onClick = {
             onDismissRequest()
         }) {
-            Text(stringResource(id = R.string.cancel))
+            Text(stringResource(Res.string.cancel))
         }
     })
 }
@@ -424,7 +426,7 @@ fun UnMuteAccountAlert(
     onDismissRequest: () -> Unit, onConfirmation: () -> Unit, account: Account
 ) {
     AlertDialog(title = {
-        Text(text = stringResource(R.string.unmute_account))
+        Text(text = stringResource(Res.string.unmute_account))
     }, text = {
         AlertTopSection(account = account)
 
@@ -435,13 +437,13 @@ fun UnMuteAccountAlert(
         TextButton(onClick = {
             onConfirmation()
         }) {
-            Text(stringResource(id = R.string.unmute_caps))
+            Text(stringResource(Res.string.unmute_caps))
         }
     }, dismissButton = {
         TextButton(onClick = {
             onDismissRequest()
         }) {
-            Text(stringResource(id = R.string.cancel))
+            Text(stringResource(Res.string.cancel))
         }
     })
 }
@@ -451,7 +453,7 @@ fun BlockAccountAlert(
     onDismissRequest: () -> Unit, onConfirmation: () -> Unit, account: Account
 ) {
     AlertDialog(title = {
-        Text(text = stringResource(R.string.block_account))
+        Text(text = stringResource(Res.string.block_account))
     }, text = {
         Column {
 
@@ -459,22 +461,22 @@ fun BlockAccountAlert(
 
             HorizontalDivider(Modifier.padding(vertical = 12.dp))
 
-            Text(text = stringResource(R.string.block_consequence_1))
-            Text(text = stringResource(R.string.block_consequence_2))
-            Text(text = stringResource(R.string.block_consequence_3))
-            Text(text = stringResource(R.string.block_consequence_4))
-            Text(text = stringResource(R.string.block_consequence_5))
+            Text(text = stringResource(Res.string.block_consequence_1))
+            Text(text = stringResource(Res.string.block_consequence_2))
+            Text(text = stringResource(Res.string.block_consequence_3))
+            Text(text = stringResource(Res.string.block_consequence_4))
+            Text(text = stringResource(Res.string.block_consequence_5))
 
             HorizontalDivider(Modifier.padding(vertical = 12.dp))
 
-            Text(text = stringResource(R.string.block_consequence_6))
-            Text(text = stringResource(R.string.block_consequence_7))
-            Text(text = stringResource(R.string.block_consequence_8))
-            Text(text = stringResource(R.string.block_consequence_9))
+            Text(text = stringResource(Res.string.block_consequence_6))
+            Text(text = stringResource(Res.string.block_consequence_7))
+            Text(text = stringResource(Res.string.block_consequence_8))
+            Text(text = stringResource(Res.string.block_consequence_9))
 
             HorizontalDivider(Modifier.padding(vertical = 12.dp))
 
-            Text(text = stringResource(R.string.block_consequence_10))
+            Text(text = stringResource(Res.string.block_consequence_10))
         }
     }, onDismissRequest = {
         onDismissRequest()
@@ -482,13 +484,13 @@ fun BlockAccountAlert(
         TextButton(onClick = {
             onConfirmation()
         }) {
-            Text(stringResource(R.string.block))
+            Text(stringResource(Res.string.block))
         }
     }, dismissButton = {
         TextButton(onClick = {
             onDismissRequest()
         }) {
-            Text(stringResource(id = R.string.cancel))
+            Text(stringResource(Res.string.cancel))
         }
     })
 
@@ -499,7 +501,7 @@ fun UnBlockAccountAlert(
     onDismissRequest: () -> Unit, onConfirmation: () -> Unit, account: Account
 ) {
     AlertDialog(title = {
-        Text(text = stringResource(id = R.string.unblock_account))
+        Text(text = stringResource(Res.string.unblock_account))
     }, text = {
         AlertTopSection(account = account)
     }, onDismissRequest = {
@@ -508,13 +510,13 @@ fun UnBlockAccountAlert(
         TextButton(onClick = {
             onConfirmation()
         }) {
-            Text(stringResource(id = R.string.unblock_caps))
+            Text(stringResource(Res.string.unblock_caps))
         }
     }, dismissButton = {
         TextButton(onClick = {
             onDismissRequest()
         }) {
-            Text(stringResource(id = R.string.cancel))
+            Text(stringResource(Res.string.cancel))
         }
     })
 }

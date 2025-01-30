@@ -49,7 +49,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -57,6 +57,8 @@ import androidx.compose.ui.unit.dp
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
 import com.daniebeler.pfpixelix.ui.composables.SheetItem
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
@@ -89,7 +91,7 @@ fun ConversationsComposable(
 
     }, topBar = {
         CenterAlignedTopAppBar(title = {
-            Text(stringResource(R.string.conversations), fontWeight = FontWeight.Bold)
+            Text(stringResource(Res.string.conversations), fontWeight = FontWeight.Bold)
 
         }, navigationIcon = {
             IconButton(onClick = {
@@ -149,7 +151,7 @@ fun ConversationsComposable(
                 FullscreenEmptyStateComposable(
                     EmptyState(
                         icon = Icons.Outlined.Email, heading = stringResource(
-                            R.string.you_don_t_have_any_notifications
+                            Res.string.you_don_t_have_any_notifications
                         )
                     )
                 )
@@ -182,8 +184,8 @@ fun ConversationsComposable(
                         Spacer(modifier = Modifier.height(18.dp))
 
                         SheetItem(
-                            header = stringResource(R.string.warning),
-                            description = stringResource(R.string.direct_messages_encryption_description)
+                            header = stringResource(Res.string.warning),
+                            description = stringResource(Res.string.direct_messages_encryption_description)
                         )
 
                         Spacer(modifier = Modifier.height(18.dp))
@@ -210,7 +212,7 @@ private fun CreateNewConversation(
 ) {
 
     AlertDialog(title = {
-        Text(text = stringResource(R.string.new_direct_message))
+        Text(text = stringResource(Res.string.new_direct_message))
     }, text = {
         Column {
             OutlinedTextField(
@@ -218,7 +220,7 @@ private fun CreateNewConversation(
                 onValueChange = {
                     viewModel.changeNewConversationUsername(it)
                 },
-                label = { Text(stringResource(R.string.select_recipient)) },
+                label = { Text(stringResource(Res.string.select_recipient)) },
                 shape = RoundedCornerShape(12.dp),
             )
             if (viewModel.newConversationState.suggestions.isNotEmpty()) {
@@ -263,13 +265,13 @@ private fun CreateNewConversation(
                 close()
             }
         }) {
-            Text(stringResource(R.string.confirm))
+            Text(stringResource(Res.string.confirm))
         }
     }, dismissButton = {
         TextButton(onClick = {
             close()
         }) {
-            Text(stringResource(R.string.cancel))
+            Text(stringResource(Res.string.cancel))
         }
     })
 

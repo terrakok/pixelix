@@ -42,7 +42,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -51,6 +51,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.daniebeler.pfpixelix.MyApplication
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.di.ViewModelComponent
 import com.daniebeler.pfpixelix.di.create
 import com.daniebeler.pfpixelix.utils.Navigate
@@ -162,7 +164,7 @@ fun LoginComposable(
                     Row {
                         Spacer(Modifier.width(6.dp))
                         Text(
-                            text = stringResource(R.string.server_url), fontWeight = FontWeight.Bold
+                            text = stringResource(Res.string.server_url), fontWeight = FontWeight.Bold
                         )
                     }
 
@@ -251,7 +253,7 @@ fun LoginComposable(
                         Navigate.openUrlInApp(context, url)
                     }) {
                         Text(
-                            stringResource(id = R.string.i_don_t_have_an_account),
+                            stringResource(Res.string.i_don_t_have_an_account),
                             textDecoration = TextDecoration.Underline,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth()

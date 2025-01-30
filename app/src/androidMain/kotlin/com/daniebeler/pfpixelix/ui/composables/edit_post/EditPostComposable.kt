@@ -54,7 +54,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -66,6 +66,8 @@ import coil.request.ImageRequest
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_location.TextFieldLocationsComposable
@@ -97,7 +99,7 @@ fun EditPostComposable(
             TopAppBar(scrollBehavior = scrollBehavior,
                 title = {
                     Text(
-                        text = stringResource(id = R.string.edit_post), fontWeight = FontWeight.Bold
+                        text = stringResource(Res.string.edit_post), fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
@@ -130,14 +132,14 @@ fun EditPostComposable(
                                     onClick = { showSaveAlert = true },
                                     modifier = Modifier.width(120.dp)
                                 ) {
-                                    Text(text = stringResource(R.string.save))
+                                    Text(text = stringResource(Res.string.save))
                                 }
                             }
                         } else {
                             Button(
                                 onClick = { }, enabled = false, modifier = Modifier.width(120.dp)
                             ) {
-                                Text(text = stringResource(R.string.save))
+                                Text(text = stringResource(Res.string.save))
                             }
                         }
                     }
@@ -210,7 +212,7 @@ fun EditPostComposable(
                             },
                             modifier = Modifier.weight(1f),
                             singleLine = false,
-                            placeholder = { Text(stringResource(R.string.content_warning_or_spoiler_text)) },
+                            placeholder = { Text(stringResource(Res.string.content_warning_or_spoiler_text)) },
                             shape = RoundedCornerShape(16.dp),
                             colors = TextFieldDefaults.colors(
                                 unfocusedIndicatorColor = Color.Transparent,
@@ -254,7 +256,7 @@ fun EditPostComposable(
                     TextFieldMentionsComposable(submit = {},
                         text = viewModel.caption,
                         changeText = { text -> viewModel.caption = text },
-                        labelStringId = R.string.caption,
+                        labelStringId = Res.string.caption,
                         modifier = Modifier.fillMaxWidth(),
                         imeAction = ImeAction.Default,
                         suggestionsBoxColor = MaterialTheme.colorScheme.surfaceContainer,
@@ -266,7 +268,7 @@ fun EditPostComposable(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = stringResource(R.string.sensitive_nsfw_media))
+                        Text(text = stringResource(Res.string.sensitive_nsfw_media))
                         Switch(checked = viewModel.sensitive,
                             onCheckedChange = { viewModel.sensitive = it })
                     }
@@ -275,7 +277,7 @@ fun EditPostComposable(
                             value = viewModel.sensitiveText,
                             singleLine = false,
                             onValueChange = { viewModel.sensitiveText = it },
-                            placeholder = { Text(stringResource(R.string.content_warning_or_spoiler_text)) },
+                            placeholder = { Text(stringResource(Res.string.content_warning_or_spoiler_text)) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
                             colors = TextFieldDefaults.colors(
@@ -291,7 +293,7 @@ fun EditPostComposable(
                     }
                     TextFieldLocationsComposable(submit = {}, submitPlace = {viewModel._setLocation(it)},
                         initialValue = viewModel.editPostState.post!!.place,
-                        labelStringId = R.string.location,
+                        labelStringId = Res.string.location,
                         modifier = Modifier.fillMaxWidth(),
                         imeAction = ImeAction.Default,
                         suggestionsBoxColor = MaterialTheme.colorScheme.surfaceContainer,
@@ -306,21 +308,21 @@ fun EditPostComposable(
 
             if (showSaveAlert) {
                 AlertDialog(title = {
-                    Text(text = stringResource(R.string.sure_update_post))
+                    Text(text = stringResource(Res.string.sure_update_post))
                 }, onDismissRequest = {
                     showSaveAlert = false
                 }, dismissButton = {
                     TextButton(onClick = {
                         showSaveAlert = false
                     }) {
-                        Text(stringResource(id = R.string.cancel))
+                        Text(stringResource(Res.string.cancel))
                     }
                 }, confirmButton = {
                     TextButton(onClick = {
                         showSaveAlert = false
                         viewModel.updatePost(postId, navController)
                     }) {
-                        Text(stringResource(id = R.string.save))
+                        Text(stringResource(Res.string.save))
                     }
                 })
             }
@@ -340,13 +342,13 @@ fun EditPostComposable(
             TextButton(onClick = {
                 viewModel.deleteMedia(viewModel.deleteMediaDialog!!)
             }) {
-                Text(stringResource(R.string.delete))
+                Text(stringResource(Res.string.delete))
             }
         }, dismissButton = {
             TextButton(onClick = {
                 viewModel.deleteMediaDialog = null
             }) {
-                Text(stringResource(id = R.string.cancel))
+                Text(stringResource(Res.string.cancel))
             }
         })
     }

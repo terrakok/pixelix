@@ -41,12 +41,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.ui.composables.states.EndOfListComposable
@@ -68,7 +70,7 @@ fun NotificationsComposable(
 
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {
         CenterAlignedTopAppBar(title = {
-            Text(stringResource(R.string.notifications), fontWeight = FontWeight.Bold)
+            Text(stringResource(Res.string.notifications), fontWeight = FontWeight.Bold)
         }, actions = {
             IconButton(onClick = {
                 pinWidget(context)
@@ -86,9 +88,9 @@ fun NotificationsComposable(
                 Row(modifier = Modifier.horizontalScroll(scrollState)) {
                     Spacer(modifier = Modifier.width(12.dp))
                     if (viewModel.filter == NotificationsFilterEnum.All) {
-                        ActiveFilterButton(text = stringResource(R.string.all))
+                        ActiveFilterButton(text = stringResource(Res.string.all))
                     } else {
-                        InactiveFilterButton(text = stringResource(R.string.all), onClick = {
+                        InactiveFilterButton(text = stringResource(Res.string.all), onClick = {
                             viewModel.changeFilter(NotificationsFilterEnum.All)
                         })
                     }
@@ -96,10 +98,10 @@ fun NotificationsComposable(
                     Spacer(modifier = Modifier.width(12.dp))
 
                     if (viewModel.filter == NotificationsFilterEnum.Followers) {
-                        ActiveFilterButton(text = stringResource(id = R.string.followers))
+                        ActiveFilterButton(text = stringResource(Res.string.followers))
                     } else {
                         InactiveFilterButton(
-                            text = stringResource(id = R.string.followers),
+                            text = stringResource(Res.string.followers),
                             onClick = {
                                 viewModel.changeFilter(NotificationsFilterEnum.Followers)
                             })
@@ -108,9 +110,9 @@ fun NotificationsComposable(
                     Spacer(modifier = Modifier.width(12.dp))
 
                     if (viewModel.filter == NotificationsFilterEnum.Likes) {
-                        ActiveFilterButton(text = stringResource(R.string.likes_))
+                        ActiveFilterButton(text = stringResource(Res.string.likes_))
                     } else {
-                        InactiveFilterButton(text = stringResource(R.string.likes_), onClick = {
+                        InactiveFilterButton(text = stringResource(Res.string.likes_), onClick = {
                             viewModel.changeFilter(NotificationsFilterEnum.Likes)
                         })
                     }
@@ -118,9 +120,9 @@ fun NotificationsComposable(
                     Spacer(modifier = Modifier.width(12.dp))
 
                     if (viewModel.filter == NotificationsFilterEnum.Reposts) {
-                        ActiveFilterButton(text = stringResource(R.string.reposts))
+                        ActiveFilterButton(text = stringResource(Res.string.reposts))
                     } else {
-                        InactiveFilterButton(text = stringResource(R.string.reposts), onClick = {
+                        InactiveFilterButton(text = stringResource(Res.string.reposts), onClick = {
                             viewModel.changeFilter(NotificationsFilterEnum.Reposts)
                         })
                     }
@@ -128,9 +130,9 @@ fun NotificationsComposable(
                     Spacer(modifier = Modifier.width(12.dp))
 
                     if (viewModel.filter == NotificationsFilterEnum.Mentions) {
-                        ActiveFilterButton(text = stringResource(R.string.mentions))
+                        ActiveFilterButton(text = stringResource(Res.string.mentions))
                     } else {
-                        InactiveFilterButton(text = stringResource(R.string.mentions), onClick = {
+                        InactiveFilterButton(text = stringResource(Res.string.mentions), onClick = {
                             viewModel.changeFilter(NotificationsFilterEnum.Mentions)
                         })
                     }
@@ -196,7 +198,7 @@ fun NotificationsComposable(
                 FullscreenEmptyStateComposable(
                     EmptyState(
                         icon = Icons.Outlined.Email, heading = stringResource(
-                            R.string.you_don_t_have_any_notifications
+                            Res.string.you_don_t_have_any_notifications
                         )
                     )
                 )

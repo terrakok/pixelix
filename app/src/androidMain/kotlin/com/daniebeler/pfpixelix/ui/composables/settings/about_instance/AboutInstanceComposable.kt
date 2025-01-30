@@ -32,7 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,6 +40,8 @@ import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenLoadingComposable
@@ -88,7 +90,7 @@ fun AboutInstanceComposable(
                     Spacer(modifier = Modifier.height(18.dp))
 
                     Text(
-                        text = stringResource(R.string.stats),
+                        text = stringResource(Res.string.stats),
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp,
                         modifier = Modifier.padding(12.dp, 0.dp)
@@ -106,7 +108,7 @@ fun AboutInstanceComposable(
                                     viewModel.instanceState.instance?.stats?.userCount
                                 ), fontWeight = FontWeight.Bold, fontSize = 18.sp
                             )
-                            Text(text = stringResource(R.string.users), fontSize = 12.sp)
+                            Text(text = stringResource(Res.string.users), fontSize = 12.sp)
                         }
 
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -117,7 +119,7 @@ fun AboutInstanceComposable(
                                     viewModel.instanceState.instance?.stats?.statusCount
                                 ), fontWeight = FontWeight.Bold, fontSize = 18.sp
                             )
-                            Text(text = stringResource(id = R.string.posts), fontSize = 12.sp)
+                            Text(text = stringResource(Res.string.posts), fontSize = 12.sp)
                         }
                     }
 
@@ -125,7 +127,7 @@ fun AboutInstanceComposable(
 
                     viewModel.instanceState.instance?.admin?.let { account ->
                         Text(
-                            text = stringResource(R.string.admin),
+                            text = stringResource(Res.string.admin),
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp,
                             modifier = Modifier.padding(12.dp, 0.dp)
@@ -162,7 +164,7 @@ fun AboutInstanceComposable(
                 Spacer(modifier = Modifier.height(18.dp))
 
                 Text(
-                    text = stringResource(R.string.privacy_policy),
+                    text = stringResource(Res.string.privacy_policy),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     modifier = Modifier.padding(12.dp, 0.dp)
@@ -186,7 +188,7 @@ fun AboutInstanceComposable(
 
 
                 Text(
-                    text = stringResource(R.string.terms_of_use),
+                    text = stringResource(Res.string.terms_of_use),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     modifier = Modifier.padding(12.dp, 0.dp)
@@ -209,7 +211,7 @@ fun AboutInstanceComposable(
                 Spacer(modifier = Modifier.height(18.dp))
 
                 Text(
-                    text = stringResource(R.string.rules),
+                    text = stringResource(Res.string.rules),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     modifier = Modifier.padding(12.dp, 0.dp)
@@ -233,7 +235,7 @@ fun AboutInstanceComposable(
                 Spacer(modifier = Modifier.height(18.dp))
 
                 Text(
-                    text = stringResource(R.string.instance_version),
+                    text = stringResource(Res.string.instance_version),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     modifier = Modifier.padding(12.dp, 0.dp)

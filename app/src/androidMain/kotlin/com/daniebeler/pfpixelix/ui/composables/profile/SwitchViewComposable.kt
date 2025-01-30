@@ -17,11 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 
 @Composable
 fun SwitchViewComposable(
@@ -42,7 +44,7 @@ fun SwitchViewComposable(
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(text = postsCount.toString(), fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                Text(text = " " + stringResource(id = R.string.posts), fontSize = 12.sp)
+                Text(text = " " + stringResource(Res.string.posts), fontSize = 12.sp)
             }
 
             Row {

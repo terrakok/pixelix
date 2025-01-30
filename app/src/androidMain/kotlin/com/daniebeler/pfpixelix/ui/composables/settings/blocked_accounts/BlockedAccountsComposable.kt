@@ -22,10 +22,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenEmptyStateComposable
@@ -41,7 +43,7 @@ fun BlockedAccountsComposable(
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {
         CenterAlignedTopAppBar(title = {
             Text(
-                text = stringResource(id = R.string.blocked_accounts), fontWeight = FontWeight.Bold
+                text = stringResource(Res.string.blocked_accounts), fontWeight = FontWeight.Bold
             )
         }, navigationIcon = {
             IconButton(onClick = {
@@ -86,7 +88,7 @@ fun BlockedAccountsComposable(
                 }
 
                 if (!viewModel.blockedAccountsState.isLoading && viewModel.blockedAccountsState.error.isEmpty()) {
-                    FullscreenEmptyStateComposable(EmptyState(heading = stringResource(id = R.string.no_blocked_accounts)))
+                    FullscreenEmptyStateComposable(EmptyState(heading = stringResource(Res.string.no_blocked_accounts)))
                 }
             }
         }

@@ -31,13 +31,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
 import com.daniebeler.pfpixelix.utils.Navigate
 
@@ -60,7 +62,7 @@ fun CollectionsComposable(
             HorizontalDivider(Modifier.padding(12.dp))
 
             Text(
-                text = stringResource(R.string.collections),
+                text = stringResource(Res.string.collections),
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(start = 12.dp)
@@ -125,7 +127,7 @@ fun CollectionsComposable(
                             }
 
                             Spacer(modifier = Modifier.height(8.dp))
-                            Text(text = stringResource(R.string.new_))
+                            Text(text = stringResource(Res.string.new_))
                         }
                     }
                 }
@@ -138,10 +140,10 @@ fun CollectionsComposable(
 
         if (showAddCollectionDialog.value) {
             AlertDialog(title = {
-                Text(text = stringResource(R.string.new_collection))
+                Text(text = stringResource(Res.string.new_collection))
             }, text = {
                 Column {
-                    Text(text = stringResource(R.string.collection_create_not_supported_explanation))
+                    Text(text = stringResource(Res.string.collection_create_not_supported_explanation))
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = "$instanceDomain/i/collections/create",

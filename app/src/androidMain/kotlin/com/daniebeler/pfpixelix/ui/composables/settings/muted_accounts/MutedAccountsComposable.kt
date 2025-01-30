@@ -21,11 +21,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenEmptyStateComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenErrorComposable
@@ -39,7 +41,7 @@ fun MutedAccountsComposable(
 ) {
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {
         CenterAlignedTopAppBar(title = {
-            Text(text = stringResource(id = R.string.muted_accounts), fontWeight = FontWeight.Bold)
+            Text(text = stringResource(Res.string.muted_accounts), fontWeight = FontWeight.Bold)
         }, navigationIcon = {
             IconButton(onClick = {
                 navController.popBackStack()
@@ -83,7 +85,7 @@ fun MutedAccountsComposable(
                 }
 
                 if (!viewModel.mutedAccountsState.isLoading && viewModel.mutedAccountsState.error.isEmpty()) {
-                    FullscreenEmptyStateComposable(EmptyState(heading = stringResource(R.string.no_muted_accounts)))
+                    FullscreenEmptyStateComposable(EmptyState(heading = stringResource(Res.string.no_muted_accounts)))
                 }
             }
         }

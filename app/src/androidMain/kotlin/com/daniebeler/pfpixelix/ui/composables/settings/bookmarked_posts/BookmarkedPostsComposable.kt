@@ -17,11 +17,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.InfinitePostsGrid
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 
@@ -34,7 +36,7 @@ fun BookmarkedPostsComposable(
 
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {
         CenterAlignedTopAppBar(title = {
-            Text(stringResource(id = R.string.bookmarked_posts), fontWeight = FontWeight.Bold)
+            Text(stringResource(Res.string.bookmarked_posts), fontWeight = FontWeight.Bold)
         }, navigationIcon = {
             IconButton(onClick = {
                 navController.popBackStack()
@@ -56,7 +58,7 @@ fun BookmarkedPostsComposable(
                 isRefreshing = viewModel.bookmarkedPostsState.isRefreshing,
                 error = viewModel.bookmarkedPostsState.error,
                 endReached = false,
-                emptyMessage = EmptyState(heading = stringResource(R.string.no_bookmarked_posts)),
+                emptyMessage = EmptyState(heading = stringResource(Res.string.no_bookmarked_posts)),
                 navController = navController,
                 getItemsPaginated = { /*TODO*/ },
                 onRefresh = { viewModel.getBookmarkedPosts(true) })

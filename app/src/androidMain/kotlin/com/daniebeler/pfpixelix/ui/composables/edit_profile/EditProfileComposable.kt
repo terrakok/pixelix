@@ -45,7 +45,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
@@ -56,6 +56,8 @@ import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -102,7 +104,7 @@ fun EditProfileComposable(
         topBar = {
             CenterAlignedTopAppBar(scrollBehavior = scrollBehavior,
                 title = {
-                    Text(text = stringResource(R.string.edit_profile), fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(Res.string.edit_profile), fontWeight = FontWeight.Bold)
                 },
                 navigationIcon = {
                     IconButton(onClick = {
@@ -132,7 +134,7 @@ fun EditProfileComposable(
                                         disabledContentColor = MaterialTheme.colorScheme.onSurface
                                     )
                                 ) {
-                                    Text(text = stringResource(R.string.save))
+                                    Text(text = stringResource(Res.string.save))
                                 }
                             }
                         } else {
@@ -155,7 +157,7 @@ fun EditProfileComposable(
                                     modifier = Modifier.width(120.dp),
                                     shape = RoundedCornerShape(12.dp)
                                 ) {
-                                    Text(text = stringResource(R.string.save))
+                                    Text(text = stringResource(Res.string.save))
                                 }
                             }
                         }
@@ -195,7 +197,7 @@ fun EditProfileComposable(
                     Row {
                         Spacer(Modifier.width(6.dp))
                         Text(
-                            text = stringResource(R.string.displayname),
+                            text = stringResource(Res.string.displayname),
                             fontWeight = FontWeight.Bold
                         )
                     }
@@ -220,7 +222,7 @@ fun EditProfileComposable(
 
                     Row {
                         Spacer(Modifier.width(6.dp))
-                        Text(text = stringResource(R.string.bio), fontWeight = FontWeight.Bold)
+                        Text(text = stringResource(Res.string.bio), fontWeight = FontWeight.Bold)
                     }
 
                     Spacer(Modifier.height(6.dp))
@@ -243,7 +245,7 @@ fun EditProfileComposable(
 
                     Row {
                         Spacer(Modifier.width(6.dp))
-                        Text(text = stringResource(R.string.website), fontWeight = FontWeight.Bold)
+                        Text(text = stringResource(Res.string.website), fontWeight = FontWeight.Bold)
                     }
 
                     Spacer(Modifier.height(6.dp))
@@ -270,7 +272,7 @@ fun EditProfileComposable(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Spacer(Modifier.width(6.dp))
                         Text(
-                            text = stringResource(R.string.private_profile),
+                            text = stringResource(Res.string.private_profile),
                             fontWeight = FontWeight.Bold
                         )
                         Spacer(modifier = Modifier.weight(1f))

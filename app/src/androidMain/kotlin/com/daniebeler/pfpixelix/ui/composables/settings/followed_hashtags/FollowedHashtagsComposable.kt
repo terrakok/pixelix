@@ -22,12 +22,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.CustomHashtag
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenEmptyStateComposable
@@ -43,7 +45,7 @@ fun FollowedHashtagsComposable(
 ) {
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {
         CenterAlignedTopAppBar(title = {
-            Text(stringResource(id = R.string.followed_hashtags), fontWeight = FontWeight.Bold)
+            Text(stringResource(Res.string.followed_hashtags), fontWeight = FontWeight.Bold)
         }, navigationIcon = {
             IconButton(onClick = {
                 navController.popBackStack()
@@ -82,7 +84,7 @@ fun FollowedHashtagsComposable(
                 if (!viewModel.followedHashtagsState.isLoading && viewModel.followedHashtagsState.error.isEmpty()) {
                     FullscreenEmptyStateComposable(
                         EmptyState(icon = Icons.Outlined.Tag,
-                            heading = stringResource(R.string.no_followed_hashtags),
+                            heading = stringResource(Res.string.no_followed_hashtags),
                             message = "Followed hashtags will appear here",
                             buttonText = "Explore trending hashtags",
                             onClick = {

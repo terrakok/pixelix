@@ -45,7 +45,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -55,6 +55,8 @@ import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.LoginActivity
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.composables.SwitchRowItem
 import com.daniebeler.pfpixelix.ui.composables.ThemeViewModel
@@ -90,7 +92,7 @@ fun PreferencesComposable(
         topBar = {
             CenterAlignedTopAppBar(scrollBehavior = scrollBehavior,
                 title = {
-                    Text(text = stringResource(R.string.settings), fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(Res.string.settings), fontWeight = FontWeight.Bold)
                 },
                 navigationIcon = {
                     IconButton(onClick = {
@@ -111,40 +113,40 @@ fun PreferencesComposable(
         ) {
             SwitchRowItem(
                 Icons.Outlined.NoAdultContent,
-                stringResource(R.string.hide_sensitive_content),
+                stringResource(Res.string.hide_sensitive_content),
                 viewModel.isSensitiveContentHidden
             ) { checked -> viewModel.storeHideSensitiveContent(checked) }
 
             SwitchRowItem(
                 Icons.Outlined.Description,
-                stringResource(R.string.hide_alt_text_button),
+                stringResource(Res.string.hide_alt_text_button),
                 viewModel.isAltTextButtonHidden
             ) { checked -> viewModel.storeHideAltTextButton(checked) }
 
             SwitchRowItem(
                 Icons.Outlined.OpenInBrowser,
-                stringResource(R.string.use_in_app_browser),
+                stringResource(Res.string.use_in_app_browser),
                 viewModel.isUsingInAppBrowser
             ) { checked -> viewModel.storeUseInAppBrowser(checked) }
 
             HorizontalDivider(modifier = Modifier.padding(12.dp))
 
             ButtonRowElement(icon = Icons.Outlined.Palette,
-                text = stringResource(R.string.app_theme),
+                text = stringResource(Res.string.app_theme),
                 smallText = getThemeString(themeViewModel.currentTheme.theme),
                 onClick = { showThemeDialog.value = true })
 
             if (viewModel.appIcon == null) {
                 ButtonRowElement(
                     icon = R.drawable.pixelix_logo,
-                    text = stringResource(R.string.customize_app_icon),
+                    text = stringResource(Res.string.customize_app_icon),
                     onClick = {
                         Navigate.navigate("icon_selection_screen", navController)
                     })
             } else {
                 ButtonRowElement(
                     icon = viewModel.appIcon!!,
-                    text = stringResource(R.string.customize_app_icon),
+                    text = stringResource(Res.string.customize_app_icon),
                     onClick = {
                         Navigate.navigate("icon_selection_screen", navController)
                     })
@@ -153,21 +155,21 @@ fun PreferencesComposable(
             HorizontalDivider(modifier = Modifier.padding(12.dp))
 
             ButtonRowElement(icon = Icons.Outlined.Save,
-                text = stringResource(R.string.clear_cache),
+                text = stringResource(Res.string.clear_cache),
                 smallText = viewModel.cacheSize,
                 onClick = {
                     deleteCache(context, viewModel = viewModel)
                 })
 
             ButtonRowElement(icon = Icons.Outlined.Settings,
-                text = stringResource(R.string.more_settings),
+                text = stringResource(Res.string.more_settings),
                 onClick = {
                     viewModel.openMoreSettingsPage(context)
                 })
 
             ButtonRowElement(
                 icon = Icons.AutoMirrored.Outlined.Logout, text = stringResource(
-                    R.string.logout
+                    Res.string.logout
                 ), onClick = {
                     showLogoutDialog.value = true
                 }, color = MaterialTheme.colorScheme.error
@@ -186,9 +188,9 @@ fun PreferencesComposable(
 
         if (showLogoutDialog.value) {
             AlertDialog(title = {
-                Text(text = stringResource(R.string.logout_questionmark))
+                Text(text = stringResource(Res.string.logout_questionmark))
             }, text = {
-                Text(text = stringResource(R.string.are_you_sure_you_want_to_log_out))
+                Text(text = stringResource(Res.string.are_you_sure_you_want_to_log_out))
             }, onDismissRequest = {
                 showLogoutDialog.value = false
             }, confirmButton = {
@@ -200,13 +202,13 @@ fun PreferencesComposable(
                         context.startActivity(intent)
                     }
                 }) {
-                    Text(stringResource(R.string.logout))
+                    Text(stringResource(Res.string.logout))
                 }
             }, dismissButton = {
                 TextButton(onClick = {
                     showLogoutDialog.value = false
                 }) {
-                    Text(stringResource(id = R.string.cancel))
+                    Text(stringResource(Res.string.cancel))
                 }
             })
         }
@@ -214,7 +216,7 @@ fun PreferencesComposable(
         if (showThemeDialog.value) {
             val themeOptions = listOf("system", "dark", "light")
             AlertDialog(title = {
-                Text(text = stringResource(R.string.app_theme))
+                Text(text = stringResource(Res.string.app_theme))
             }, text = {
                 Column(Modifier.selectableGroup()) {
                     themeOptions.forEach { text ->
@@ -251,7 +253,7 @@ fun PreferencesComposable(
                 TextButton(onClick = {
                     showThemeDialog.value = false
                 }) {
-                    Text(stringResource(id = R.string.cancel))
+                    Text(stringResource(Res.string.cancel))
                 }
             })
         }
@@ -261,9 +263,9 @@ fun PreferencesComposable(
 @Composable
 private fun getThemeString(theme: String): String {
     return when (theme) {
-        "system" -> stringResource(R.string.theme_system)
-        "dark" -> stringResource(R.string.theme_dark)
-        "light" -> stringResource(R.string.theme_light)
+        "system" -> stringResource(Res.string.theme_system)
+        "dark" -> stringResource(Res.string.theme_dark)
+        "light" -> stringResource(Res.string.theme_light)
         else -> ""
     }
 }

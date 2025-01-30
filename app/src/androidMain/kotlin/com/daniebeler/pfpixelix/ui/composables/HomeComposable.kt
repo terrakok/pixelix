@@ -38,12 +38,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.timelines.global_timeline.GlobalTimelineComposable
 import com.daniebeler.pfpixelix.ui.composables.timelines.home_timeline.HomeTimelineComposable
 import com.daniebeler.pfpixelix.ui.composables.timelines.local_timeline.LocalTimelineComposable
@@ -63,7 +65,7 @@ fun HomeComposable(navController: NavController) {
 
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top),topBar = {
         CenterAlignedTopAppBar(title = {
-            Text(stringResource(id = R.string.app_name), fontWeight = FontWeight.Bold)
+            Text(stringResource(Res.string.app_name), fontWeight = FontWeight.Bold)
         },navigationIcon = {
             IconButton(onClick = { showBottomSheet = true }) {
                 Icon(imageVector = Icons.Outlined.QuestionMark, contentDescription = "Help")
@@ -88,7 +90,7 @@ fun HomeComposable(navController: NavController) {
         ) {
 
             PrimaryTabRow(selectedTabIndex = pagerState.currentPage) {
-                Tab(text = { Text(stringResource(R.string.home)) },
+                Tab(text = { Text(stringResource(Res.string.home)) },
                     selected = pagerState.currentPage == 0,
                     selectedContentColor = MaterialTheme.colorScheme.primary,
                     unselectedContentColor = MaterialTheme.colorScheme.onBackground,
@@ -98,7 +100,7 @@ fun HomeComposable(navController: NavController) {
                         }
                     })
 
-                Tab(text = { Text(stringResource(R.string.local)) },
+                Tab(text = { Text(stringResource(Res.string.local)) },
                     selected = pagerState.currentPage == 1,
                     selectedContentColor = MaterialTheme.colorScheme.primary,
                     unselectedContentColor = MaterialTheme.colorScheme.onBackground,
@@ -108,7 +110,7 @@ fun HomeComposable(navController: NavController) {
                         }
                     })
 
-                Tab(text = { Text(stringResource(R.string.global)) },
+                Tab(text = { Text(stringResource(Res.string.global)) },
                     selected = pagerState.currentPage == 2,
                     selectedContentColor = MaterialTheme.colorScheme.primary,
                     unselectedContentColor = MaterialTheme.colorScheme.onBackground,
@@ -157,18 +159,18 @@ fun HomeComposable(navController: NavController) {
                         Spacer(modifier = Modifier.height(18.dp))
 
                         SheetItem(
-                            header = stringResource(id = R.string.home),
-                            description = stringResource(R.string.home_timeline_explained)
+                            header = stringResource(Res.string.home),
+                            description = stringResource(Res.string.home_timeline_explained)
                         )
 
                         SheetItem(
-                            header = stringResource(id = R.string.local),
-                            description = stringResource(R.string.local_timeline_explained)
+                            header = stringResource(Res.string.local),
+                            description = stringResource(Res.string.local_timeline_explained)
                         )
 
                         SheetItem(
-                            header = stringResource(id = R.string.global),
-                            description = stringResource(R.string.global_timeline_explained)
+                            header = stringResource(Res.string.global),
+                            description = stringResource(Res.string.global_timeline_explained)
                         )
                     }
                 }

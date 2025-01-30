@@ -39,13 +39,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.utils.Navigate
@@ -69,7 +71,7 @@ fun AboutPixelixComposable(
 
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {
         CenterAlignedTopAppBar(title = {
-            Text(text = stringResource(R.string.about_pixelix), fontWeight = FontWeight.Bold)
+            Text(text = stringResource(Res.string.about_pixelix), fontWeight = FontWeight.Bold)
         }, navigationIcon = {
             IconButton(onClick = {
                 navController.popBackStack()
@@ -129,7 +131,7 @@ fun AboutPixelixComposable(
             HorizontalDivider(Modifier.padding(12.dp))
 
             ButtonRowElement(icon = Icons.Outlined.StarRate,
-                text = stringResource(id = R.string.rate_us),
+                text = stringResource(Res.string.rate_us),
                 onClick = { viewModel.rateApp(context) })
 
 
@@ -137,7 +139,7 @@ fun AboutPixelixComposable(
 
 
             Text(
-                text = stringResource(R.string.developed_by),
+                text = stringResource(Res.string.developed_by),
                 fontSize = 18.sp,
                 modifier = Modifier
                     .padding(12.dp, 0.dp)

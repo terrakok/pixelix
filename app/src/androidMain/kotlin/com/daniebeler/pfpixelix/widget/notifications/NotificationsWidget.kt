@@ -44,11 +44,15 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import com.daniebeler.pfpixelix.MainActivity
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.widget.WidgetColors
 import com.daniebeler.pfpixelix.widget.latest_image.utils.GetImageProvider
 import com.daniebeler.pfpixelix.widget.notifications.models.NotificationStoreItem
 import com.daniebeler.pfpixelix.widget.notifications.models.NotificationsStore
 import com.daniebeler.pfpixelix.widget.notifications.work_manager.NotificationsWorkManager
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 
 private val destinationKey = ActionParameters.Key<String>(
     MainActivity.KEY_DESTINATION
@@ -121,7 +125,7 @@ class NotificationsWidget : GlanceAppWidget() {
                                     )
                                     Spacer(GlanceModifier.width(6.dp))
                                     Text(
-                                        text = LocalContext.current.getString(R.string.notifications),
+                                        text = stringResource(Res.string.notifications),
                                         style = TextStyle(
                                             color = GlanceTheme.colors.onBackground,
                                             fontSize = 20.sp
@@ -130,7 +134,7 @@ class NotificationsWidget : GlanceAppWidget() {
 
                                 } else if (size.height <= BIG_SQUARE.height && size.width <= BIG_SQUARE.width) {
                                     Text(
-                                        text = LocalContext.current.getString(R.string.notifications),
+                                        text = stringResource(Res.string.notifications),
                                         style = TextStyle(
                                             color = GlanceTheme.colors.onBackground,
                                             fontSize = 13.sp
@@ -213,7 +217,7 @@ class NotificationsWidget : GlanceAppWidget() {
                                 Spacer(GlanceModifier.width(3.dp))
                             }
                             Text(
-                                text = LocalContext.current.getString(
+                                text = stringResource(
                                     getNotificationText(
                                         notification.type
                                     )
@@ -237,16 +241,16 @@ class NotificationsWidget : GlanceAppWidget() {
         }
     }
 
-    private fun getNotificationText(type: String): Int {
+    private fun getNotificationText(type: String): StringResource {
         return when (type) {
-            "favourite" -> R.string.liked_your_post
-            "mention" -> R.string.mentioned_you
-            "follow" -> R.string.followed_you
-            "direct" -> R.string.sent_a_dm
-            "reblog" -> R.string.reblogged_your_post
+            "favourite" -> Res.string.liked_your_post
+            "mention" -> Res.string.mentioned_you
+            "follow" -> Res.string.followed_you
+            "direct" -> Res.string.sent_a_dm
+            "reblog" -> Res.string.reblogged_your_post
 
             else -> {
-                R.string.notifications
+                Res.string.notifications
             }
         }
     }

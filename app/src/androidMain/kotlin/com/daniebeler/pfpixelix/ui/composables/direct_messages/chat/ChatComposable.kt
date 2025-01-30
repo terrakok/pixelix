@@ -46,7 +46,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -54,6 +54,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.EndOfListComposable
@@ -176,7 +178,7 @@ fun ChatComposable(
                                         .padding(8.dp)
                                 ) {
                                     Text(
-                                        text = stringResource(R.string.beginning_of_chat_note),
+                                        text = stringResource(Res.string.beginning_of_chat_note),
                                         textAlign = TextAlign.Center,
                                         modifier = Modifier.fillMaxWidth()
                                     )

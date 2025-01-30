@@ -21,13 +21,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.daniebeler.pfpixelix.R
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.domain.model.Relationship
 import com.daniebeler.pfpixelix.ui.composables.FollowButton
@@ -142,7 +144,7 @@ private fun CustomAccountPrivate(
                         Text(
                             text = " • " + String.format(
                                 Locale.GERMANY, "%,d", account.followersCount
-                            ) + " " + stringResource(id = R.string.followers),
+                            ) + " " + stringResource(Res.string.followers),
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.primary,
                             lineHeight = 8.sp
@@ -225,7 +227,7 @@ private fun CustomAccountPrivateNotClickable(
                         Text(
                             text = " • " + String.format(
                                 Locale.GERMANY, "%,d", account.followersCount
-                            ) + " " + stringResource(id = R.string.followers),
+                            ) + " " + stringResource(Res.string.followers),
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.primary,
                             lineHeight = 8.sp
