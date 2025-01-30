@@ -33,6 +33,11 @@ kotlin {
             implementation(libs.ktorfit)
             implementation(libs.ktorfit.call)
             implementation(libs.kotlin.inject.runtime)
+            
+            implementation(libs.androidx.datastore)
+            implementation(libs.androidx.datastore.preferences)
+
+            implementation(libs.kotlinx.collections.immutable)
 
         }
 
@@ -63,11 +68,6 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
 
             implementation(libs.material3)
-
-            implementation(libs.androidx.datastore.preferences)
-
-            implementation(libs.androidx.datastore)
-            implementation(libs.kotlinx.collections.immutable)
 
             implementation(libs.androidx.browser)
 
