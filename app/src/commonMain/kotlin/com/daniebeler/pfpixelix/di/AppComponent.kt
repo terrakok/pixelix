@@ -2,9 +2,12 @@ package com.daniebeler.pfpixelix.di
 
 import HostSelectionInterceptor
 import androidx.datastore.core.DataStore
-import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import co.touchlab.kermit.Logger
+import coil3.ImageLoader
+import coil3.disk.DiskCache
+import coil3.memory.MemoryCache
+import coil3.request.CachePolicy
 import com.daniebeler.pfpixelix.data.remote.PixelfedApi
 import com.daniebeler.pfpixelix.data.remote.createPixelfedApi
 import com.daniebeler.pfpixelix.data.repository.AccountRepositoryImpl
@@ -34,6 +37,8 @@ import com.daniebeler.pfpixelix.domain.repository.StorageRepository
 import com.daniebeler.pfpixelix.domain.repository.TimelineRepository
 import com.daniebeler.pfpixelix.domain.repository.WidgetRepository
 import com.daniebeler.pfpixelix.utils.KmpContext
+import com.daniebeler.pfpixelix.utils.coilContext
+import com.daniebeler.pfpixelix.utils.imageCacheDir
 import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.converter.CallConverterFactory
 import io.ktor.client.HttpClient
@@ -84,6 +89,25 @@ abstract class AppComponent(
 
     @Provides
     @AppSingleton
+    fun provideImageLoader(): ImageLoader =
+        ImageLoader.Builder(context.coilContext)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .memoryCache(
+                MemoryCache.Builder()
+                    .maxSizePercent(context.coilContext, 0.2)
+                    .build()
+            )
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .diskCache(
+                DiskCache.Builder()
+                    .maxSizeBytes(50L * 1024L * 1024L)
+                    .directory(context.imageCacheDir)
+                    .build()
+            )
+            .build()
+
+    @Provides
+    @AppSingleton
     fun provideJson(): Json = Json {
         ignoreUnknownKeys = true
         isLenient = true
@@ -100,7 +124,7 @@ abstract class AppComponent(
         install(Logging) {
             logger = object : io.ktor.client.plugins.logging.Logger {
                 override fun log(message: String) {
-                    Logger.v("HttpClient") { message.lines().joinToString { "\n\t\t\t$it"} }
+                    Logger.v("HttpClient") { message.lines().joinToString { "\n\t\t\t$it" } }
                 }
             }
             level = LogLevel.BODY
@@ -127,26 +151,39 @@ abstract class AppComponent(
 
     @Provides
     fun getAccountRepository(impl: AccountRepositoryImpl): AccountRepository = impl
+
     @Provides
     fun getAuthRepository(impl: AuthRepositoryImpl): AuthRepository = impl
+
     @Provides
     fun getCollectionRepository(impl: CollectionRepositoryImpl): CollectionRepository = impl
+
     @Provides
     fun getCountryRepository(impl: CountryRepositoryImpl): CountryRepository = impl
+
     @Provides
-    fun getDirectMessagesRepository(impl: DirectMessagesRepositoryImpl): DirectMessagesRepository = impl
+    fun getDirectMessagesRepository(impl: DirectMessagesRepositoryImpl): DirectMessagesRepository =
+        impl
+
     @Provides
     fun getHashtagRepository(impl: HashtagRepositoryImpl): HashtagRepository = impl
+
     @Provides
     fun getPostEditorRepository(impl: PostEditorRepositoryImpl): PostEditorRepository = impl
+
     @Provides
     fun getPostRepository(impl: PostRepositoryImpl): PostRepository = impl
+
     @Provides
-    fun getSavedSearchesRepository(impl: SavedSearchesRepositoryImpl): SavedSearchesRepository = impl
+    fun getSavedSearchesRepository(impl: SavedSearchesRepositoryImpl): SavedSearchesRepository =
+        impl
+
     @Provides
     fun getStorageRepository(impl: StorageRepositoryImpl): StorageRepository = impl
+
     @Provides
     fun getTimelineRepository(impl: TimelineRepositoryImpl): TimelineRepository = impl
+
     @Provides
     fun getWidgetRepository(impl: WidgetRepositoryImpl): WidgetRepository = impl
 }

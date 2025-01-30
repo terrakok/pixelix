@@ -54,26 +54,31 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import coil.decode.VideoFrameDecoder
-import coil.request.ImageRequest
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
-import com.daniebeler.pfpixelix.R
-import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.*
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.video.VideoFrameDecoder
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_location.TextFieldLocationsComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_mentions.TextFieldMentionsComposable
+import org.jetbrains.compose.resources.stringResource
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.cancel
+import pixelix.app.generated.resources.caption
+import pixelix.app.generated.resources.content_warning_or_spoiler_text
+import pixelix.app.generated.resources.delete
+import pixelix.app.generated.resources.edit_post
+import pixelix.app.generated.resources.location
+import pixelix.app.generated.resources.save
+import pixelix.app.generated.resources.sensitive_nsfw_media
+import pixelix.app.generated.resources.sure_update_post
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditPostComposable(
     postId: String, navController: NavController, viewModel: EditPostViewModel = injectViewModel("EditPostViewModel") { editPostViewModel }
@@ -159,17 +164,8 @@ fun EditPostComposable(
                     ) {
                         Box(contentAlignment = Alignment.Center) {
 
-                            if (mediaAttachment.type == "image" && mediaAttachment.url?.takeLast(
-                                    4
-                                ) != ".gif"
-                            ) {
+                            if (mediaAttachment.type == "image") {
                                 AsyncImage(
-                                    model = mediaAttachment.url,
-                                    contentDescription = null,
-                                    modifier = Modifier.width(100.dp)
-                                )
-                            } else if (mediaAttachment.url?.takeLast(4) == ".gif") {
-                                GlideImage(
                                     model = mediaAttachment.url,
                                     contentDescription = null,
                                     modifier = Modifier.width(100.dp)

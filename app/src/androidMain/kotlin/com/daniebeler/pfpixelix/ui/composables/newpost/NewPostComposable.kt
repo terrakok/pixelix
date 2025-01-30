@@ -52,23 +52,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import coil.decode.VideoFrameDecoder
-import coil.request.ImageRequest
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
-import com.daniebeler.pfpixelix.R
-import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.*
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.video.VideoFrameDecoder
 import com.daniebeler.pfpixelix.common.Constants.AUDIENCE_FOLLOWERS_ONLY
 import com.daniebeler.pfpixelix.common.Constants.AUDIENCE_PUBLIC
 import com.daniebeler.pfpixelix.common.Constants.AUDIENCE_UNLISTED
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_location.TextFieldLocationsComposable
@@ -76,8 +70,22 @@ import com.daniebeler.pfpixelix.ui.composables.textfield_mentions.TextFieldMenti
 import com.daniebeler.pfpixelix.utils.MimeType
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
+import org.jetbrains.compose.resources.stringResource
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.alt_text
+import pixelix.app.generated.resources.audience
+import pixelix.app.generated.resources.audience_public
+import pixelix.app.generated.resources.cancel
+import pixelix.app.generated.resources.caption
+import pixelix.app.generated.resources.content_warning_or_spoiler_text
+import pixelix.app.generated.resources.followers_only
+import pixelix.app.generated.resources.location
+import pixelix.app.generated.resources.new_post
+import pixelix.app.generated.resources.release
+import pixelix.app.generated.resources.sensitive_nsfw_media
+import pixelix.app.generated.resources.unlisted
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewPostComposable(
     navController: NavController,
@@ -145,12 +153,6 @@ fun NewPostComposable(
                                 AsyncImage(
                                     model = model,
                                     contentDescription = "video thumbnail",
-                                    modifier = Modifier.width(100.dp)
-                                )
-                            } else if (type != null && type.takeLast(3) == "gif") {
-                                GlideImage(
-                                    model = image.imageUri,
-                                    contentDescription = null,
                                     modifier = Modifier.width(100.dp)
                                 )
                             } else {

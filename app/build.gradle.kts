@@ -63,6 +63,12 @@ kotlin {
 
             //navigation
             implementation(libs.androidx.navigation.compose)
+
+            //image loader
+            implementation(libs.coil.compose)
+            implementation(libs.coil.video)
+            implementation(libs.coil.gif)
+            implementation(libs.coil.network)
         }
 
         androidMain.dependencies {
@@ -75,9 +81,7 @@ kotlin {
             implementation(libs.androidx.annotation)
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.volley)
             implementation(libs.androidx.runtime.livedata)
-            implementation(libs.coil.compose)
 
             implementation(libs.androidx.browser)
 
@@ -89,9 +93,6 @@ kotlin {
             implementation(libs.androidx.media3.exoplayer)
             implementation(libs.androidx.media3.exoplayer.dash)
             implementation(libs.androidx.media3.ui)
-            implementation(libs.glide)
-            implementation(libs.glide.compose)
-            implementation(libs.coil.video)
             implementation(libs.android.image.cropper)
 
             // widget
@@ -110,7 +111,6 @@ kotlin {
 dependencies {
     // Annotation processor
     annotationProcessor(libs.androidx.lifecycle.compiler)
-    add("kspAndroid", libs.glide.compiler)
 
     listOf(
         "kspAndroid",

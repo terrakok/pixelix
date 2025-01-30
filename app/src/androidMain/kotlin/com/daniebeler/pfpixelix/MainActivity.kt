@@ -53,7 +53,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.common.Destinations
 import com.daniebeler.pfpixelix.di.EntryPointComponent
 import com.daniebeler.pfpixelix.di.HostSelectionInterceptorInterface

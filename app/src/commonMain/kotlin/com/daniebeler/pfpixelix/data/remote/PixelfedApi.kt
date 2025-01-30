@@ -360,7 +360,7 @@ interface PixelfedApi {
         @Query("q") searchText: String
     ): Call<List<PlaceDto>>
 
-    @POST("/api/v2/media")
+    @POST("api/v2/media")
     fun uploadMedia(
         @Body body: MultiPartFormDataContent
     ): Call<MediaAttachmentDto>

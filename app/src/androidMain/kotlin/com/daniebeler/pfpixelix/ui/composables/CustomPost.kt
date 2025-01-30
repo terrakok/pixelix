@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,14 +23,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
+import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.utils.BlurHashDecoder
 import com.daniebeler.pfpixelix.utils.Navigate
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CustomPost(
     post: Post,
@@ -70,7 +66,7 @@ fun CustomPost(
                     .clickable(onClick = {
                         if (!edit && onClick == null) {
                             Navigate.navigate("single_post_screen/" + post.id, navController)
-                        } else if (onClick != null){
+                        } else if (onClick != null) {
                             onClick(post.id)
                         }
                     }),
@@ -89,7 +85,7 @@ fun CustomPost(
                     .clickable(onClick = {
                         if (!edit && onClick == null) {
                             Navigate.navigate("single_post_screen/" + post.id, navController)
-                        } else if (onClick != null){
+                        } else if (onClick != null) {
                             onClick(post.id)
                         }
                     })
@@ -100,35 +96,26 @@ fun CustomPost(
                             0.dp
                         }
                     )
-                    .clip(if (edit) {RoundedCornerShape(12.dp)} else {
-                        RoundedCornerShape(0)
-                    })
+                    .clip(
+                        if (edit) {
+                            RoundedCornerShape(12.dp)
+                        } else {
+                            RoundedCornerShape(0)
+                        }
+                    )
             ) {
 
                 if (post.mediaAttachments.isNotEmpty()) {
-                    if (post.mediaAttachments[0].url?.takeLast(4) == ".gif") {
-                        GlideImage(
-                            model = post.mediaAttachments[0].url,
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .aspectRatio(
-                                    1f
-                                )
-                        )
-                    } else {
-                        AsyncImage(
-                            model = if (isFullQuality) {
-                                post.mediaAttachments[0].url
-                            } else {
-                                post.mediaAttachments[0].previewUrl
-                            },
-                            contentScale = ContentScale.Crop,
-                            contentDescription = null,
-                            modifier = Modifier.aspectRatio(1f)
-                        )
-                    }
+                    AsyncImage(
+                        model = if (isFullQuality) {
+                            post.mediaAttachments[0].url
+                        } else {
+                            post.mediaAttachments[0].previewUrl
+                        },
+                        contentScale = ContentScale.Crop,
+                        contentDescription = null,
+                        modifier = Modifier.aspectRatio(1f)
+                    )
                 }
 
                 if (post.mediaAttachments.size > 1 && !edit) {
@@ -150,9 +137,11 @@ fun CustomPost(
             }
             if (edit) {
                 Box(
-                    modifier = Modifier.align(Alignment.TopEnd).clickable {
-                        editRemove(post.id)
-                    }
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .clickable {
+                            editRemove(post.id)
+                        }
                 ) {
                     Icon(
                         imageVector = Icons.Filled.RemoveCircle,
