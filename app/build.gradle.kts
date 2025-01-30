@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinMultiplatform)
-    id("org.jetbrains.kotlin.plugin.serialization")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ktorfit)
 }
@@ -17,88 +18,80 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            //compose
+            implementation(compose.ui)
+            implementation(compose.material)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            implementation(libs.androidx.ui.graphics)
+
+            //logger
             implementation(libs.kermit)
+
+            //html parser
             implementation(libs.ksoup)
 
+            //kotlinx set
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.collections.immutable)
 
+            //ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.serialization)
             implementation(libs.ktor.serialization.json)
             implementation(libs.ktor.client.logging)
 
+            //ktorfit
             implementation(libs.ktorfit)
             implementation(libs.ktorfit.call)
+
+            //DI
             implementation(libs.kotlin.inject.runtime)
-            
+
+            //datastore
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
 
-            implementation(libs.kotlinx.collections.immutable)
+            //lifecycle
+            implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.lifecycle.runtime)
 
+            //navigation
+            implementation(libs.androidx.navigation.compose)
         }
 
         androidMain.dependencies {
+            implementation(compose.preview)
+
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.androidx.lifecycle.livedata)
 
             implementation(libs.androidx.annotation)
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.activity.compose)
-
-            implementation(libs.androidx.ui)
-            implementation(libs.androidx.ui.graphics)
-            implementation(libs.androidx.ui.tooling.preview)
-            implementation(libs.androidx.material3)
-
-            implementation(libs.androidx.lifecycle.runtime.compose)
-
-
             implementation(libs.volley)
-
-
             implementation(libs.androidx.runtime.livedata)
-
-
             implementation(libs.coil.compose)
-
-            implementation(libs.androidx.navigation.compose)
-
-            implementation(libs.material3)
 
             implementation(libs.androidx.browser)
 
-            implementation(libs.androidx.material.icons.extended)
-
             implementation(libs.accompanist.systemuicontroller)
-
 
             implementation(libs.material)
 
-            implementation(libs.androidx.material)
-
+            //media
             implementation(libs.androidx.media3.exoplayer)
             implementation(libs.androidx.media3.exoplayer.dash)
             implementation(libs.androidx.media3.ui)
             implementation(libs.glide)
             implementation(libs.glide.compose)
-
             implementation(libs.coil.video)
-
             implementation(libs.android.image.cropper)
-
-            // ViewModel
-            implementation(libs.androidx.lifecycle.viewmodel.ktx)
-            // LiveData
-            implementation(libs.androidx.lifecycle.livedata.ktx)
-            // Lifecycles only (without ViewModel or LiveData)
-            implementation(libs.lifecycle.runtime.ktx)
-
-            // Saved state module for ViewModel
-            implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 
             // widget
             implementation(libs.androidx.glance.appwidget)
@@ -114,8 +107,6 @@ kotlin {
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-
     // Annotation processor
     annotationProcessor(libs.androidx.lifecycle.compiler)
     add("kspAndroid", libs.glide.compiler)
@@ -168,5 +159,4 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
 }

@@ -4,4 +4,4 @@ actual abstract class KmpUri {
     actual abstract override fun toString(): String
 }
 actual abstract class KmpContext
-actual class KmpImageBitmap
+actual interface KmpImageBitmap
