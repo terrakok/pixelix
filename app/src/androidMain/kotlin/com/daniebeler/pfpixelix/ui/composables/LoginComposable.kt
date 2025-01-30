@@ -41,7 +41,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -110,9 +110,9 @@ fun LoginComposable(
                 Image(
                     painterResource(
                         if (isSystemInDarkTheme()) {
-                            R.drawable.pixelix_logo_black_xxl
+                            Res.drawable.pixelix_logo_black_xxl
                         } else {
-                            R.drawable.pixelix_logo_white_xxl
+                            Res.drawable.pixelix_logo_white_xxl
                         }
                     ), contentDescription = null,
                     Modifier
@@ -138,10 +138,10 @@ fun LoginComposable(
 
             Image(
                 painterResource(
-                    id = if (isSystemInDarkTheme()) {
-                        R.drawable.login_wave_light
+                    if (isSystemInDarkTheme()) {
+                        Res.drawable.login_wave_light
                     } else {
-                        R.drawable.login_wave_dark
+                        Res.drawable.login_wave_dark
                     }
                 ),
                 contentDescription = null,

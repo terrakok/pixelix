@@ -23,9 +23,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
+import org.jetbrains.compose.resources.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
 fun ButtonRowElement(
@@ -61,7 +62,7 @@ fun ButtonRowElement(
 
 @Composable
 fun ButtonRowElement(
-    @DrawableRes icon: Int,
+    icon: DrawableResource,
     text: String,
     smallText: String = "",
     onClick: () -> Unit,
@@ -74,7 +75,7 @@ fun ButtonRowElement(
                 onClick()
             }) {
         Image(
-            painter = painterResource(id = icon),
+            painter = painterResource(icon),
             contentDescription = "",
             Modifier
                 .padding(start = 18.dp, top = 12.dp, bottom = 12.dp)

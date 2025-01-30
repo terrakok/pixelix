@@ -30,7 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -58,7 +58,7 @@ fun DomainSoftwareComposable(
     }
 
     if (viewModel.statsState.fediSoftware?.icon != null) {
-        Image(painterResource(id = viewModel.statsState.fediSoftware!!.icon!!),
+        Image(painterResource(viewModel.statsState.fediSoftware!!.icon!!),
             contentDescription = viewModel.statsState.fediSoftware!!.name,
             modifier = Modifier
                 .height(24.dp)
@@ -87,7 +87,7 @@ fun DomainSoftwareComposable(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Image(
-                            painterResource(id = viewModel.statsState.fediSoftware!!.icon!!),
+                            painterResource(viewModel.statsState.fediSoftware!!.icon!!),
                             contentDescription = null,
                             modifier = Modifier.height(56.dp)
                         )

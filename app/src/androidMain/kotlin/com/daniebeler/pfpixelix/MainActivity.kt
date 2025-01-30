@@ -43,7 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import org.jetbrains.compose.resources.painterResource
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
@@ -95,6 +95,8 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.stringResource
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.default_avatar
 
 class MainActivity : ComponentActivity() {
     lateinit var currentLoginDataUseCase: GetCurrentLoginDataUseCase
@@ -445,7 +447,7 @@ fun BottomBar(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         AsyncImage(
                             model = avatar,
-                            error = painterResource(id = R.drawable.default_avatar),
+                            error = painterResource(Res.drawable.default_avatar),
                             contentDescription = "",
                             modifier = Modifier
                                 .height(30.dp)

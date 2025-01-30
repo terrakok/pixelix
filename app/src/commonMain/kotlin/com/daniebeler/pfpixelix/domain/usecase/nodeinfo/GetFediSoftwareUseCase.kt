@@ -6,6 +6,8 @@ import com.daniebeler.pfpixelix.domain.repository.CountryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import me.tatarka.inject.annotations.Inject
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.*
 
 @Inject
 class GetFediSoftwareUseCase(private val countryRepository: CountryRepository) {
@@ -23,7 +25,14 @@ class GetFediSoftwareUseCase(private val countryRepository: CountryRepository) {
             }
         }
     }
-}
 
-internal expect fun getSlugIcon(slug: String): Int
+    private fun getSlugIcon(slug: String) = when (slug) {
+        "pixelfed" -> Res.drawable.pixelfed_logo
+        "mastodon" -> Res.drawable.mastodon_logo
+        "peertube" -> Res.drawable.peertube_logo
+        "lemmy" -> Res.drawable.lemmy_logo
+        "misskey" -> Res.drawable.misskey_logo
+        else -> Res.drawable.fediverse_logo
+    }
+}
 

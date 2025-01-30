@@ -138,7 +138,7 @@ fun PreferencesComposable(
 
             if (viewModel.appIcon == null) {
                 ButtonRowElement(
-                    icon = R.drawable.pixelix_logo,
+                    icon = Res.drawable.pixelix_logo,
                     text = stringResource(Res.string.customize_app_icon),
                     onClick = {
                         Navigate.navigate("icon_selection_screen", navController)

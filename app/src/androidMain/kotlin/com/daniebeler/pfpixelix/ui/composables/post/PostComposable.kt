@@ -81,7 +81,7 @@ import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -244,7 +244,7 @@ fun PostComposable(
             ) {
                 AsyncImage(
                     model = viewModel.post!!.account.avatar,
-                    error = painterResource(id = R.drawable.default_avatar),
+                    error = painterResource(Res.drawable.default_avatar),
                     contentDescription = "",
                     modifier = Modifier
                         .height(36.dp)

@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -122,7 +122,7 @@ private fun CustomAccountPrivate(
         verticalAlignment = Alignment.CenterVertically) {
         AsyncImage(
             model = account.avatar,
-            error = painterResource(id = R.drawable.default_avatar),
+            error = painterResource(Res.drawable.default_avatar),
             contentDescription = "",
             modifier = Modifier
                 .height(46.dp)

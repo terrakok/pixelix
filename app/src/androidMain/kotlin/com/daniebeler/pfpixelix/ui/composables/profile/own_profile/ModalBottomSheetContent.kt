@@ -83,7 +83,7 @@ fun ModalBottomSheetContent(
 
         HorizontalDivider(Modifier.padding(12.dp))
 
-        ButtonRowElement(icon = R.drawable.pixelfed_logo,
+        ButtonRowElement(icon = Res.drawable.pixelfed_logo,
             text = stringResource(Res.string.about_x, instanceDomain),
             onClick = {
                 closeBottomSheet()
@@ -91,7 +91,7 @@ fun ModalBottomSheetContent(
             })
 
         if (appIcon == null) {
-            ButtonRowElement(icon = R.drawable.pixelix_logo,
+            ButtonRowElement(icon = Res.drawable.pixelix_logo,
                 text = stringResource(Res.string.about_pixelix),
                 onClick = {
                     closeBottomSheet()

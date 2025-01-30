@@ -38,7 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -96,7 +96,7 @@ fun AboutPixelixComposable(
             ) {
                 if (viewModel.appIcon == null) {
                     Image(
-                        painter = painterResource(id = R.drawable.pixelix_logo),
+                        painter = painterResource(Res.drawable.pixelix_logo),
                         contentDescription = null,
                         Modifier
                             .width(84.dp)
@@ -157,7 +157,7 @@ fun AboutPixelixComposable(
                 Text(text = "Emanuel Hiebeler", fontWeight = FontWeight.Bold)
 
                 Row {
-                    Image(painter = painterResource(id = R.drawable.pixelfed_logo),
+                    Image(painter = painterResource(Res.drawable.pixelfed_logo),
                         contentDescription = null,
                         Modifier
                             .width(32.dp)
@@ -170,7 +170,7 @@ fun AboutPixelixComposable(
 
                     Spacer(modifier = Modifier.width(16.dp))
 
-                    Image(painter = painterResource(id = R.drawable.mastodon_logo),
+                    Image(painter = painterResource(Res.drawable.mastodon_logo),
                         contentDescription = null,
                         Modifier
                             .width(32.dp)
@@ -204,7 +204,7 @@ fun AboutPixelixComposable(
                 Text(text = "Daniel Hiebeler", fontWeight = FontWeight.Bold)
 
                 Row {
-                    Image(painter = painterResource(id = R.drawable.pixelfed_logo),
+                    Image(painter = painterResource(Res.drawable.pixelfed_logo),
                         contentDescription = null,
                         Modifier
                             .width(32.dp)
@@ -217,7 +217,7 @@ fun AboutPixelixComposable(
 
                     Spacer(modifier = Modifier.width(16.dp))
 
-                    Image(painter = painterResource(id = R.drawable.mastodon_logo),
+                    Image(painter = painterResource(Res.drawable.mastodon_logo),
                         contentDescription = null,
                         Modifier
                             .width(32.dp)
