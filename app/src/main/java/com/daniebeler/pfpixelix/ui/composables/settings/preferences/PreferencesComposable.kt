@@ -51,7 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.LoginActivity
 import com.daniebeler.pfpixelix.R
@@ -69,8 +69,8 @@ import java.text.StringCharacterIterator
 @Composable
 fun PreferencesComposable(
     navController: NavController,
-    themeViewModel: ThemeViewModel = hiltViewModel(key = "Theme"),
-    viewModel: PreferencesViewModel = hiltViewModel(key = "preferences-viewmodel-key")
+    themeViewModel: ThemeViewModel = injectViewModel(key = "Theme") { this.themeViewModel },
+    viewModel: PreferencesViewModel = injectViewModel(key = "preferences-viewmodel-key") { preferencesViewModel }
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 

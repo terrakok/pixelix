@@ -48,11 +48,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.composables.InfinitePostsGrid
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.utils.Share
 
@@ -61,7 +61,7 @@ import com.daniebeler.pfpixelix.utils.Share
 fun CollectionComposable(
     navController: NavController,
     collectionId: String,
-    viewModel: CollectionViewModel = hiltViewModel(key = "collection-viewmodel-key")
+    viewModel: CollectionViewModel = injectViewModel(key = "collection-viewmodel-key") { collectionViewModel }
 ) {
 
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)

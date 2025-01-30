@@ -49,7 +49,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
@@ -66,7 +66,7 @@ import com.daniebeler.pfpixelix.utils.Navigate
 @Composable
 fun OwnProfileComposable(
     navController: NavController,
-    viewModel: OwnProfileViewModel = hiltViewModel(key = "own-profile-key")
+    viewModel: OwnProfileViewModel = injectViewModel(key = "own-profile-key") { ownProfileViewModel }
 ) {
 
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)

@@ -30,11 +30,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.R
 import com.daniebeler.pfpixelix.domain.model.loginDataToAccount
 import com.daniebeler.pfpixelix.gotoLoginActivity
 import com.daniebeler.pfpixelix.ui.composables.custom_account.CustomAccount
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,7 +44,7 @@ import kotlinx.coroutines.launch
 fun AccountSwitchBottomSheet(
     closeBottomSheet: () -> Unit,
     ownProfileViewModel: OwnProfileViewModel?,
-    viewModel: AccountSwitchViewModel = hiltViewModel(key = "account_switcher_viewmodel")
+    viewModel: AccountSwitchViewModel = injectViewModel(key = "account_switcher_viewmodel") { accountSwitchViewModel }
 ) {
     val context = LocalContext.current
     val showRemoveLoginDataAlert = remember { mutableStateOf("") }

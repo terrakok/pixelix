@@ -7,7 +7,9 @@ import com.daniebeler.pfpixelix.domain.repository.TimelineRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import me.tatarka.inject.annotations.Inject
 
+@Inject
 class GetLocalTimelineUseCase(
     private val timelineRepository: TimelineRepository,
     private val storageRepository: StorageRepository

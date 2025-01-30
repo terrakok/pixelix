@@ -20,22 +20,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
-import androidx.compose.material.icons.outlined.PersonAdd
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,8 +49,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.daniebeler.pfpixelix.MyApplication
 import com.daniebeler.pfpixelix.R
+import com.daniebeler.pfpixelix.di.ViewModelComponent
+import com.daniebeler.pfpixelix.di.create
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -62,10 +61,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
+internal fun <T> injectViewModel(key: String, block: ViewModelComponent.() -> T): T = remember(key) {
+    ViewModelComponent::class.create(MyApplication.appComponent).block()
+}
+
+@Composable
 fun LoginComposable(
     isLoading: Boolean,
     error: String,
-    viewModel: LoginViewModel = hiltViewModel(key = "login-viewmodel-key")
+    viewModel: LoginViewModel = injectViewModel(key = "login-viewmodel-key") { loginViewModel }
 ) {
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(

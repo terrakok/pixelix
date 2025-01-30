@@ -19,7 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
 import com.daniebeler.pfpixelix.ui.composables.InfinitePostsGrid
@@ -29,7 +29,7 @@ import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 @Composable
 fun BookmarkedPostsComposable(
     navController: NavController,
-    viewModel: BookmarkedPostsViewModel = hiltViewModel(key = "bookmarksviewmodel")
+    viewModel: BookmarkedPostsViewModel = injectViewModel(key = "bookmarksviewmodel") { bookmarkedPostsViewModel }
 ) {
 
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {

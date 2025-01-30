@@ -48,7 +48,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.canhub.cropper.CropImageContract
@@ -61,7 +61,7 @@ import com.daniebeler.pfpixelix.R
 @Composable
 fun EditProfileComposable(
     navController: NavController,
-    viewModel: EditProfileViewModel = hiltViewModel(key = "edit-profile-viewmodel-key")
+    viewModel: EditProfileViewModel = injectViewModel(key = "edit-profile-viewmodel-key") { editProfileViewModel }
 ) {
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()

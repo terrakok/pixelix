@@ -7,11 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.daniebeler.pfpixelix.domain.usecase.GetThemeUseCase
 import com.daniebeler.pfpixelix.domain.usecase.StoreThemeUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
 
-@HiltViewModel
 class ThemeViewModel @Inject constructor(
     private val storeThemeUseCase: StoreThemeUseCase,
     private val getThemeUseCase: GetThemeUseCase

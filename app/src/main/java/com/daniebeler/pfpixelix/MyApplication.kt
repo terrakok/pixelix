@@ -1,25 +1,28 @@
 package com.daniebeler.pfpixelix
 
 import android.app.Application
-import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
+import androidx.work.WorkerFactory
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.CachePolicy
-import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
+import com.daniebeler.pfpixelix.di.Module
+import com.daniebeler.pfpixelix.di.create
 
-
-@HiltAndroidApp
 class MyApplication : Application(), Configuration.Provider, ImageLoaderFactory {
-
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+    lateinit var workerFactory: WorkerFactory
 
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder().setWorkerFactory(workerFactory).build()
+
+    override fun onCreate() {
+        appComponent = Module::class.create(this)
+        workerFactory = WorkerFactory.getDefaultWorkerFactory() //todo
+
+        super.onCreate()
+    }
 
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(this)
@@ -35,5 +38,10 @@ class MyApplication : Application(), Configuration.Provider, ImageLoaderFactory 
                 .directory(cacheDir)
                 .build())
             .build()
+    }
+
+    companion object {
+        lateinit var appComponent: Module
+            private set
     }
 }

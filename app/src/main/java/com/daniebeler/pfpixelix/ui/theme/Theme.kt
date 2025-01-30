@@ -10,7 +10,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.ThemeViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -37,7 +37,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun PixelixTheme(
     darkThemeSystem: Boolean = isSystemInDarkTheme(),
-    viewModel: ThemeViewModel = hiltViewModel(key = "Theme"),
+    viewModel: ThemeViewModel = injectViewModel(key = "Theme") { themeViewModel },
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {

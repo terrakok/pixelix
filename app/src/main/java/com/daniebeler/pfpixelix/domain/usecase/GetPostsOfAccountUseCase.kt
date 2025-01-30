@@ -8,7 +8,9 @@ import com.daniebeler.pfpixelix.domain.repository.StorageRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import me.tatarka.inject.annotations.Inject
 
+@Inject
 class GetPostsOfAccountUseCase(
     private val postRepository: PostRepository, private val storageRepository: StorageRepository
 ) {

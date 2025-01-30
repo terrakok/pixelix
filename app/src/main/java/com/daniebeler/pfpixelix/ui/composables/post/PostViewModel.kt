@@ -36,7 +36,6 @@ import com.daniebeler.pfpixelix.domain.usecase.UnreblogPostUseCase
 import com.daniebeler.pfpixelix.ui.composables.post.reply.OwnReplyState
 import com.daniebeler.pfpixelix.ui.composables.post.reply.RepliesState
 import com.daniebeler.pfpixelix.utils.TimeAgo
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -48,10 +47,9 @@ import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
 
 
-@HiltViewModel
 class PostViewModel @Inject constructor(
     private val getRepliesUseCase: GetRepliesUseCase,
     private val createReplyUseCase: CreateReplyUseCase,

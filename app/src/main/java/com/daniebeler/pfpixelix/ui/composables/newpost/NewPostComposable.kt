@@ -56,7 +56,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.decode.VideoFrameDecoder
@@ -79,7 +79,7 @@ import com.daniebeler.pfpixelix.utils.imeAwareInsets
 @Composable
 fun NewPostComposable(
     navController: NavController,
-    viewModel: NewPostViewModel = hiltViewModel(key = "new-post-viewmodel-key")
+    viewModel: NewPostViewModel = injectViewModel(key = "new-post-viewmodel-key") { newPostViewModel }
 ) {
     val context = LocalContext.current
 

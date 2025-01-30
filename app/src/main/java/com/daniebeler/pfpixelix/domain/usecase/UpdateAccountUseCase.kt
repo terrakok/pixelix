@@ -13,7 +13,9 @@ import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.flow.Flow
 
+import me.tatarka.inject.annotations.Inject
 
+@Inject
 class UpdateAccountUseCase(
     private val accountRepository: AccountRepository
 ) {

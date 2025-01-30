@@ -3,15 +3,12 @@ package com.daniebeler.pfpixelix.data.repository
 import androidx.datastore.core.DataStore
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.domain.model.SavedSearchItem
-import com.daniebeler.pfpixelix.domain.model.SavedSearches
 import com.daniebeler.pfpixelix.domain.model.SavedSearchType
+import com.daniebeler.pfpixelix.domain.model.SavedSearches
 import com.daniebeler.pfpixelix.domain.repository.SavedSearchesRepository
 import kotlinx.coroutines.flow.Flow
-import java.lang.Exception
-import javax.inject.Inject
-import javax.inject.Singleton
+import me.tatarka.inject.annotations.Inject
 
-@Singleton
 class SavedSearchesRepositoryImpl @Inject constructor(private val dataStore: DataStore<SavedSearches>) :
     SavedSearchesRepository {
 

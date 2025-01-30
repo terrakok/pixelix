@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.R
 import com.daniebeler.pfpixelix.ui.composables.post.PostComposable
@@ -40,7 +40,7 @@ fun SinglePostComposable(
     postId: String,
     refresh: Boolean,
     openReplies: Boolean,
-    viewModel: SinglePostViewModel = hiltViewModel(key = "single-post$postId")
+    viewModel: SinglePostViewModel = injectViewModel(key = "single-post$postId") { singlePostViewModel }
 ) {
     val scrollState = rememberScrollState()
 

@@ -56,7 +56,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import com.daniebeler.pfpixelix.common.Destinations
+import com.daniebeler.pfpixelix.di.ActivityModule
 import com.daniebeler.pfpixelix.di.HostSelectionInterceptorInterface
+import com.daniebeler.pfpixelix.di.create
 import com.daniebeler.pfpixelix.domain.model.LoginData
 import com.daniebeler.pfpixelix.domain.repository.CountryRepository
 import com.daniebeler.pfpixelix.domain.usecase.GetCurrentLoginDataUseCase
@@ -88,26 +90,16 @@ import com.daniebeler.pfpixelix.ui.composables.single_post.SinglePostComposable
 import com.daniebeler.pfpixelix.ui.composables.timelines.hashtag_timeline.HashtagTimelineComposable
 import com.daniebeler.pfpixelix.ui.theme.PixelixTheme
 import com.daniebeler.pfpixelix.utils.Navigate
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
     lateinit var currentLoginDataUseCase: GetCurrentLoginDataUseCase
-
-    @Inject
     lateinit var hostSelectionInterceptorInterface: HostSelectionInterceptorInterface
-
-    @Inject
     lateinit var repository: CountryRepository
-
-    @Inject
     lateinit var verifyTokenUseCase: VerifyTokenUseCase
 
     companion object {
@@ -121,6 +113,12 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+        ActivityModule::class.create(MyApplication.appComponent).let {
+            currentLoginDataUseCase = it.currentLoginDataUseCase
+            hostSelectionInterceptorInterface = it.hostSelectionInterceptorInterface
+            repository = it.repository
+            verifyTokenUseCase = it.verifyTokenUseCase
+        }
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
