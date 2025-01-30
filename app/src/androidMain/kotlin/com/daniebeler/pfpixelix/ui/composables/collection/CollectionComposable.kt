@@ -49,7 +49,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.daniebeler.pfpixelix.R
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement

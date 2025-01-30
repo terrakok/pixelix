@@ -53,7 +53,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
-import com.daniebeler.pfpixelix.R
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
@@ -125,7 +124,7 @@ fun ChatComposable(
             isRefreshing = viewModel.chatState.isRefreshing,
             onRefresh = { viewModel.getChat(accountId, true) },
             modifier = Modifier
-                .imeAwareInsets(context, 90.dp)
+                .imeAwareInsets(90.dp)
                 .padding(paddingValues)
         ) {
             Column(

@@ -39,10 +39,8 @@ import androidx.compose.ui.unit.sp
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
-import com.daniebeler.pfpixelix.R
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.*
-import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenLoadingComposable
 import com.daniebeler.pfpixelix.utils.Navigate

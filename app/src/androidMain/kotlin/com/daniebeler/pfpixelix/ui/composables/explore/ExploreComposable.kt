@@ -64,7 +64,6 @@ import androidx.compose.ui.unit.dp
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
-import com.daniebeler.pfpixelix.R
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.domain.model.Account
@@ -143,7 +142,7 @@ fun ExploreComposable(
             }
 
             if (textFieldState.text.isBlank() && viewModel.savedSearches.pastSearches.isNotEmpty()) {
-                LazyColumn(modifier = Modifier.imeAwareInsets(context, 90.dp)) {
+                LazyColumn(modifier = Modifier.imeAwareInsets(90.dp)) {
                     items(viewModel.savedSearches.pastSearches.reversed()) {
                         if (it.savedSearchType == SavedSearchType.Account) {
                             Row {
@@ -163,7 +162,7 @@ fun ExploreComposable(
                 }
             }
             viewModel.searchState.searchResult?.let { searchResult ->
-                LazyColumn(modifier = Modifier.imeAwareInsets(context, 90.dp), content = {
+                LazyColumn(modifier = Modifier.imeAwareInsets(90.dp), content = {
                     items(searchResult.accounts) {
                         CustomAccount(
                             account = it,

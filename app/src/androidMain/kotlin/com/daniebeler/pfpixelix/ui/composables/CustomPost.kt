@@ -18,9 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
@@ -39,19 +37,18 @@ fun CustomPost(
     editRemove: (postId: String) -> Unit = {}
 ) {
 
-    val blurHashAsDrawable = BlurHashDecoder.blurHashBitmap(
-        LocalContext.current.resources,
+    val blurBitmap = BlurHashDecoder.decode(
         if (post.mediaAttachments.isNotEmpty()) {
             post.mediaAttachments[0].blurHash ?: "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
         } else {
             "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
-        },
+        }
     )
 
     Box(modifier = customModifier.aspectRatio(1f)) {
-        if (blurHashAsDrawable.bitmap != null) {
+        if (blurBitmap != null) {
             Image(
-                blurHashAsDrawable.bitmap.asImageBitmap(),
+                blurBitmap,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.aspectRatio(1f)

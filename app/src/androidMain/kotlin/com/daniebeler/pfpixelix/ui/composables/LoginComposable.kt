@@ -50,7 +50,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.daniebeler.pfpixelix.MyApplication
-import com.daniebeler.pfpixelix.R
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.di.ViewModelComponent
@@ -263,7 +262,7 @@ fun LoginComposable(
                 }
 
                 Spacer(modifier = Modifier.height(200.dp))
-                Spacer(modifier = Modifier.imeAwareInsets(context, 200.dp))
+                Spacer(modifier = Modifier.imeAwareInsets(200.dp))
             }
         }
     }

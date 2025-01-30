@@ -73,7 +73,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.LayoutCoordinates
@@ -311,14 +310,13 @@ fun PostComposable(
                 if (viewModel.post!!.sensitive && !viewModel.showPost) {
 
                     Box {
-                        val blurHashAsDrawable = BlurHashDecoder.blurHashBitmap(
-                            LocalContext.current.resources,
+                        val blurBitmap = BlurHashDecoder.decode(
                             viewModel.post!!.mediaAttachments[0].blurHash
                         )
 
-                        if (blurHashAsDrawable.bitmap != null) {
+                        if (blurBitmap != null) {
                             Image(
-                                blurHashAsDrawable.bitmap.asImageBitmap(),
+                                blurBitmap,
                                 contentDescription = null,
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier.aspectRatio(
@@ -716,15 +714,12 @@ fun PostImage(
             .clip(RoundedCornerShape(16.dp))
     ) {
 
-        val blurHashAsDrawable = BlurHashDecoder.blurHashBitmap(
-            LocalContext.current.resources,
-            mediaAttachment.blurHash,
-        )
+        val blurBitmap = BlurHashDecoder.decode(mediaAttachment.blurHash)
 
         if (!imageLoaded) {
-            if (blurHashAsDrawable.bitmap != null) {
+            if (blurBitmap != null) {
                 Image(
-                    blurHashAsDrawable.bitmap.asImageBitmap(),
+                    blurBitmap,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.aspectRatio(
