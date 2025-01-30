@@ -11,8 +11,8 @@ import com.daniebeler.pfpixelix.domain.usecase.VerifyTokenUseCase
 import me.tatarka.inject.annotations.Component
 
 @Component
-abstract class ActivityModule(
-    @Component val app: Module
+abstract class EntryPointComponent(
+    @Component val app: AppComponent
 ) {
     abstract val obtainTokenUseCase: ObtainTokenUseCase
     abstract val verifyTokenUseCase: VerifyTokenUseCase

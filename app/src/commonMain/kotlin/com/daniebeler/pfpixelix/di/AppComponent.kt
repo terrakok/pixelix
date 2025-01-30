@@ -1,14 +1,10 @@
 package com.daniebeler.pfpixelix.di
 
 import HostSelectionInterceptor
-import android.app.Application
-import android.content.Context
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
-import androidx.datastore.dataStoreFile
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.data.remote.PixelfedApi
 import com.daniebeler.pfpixelix.data.remote.createPixelfedApi
 import com.daniebeler.pfpixelix.data.repository.AccountRepositoryImpl
@@ -37,8 +33,7 @@ import com.daniebeler.pfpixelix.domain.repository.SavedSearchesRepository
 import com.daniebeler.pfpixelix.domain.repository.StorageRepository
 import com.daniebeler.pfpixelix.domain.repository.TimelineRepository
 import com.daniebeler.pfpixelix.domain.repository.WidgetRepository
-import com.daniebeler.pfpixelix.utils.AuthDataSerializer
-import com.daniebeler.pfpixelix.utils.SavedSearchesSerializer
+import com.daniebeler.pfpixelix.utils.KmpContext
 import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.converter.CallConverterFactory
 import io.ktor.client.HttpClient
@@ -53,49 +48,39 @@ import me.tatarka.inject.annotations.Component
 import me.tatarka.inject.annotations.Provides
 import me.tatarka.inject.annotations.Scope
 
-
-private val Context.dataStore by preferencesDataStore("settings")
-
 @Scope
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER)
+@Target(
+    AnnotationTarget.CLASS,
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.PROPERTY_GETTER
+)
 annotation class AppSingleton
 
 @AppSingleton
 @Component
-abstract class Module(
-    @get:Provides val app: Application
+abstract class AppComponent(
+    @get:Provides val context: KmpContext
 ) {
 
     @Provides
     @AppSingleton
-    fun provideContext(): Context = app
+    fun provideUserDataStorePreferences(context: KmpContext): DataStore<Preferences> =
+        createPreferencesDataStore(context)
 
     @Provides
     @AppSingleton
-    fun provideUserDataStorePreferences(context: Context): DataStore<Preferences> {
-        return context.applicationContext.dataStore
-    }
-
+    fun provideDataStore(context: KmpContext): DataStore<SavedSearches> =
+        createSavedSearchesDataStore(context)
 
     @Provides
     @AppSingleton
-    fun provideDataStore(context: Context): DataStore<SavedSearches> =
-        DataStoreFactory.create(serializer = SavedSearchesSerializer(),
-            produceFile = { context.applicationContext.dataStoreFile("saved_searches.json") })
-
-
-    @Provides
-    @AppSingleton
-    fun provideAuthDataStore(context: Context): DataStore<AuthData> =
-        DataStoreFactory.create(serializer = AuthDataSerializer(),
-            produceFile = { context.applicationContext.dataStoreFile("auth_data_datastore.json") })
-
+    fun provideAuthDataStore(context: KmpContext): DataStore<AuthData> =
+        createAuthDataStore(context)
 
     @Provides
     @AppSingleton
     fun provideHostSelectionInterceptor(): HostSelectionInterceptorInterface =
         HostSelectionInterceptor()
-
 
     @Provides
     @AppSingleton
@@ -104,7 +89,6 @@ abstract class Module(
         isLenient = true
         explicitNulls = false
     }
-
 
     @Provides
     @AppSingleton
@@ -116,7 +100,7 @@ abstract class Module(
         install(Logging) {
             logger = object : io.ktor.client.plugins.logging.Logger {
                 override fun log(message: String) {
-                    Log.v("HttpClient", message.lines().joinToString { "\n\t\t\t$it"} )
+                    Logger.v("HttpClient") { message.lines().joinToString { "\n\t\t\t$it"} }
                 }
             }
             level = LogLevel.BODY
@@ -129,7 +113,6 @@ abstract class Module(
         }
     }
 
-
     @Provides
     @AppSingleton
     fun provideKtorfit(client: HttpClient): Ktorfit = Ktorfit.Builder()
@@ -138,11 +121,9 @@ abstract class Module(
         .baseUrl("https://err.or/")
         .build()
 
-
     @Provides
     @AppSingleton
-    fun providePixelfedApi(ktorfit: Ktorfit): PixelfedApi =
-        ktorfit.createPixelfedApi()
+    fun providePixelfedApi(ktorfit: Ktorfit): PixelfedApi = ktorfit.createPixelfedApi()
 
     @Provides
     fun getAccountRepository(impl: AccountRepositoryImpl): AccountRepository = impl
@@ -169,3 +150,7 @@ abstract class Module(
     @Provides
     fun getWidgetRepository(impl: WidgetRepositoryImpl): WidgetRepository = impl
 }
+
+internal expect fun createAuthDataStore(context: KmpContext): DataStore<AuthData>
+internal expect fun createSavedSearchesDataStore(context: KmpContext): DataStore<SavedSearches>
+internal expect fun createPreferencesDataStore(context: KmpContext): DataStore<Preferences>

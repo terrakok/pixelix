@@ -15,7 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.daniebeler.pfpixelix.common.Resource
-import com.daniebeler.pfpixelix.di.ActivityModule
+import com.daniebeler.pfpixelix.di.EntryPointComponent
 import com.daniebeler.pfpixelix.di.HostSelectionInterceptorInterface
 import com.daniebeler.pfpixelix.di.create
 import com.daniebeler.pfpixelix.domain.model.LoginData
@@ -46,7 +46,7 @@ class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ActivityModule::class.create(MyApplication.appComponent).let {
+        EntryPointComponent::class.create(MyApplication.appComponent.appComponent).let {
             obtainTokenUseCase = it.obtainTokenUseCase
             verifyTokenUseCase = it.verifyTokenUseCase
             updateLoginDataUseCase = it.updateLoginDataUseCase

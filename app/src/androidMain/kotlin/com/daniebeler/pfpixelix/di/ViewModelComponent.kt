@@ -46,7 +46,7 @@ import me.tatarka.inject.annotations.Component
 
 @Component
 abstract class ViewModelComponent(
-    @Component val app: Module
+    @Component val app: AndroidAppComponent
 ) {
     abstract val loginViewModel: LoginViewModel
     abstract val collectionViewModel: CollectionViewModel

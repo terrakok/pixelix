@@ -8,7 +8,8 @@ import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.CachePolicy
-import com.daniebeler.pfpixelix.di.Module
+import com.daniebeler.pfpixelix.di.AndroidAppComponent
+import com.daniebeler.pfpixelix.di.AppComponent
 import com.daniebeler.pfpixelix.di.create
 
 class MyApplication : Application(), Configuration.Provider, ImageLoaderFactory {
@@ -18,7 +19,8 @@ class MyApplication : Application(), Configuration.Provider, ImageLoaderFactory 
         get() = Configuration.Builder().setWorkerFactory(workerFactory).build()
 
     override fun onCreate() {
-        appComponent = Module::class.create(this)
+        val mainComponent = AppComponent::class.create(this)
+        appComponent = AndroidAppComponent::class.create(this, mainComponent)
         workerFactory = WorkerFactory.getDefaultWorkerFactory() //todo
 
         super.onCreate()
@@ -41,7 +43,7 @@ class MyApplication : Application(), Configuration.Provider, ImageLoaderFactory 
     }
 
     companion object {
-        lateinit var appComponent: Module
+        lateinit var appComponent: AndroidAppComponent
             private set
     }
 }
