@@ -56,7 +56,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.common.Destinations
-import com.daniebeler.pfpixelix.di.EntryPointComponent
 import com.daniebeler.pfpixelix.di.HostSelectionInterceptorInterface
 import com.daniebeler.pfpixelix.di.create
 import com.daniebeler.pfpixelix.domain.model.LoginData
@@ -118,7 +117,7 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-        EntryPointComponent::class.create(MyApplication.appComponent.appComponent).let {
+        MyApplication.appComponent.appComponent.let {
             currentLoginDataUseCase = it.currentLoginDataUseCase
             hostSelectionInterceptorInterface = it.hostSelectionInterceptorInterface
             repository = it.repository

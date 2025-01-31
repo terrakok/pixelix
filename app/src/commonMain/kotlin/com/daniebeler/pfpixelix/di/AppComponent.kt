@@ -11,6 +11,7 @@ import coil3.ImageLoader
 import coil3.disk.DiskCache
 import coil3.memory.MemoryCache
 import coil3.request.CachePolicy
+import com.daniebeler.pfpixelix.LoginScreen
 import com.daniebeler.pfpixelix.data.remote.PixelfedApi
 import com.daniebeler.pfpixelix.data.remote.createPixelfedApi
 import com.daniebeler.pfpixelix.data.repository.AccountRepositoryImpl
@@ -39,6 +40,13 @@ import com.daniebeler.pfpixelix.domain.repository.SavedSearchesRepository
 import com.daniebeler.pfpixelix.domain.repository.StorageRepository
 import com.daniebeler.pfpixelix.domain.repository.TimelineRepository
 import com.daniebeler.pfpixelix.domain.repository.WidgetRepository
+import com.daniebeler.pfpixelix.domain.usecase.AddNewLoginUseCase
+import com.daniebeler.pfpixelix.domain.usecase.FinishLoginUseCase
+import com.daniebeler.pfpixelix.domain.usecase.GetCurrentLoginDataUseCase
+import com.daniebeler.pfpixelix.domain.usecase.GetOngoingLoginUseCase
+import com.daniebeler.pfpixelix.domain.usecase.ObtainTokenUseCase
+import com.daniebeler.pfpixelix.domain.usecase.UpdateLoginDataUseCase
+import com.daniebeler.pfpixelix.domain.usecase.VerifyTokenUseCase
 import com.daniebeler.pfpixelix.utils.AuthDataSerializer
 import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.SavedSearchesSerializer
@@ -75,6 +83,17 @@ annotation class AppSingleton
 abstract class AppComponent(
     @get:Provides val context: KmpContext
 ) {
+    @Provides fun getSelf(): AppComponent = this
+
+    abstract val obtainTokenUseCase: ObtainTokenUseCase
+    abstract val verifyTokenUseCase: VerifyTokenUseCase
+    abstract val updateLoginDataUseCase: UpdateLoginDataUseCase
+    abstract val finishLoginUseCase: FinishLoginUseCase
+    abstract val newLoginDataUseCase: AddNewLoginUseCase
+    abstract val getOngoingLoginUseCase: GetOngoingLoginUseCase
+    abstract val hostSelectionInterceptorInterface: HostSelectionInterceptorInterface
+    abstract val currentLoginDataUseCase: GetCurrentLoginDataUseCase
+    abstract val repository: CountryRepository
 
     @Provides
     @AppSingleton
@@ -211,6 +230,8 @@ abstract class AppComponent(
 
     @Provides
     fun getWidgetRepository(impl: WidgetRepositoryImpl): WidgetRepository = impl
+
+    abstract val loginScreen: LoginScreen
 
     companion object
 }
