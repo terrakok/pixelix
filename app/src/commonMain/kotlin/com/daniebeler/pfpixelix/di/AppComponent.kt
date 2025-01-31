@@ -2,6 +2,9 @@ package com.daniebeler.pfpixelix.di
 
 import HostSelectionInterceptor
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.DataStoreFactory
+import androidx.datastore.core.okio.OkioStorage
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import co.touchlab.kermit.Logger
 import coil3.ImageLoader
@@ -36,8 +39,11 @@ import com.daniebeler.pfpixelix.domain.repository.SavedSearchesRepository
 import com.daniebeler.pfpixelix.domain.repository.StorageRepository
 import com.daniebeler.pfpixelix.domain.repository.TimelineRepository
 import com.daniebeler.pfpixelix.domain.repository.WidgetRepository
+import com.daniebeler.pfpixelix.utils.AuthDataSerializer
 import com.daniebeler.pfpixelix.utils.KmpContext
+import com.daniebeler.pfpixelix.utils.SavedSearchesSerializer
 import com.daniebeler.pfpixelix.utils.coilContext
+import com.daniebeler.pfpixelix.utils.dataStoreDir
 import com.daniebeler.pfpixelix.utils.imageCacheDir
 import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.converter.CallConverterFactory
@@ -50,8 +56,11 @@ import io.ktor.client.plugins.plugin
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import me.tatarka.inject.annotations.Component
+import me.tatarka.inject.annotations.KmpComponentCreate
 import me.tatarka.inject.annotations.Provides
 import me.tatarka.inject.annotations.Scope
+import okio.FileSystem
+import okio.SYSTEM
 
 @Scope
 @Target(
@@ -70,17 +79,33 @@ abstract class AppComponent(
     @Provides
     @AppSingleton
     fun provideUserDataStorePreferences(context: KmpContext): DataStore<Preferences> =
-        createPreferencesDataStore(context)
+        PreferenceDataStoreFactory.createWithPath(
+            corruptionHandler = null,
+            migrations = emptyList(),
+            produceFile = { context.dataStoreDir.resolve("user_datastore.preferences_pb") },
+        )
 
     @Provides
     @AppSingleton
     fun provideDataStore(context: KmpContext): DataStore<SavedSearches> =
-        createSavedSearchesDataStore(context)
+        DataStoreFactory.create(
+            storage = OkioStorage(
+                fileSystem = FileSystem.SYSTEM,
+                producePath = { context.dataStoreDir.resolve("saved_searches.json") },
+                serializer = SavedSearchesSerializer,
+            )
+        )
 
     @Provides
     @AppSingleton
     fun provideAuthDataStore(context: KmpContext): DataStore<AuthData> =
-        createAuthDataStore(context)
+        DataStoreFactory.create(
+            storage = OkioStorage(
+                fileSystem = FileSystem.SYSTEM,
+                producePath = { context.dataStoreDir.resolve("auth_data_datastore.json") },
+                serializer = AuthDataSerializer,
+            )
+        )
 
     @Provides
     @AppSingleton
@@ -186,8 +211,9 @@ abstract class AppComponent(
 
     @Provides
     fun getWidgetRepository(impl: WidgetRepositoryImpl): WidgetRepository = impl
+
+    companion object
 }
 
-internal expect fun createAuthDataStore(context: KmpContext): DataStore<AuthData>
-internal expect fun createSavedSearchesDataStore(context: KmpContext): DataStore<SavedSearches>
-internal expect fun createPreferencesDataStore(context: KmpContext): DataStore<Preferences>
+@KmpComponentCreate
+expect fun AppComponent.Companion.create(context: KmpContext): AppComponent

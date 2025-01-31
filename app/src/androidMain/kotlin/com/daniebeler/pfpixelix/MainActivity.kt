@@ -33,6 +33,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -63,6 +64,7 @@ import com.daniebeler.pfpixelix.domain.repository.CountryRepository
 import com.daniebeler.pfpixelix.domain.usecase.GetCurrentLoginDataUseCase
 import com.daniebeler.pfpixelix.domain.usecase.VerifyTokenUseCase
 import com.daniebeler.pfpixelix.ui.composables.HomeComposable
+import com.daniebeler.pfpixelix.ui.composables.LocalAppComponent
 import com.daniebeler.pfpixelix.ui.composables.collection.CollectionComposable
 import com.daniebeler.pfpixelix.ui.composables.direct_messages.chat.ChatComposable
 import com.daniebeler.pfpixelix.ui.composables.direct_messages.conversations.ConversationsComposable
@@ -88,6 +90,7 @@ import com.daniebeler.pfpixelix.ui.composables.settings.preferences.PreferencesC
 import com.daniebeler.pfpixelix.ui.composables.single_post.SinglePostComposable
 import com.daniebeler.pfpixelix.ui.composables.timelines.hashtag_timeline.HashtagTimelineComposable
 import com.daniebeler.pfpixelix.ui.theme.PixelixTheme
+import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
@@ -153,73 +156,78 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-            var showAccountSwitchBottomSheet by remember { mutableStateOf(false) }
+            CompositionLocalProvider(
+                LocalKmpContext provides this,
+                LocalAppComponent provides MyApplication.appComponent.appComponent
+            ) {
+                val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                var showAccountSwitchBottomSheet by remember { mutableStateOf(false) }
 
-            PixelixTheme {
-                val navController: NavHostController = rememberNavController()
+                PixelixTheme {
+                    val navController: NavHostController = rememberNavController()
 
-                Scaffold(contentWindowInsets = WindowInsets(0.dp), bottomBar = {
-                    BottomBar(
-                        navController = navController,
-                        avatar = avatar,
-                        openAccountSwitchBottomSheet = { showAccountSwitchBottomSheet = true },
-                        context = this
-                    )
-                }) { paddingValues ->
-                    Box(
-                        modifier = Modifier.padding(paddingValues)
-                    ) {
-                        NavigationGraph(
+                    Scaffold(contentWindowInsets = WindowInsets(0.dp), bottomBar = {
+                        BottomBar(
                             navController = navController,
+                            avatar = avatar,
+                            openAccountSwitchBottomSheet = { showAccountSwitchBottomSheet = true },
+                            context = this
                         )
-                        val destination = intent.extras?.getString(KEY_DESTINATION) ?: ""
-                        if (destination.isNotBlank()) {
-                            // Delay the navigation action to ensure the graph is set
-                            LaunchedEffect(Unit) {
-                                when (destination) {
-                                    StartNavigation.Notifications.toString() -> Navigate.navigate(
-                                        "notifications_screen", navController
-                                    )
+                    }) { paddingValues ->
+                        Box(
+                            modifier = Modifier.padding(paddingValues)
+                        ) {
+                            NavigationGraph(
+                                navController = navController,
+                            )
+                            val destination = intent.extras?.getString(KEY_DESTINATION) ?: ""
+                            if (destination.isNotBlank()) {
+                                // Delay the navigation action to ensure the graph is set
+                                LaunchedEffect(Unit) {
+                                    when (destination) {
+                                        StartNavigation.Notifications.toString() -> Navigate.navigate(
+                                            "notifications_screen", navController
+                                        )
 
-                                    StartNavigation.Profile.toString() -> {
-                                        val accountId: String = intent.extras?.getString(
-                                            KEY_DESTINATION_PARAM
-                                        ) ?: ""
-                                        if (accountId.isNotBlank()) {
-                                            Navigate.navigate(
-                                                "profile_screen/$accountId", navController
-                                            )
+                                        StartNavigation.Profile.toString() -> {
+                                            val accountId: String = intent.extras?.getString(
+                                                KEY_DESTINATION_PARAM
+                                            ) ?: ""
+                                            if (accountId.isNotBlank()) {
+                                                Navigate.navigate(
+                                                    "profile_screen/$accountId", navController
+                                                )
+                                            }
                                         }
-                                    }
 
-                                    StartNavigation.Post.toString() -> {
-                                        val postId: String = intent.extras?.getString(
-                                            KEY_DESTINATION_PARAM
-                                        ) ?: ""
-                                        if (postId.isNotBlank()) {
-                                            Navigate.navigate(
-                                                "single_post_screen/$postId", navController
-                                            )
+                                        StartNavigation.Post.toString() -> {
+                                            val postId: String = intent.extras?.getString(
+                                                KEY_DESTINATION_PARAM
+                                            ) ?: ""
+                                            if (postId.isNotBlank()) {
+                                                Navigate.navigate(
+                                                    "single_post_screen/$postId", navController
+                                                )
 
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+
+
                     }
-
-
-                }
-                if (showAccountSwitchBottomSheet) {
-                    ModalBottomSheet(
-                        onDismissRequest = {
-                            showAccountSwitchBottomSheet = false
-                        }, sheetState = sheetState
-                    ) {
-                        AccountSwitchBottomSheet(closeBottomSheet = {
-                            showAccountSwitchBottomSheet = false
-                        }, null)
+                    if (showAccountSwitchBottomSheet) {
+                        ModalBottomSheet(
+                            onDismissRequest = {
+                                showAccountSwitchBottomSheet = false
+                            }, sheetState = sheetState
+                        ) {
+                            AccountSwitchBottomSheet(closeBottomSheet = {
+                                showAccountSwitchBottomSheet = false
+                            }, null)
+                        }
                     }
                 }
             }

@@ -33,58 +33,40 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.daniebeler.pfpixelix.MyApplication
-import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.*
-import com.daniebeler.pfpixelix.di.ViewModelComponent
+import com.daniebeler.pfpixelix.di.AppComponent
+import com.daniebeler.pfpixelix.di.KmpViewModelComponent
 import com.daniebeler.pfpixelix.di.create
+import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
-@Composable
-internal fun <T> injectViewModel(key: String, block: ViewModelComponent.() -> T): T = remember(key) {
-    ViewModelComponent::class.create(MyApplication.appComponent).block()
-}
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import pixelix.app.generated.resources.*
 
 @Composable
 fun LoginComposable(
     isLoading: Boolean,
     error: String,
-    viewModel: LoginViewModel = injectViewModel(key = "login-viewmodel-key") { loginViewModel }
+    viewModel: LoginViewModel = rememberViewModel(key = "login-viewmodel-key") { loginViewModel }
 ) {
-    val systemUiController = rememberSystemUiController()
-    systemUiController.setSystemBarsColor(
-        color = if (isSystemInDarkTheme()) {
-            Color.White
-        } else {
-            Color.Black
-        }, darkIcons = isSystemInDarkTheme()
-    )
-
-    systemUiController.setNavigationBarColor(
-        color = Color.Transparent, darkIcons = isSystemInDarkTheme()
-    )
-    val context = LocalContext.current
+    val context = LocalKmpContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 

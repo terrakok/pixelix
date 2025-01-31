@@ -10,9 +10,17 @@ plugins {
 
 kotlin {
     androidTarget()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
 
     jvmToolchain(17)
 
@@ -113,6 +121,7 @@ dependencies {
     annotationProcessor(libs.androidx.lifecycle.compiler)
 
     listOf(
+//        "kspCommonMainMetadata",
         "kspAndroid",
         "kspIosX64",
         "kspIosArm64",
