@@ -6,9 +6,13 @@ import com.daniebeler.pfpixelix.di.create
 import com.daniebeler.pfpixelix.utils.IosContext
 import platform.UIKit.UIViewController
 
+
+private val mainComponent by lazy { AppComponent.create(IosContext) }
+
 fun LoginViewController(): UIViewController {
-    val mainComponent = AppComponent.create(IosContext)
     val loginScreen = mainComponent.loginScreen
+
+//    loginScreen.onStart()
     return ComposeUIViewController {
         loginScreen.content()
     }

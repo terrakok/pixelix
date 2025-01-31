@@ -52,12 +52,7 @@ class LoginScreen(
             LocalAppComponent provides appComponent
         ) {
             PixelixTheme {
-                Scaffold { paddingValues ->
-                    Column(Modifier.padding(paddingValues)) {
-
-                    }
-                    LoginComposable(isLoadingAfterRedirect, error)
-                }
+                LoginComposable(isLoadingAfterRedirect, error)
             }
         }
     }
