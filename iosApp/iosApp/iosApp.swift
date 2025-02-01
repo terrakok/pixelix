@@ -4,6 +4,7 @@ import ComposeApp
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    let urlHandler = ExternalUrlHandler()
 
     func application(
         _ application: UIApplication,
@@ -11,9 +12,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window = window {
-            window.rootViewController = IosEntryPointsKt.LoginViewController()
+            window.rootViewController = IosEntryPointsKt.LoginViewController(externalUrlHandler: urlHandler)
             window.makeKeyAndVisible()
         }
+        return true
+    }
+    
+    func application(
+        _ application: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        urlHandler.onExternalUrl(url: url.absoluteString)
         return true
     }
 }

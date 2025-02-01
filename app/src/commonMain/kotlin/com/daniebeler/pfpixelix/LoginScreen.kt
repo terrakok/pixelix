@@ -40,8 +40,6 @@ class LoginScreen(
     private val getOngoingLoginUseCase: GetOngoingLoginUseCase,
     private val hostSelectionInterceptorInterface: HostSelectionInterceptorInterface
 ) {
-
-
     private var isLoadingAfterRedirect: Boolean by mutableStateOf(false)
     private var error: String by mutableStateOf("")
 
