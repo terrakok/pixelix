@@ -9,6 +9,7 @@ import com.daniebeler.pfpixelix.domain.model.LoginData
 import com.daniebeler.pfpixelix.domain.repository.CountryRepository
 import com.daniebeler.pfpixelix.domain.usecase.AddNewLoginUseCase
 import com.daniebeler.pfpixelix.domain.usecase.UpdateLoginDataUseCase
+import com.daniebeler.pfpixelix.utils.ContextNavigation
 import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import me.tatarka.inject.annotations.Inject
@@ -16,7 +17,8 @@ import me.tatarka.inject.annotations.Inject
 class LoginViewModel @Inject constructor(
     private val repository: CountryRepository,
     private val newLoginDataUseCase: AddNewLoginUseCase,
-    private val updateLoginDataUseCase: UpdateLoginDataUseCase
+    private val updateLoginDataUseCase: UpdateLoginDataUseCase,
+    private val contextNavigation: ContextNavigation
 ) : ViewModel() {
 
     private val domainRegex: Regex =
@@ -50,7 +52,7 @@ class LoginViewModel @Inject constructor(
         isValidUrl = domainRegex.matches(customUrl)
     }
 
-    suspend fun login(baseUrl: String, context: KmpContext) {
+    suspend fun login(baseUrl: String) {
         loading = true
         if (domainRegex.matches(baseUrl)) {
             val newBaseUrl = setBaseUrl(baseUrl)
@@ -64,15 +66,15 @@ class LoginViewModel @Inject constructor(
                         loginOngoing = true
                     )
                 )
-                openUrl(context, authApplication.clientId, newBaseUrl)
+                openUrl(authApplication.clientId, newBaseUrl)
             }
         }
         loading = false
     }
 
-    private fun openUrl(context: KmpContext, clientId: String, baseUrl: String) {
+    private fun openUrl(clientId: String, baseUrl: String) {
         val url =
             "${baseUrl}/oauth/authorize?response_type=code&redirect_uri=pixelix-android-auth://callback&client_id=" + clientId
-        Navigate.openUrlInApp(context, url)
+        Navigate.openUrlInApp(contextNavigation, url)
     }
 }

@@ -1,22 +1,11 @@
 package com.daniebeler.pfpixelix.ui.composables.textfield_mentions
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,22 +13,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.getTextAfterSelection
 import androidx.compose.ui.text.input.getTextBeforeSelection
 import androidx.compose.ui.unit.dp
-import com.daniebeler.pfpixelix.ui.composables.injectViewModel
-import com.daniebeler.pfpixelix.R
-import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.daniebeler.pfpixelix.ui.composables.rememberViewModel
 import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TextFieldMentionsComposable(
@@ -51,7 +33,7 @@ fun TextFieldMentionsComposable(
     modifier: Modifier?,
     imeAction: ImeAction,
     suggestionsBoxColor: Color,
-    viewModel: TextFieldMentionsViewModel = injectViewModel("TextFieldMentionsViewModel") { textFieldMentionsViewModel }
+    viewModel: TextFieldMentionsViewModel = rememberViewModel("TextFieldMentionsViewModel") { textFieldMentionsViewModel }
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current

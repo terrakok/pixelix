@@ -11,7 +11,9 @@ import coil3.ImageLoader
 import coil3.disk.DiskCache
 import coil3.memory.MemoryCache
 import coil3.request.CachePolicy
+import com.daniebeler.pfpixelix.utils.ContextNavigation
 import com.daniebeler.pfpixelix.LoginScreen
+import com.daniebeler.pfpixelix.MainScreen
 import com.daniebeler.pfpixelix.data.remote.PixelfedApi
 import com.daniebeler.pfpixelix.data.remote.createPixelfedApi
 import com.daniebeler.pfpixelix.data.repository.AccountRepositoryImpl
@@ -81,7 +83,8 @@ annotation class AppSingleton
 @AppSingleton
 @Component
 abstract class AppComponent(
-    @get:Provides val context: KmpContext
+    @get:Provides val context: KmpContext,
+    @get:Provides val contextNavigation: ContextNavigation
 ) {
     @Provides fun getSelf(): AppComponent = this
 
@@ -231,10 +234,15 @@ abstract class AppComponent(
     @Provides
     fun getWidgetRepository(impl: WidgetRepositoryImpl): WidgetRepository = impl
 
-    abstract val loginScreen: LoginScreen
+    abstract fun createLoginScreen(): LoginScreen
+
+    abstract fun createMainScreen(): MainScreen
 
     companion object
 }
 
 @KmpComponentCreate
-expect fun AppComponent.Companion.create(context: KmpContext): AppComponent
+expect fun AppComponent.Companion.create(
+    context: KmpContext,
+    contextNavigation: ContextNavigation
+): AppComponent

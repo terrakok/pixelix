@@ -11,9 +11,9 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
-import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.domain.model.Account
+import com.daniebeler.pfpixelix.ui.composables.rememberViewModel
 import com.daniebeler.pfpixelix.utils.Navigate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +28,7 @@ fun HashtagsMentionsTextView(
     navController: NavController,
     openUrl: (url: String) -> Unit,
     textSize: TextUnit? = null,
-    viewModel: TextWithClickableHashtagsAndMentionsViewModel = injectViewModel(key = "hashtags-mentions-tv$text") { textWithClickableHashtagsAndMentionsViewModel }
+    viewModel: TextWithClickableHashtagsAndMentionsViewModel = rememberViewModel(key = "hashtags-mentions-tv$text") { textWithClickableHashtagsAndMentionsViewModel }
 ) {
 
     val colorScheme = MaterialTheme.colorScheme

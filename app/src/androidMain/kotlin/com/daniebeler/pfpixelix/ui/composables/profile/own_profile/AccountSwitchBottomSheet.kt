@@ -2,23 +2,11 @@ package com.daniebeler.pfpixelix.ui.composables.profile.own_profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,21 +14,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.daniebeler.pfpixelix.ui.composables.injectViewModel
-import com.daniebeler.pfpixelix.R
-import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.domain.model.loginDataToAccount
-import com.daniebeler.pfpixelix.gotoLoginActivity
+import com.daniebeler.pfpixelix.ui.composables.LocalAppComponent
 import com.daniebeler.pfpixelix.ui.composables.custom_account.CustomAccount
 import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
+import pixelix.app.generated.resources.*
 
 @Composable
 fun AccountSwitchBottomSheet(
@@ -48,6 +33,7 @@ fun AccountSwitchBottomSheet(
     ownProfileViewModel: OwnProfileViewModel?,
     viewModel: AccountSwitchViewModel = injectViewModel(key = "account_switcher_viewmodel") { accountSwitchViewModel }
 ) {
+    val app = LocalAppComponent.current
     val context = LocalContext.current
     val showRemoveLoginDataAlert = remember { mutableStateOf("") }
 
@@ -88,7 +74,7 @@ fun AccountSwitchBottomSheet(
             modifier = Modifier
                 .padding(horizontal = 12.dp, vertical = 8.dp)
                 .fillMaxWidth()
-                .clickable { gotoLoginActivity(context, true) },
+                .clickable { app.contextNavigation.gotoLoginActivity(true) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(

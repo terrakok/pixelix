@@ -1,29 +1,18 @@
 package com.daniebeler.pfpixelix
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.*
 import com.daniebeler.pfpixelix.common.Resource
 import com.daniebeler.pfpixelix.di.AppComponent
 import com.daniebeler.pfpixelix.di.HostSelectionInterceptorInterface
 import com.daniebeler.pfpixelix.domain.model.LoginData
-import com.daniebeler.pfpixelix.domain.usecase.AddNewLoginUseCase
-import com.daniebeler.pfpixelix.domain.usecase.FinishLoginUseCase
-import com.daniebeler.pfpixelix.domain.usecase.GetOngoingLoginUseCase
-import com.daniebeler.pfpixelix.domain.usecase.ObtainTokenUseCase
-import com.daniebeler.pfpixelix.domain.usecase.UpdateLoginDataUseCase
-import com.daniebeler.pfpixelix.domain.usecase.VerifyTokenUseCase
+import com.daniebeler.pfpixelix.domain.usecase.*
 import com.daniebeler.pfpixelix.ui.composables.LocalAppComponent
 import com.daniebeler.pfpixelix.ui.composables.LoginComposable
 import com.daniebeler.pfpixelix.ui.theme.PixelixTheme
+import com.daniebeler.pfpixelix.utils.ContextNavigation
+import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.LocalKmpContext
-import io.ktor.http.Url
+import io.ktor.http.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,6 +21,7 @@ import me.tatarka.inject.annotations.Inject
 @Inject
 class LoginScreen(
     private val appComponent: AppComponent,
+    private val contextNavigation: ContextNavigation,
     private val obtainTokenUseCase: ObtainTokenUseCase,
     private val verifyTokenUseCase: VerifyTokenUseCase,
     private val updateLoginDataUseCase: UpdateLoginDataUseCase,
@@ -58,14 +48,13 @@ class LoginScreen(
     fun onStart(
         baseUrl: String?,
         accessToken: String?,
-        url: Url?,
-        redirect: () -> Unit
+        url: Url?
     ) {
         if (baseUrl != null && accessToken != null) {
             hostSelectionInterceptorInterface.setHost(baseUrl)
             hostSelectionInterceptorInterface.setToken(accessToken)
             CoroutineScope(Dispatchers.Default).launch {
-                verifyToken(LoginData(baseUrl = baseUrl, accessToken = accessToken), true, redirect)
+                verifyToken(LoginData(baseUrl = baseUrl, accessToken = accessToken), true)
             }
         }
 
@@ -78,15 +67,12 @@ class LoginScreen(
 
             isLoadingAfterRedirect = true
             CoroutineScope(Dispatchers.Default).launch {
-                getTokenAndRedirect(code, redirect)
+                getTokenAndRedirect(code)
             }
         }
     }
 
-    private suspend fun getTokenAndRedirect(
-        code: String,
-        redirect: () -> Unit
-    ) {
+    private suspend fun getTokenAndRedirect(code: String) {
         val loginData: LoginData? = getOngoingLoginUseCase()
         if (loginData == null) {
             error = "an unexpected error occured"
@@ -97,7 +83,7 @@ class LoginScreen(
                     is Resource.Success -> {
                         val newLoginData = loginData.copy(accessToken = result.data!!.accessToken)
                         updateLoginDataUseCase(newLoginData)
-                        verifyToken(newLoginData, false, redirect)
+                        verifyToken(newLoginData, false)
                     }
 
                     is Resource.Error -> {
@@ -115,8 +101,7 @@ class LoginScreen(
 
     private suspend fun verifyToken(
         loginData: LoginData,
-        updateToAuthV2: Boolean,
-        redirect: () -> Unit
+        updateToAuthV2: Boolean
     ) {
         verifyTokenUseCase(loginData.accessToken).collect { result ->
             when (result) {
@@ -139,7 +124,7 @@ class LoginScreen(
                     }
                     finishLoginUseCase(newLoginData, newLoginData.accountId)
 
-                    redirect()
+                    contextNavigation.redirect()
                 }
 
                 is Resource.Error -> {

@@ -1,49 +1,31 @@
 package com.daniebeler.pfpixelix.ui.composables.post
 
-import android.content.Context
-import android.os.Build
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Description
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.OpenInBrowser
-import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material.icons.outlined.Visibility
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.common.Constants
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
+import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.Share
 import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
+import pixelix.app.generated.resources.*
 
 @Composable
 fun ShareBottomSheet(
-    context: Context,
+    context: KmpContext,
     url: String,
     minePost: Boolean,
     viewModel: PostViewModel,
@@ -115,7 +97,9 @@ fun ShareBottomSheet(
                 Share.shareText(context, url)
             })
 
-        if (mediaAttachment != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && mediaAttachment.type == "image") {
+        //todo
+//        if (mediaAttachment != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && mediaAttachment.type == "image") {
+        if (mediaAttachment != null && mediaAttachment.type == "image") {
             ButtonRowElement(icon = Icons.Outlined.Download,
                 text = stringResource(Res.string.download_image),
                 onClick = {

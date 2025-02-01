@@ -1,18 +1,18 @@
 package com.daniebeler.pfpixelix
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowCompat
-import io.ktor.http.Url
+import io.ktor.http.*
 
 class LoginActivity : ComponentActivity() {
-    private val loginScreen: LoginScreen =
-        MyApplication.appComponent.appComponent.loginScreen
+    private val appComponent = MyApplication.appComponent.appComponent
+    private val loginScreen: LoginScreen = appComponent.createLoginScreen()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (appComponent.contextNavigation as AndroidContextNavigation).context = this
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
@@ -29,15 +29,8 @@ class LoginActivity : ComponentActivity() {
         loginScreen.onStart(
             baseUrl = intent.extras?.getString("base_url"),
             accessToken = intent.extras?.getString("access_token"),
-            url = intent.data?.let { Url(it.toString()) },
-            ::redirect
+            url = intent.data?.let { Url(it.toString()) }
         )
-    }
-
-    private fun redirect() {
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        applicationContext.startActivity(intent)
     }
 }
 

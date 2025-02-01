@@ -8,11 +8,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.unit.dp
-import com.daniebeler.pfpixelix.R
+import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.*
+import pixelix.app.generated.resources.this_is_the_end
 
 @Composable
 fun EndOfListComposable() {

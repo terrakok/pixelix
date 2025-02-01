@@ -1,7 +1,5 @@
 package com.daniebeler.pfpixelix.ui.composables.post
 
-import android.annotation.SuppressLint
-import android.net.Uri
 import androidx.compose.animation.core.EaseInOut
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -10,61 +8,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.VolumeOff
-import androidx.compose.material.icons.automirrored.outlined.VolumeUp
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.BookmarkBorder
-import androidx.compose.material.icons.outlined.Cached
-import androidx.compose.material.icons.outlined.ChatBubbleOutline
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Description
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material.icons.outlined.MoreHoriz
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.outlined.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -74,38 +28,21 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.LayoutCoordinates
-import androidx.compose.ui.layout.boundsInRoot
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInRoot
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.media3.common.AudioAttributes
-import androidx.media3.common.C
-import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
-import androidx.media3.common.Tracks
-import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.ui.AspectRatioFrameLayout
-import androidx.media3.ui.PlayerView
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
-import com.daniebeler.pfpixelix.ui.composables.injectViewModel
+import com.daniebeler.pfpixelix.ui.composables.rememberViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.utils.BlurHashDecoder
+import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.zoomable.rememberZoomState
 import kotlinx.coroutines.CoroutineScope
@@ -115,20 +52,7 @@ import kotlinx.coroutines.launch
 import net.engawapg.lib.zoomable.snapBackZoomable
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.and
-import pixelix.app.generated.resources.cancel
-import pixelix.app.generated.resources.default_avatar
-import pixelix.app.generated.resources.delete
-import pixelix.app.generated.resources.delete_post
-import pixelix.app.generated.resources.liked_by
-import pixelix.app.generated.resources.media_description
-import pixelix.app.generated.resources.no_likes_yet
-import pixelix.app.generated.resources.ok
-import pixelix.app.generated.resources.others
-import pixelix.app.generated.resources.reblogged_by
-import pixelix.app.generated.resources.this_action_cannot_be_undone
-import pixelix.app.generated.resources.view_comments
+import pixelix.app.generated.resources.*
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -141,10 +65,10 @@ fun PostComposable(
     openReplies: Boolean = false,
     showReplies: Boolean = true,
     modifier: Modifier = Modifier,
-    viewModel: PostViewModel = injectViewModel(key = "post" + post.id) { postViewModel }
+    viewModel: PostViewModel = rememberViewModel(key = "post" + post.id) { postViewModel }
 ) {
 
-    val context = LocalContext.current
+    val context = LocalKmpContext.current
 
     var postId  by remember { mutableStateOf(post.id) }
 
@@ -686,7 +610,6 @@ fun PostComposable(
     LoadingComposable(isLoading = viewModel.deleteState.isLoading)
 }
 
-@androidx.annotation.OptIn(UnstableApi::class)
 @Composable
 fun PostImage(
     mediaAttachment: MediaAttachment,
@@ -760,7 +683,8 @@ fun PostImage(
                     { zoomState.setContentSize(it.painter.intrinsicSize) },
                     { imageLoaded = true })
             } else {
-                VideoPlayer(uri = Uri.parse(mediaAttachment.url), viewModel, { imageLoaded = true })
+                //todo
+//                VideoPlayer(uri = Uri.parse(mediaAttachment.url), viewModel, { imageLoaded = true })
             }
         }
 
@@ -833,191 +757,189 @@ private fun ImageWrapper(
         })
 }
 
-@Composable
-@androidx.annotation.OptIn(UnstableApi::class)
-private fun VideoPlayer(
-    uri: Uri, viewModel: PostViewModel, onSuccess: () -> Unit
-) {
-    val context = LocalContext.current
+//@Composable
+//private fun VideoPlayer(
+//    uri: Uri, viewModel: PostViewModel, onSuccess: () -> Unit
+//) {
+//    val context = LocalKmpContext.current
+//
+//    val lifecycleOwner = LocalLifecycleOwner.current
+//
+//    var hasAudio by remember { mutableStateOf(false) }
+//
+//    val exoPlayer = remember(context) {
+//        ExoPlayer.Builder(context).build().apply {
+//            addListener(object : Player.Listener {
+//                override fun onTracksChanged(tracks: Tracks) {
+//                    tracks.groups.forEach { trackGroup ->
+//                        trackGroup.mediaTrackGroup.let { mediaTrackGroup ->
+//                            for (i in 0 until mediaTrackGroup.length) {
+//                                val format = mediaTrackGroup.getFormat(i)
+//                                if (format.sampleMimeType?.startsWith("audio/") == true) {
+//                                    hasAudio = true
+//                                    break
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//            addListener(object : Player.Listener {
+//                override fun onIsLoadingChanged(isLoading: Boolean) {
+//                    if (!isLoading) {
+//                        onSuccess()
+//                    }
+//                }
+//            })
+//        }
+//    }
+//
+//    var visible by remember {
+//        mutableStateOf(false)
+//    }
+//    val audioAttributes =
+//        AudioAttributes.Builder().setUsage(C.USAGE_MEDIA).setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
+//            .build()
+//    exoPlayer.setAudioAttributes(audioAttributes, true)
+//
+//    val contentLength = remember {
+//        mutableLongStateOf(1.toLong())
+//    }
+//
+//    val currentPos = remember {
+//        mutableLongStateOf(0.toLong())
+//    }
+//
+//    val currentProgress = remember {
+//        mutableFloatStateOf(0.toFloat())
+//    }
+//
+//    val mediaSource = remember(uri) {
+//        MediaItem.fromUri(uri)
+//    }
+//
+//    DisposableEffect(lifecycleOwner) {
+//        val observer = LifecycleEventObserver { _, event ->
+//            when (event) {
+//                Lifecycle.Event.ON_PAUSE -> {
+//                    exoPlayer.pause()
+//                }
+//
+//                Lifecycle.Event.ON_RESUME -> {
+//                    exoPlayer.play()
+//                }
+//
+//                else -> {}
+//            }
+//        }
+//
+//        lifecycleOwner.lifecycle.addObserver(observer)
+//
+//        onDispose {
+//            lifecycleOwner.lifecycle.removeObserver(observer)
+//            exoPlayer.release()
+//        }
+//    }
+//
+//
+//    LaunchedEffect(Unit) {
+//        while (true) {
+//            contentLength.longValue =
+//                if (exoPlayer.contentDuration > 0) exoPlayer.contentDuration else 1
+//            currentPos.longValue =
+//                if (exoPlayer.currentPosition > 0) exoPlayer.currentPosition else 0
+//            currentProgress.floatValue = currentPos.longValue.toFloat() / contentLength.longValue
+//            delay(10)
+//        }
+//    }
+//
+//    // Set MediaSource to ExoPlayer
+//    LaunchedEffect(mediaSource) {
+//        exoPlayer.setMediaItem(mediaSource)
+//        exoPlayer.prepare()
+//    }
+//
+//    // Manage lifecycle events
+//    DisposableEffect(Unit) {
+//        exoPlayer.volume = if (viewModel.volume) {
+//            1f
+//        } else {
+//            0f
+//        }
+//        onDispose {
+//            exoPlayer.release()
+//        }
+//    }
+//    Column {
+//        Box(Modifier.isVisible(threshold = 50) {
+//            if (visible != it) {
+//                visible = it
+//                if (visible) {
+//                    exoPlayer.play()
+//                } else {
+//                    exoPlayer.pause()
+//                }
+//            }
+//        }) {
+//            AndroidView(factory = { ctx ->
+//                PlayerView(ctx).apply {
+//                    player = exoPlayer
+//                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH
+//                    setShowPreviousButton(false)
+//                    useController = false
+//                }
+//            }, modifier = Modifier
+//                .fillMaxWidth()
+//                .onGloballyPositioned { })
+//            DisposableEffect(key1 = Unit, effect = {
+//                onDispose {
+//                    exoPlayer.release()
+//                }
+//            })
+//
+//            if (hasAudio) {
+//                IconButton(
+//                    modifier = Modifier
+//                        .align(Alignment.BottomEnd)
+//                        .padding(8.dp), onClick = {
+//                        viewModel.toggleVolume(!viewModel.volume)
+//                        exoPlayer.volume = if (viewModel.volume) {
+//                            1f
+//                        } else {
+//                            0f
+//                        }
+//                    }, colors = IconButtonDefaults.filledTonalIconButtonColors()
+//                ) {
+//                    if (viewModel.volume) {
+//                        Icon(
+//                            Icons.AutoMirrored.Outlined.VolumeUp,
+//                            contentDescription = "Volume on",
+//                            Modifier.size(18.dp)
+//                        )
+//                    } else {
+//                        Icon(
+//                            Icons.AutoMirrored.Outlined.VolumeOff,
+//                            contentDescription = "Volume off",
+//                            Modifier.size(18.dp)
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//
+//        LinearProgressIndicator(
+//            progress = { currentProgress.floatValue },
+//            modifier = Modifier.fillMaxWidth(),
+//            trackColor = MaterialTheme.colorScheme.background
+//        )
+//    }
+//
+//
+//    //exoPlayer.playWhenReady = true
+//    //exoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
+//    exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
+//}
 
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    var hasAudio by remember { mutableStateOf(false) }
-
-    val exoPlayer = remember(context) {
-        ExoPlayer.Builder(context).build().apply {
-            addListener(object : Player.Listener {
-                override fun onTracksChanged(tracks: Tracks) {
-                    tracks.groups.forEach { trackGroup ->
-                        trackGroup.mediaTrackGroup.let { mediaTrackGroup ->
-                            for (i in 0 until mediaTrackGroup.length) {
-                                val format = mediaTrackGroup.getFormat(i)
-                                if (format.sampleMimeType?.startsWith("audio/") == true) {
-                                    hasAudio = true
-                                    break
-                                }
-                            }
-                        }
-                    }
-                }
-            })
-            addListener(object : Player.Listener {
-                override fun onIsLoadingChanged(isLoading: Boolean) {
-                    if (!isLoading) {
-                        onSuccess()
-                    }
-                }
-            })
-        }
-    }
-
-    var visible by remember {
-        mutableStateOf(false)
-    }
-    val audioAttributes =
-        AudioAttributes.Builder().setUsage(C.USAGE_MEDIA).setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
-            .build()
-    exoPlayer.setAudioAttributes(audioAttributes, true)
-
-    val contentLength = remember {
-        mutableLongStateOf(1.toLong())
-    }
-
-    val currentPos = remember {
-        mutableLongStateOf(0.toLong())
-    }
-
-    val currentProgress = remember {
-        mutableFloatStateOf(0.toFloat())
-    }
-
-    val mediaSource = remember(uri) {
-        MediaItem.fromUri(uri)
-    }
-
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_PAUSE -> {
-                    exoPlayer.pause()
-                }
-
-                Lifecycle.Event.ON_RESUME -> {
-                    exoPlayer.play()
-                }
-
-                else -> {}
-            }
-        }
-
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-            exoPlayer.release()
-        }
-    }
-
-
-    LaunchedEffect(Unit) {
-        while (true) {
-            contentLength.longValue =
-                if (exoPlayer.contentDuration > 0) exoPlayer.contentDuration else 1
-            currentPos.longValue =
-                if (exoPlayer.currentPosition > 0) exoPlayer.currentPosition else 0
-            currentProgress.floatValue = currentPos.longValue.toFloat() / contentLength.longValue
-            delay(10)
-        }
-    }
-
-    // Set MediaSource to ExoPlayer
-    LaunchedEffect(mediaSource) {
-        exoPlayer.setMediaItem(mediaSource)
-        exoPlayer.prepare()
-    }
-
-    // Manage lifecycle events
-    DisposableEffect(Unit) {
-        exoPlayer.volume = if (viewModel.volume) {
-            1f
-        } else {
-            0f
-        }
-        onDispose {
-            exoPlayer.release()
-        }
-    }
-    Column {
-        Box(Modifier.isVisible(threshold = 50) {
-            if (visible != it) {
-                visible = it
-                if (visible) {
-                    exoPlayer.play()
-                } else {
-                    exoPlayer.pause()
-                }
-            }
-        }) {
-            AndroidView(factory = { ctx ->
-                PlayerView(ctx).apply {
-                    player = exoPlayer
-                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH
-                    setShowPreviousButton(false)
-                    useController = false
-                }
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .onGloballyPositioned { })
-            DisposableEffect(key1 = Unit, effect = {
-                onDispose {
-                    exoPlayer.release()
-                }
-            })
-
-            if (hasAudio) {
-                IconButton(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(8.dp), onClick = {
-                        viewModel.toggleVolume(!viewModel.volume)
-                        exoPlayer.volume = if (viewModel.volume) {
-                            1f
-                        } else {
-                            0f
-                        }
-                    }, colors = IconButtonDefaults.filledTonalIconButtonColors()
-                ) {
-                    if (viewModel.volume) {
-                        Icon(
-                            Icons.AutoMirrored.Outlined.VolumeUp,
-                            contentDescription = "Volume on",
-                            Modifier.size(18.dp)
-                        )
-                    } else {
-                        Icon(
-                            Icons.AutoMirrored.Outlined.VolumeOff,
-                            contentDescription = "Volume off",
-                            Modifier.size(18.dp)
-                        )
-                    }
-                }
-            }
-        }
-
-        LinearProgressIndicator(
-            progress = { currentProgress.floatValue },
-            modifier = Modifier.fillMaxWidth(),
-            trackColor = MaterialTheme.colorScheme.background
-        )
-    }
-
-
-    //exoPlayer.playWhenReady = true
-    //exoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
-    exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
-}
-
-@SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.isVisible(
     threshold: Int, onVisibilityChange: (Boolean) -> Unit
 ) = composed {

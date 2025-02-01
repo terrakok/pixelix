@@ -1,56 +1,36 @@
 package com.daniebeler.pfpixelix.ui.composables.timelines.hashtag_timeline
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.only
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
-import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.*
 import com.daniebeler.pfpixelix.ui.composables.FollowButton
 import com.daniebeler.pfpixelix.ui.composables.InfinitePostsList
+import com.daniebeler.pfpixelix.ui.composables.rememberViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.utils.Navigate
-import java.util.Locale
+import org.jetbrains.compose.resources.stringResource
+import pixelix.app.generated.resources.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HashtagTimelineComposable(
     navController: NavController,
     hashtag: String,
-    viewModel: HashtagTimelineViewModel = injectViewModel(key = "hashtag-timeline$hashtag") { hashtagTimelineViewModel }
+    viewModel: HashtagTimelineViewModel = rememberViewModel(key = "hashtag-timeline$hashtag") { hashtagTimelineViewModel }
 ) {
 
     LaunchedEffect(hashtag) {
@@ -78,11 +58,9 @@ fun HashtagTimelineComposable(
                         )
                         if (viewModel.hashtagState.hashtag != null) {
                             Text(
-                                text = String.format(
-                                    Locale.GERMANY, "%,d", viewModel.hashtagState.hashtag!!.count
-                                ) + " " + stringResource(
-                                    Res.string.posts
-                                ),
+                                //todo
+//                                text = String.format(Locale.GERMANY, "%,d", viewModel.hashtagState.hashtag!!.count) + " " + stringResource(Res.string.posts),
+                                text = "${viewModel.hashtagState.hashtag!!.count} ${stringResource(Res.string.posts)}",
                                 fontSize = 14.sp,
                                 lineHeight = 12.sp,
                                 color = MaterialTheme.colorScheme.primary

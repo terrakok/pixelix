@@ -71,6 +71,7 @@ fun LoginComposable(
     error: String,
     viewModel: LoginViewModel = rememberViewModel(key = "login-viewmodel-key") { loginViewModel }
 ) {
+    val appComponent = LocalAppComponent.current
     val context = LocalKmpContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -181,7 +182,7 @@ fun LoginComposable(
                                 keyboardController?.hide()
                                 focusManager.clearFocus()
                                 CoroutineScope(Dispatchers.Default).launch {
-                                    viewModel.login(viewModel.customUrl, context)
+                                    viewModel.login(viewModel.customUrl)
                                 }
                             })
                         )
@@ -207,7 +208,7 @@ fun LoginComposable(
                             Button(
                                 onClick = {
                                     CoroutineScope(Dispatchers.Default).launch {
-                                        viewModel.login(viewModel.customUrl, context)
+                                        viewModel.login(viewModel.customUrl)
                                     }
                                 },
                                 Modifier
@@ -237,7 +238,7 @@ fun LoginComposable(
 
                     TextButton(onClick = {
                         val url = "https://pixelfed.org/servers"
-                        Navigate.openUrlInApp(context, url)
+                        Navigate.openUrlInApp(appComponent.contextNavigation, url)
                     }) {
                         Text(
                             stringResource(Res.string.i_don_t_have_an_account),

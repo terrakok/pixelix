@@ -1,6 +1,5 @@
 package com.daniebeler.pfpixelix.ui.composables
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

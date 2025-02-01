@@ -60,9 +60,7 @@ object Navigate {
         }
     }
 
-    fun openUrlInApp(context: KmpContext, url: String) {
-        context.openUrl(url)
+    fun openUrlInApp(contextNavigation: ContextNavigation, url: String) {
+        contextNavigation.openUrlInApp(url)
     }
 }
-
-expect fun KmpContext.openUrl(url: String)

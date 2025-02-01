@@ -2,7 +2,6 @@ package com.daniebeler.pfpixelix.utils
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.decodeToImageBitmap
 import androidx.compose.ui.graphics.toArgb
 import kotlin.math.PI
 import kotlin.math.cos

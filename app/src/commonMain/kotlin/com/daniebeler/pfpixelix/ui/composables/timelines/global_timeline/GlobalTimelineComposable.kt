@@ -1,15 +1,15 @@
 package com.daniebeler.pfpixelix.ui.composables.timelines.global_timeline
 
 import androidx.compose.runtime.Composable
-import com.daniebeler.pfpixelix.ui.composables.injectViewModel
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.ui.composables.InfinitePostsList
+import com.daniebeler.pfpixelix.ui.composables.rememberViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 
 @Composable
 fun GlobalTimelineComposable(
     navController: NavController,
-    viewModel: GlobalTimelineViewModel = injectViewModel(key = "global-timeline-key") { globalTimelineViewModel }
+    viewModel: GlobalTimelineViewModel = rememberViewModel(key = "global-timeline-key") { globalTimelineViewModel }
 ) {
     InfinitePostsList(items = viewModel.globalTimelineState.globalTimeline,
         isLoading = viewModel.globalTimelineState.isLoading,

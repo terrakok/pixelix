@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window = window {
-            window.rootViewController = IosEntryPointsKt.LoginViewController(externalUrlHandler: urlHandler)
+            window.rootViewController = IosEntryPointsKt.ComposeAppViewController(externalUrlHandler: urlHandler)
             window.makeKeyAndVisible()
         }
         return true

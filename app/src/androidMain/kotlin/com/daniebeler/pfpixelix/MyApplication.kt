@@ -15,7 +15,7 @@ class MyApplication : Application(), Configuration.Provider {
         get() = Configuration.Builder().setWorkerFactory(workerFactory).build()
 
     override fun onCreate() {
-        val mainComponent = AppComponent::class.create(this)
+        val mainComponent = AppComponent::class.create(this, AndroidContextNavigation(this))
         SingletonImageLoader.setSafe {
             mainComponent.provideImageLoader()
         }
