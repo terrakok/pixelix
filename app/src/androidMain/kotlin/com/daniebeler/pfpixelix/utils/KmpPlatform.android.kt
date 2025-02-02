@@ -15,6 +15,7 @@ actual typealias KmpContext = Context
 actual val KmpContext.coilContext: PlatformContext get() = this
 actual val KmpContext.imageCacheDir: Path get() = cacheDir.path.toPath().resolve("imageCache")
 actual val KmpContext.dataStoreDir: Path get() = dataDir.path.toPath().resolve("dataStore")
+actual val KmpContext.zestDir: Path get() = getDir("zest", Context.MODE_PRIVATE).path.toPath()
 actual val KmpContext.appVersionName: String
     get() = try {
         packageManager.getPackageInfo(packageName, 0).versionName!!

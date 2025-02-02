@@ -12,6 +12,7 @@ import com.daniebeler.pfpixelix.ui.composables.post.reply.OwnReplyState
 import com.daniebeler.pfpixelix.ui.composables.post.reply.RepliesState
 import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.TimeAgo
+import com.daniebeler.pfpixelix.utils.zestDir
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -341,22 +342,16 @@ class PostViewModel @Inject constructor(
     private fun generateUniqueName(
         imageName: String?, returnFullPath: Boolean, context: KmpContext
     ): String {
-        //todo
-//        val sdf = SimpleDateFormat("yyyyMMddsshhmmss", Locale.getDefault())
-//        val date: String = sdf.format(Date())
-        val ts = Clock.System.now().epochSeconds
-
-        val filename = imageName + "_" + ts
-
-//        if (returnFullPath) {
-//            val directory: File = KmpContext.getDir("zest", context.MODE_PRIVATE)
-//            return String.format("%s/%s", directory, filename)
-//        } else {
+        val filename = imageName + "_" + Clock.System.now().epochSeconds
+        if (returnFullPath) {
+            return context.zestDir.resolve(filename).toString()
+        } else {
             return filename
-//        }
+        }
     }
 
     fun saveImage(name: String?, url: String, context: KmpContext) {
+        //todo
 //        var uri: Uri? = null
 //        val saveImageRoutine = CoroutineScope(Dispatchers.Default).launch {
 //

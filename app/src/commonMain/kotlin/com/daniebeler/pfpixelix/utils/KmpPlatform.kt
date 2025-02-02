@@ -11,6 +11,7 @@ expect abstract class KmpContext
 expect val KmpContext.coilContext: PlatformContext
 expect val KmpContext.imageCacheDir: Path
 expect val KmpContext.dataStoreDir: Path
+expect val KmpContext.zestDir: Path
 expect val KmpContext.appVersionName: String
 
 val LocalKmpContext = staticCompositionLocalOf<KmpContext> { error("no KmpContext") }

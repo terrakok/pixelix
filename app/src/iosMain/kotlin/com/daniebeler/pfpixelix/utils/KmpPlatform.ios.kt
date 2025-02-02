@@ -18,6 +18,7 @@ actual abstract class KmpContext
 actual val KmpContext.coilContext: PlatformContext get() = PlatformContext.INSTANCE
 actual val KmpContext.imageCacheDir: Path get() = appDocDir().resolve("imageCache")
 actual val KmpContext.dataStoreDir: Path get() = appDocDir().resolve("dataStore")
+actual val KmpContext.zestDir: Path get() = appDocDir().resolve("zest")
 
 object IosContext : KmpContext()
 
