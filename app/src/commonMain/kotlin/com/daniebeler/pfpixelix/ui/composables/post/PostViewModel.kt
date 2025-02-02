@@ -349,7 +349,7 @@ class PostViewModel @Inject constructor(
         val filename = imageName + "_" + ts
 
 //        if (returnFullPath) {
-//            val directory: File = context.getDir("zest", Context.MODE_PRIVATE)
+//            val directory: File = KmpContext.getDir("zest", context.MODE_PRIVATE)
 //            return String.format("%s/%s", directory, filename)
 //        } else {
             return filename
@@ -382,7 +382,7 @@ class PostViewModel @Inject constructor(
 //                        .show()
 //                } ?: throwable?.let {
 //                    Toast.makeText(
-//                        context, "an error occurred downloading the image", Toast.LENGTH_LONG
+//                        KmpContext, "an error occurred downloading the image", Toast.LENGTH_LONG
 //                    ).show()
 //                }
 //            }
@@ -391,7 +391,7 @@ class PostViewModel @Inject constructor(
 
 //    private suspend fun urlToBitmap(
 //        imageURL: String,
-//        context: Context,
+//        context: KmpContext,
 //    ): Bitmap? {
 //        val loader = ImageLoader(context)
 //        val request = ImageRequest.Builder(context).data(imageURL).allowHardware(false).build()
@@ -402,7 +402,7 @@ class PostViewModel @Inject constructor(
 //        return null
 //    }
 //
-//    private fun saveImageToMediaStore(context: Context, displayName: String, bitmap: Bitmap): Uri? {
+//    private fun saveImageToMediaStore(context: KmpContext, displayName: String, bitmap: Bitmap): Uri? {
 //        val imageCollections = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 //            MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
 //        } else {
@@ -417,7 +417,7 @@ class PostViewModel @Inject constructor(
 //            }
 //        }
 //
-//        val resolver = context.applicationContext.contentResolver
+//        val resolver = KmpContext.applicationContext.contentResolver
 //        val imageContentUri = resolver.insert(imageCollections, imageDetails) ?: return null
 //
 //        return try {

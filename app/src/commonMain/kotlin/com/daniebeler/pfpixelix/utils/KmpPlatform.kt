@@ -13,5 +13,3 @@ expect val KmpContext.imageCacheDir: Path
 expect val KmpContext.dataStoreDir: Path
 
 val LocalKmpContext = staticCompositionLocalOf<KmpContext> { error("no KmpContext") }
-
-expect interface KmpImageBitmap

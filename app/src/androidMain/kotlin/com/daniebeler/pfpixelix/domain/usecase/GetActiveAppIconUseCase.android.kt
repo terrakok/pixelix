@@ -2,17 +2,17 @@ package com.daniebeler.pfpixelix.domain.usecase
 
 import android.content.ComponentName
 import android.util.DisplayMetrics
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.daniebeler.pfpixelix.common.IconsHolder
 import com.daniebeler.pfpixelix.utils.KmpContext
-import com.daniebeler.pfpixelix.utils.KmpImageBitmap
 import me.tatarka.inject.annotations.Inject
 
 @Inject
 actual class GetActiveAppIconUseCase {
-    actual operator fun invoke(context: KmpContext): KmpImageBitmap? {
+    actual operator fun invoke(context: KmpContext): ImageBitmap? {
         try {
             val packageManager = context.packageManager
 

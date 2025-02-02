@@ -21,8 +21,6 @@ actual val KmpContext.dataStoreDir: Path get() = appDocDir().resolve("dataStore"
 
 object IosContext : KmpContext()
 
-actual interface KmpImageBitmap
-
 @OptIn(ExperimentalForeignApi::class)
 private fun appDocDir() = NSFileManager.defaultManager.URLForDirectory(
     directory = NSDocumentDirectory,

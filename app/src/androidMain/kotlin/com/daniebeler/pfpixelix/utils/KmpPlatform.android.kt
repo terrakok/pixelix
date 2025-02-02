@@ -13,5 +13,3 @@ actual typealias KmpContext = Context
 actual val KmpContext.coilContext: PlatformContext get() = this
 actual val KmpContext.imageCacheDir: Path get() = cacheDir.path.toPath().resolve("imageCache")
 actual val KmpContext.dataStoreDir: Path get() = dataDir.path.toPath().resolve("dataStore")
-
-actual typealias KmpImageBitmap = ImageBitmap

@@ -48,46 +48,4 @@ import me.tatarka.inject.annotations.Component
 abstract class ViewModelComponent(
     @Component val app: AndroidAppComponent
 ) {
-    abstract val loginViewModel: LoginViewModel
-    abstract val collectionViewModel: CollectionViewModel
-    abstract val customAccountViewModel: CustomAccountViewModel
-    abstract val chatViewModel: ChatViewModel
-    abstract val aboutInstanceViewModel: AboutInstanceViewModel
-    abstract val aboutPixelixViewModel: AboutPixelixViewModel
-    abstract val accountSwitchViewModel: AccountSwitchViewModel
-    abstract val blockedAccountsViewModel: BlockedAccountsViewModel
-    abstract val bookmarkedPostsViewModel: BookmarkedPostsViewModel
-    abstract val replyElementViewModel: ReplyElementViewModel
-    abstract val customNotificationViewModel: CustomNotificationViewModel
-    abstract val editProfileViewModel: EditProfileViewModel
-    abstract val exploreViewModel: ExploreViewModel
-    abstract val followedHashtagsViewModel: FollowedHashtagsViewModel
-    abstract val followersViewModel: FollowersViewModel
-    abstract val globalTimelineViewModel: GlobalTimelineViewModel
-    abstract val hashtagTimelineViewModel: HashtagTimelineViewModel
-    abstract val homeTimelineViewModel: HomeTimelineViewModel
-    abstract val iconSelectionViewModel: IconSelectionViewModel
-    abstract val likedPostsViewModel: LikedPostsViewModel
-    abstract val localTimelineViewModel: LocalTimelineViewModel
-    abstract val mentionViewModel: MentionViewModel
-    abstract val mutedAccountsViewModel: MutedAccountsViewModel
-    abstract val newPostViewModel: NewPostViewModel
-    abstract val notificationsViewModel: NotificationsViewModel
-    abstract val otherProfileViewModel: OtherProfileViewModel
-    abstract val ownProfileViewModel: OwnProfileViewModel
-    abstract val postViewModel: PostViewModel
-    abstract val themeViewModel: ThemeViewModel
-    abstract val preferencesViewModel: PreferencesViewModel
-    abstract val serverStatsViewModel: ServerStatsViewModel
-    abstract val singlePostViewModel: SinglePostViewModel
-    abstract val textWithClickableHashtagsAndMentionsViewModel: TextWithClickableHashtagsAndMentionsViewModel
-    abstract val trendingAccountElementViewModel: TrendingAccountElementViewModel
-    abstract val trendingAccountsViewModel: TrendingAccountsViewModel
-    abstract val trendingHashtagElementViewModel: TrendingHashtagElementViewModel
-    abstract val trendingHashtagsViewModel: TrendingHashtagsViewModel
-    abstract val trendingPostsViewModel: TrendingPostsViewModel
-    abstract val conversationsViewModel: ConversationsViewModel
-    abstract val editPostViewModel: EditPostViewModel
-    abstract val textFieldLocationsViewModel: TextFieldLocationsViewModel
-    abstract val textFieldMentionsViewModel: TextFieldMentionsViewModel
 }
