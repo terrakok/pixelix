@@ -22,6 +22,7 @@ import com.daniebeler.pfpixelix.ui.composables.InfinitePostsList
 import com.daniebeler.pfpixelix.ui.composables.rememberViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.*
 
@@ -58,9 +59,7 @@ fun HashtagTimelineComposable(
                         )
                         if (viewModel.hashtagState.hashtag != null) {
                             Text(
-                                //todo
-//                                text = String.format(Locale.GERMANY, "%,d", viewModel.hashtagState.hashtag!!.count) + " " + stringResource(Res.string.posts),
-                                text = "${viewModel.hashtagState.hashtag!!.count} ${stringResource(Res.string.posts)}",
+                                text = StringFormat.groupDigits(viewModel.hashtagState.hashtag!!.count) + " " + stringResource(Res.string.posts),
                                 fontSize = 14.sp,
                                 lineHeight = 12.sp,
                                 color = MaterialTheme.colorScheme.primary
