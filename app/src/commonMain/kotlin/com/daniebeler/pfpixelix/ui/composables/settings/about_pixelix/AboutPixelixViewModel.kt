@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.daniebeler.pfpixelix.domain.usecase.GetActiveAppIconUseCase
 import com.daniebeler.pfpixelix.domain.usecase.OpenExternalUrlUseCase
 import com.daniebeler.pfpixelix.utils.KmpContext
+import com.daniebeler.pfpixelix.utils.appVersionName
 import me.tatarka.inject.annotations.Inject
 
 class AboutPixelixViewModel @Inject constructor(
@@ -20,12 +21,7 @@ class AboutPixelixViewModel @Inject constructor(
     var appIcon by mutableStateOf<ImageBitmap?>(null)
 
     fun getVersionName(context: KmpContext) {
-        //todo
-//        try {
-//            versionName = KmpContext.packageManager.getPackageInfo(context.packageName, 0).versionName ?: ""
-//        } catch (e: PackageManager.NameNotFoundException) {
-//            e.printStackTrace()
-//        }
+        versionName = context.appVersionName
     }
 
     fun getAppIcon(context: KmpContext){

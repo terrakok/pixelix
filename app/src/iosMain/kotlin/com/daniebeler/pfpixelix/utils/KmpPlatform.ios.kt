@@ -6,7 +6,7 @@ import okio.Path
 import okio.Path.Companion.toPath
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
-import platform.Foundation.NSURL
+import platform.Foundation.NSBundle
 import platform.Foundation.NSUserDomainMask
 
 actual abstract class KmpUri {
@@ -29,3 +29,6 @@ private fun appDocDir() = NSFileManager.defaultManager.URLForDirectory(
     create = false,
     error = null,
 )!!.path!!.toPath()
+
+actual val KmpContext.appVersionName: String
+    get() = NSBundle.mainBundle.infoDictionary?.get("CFBundleShortVersionString").toString()
