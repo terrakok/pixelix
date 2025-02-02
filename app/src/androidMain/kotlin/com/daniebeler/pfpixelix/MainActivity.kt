@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
             Notifications, Profile, Post
         }
     }
-    private val appComponent = MyApplication.appComponent.appComponent
+    private val appComponent = MyApplication.appComponent
     private val mainScreen = appComponent.createMainScreen()
 
     @OptIn(ExperimentalMaterial3Api::class)

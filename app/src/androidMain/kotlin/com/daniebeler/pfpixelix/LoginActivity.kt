@@ -8,7 +8,7 @@ import androidx.core.view.WindowCompat
 import io.ktor.http.*
 
 class LoginActivity : ComponentActivity() {
-    private val appComponent = MyApplication.appComponent.appComponent
+    private val appComponent = MyApplication.appComponent
     private val loginScreen: LoginScreen = appComponent.createLoginScreen()
 
     override fun onCreate(savedInstanceState: Bundle?) {
