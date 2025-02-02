@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
+import com.daniebeler.pfpixelix.ui.composables.LocalAppComponent
 import com.daniebeler.pfpixelix.ui.composables.SwitchRowItem
 import com.daniebeler.pfpixelix.ui.composables.ThemeViewModel
 import com.daniebeler.pfpixelix.ui.composables.rememberViewModel
@@ -163,13 +164,11 @@ fun PreferencesComposable(
             }, onDismissRequest = {
                 showLogoutDialog.value = false
             }, confirmButton = {
+                val contextNavigation = LocalAppComponent.current.contextNavigation
                 TextButton(onClick = {
                     CoroutineScope(Dispatchers.Default).launch {
                         viewModel.logout()
-                        //todo logout
-//                        val intent = Intent(context, LoginActivity::class.java)
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//                        KmpContext.startActivity(intent)
+                        contextNavigation.gotoLoginActivity(false)
                     }
                 }) {
                     Text(stringResource(Res.string.logout))
