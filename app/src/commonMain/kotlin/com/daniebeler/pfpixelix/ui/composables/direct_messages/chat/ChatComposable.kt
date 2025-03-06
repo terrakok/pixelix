@@ -63,6 +63,7 @@ import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.beginning_of_chat_note
 import pixelix.app.generated.resources.chevron_back_outline
 import pixelix.app.generated.resources.default_avatar
+import pixelix.app.generated.resources.message
 
 @OptIn(ExperimentalMaterial3Api::class)
 
@@ -193,7 +194,7 @@ fun ChatComposable(
                 Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Bottom) {
                     OutlinedTextField(value = viewModel.newMessage,
                         onValueChange = { viewModel.newMessage = it },
-                        label = { Text("Message") },
+                        label = { Text(stringResource(Res.string.message)) },
                         singleLine = false,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedContainerColor = MaterialTheme.colorScheme.surfaceContainer,

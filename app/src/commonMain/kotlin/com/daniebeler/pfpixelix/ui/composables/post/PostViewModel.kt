@@ -45,7 +45,6 @@ class PostViewModel @Inject constructor(
 
     var deleteState by mutableStateOf(DeleteState())
     var deleteDialog: String? by mutableStateOf(null)
-    var timeAgoString: String by mutableStateOf("")
 
     var showPost: Boolean by mutableStateOf(false)
 
@@ -111,10 +110,6 @@ class PostViewModel @Inject constructor(
 
     fun toggleShowPost() {
         showPost = !showPost
-    }
-
-    fun convertTime(createdAt: String) {
-        timeAgoString = TimeAgo.convertTimeToText(createdAt)
     }
 
     fun loadReplies(postId: String) {

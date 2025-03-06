@@ -52,6 +52,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -87,6 +88,7 @@ import com.daniebeler.pfpixelix.utils.BlurHashDecoder
 import com.daniebeler.pfpixelix.utils.KmpUri
 import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.utils.TimeAgo
 import com.daniebeler.pfpixelix.utils.toKmpUri
 import com.daniebeler.pfpixelix.utils.zoomable.rememberZoomState
 import kotlinx.coroutines.CoroutineScope
@@ -149,9 +151,8 @@ fun PostComposable(
         )
     }
 
-    DisposableEffect(post.createdAt) {
-        viewModel.convertTime(post.createdAt)
-        onDispose {}
+    val timeAgoText = produceState(initialValue = "") {
+        value = TimeAgo.convertTimeToText(post.createdAt)
     }
 
     LaunchedEffect(Unit) {
@@ -598,7 +599,7 @@ fun PostComposable(
                     }
 
                     Text(
-                        text = viewModel.timeAgoString,
+                        text = timeAgoText.value,
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

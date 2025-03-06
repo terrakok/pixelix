@@ -29,6 +29,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jetbrains.compose.resources.stringResource
+import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.read_less
+import pixelix.app.generated.resources.read_more
 
 @Composable
 fun HashtagsMentionsTextView(
@@ -172,7 +176,7 @@ fun HashtagsMentionsTextView(
             })
         if (showReadMoreButtonState) {
             Text(
-                text = if (expanded) "Read Less" else "Read More",
+                text = if (expanded) stringResource(Res.string.read_less) else stringResource(Res.string.read_more),
                 color = Color.Gray,
                 modifier = Modifier.clickable {
                     expanded = !expanded

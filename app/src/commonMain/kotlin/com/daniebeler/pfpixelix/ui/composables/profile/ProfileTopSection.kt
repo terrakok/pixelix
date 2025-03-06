@@ -49,6 +49,7 @@ import pixelix.app.generated.resources.following
 import pixelix.app.generated.resources.follows_you
 import pixelix.app.generated.resources.muted
 import pixelix.app.generated.resources.posts
+import pixelix.app.generated.resources.joined_date
 
 @Composable
 fun ProfileTopSection(
@@ -194,7 +195,10 @@ fun ProfileTopSection(
                     year()
                 }
                 Text(
-                    text = "Joined ${formatter.format(date)}",
+                    text = stringResource(
+                        Res.string.joined_date,
+                        formatter.format(date)
+                    ),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )

@@ -33,7 +33,7 @@ import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.cancel
 import pixelix.app.generated.resources.delete
 import pixelix.app.generated.resources.this_action_cannot_be_undone
-
+import pixelix.app.generated.resources.delete_message
 @Composable
 fun ConversationElementComposable(
     message: Message, deleteMessage: () -> Unit, navController: NavController
@@ -106,7 +106,7 @@ fun ConversationElementComposable(
                 tint = MaterialTheme.colorScheme.error
             )
         }, title = {
-            Text(text = "Delete message")
+            Text(text = stringResource(Res.string.delete_message))
         }, text = {
             Text(text = stringResource(Res.string.this_action_cannot_be_undone))
         }, onDismissRequest = {
