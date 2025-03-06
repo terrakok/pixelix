@@ -854,11 +854,12 @@ fun MediaDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Box(
-            modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.8f)),
+            modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.8f)).clickable {
+                closeDialog()
+            },
             contentAlignment = Alignment.Center
         ) {
-
-            Box(modifier = Modifier.zIndex(2f).zoomable(zoomState)) {
+            Box(modifier = Modifier.zIndex(2f).zoomable(zoomState).clickable { }) {
                 if (mediaAttachment.type == "image") {
                     ImageWrapper(
                         mediaAttachment,
@@ -866,12 +867,11 @@ fun MediaDialog(
                         {})
                 } else {
                     VideoAttachment(mediaAttachment, postViewModel, {})
-
                 }
             }
-            Box(Modifier.align(Alignment.TopEnd).padding(20.dp)) {
+            Box(Modifier.align(Alignment.TopEnd).padding(20.dp).zIndex(2f)) {
                 IconButton(onClick = { closeDialog() }) {
-                    Icon(Icons.Outlined.Close, "")
+                    Icon(Icons.Outlined.Close, "", tint = Color.White)
                 }
             }
         }
