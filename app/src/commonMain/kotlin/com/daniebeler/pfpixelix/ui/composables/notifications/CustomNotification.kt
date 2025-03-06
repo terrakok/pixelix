@@ -87,13 +87,20 @@ fun CustomNotification(
         Modifier
             .padding(horizontal = 12.dp, vertical = 8.dp)
             .fillMaxWidth().clickable {
-            if (notification.post != null && notification.post.mediaAttachments.isEmpty()) {
-                Navigate.navigate("mention/" + notification.post.id, navController)
-            }
-        },
+                if (notification.post != null && notification.post.mediaAttachments.isEmpty()) {
+                    Navigate.navigate("mention/" + notification.post.id, navController)
+                } else if (notification.post != null && notification.post.mediaAttachments.isNotEmpty()) {
+                    Navigate.navigate(
+                        "single_post_screen/" + notification.post.id, navController
+                    )
+                } else if (notification.post == null) {
+                    Navigate.navigate("profile_screen/" + notification.account.id, navController)
+                }
+            },
         verticalAlignment = Alignment.CenterVertically
     ) {
-        AsyncImage(model = notification.account?.avatar,
+        AsyncImage(
+            model = notification.account.avatar,
             error = painterResource(Res.drawable.default_avatar),
             contentDescription = "",
             modifier = Modifier
@@ -106,9 +113,15 @@ fun CustomNotification(
         Spacer(modifier = Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = notification.account?.username.orEmpty(), fontWeight = FontWeight.Bold, modifier = Modifier.clickable {
-                    Navigate.navigate("profile_screen/" + notification.account?.id, navController)
-                })
+                Text(
+                    text = notification.account.username,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.clickable {
+                        Navigate.navigate(
+                            "profile_screen/" + notification.account.id,
+                            navController
+                        )
+                    })
 
                 Text(text = text, overflow = TextOverflow.Ellipsis)
             }
@@ -130,7 +143,8 @@ fun CustomNotification(
                 viewModel.ancestor?.mediaAttachments?.get(0)?.previewUrl
             }
             //Spacer(modifier = Modifier.weight(1f))
-            AsyncImage(model = previewUrl,
+            AsyncImage(
+                model = previewUrl,
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -139,7 +153,11 @@ fun CustomNotification(
                     .clip(RoundedCornerShape(4.dp))
                     .clickable {
                         Navigate.navigate(
-                            "single_post_screen/" + if (doesMediaAttachmentExsist) {notification.post!!.id} else {viewModel.ancestor!!.id + "?openReplies=true"}, navController
+                            "single_post_screen/" + if (doesMediaAttachmentExsist) {
+                                notification.post!!.id
+                            } else {
+                                viewModel.ancestor!!.id + "?openReplies=true"
+                            }, navController
                         )
                     })
         }
