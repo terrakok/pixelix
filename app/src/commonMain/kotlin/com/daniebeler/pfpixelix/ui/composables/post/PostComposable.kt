@@ -119,6 +119,7 @@ import pixelix.app.generated.resources.ok
 import pixelix.app.generated.resources.others
 import pixelix.app.generated.resources.reblogged_by
 import pixelix.app.generated.resources.sync_outline
+import pixelix.app.generated.resources.sync_outline_bold
 import pixelix.app.generated.resources.this_action_cannot_be_undone
 import pixelix.app.generated.resources.view_comments
 
@@ -487,7 +488,7 @@ fun PostComposable(
                                     viewModel.unreblogPost(postId, updatePost)
                                 }) {
                                     Icon(
-                                        imageVector = vectorResource(Res.drawable.sync_outline),
+                                        imageVector = vectorResource(Res.drawable.sync_outline_bold),
                                         contentDescription = "undo reblog post",
                                         tint = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier.rotate(boostRotation)
