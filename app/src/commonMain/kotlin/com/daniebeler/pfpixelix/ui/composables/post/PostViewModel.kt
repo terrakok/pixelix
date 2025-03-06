@@ -253,7 +253,7 @@ class PostViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> {
                         post = post?.copy(favourited = result.data?.favourited ?: false)
-                        result.data?.let { updatePost(result.data) }
+                        post?.let { updatePost(it) }
                     }
 
                     is Resource.Error -> {
@@ -280,7 +280,7 @@ class PostViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             post = post?.copy(reblogged = result.data?.reblogged ?: false)
-                            result.data?.let { updatePost(result.data) }
+                            post?.let { updatePost(it) }
                         }
 
                         is Resource.Error -> {
@@ -305,7 +305,7 @@ class PostViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             post = post?.copy(reblogged = result.data?.reblogged ?: false)
-                            result.data?.let { updatePost(result.data) }
+                            post?.let { updatePost(it) }
                         }
 
                         is Resource.Error -> {
@@ -329,8 +329,8 @@ class PostViewModel @Inject constructor(
                 postService.bookmarkPost(postId).onEach { result ->
                     when (result) {
                         is Resource.Success -> {
-                            post = post?.copy(bookmarked = result.data?.bookmarked ?: false)
-                            result.data?.let { updatePost(result.data) }
+                            post = post?.copy(bookmarked = result.data.bookmarked)
+                            post?.let { updatePost(it) }
                         }
 
                         is Resource.Error -> {
@@ -355,7 +355,7 @@ class PostViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             post = post?.copy(bookmarked = result.data?.bookmarked ?: false)
-                            result.data?.let { updatePost(result.data) }
+                            post?.let { updatePost(it) }
                         }
 
                         is Resource.Error -> {

@@ -749,9 +749,7 @@ fun PostImage(
                     { imageLoaded = true })
             } else {
                 VideoAttachment(
-                    mediaAttachment,
-                    viewModel,
-                    { imageLoaded = true })
+                    mediaAttachment, viewModel, { imageLoaded = true })
             }
         }
 
