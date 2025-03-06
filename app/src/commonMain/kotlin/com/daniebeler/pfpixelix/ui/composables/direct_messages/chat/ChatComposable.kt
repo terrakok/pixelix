@@ -99,7 +99,7 @@ fun ChatComposable(
 
                     Column {
 
-                        Text(text = viewModel.chatState.chat!!.username ?: "")
+                        Text(text = viewModel.chatState.chat!!.name ?: "")
                         Text(
                             text = viewModel.chatState.chat!!.url.substringAfter("https://")
                                 .substringBefore("/"),
@@ -181,6 +181,7 @@ fun ChatComposable(
                                     Text(
                                         text = stringResource(Res.string.beginning_of_chat_note),
                                         textAlign = TextAlign.Center,
+                                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                                         modifier = Modifier.fillMaxWidth()
                                     )
                                 }
