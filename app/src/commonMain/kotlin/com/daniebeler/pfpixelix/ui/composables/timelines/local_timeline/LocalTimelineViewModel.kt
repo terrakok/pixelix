@@ -23,6 +23,9 @@ class LocalTimelineViewModel @Inject constructor(
     }
 
     private fun getItemsFirstLoad(refreshing: Boolean) {
+        if (localTimelineState.localTimeline.isNotEmpty() && !refreshing) {
+            return
+        }
         timelineService.getLocalTimeline().onEach { result ->
             localTimelineState = when (result) {
                 is Resource.Success -> {

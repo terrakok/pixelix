@@ -29,9 +29,10 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.utils.Navigate
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.followers
+import pixelix.app.generated.resources.follower
 import pixelix.app.generated.resources.liked_by
 import pixelix.app.generated.resources.no_likes_yet
 
@@ -107,7 +108,7 @@ private fun LikedByAccountElement(account: Account, navController: NavController
         Column {
             Text(text = "@${account.username}")
             Text(
-                text = "${account.followersCount} " + stringResource(Res.string.followers),
+                text = "${account.followersCount} " + pluralStringResource(Res.plurals.follower, account.followersCount),
                 fontSize = 14.sp,
                 color = MaterialTheme.colorScheme.primary
             )

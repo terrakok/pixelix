@@ -39,11 +39,13 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.admin
 import pixelix.app.generated.resources.blocked
 import pixelix.app.generated.resources.default_avatar
+import pixelix.app.generated.resources.follower
 import pixelix.app.generated.resources.followers
 import pixelix.app.generated.resources.following
 import pixelix.app.generated.resources.follows_you
@@ -81,7 +83,7 @@ fun ProfileTopSection(
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
-                        Text(text = stringResource(Res.string.posts), fontSize = 12.sp)
+                        Text(text = pluralStringResource(Res.plurals.posts, account.postsCount), fontSize = 12.sp)
                     }
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally,
@@ -95,7 +97,7 @@ fun ProfileTopSection(
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
-                        Text(text = stringResource(Res.string.followers), fontSize = 12.sp)
+                        Text(text = pluralStringResource(Res.plurals.follower, account.followersCount), fontSize = 12.sp)
                     }
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally,
@@ -109,7 +111,7 @@ fun ProfileTopSection(
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
-                        Text(text = stringResource(Res.string.following), fontSize = 12.sp)
+                        Text(text = pluralStringResource(Res.plurals.following, account.followingCount), fontSize = 12.sp)
                     }
                 }
             }

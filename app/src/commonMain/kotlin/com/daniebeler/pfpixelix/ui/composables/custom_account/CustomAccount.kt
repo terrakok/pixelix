@@ -32,10 +32,11 @@ import com.daniebeler.pfpixelix.ui.composables.FollowButton
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.default_avatar
-import pixelix.app.generated.resources.followers
+import pixelix.app.generated.resources.follower
 
 @Composable
 fun CustomAccount(
@@ -153,7 +154,7 @@ private fun CustomAccountPrivate(
                             Text(
                                 text = " • " + StringFormat.groupDigits(
                                     account.followersCount
-                                ) + " " + stringResource(Res.string.followers),
+                                ) + " " + pluralStringResource(Res.plurals.follower, account.followersCount),
                                 fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.primary,
                                 lineHeight = 8.sp
@@ -238,7 +239,7 @@ private fun CustomAccountPrivateNotClickable(
                             Text(
                                 text = " • " + StringFormat.groupDigits(
                                     account.followersCount
-                                ) + " " + stringResource(Res.string.followers),
+                                ) + " " + pluralStringResource(Res.plurals.follower, account.followersCount),
                                 fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.primary,
                                 lineHeight = 8.sp

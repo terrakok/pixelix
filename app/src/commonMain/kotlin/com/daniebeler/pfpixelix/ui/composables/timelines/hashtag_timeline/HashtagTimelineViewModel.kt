@@ -53,6 +53,9 @@ class HashtagTimelineViewModel @Inject constructor(
     }
 
     fun getItemsFirstLoad(hashtag: String, refreshing: Boolean = false) {
+        if (postsState.hashtagTimeline.isNotEmpty() && !refreshing) {
+            return
+        }
         timelineService.getHashtagTimeline(hashtag).onEach { result ->
             postsState = when (result) {
                 is Resource.Success -> {

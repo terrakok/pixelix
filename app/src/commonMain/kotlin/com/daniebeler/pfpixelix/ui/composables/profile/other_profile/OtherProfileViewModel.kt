@@ -49,9 +49,10 @@ class OtherProfileViewModel(
     var view by mutableStateOf(ViewEnum.Grid)
 
     fun loadData(_userId: String, refreshing: Boolean) {
-        userId = _userId
-        getAccount(userId, refreshing)
-        loadDataExceptAccount(refreshing)
+            userId = _userId
+            getAccount(userId, refreshing)
+            loadDataExceptAccount(refreshing)
+
     }
 
     private fun loadDataExceptAccount(refreshing: Boolean) {
@@ -202,6 +203,9 @@ class OtherProfileViewModel(
     }
 
     private fun getPostsFirstLoad(userId: String, refreshing: Boolean) {
+        if (postsState.posts.isNotEmpty() && !refreshing) {
+            return
+        }
         postService.getPostsOfAccount(userId).onEach { result ->
             postsState = when (result) {
                 is Resource.Success -> {
