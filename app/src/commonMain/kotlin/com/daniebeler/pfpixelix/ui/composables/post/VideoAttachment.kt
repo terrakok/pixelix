@@ -1,8 +1,5 @@
 package com.daniebeler.pfpixelix.ui.composables.post
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -32,8 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.VideoPlayer
 
 @Composable
@@ -42,8 +39,8 @@ fun VideoAttachment(
     viewModel: PostViewModel,
     onReady: () -> Unit
 ) {
-    val context = LocalKmpContext.current
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalAppComponent.current.context
     val player = remember { VideoPlayer(context, coroutineScope) }
     var progress by remember { mutableFloatStateOf(0f) }
     var hasAudio by remember { mutableStateOf(false) }

@@ -64,18 +64,11 @@ private fun CustomHashtagPrivate(hashtag: Tag, onClick: () -> Unit, navControlle
 
         Column {
             Text(text = "#" + hashtag.name)
-            if (hashtag.count != null) {
-                Text(
-                    text = hashtag.count.toString() + " posts",
-                    fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            } else {/*Text(
-                    text = hashtag.total.toString() + " people are talking",
-                    fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )*/
-            }
+            Text(
+                text = hashtag.count.toString() + " posts",
+                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.primary
+            )
         }
     }
 }

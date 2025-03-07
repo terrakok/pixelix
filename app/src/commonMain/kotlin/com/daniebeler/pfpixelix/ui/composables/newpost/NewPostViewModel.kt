@@ -7,14 +7,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.domain.model.Instance
 import com.daniebeler.pfpixelix.domain.model.NewPost
 import com.daniebeler.pfpixelix.domain.model.Visibility
 import com.daniebeler.pfpixelix.domain.service.editor.PostEditorService
+import com.daniebeler.pfpixelix.domain.service.file.FileService
 import com.daniebeler.pfpixelix.domain.service.instance.InstanceService
-import com.daniebeler.pfpixelix.domain.service.platform.Platform
-import com.daniebeler.pfpixelix.utils.KmpContext
+import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.utils.KmpUri
 import com.daniebeler.pfpixelix.utils.Navigate
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +27,7 @@ import me.tatarka.inject.annotations.Inject
 class NewPostViewModel @Inject constructor(
     private val postEditorService: PostEditorService,
     private val instanceService: InstanceService,
-    private val platform: Platform
+    private val fileService: FileService
 ) : ViewModel() {
     data class ImageItem(
         val imageUri: KmpUri,
@@ -57,13 +56,7 @@ class NewPostViewModel @Inject constructor(
         instanceService.getInstance().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        instance = result.data
-                    } else {
-                        createPostState = CreatePostState(
-                            error = result.message ?: "An unexpected error occurred"
-                        )
-                    }
+                    instance = result.data
                 }
 
                 is Resource.Error -> {
@@ -101,8 +94,8 @@ class NewPostViewModel @Inject constructor(
         }
     }
 
-    fun addImage(uri: KmpUri, context: KmpContext) {
-        val file = platform.getPlatformFile(uri) ?: return
+    fun addImage(uri: KmpUri) {
+        val file = fileService.getFile(uri) ?: return
         val fileType = file.getMimeType()
         if (instance != null && !instance!!.configuration.mediaAttachmentConfig.supportedMimeTypes.contains(
                 fileType
@@ -141,11 +134,14 @@ class NewPostViewModel @Inject constructor(
         }
         val imagesNumber = images.size + 1
         if (instance != null && imagesNumber > instance!!.configuration.statusConfig.maxMediaAttachments) {
-            addImageError = Pair("To many images", "You have added to many images, your Server does only allow ${instance!!.configuration.statusConfig.maxMediaAttachments} images per post")
+            addImageError = Pair(
+                "To many images",
+                "You have added to many images, your Server does only allow ${instance!!.configuration.statusConfig.maxMediaAttachments} images per post"
+            )
             return
         }
         images += ImageItem(uri, fileType, null, "", true)
-        uploadImage(context, uri, "")
+        uploadImage(uri, "")
     }
 
     fun deleteMedia(index: Int) {
@@ -168,7 +164,7 @@ class NewPostViewModel @Inject constructor(
         }
     }
 
-    private fun uploadImage(context: KmpContext, uri: KmpUri, text: String) {
+    private fun uploadImage(uri: KmpUri, text: String) {
         postEditorService.uploadMedia(uri, text).onEach { result ->
             mediaUploadState = when (result) {
                 is Resource.Success -> {
@@ -177,7 +173,10 @@ class NewPostViewModel @Inject constructor(
                     }
                     val index = images.indexOfFirst { it.imageUri == uri }
                     if (index != -1) {
-                        images[index] = images[index].copy(isLoading = false, id = result.data?.id) // Replacing the object forces recomposition
+                        images[index] = images[index].copy(
+                            isLoading = false,
+                            id = result.data?.id
+                        ) // Replacing the object forces recomposition
                     }
 
                     mediaUploadState.copy(
@@ -284,9 +283,7 @@ class NewPostViewModel @Inject constructor(
         postEditorService.createPost(createPostDto).onEach { result ->
             createPostState = when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        Navigate.navigateAndDeleteBackStack("own_profile_screen", navController)
-                    }
+                    Navigate.navigateAndDeleteBackStack("own_profile_screen", navController)
                     CreatePostState(post = result.data, isLoading = true)
                 }
 

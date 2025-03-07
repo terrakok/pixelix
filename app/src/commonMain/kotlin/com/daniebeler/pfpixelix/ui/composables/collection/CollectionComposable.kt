@@ -48,7 +48,6 @@ import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.composables.InfinitePostsGrid
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
@@ -73,8 +72,6 @@ fun CollectionComposable(
     val showAddPostBottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     var showBottomSheet by remember { mutableStateOf(false) }
     var showAddPostBottomSheet by remember { mutableStateOf(false) }
-
-    val context = LocalKmpContext.current
 
     LaunchedEffect(Unit) {
         viewModel.loadData(collectionId)
@@ -209,9 +206,7 @@ fun CollectionComposable(
                         Res.string.open_in_browser
                     ), onClick = {
                         if (viewModel.collectionState.collection != null) {
-                            viewModel.openUrl(
-                                viewModel.collectionState.collection!!.url, context
-                            )
+                            viewModel.openUrl(viewModel.collectionState.collection!!.url)
                         }
                     })
 

@@ -30,7 +30,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +42,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -56,7 +54,6 @@ import pixelix.app.generated.resources.code_slash_outline
 import pixelix.app.generated.resources.developed_by
 import pixelix.app.generated.resources.mastodon_logo
 import pixelix.app.generated.resources.pixelfed_logo
-import pixelix.app.generated.resources.pixelix_logo
 import pixelix.app.generated.resources.shield_outline
 import pixelix.app.generated.resources.star_outline
 

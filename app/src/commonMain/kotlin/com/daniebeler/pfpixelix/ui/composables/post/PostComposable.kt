@@ -47,7 +47,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -76,7 +75,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
-import co.touchlab.kermit.Logger
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import com.daniebeler.pfpixelix.di.injectViewModel
@@ -85,11 +83,8 @@ import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.utils.BlurHashDecoder
-import com.daniebeler.pfpixelix.utils.KmpUri
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.TimeAgo
-import com.daniebeler.pfpixelix.utils.toKmpUri
 import com.daniebeler.pfpixelix.utils.zoomable.rememberZoomState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -137,9 +132,6 @@ fun PostComposable(
     updatePost: (post: Post) -> Unit = {},
     viewModel: PostViewModel = injectViewModel(key = "post" + post.id) { postViewModel }
 ) {
-
-    val context = LocalKmpContext.current
-
     var postId by remember { mutableStateOf(post.id) }
     val sheetState = rememberModalBottomSheetState()
     var showBottomSheet by remember {
@@ -411,7 +403,7 @@ fun PostComposable(
                             mentions = viewModel.post!!.mentions,
                             navController = navController,
                             textSize = 18.sp,
-                            openUrl = { url -> viewModel.openUrl(url, context) },
+                            openUrl = { url -> viewModel.openUrl(url) },
                             modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
                         )
                         HorizontalDivider()
@@ -576,7 +568,7 @@ fun PostComposable(
                                 text = viewModel.post!!.content,
                                 mentions = viewModel.post!!.mentions,
                                 navController = navController,
-                                openUrl = { url -> viewModel.openUrl(url, context) },
+                                openUrl = { url -> viewModel.openUrl(url) },
                                 maximumLines = 4
                             )
                         }
@@ -625,7 +617,6 @@ fun PostComposable(
             } else if (showBottomSheet == 2) {
                 if (viewModel.myAccountId != null && post.account.id == viewModel.myAccountId) {
                     ShareBottomSheet(
-                        context,
                         post.url,
                         true,
                         viewModel,
@@ -635,7 +626,6 @@ fun PostComposable(
                     )
                 } else {
                     ShareBottomSheet(
-                        context,
                         post.url,
                         false,
                         viewModel,

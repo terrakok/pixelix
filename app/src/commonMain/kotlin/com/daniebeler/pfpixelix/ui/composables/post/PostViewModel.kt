@@ -5,18 +5,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.domain.model.LikedBy
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.service.account.AccountService
 import com.daniebeler.pfpixelix.domain.service.editor.PostEditorService
+import com.daniebeler.pfpixelix.domain.service.file.FileService
 import com.daniebeler.pfpixelix.domain.service.platform.Platform
 import com.daniebeler.pfpixelix.domain.service.post.PostService
 import com.daniebeler.pfpixelix.domain.service.preferences.UserPreferences
 import com.daniebeler.pfpixelix.domain.service.session.AuthService
+import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.ui.composables.post.reply.OwnReplyState
 import com.daniebeler.pfpixelix.ui.composables.post.reply.RepliesState
-import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.TimeAgo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +32,8 @@ class PostViewModel @Inject constructor(
     private val postEditorService: PostEditorService,
     private val authService: AuthService,
     private val accountService: AccountService,
-    private val platform: Platform
+    private val platform: Platform,
+    private val fileService: FileService
 ) : ViewModel() {
 
     var post: Post? by mutableStateOf(null)
@@ -367,12 +368,12 @@ class PostViewModel @Inject constructor(
 
     }
 
-    fun openUrl(url: String, context: KmpContext) {
+    fun openUrl(url: String) {
         platform.openUrl(url)
     }
 
-    fun saveImage(name: String?, url: String, context: KmpContext) {
-        platform.downloadImageToGallery(name, url)
+    fun saveImage(name: String?, url: String) {
+        fileService.downloadFile(name, url)
     }
 
     fun shareText(text: String) {

@@ -23,6 +23,7 @@ class ConversationsViewModel @Inject constructor(
     var newConversationUsername by mutableStateOf(TextFieldValue())
     var newConversationState by mutableStateOf(NewConversationState())
     var newConversationSelectedAccount by mutableStateOf<Account?>(null)
+
     init {
         getConversationsFirstLoad(false)
     }
@@ -58,13 +59,7 @@ class ConversationsViewModel @Inject constructor(
         searchService.search(newUsername.text, "accounts").onEach { result ->
             newConversationState = when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        NewConversationState(suggestions = result.data.accounts)
-                    } else {
-                        NewConversationState(
-                            error = result.message ?: "An unexpected error occurred"
-                        )
-                    }
+                    NewConversationState(suggestions = result.data.accounts)
                 }
 
                 is Resource.Error -> {
