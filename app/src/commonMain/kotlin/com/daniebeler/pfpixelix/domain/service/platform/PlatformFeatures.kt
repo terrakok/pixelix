@@ -4,4 +4,5 @@ expect object PlatformFeatures {
     val notificationWidgets: Boolean
     val inAppBrowser: Boolean
     val downloadToGallery: Boolean
+    val customAppIcon: Boolean
 }

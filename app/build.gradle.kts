@@ -1,3 +1,5 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinMultiplatform)
@@ -11,7 +13,7 @@ plugins {
 kotlin {
     jvmToolchain(17)
     androidTarget()
-    
+    jvm()
     listOf(
         iosX64(),
         iosArm64(),
@@ -104,7 +106,6 @@ kotlin {
 
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.runtime.livedata)
             implementation(libs.androidx.browser)
 
             implementation(libs.accompanist.systemuicontroller)
@@ -126,6 +127,14 @@ kotlin {
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+        }
+
+        jvmMain.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.appdirs)
+            implementation(libs.slf4j.simple)
         }
     }
 
@@ -181,10 +190,53 @@ android {
 dependencies {
     listOf(
         "kspAndroid",
+        "kspJvm",
         "kspIosX64",
         "kspIosArm64",
         "kspIosSimulatorArm64"
     ).forEach {
         add(it, libs.kotlin.inject.compiler.ksp)
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "com.daniebeler.pfpixelix.MainKt"
+
+        nativeDistributions {
+            targetFormats(Dmg, Msi, Deb)
+            packageName = "Pixelix"
+            packageVersion = "1.0.0"
+
+            //data store https://issuetracker.google.com/280205600
+            modules("jdk.unsupported")
+            modules("jdk.unsupported.desktop")
+
+            linux {
+                iconFile.set(project.file("desktopAppIcons/LinuxIcon.png"))
+            }
+            windows {
+                iconFile.set(project.file("desktopAppIcons/WindowsIcon.ico"))
+            }
+            macOS {
+                iconFile.set(project.file("desktopAppIcons/MacosIcon.icns"))
+                bundleID = "com.daniebeler.pfpixelix"
+                infoPlist {
+                    extraKeysRawXml = """
+                      <key>CFBundleURLTypes</key>
+                      <array>
+                        <dict>
+                          <key>CFBundleURLName</key>
+                          <string>Pixelix auth redirect</string>
+                          <key>CFBundleURLSchemes</key>
+                          <array>
+                            <string>pixelix-android-auth</string>
+                          </array>
+                        </dict>
+                      </array>
+                    """.trimIndent()
+                }
+            }
+        }
     }
 }
