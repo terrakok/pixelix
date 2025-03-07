@@ -44,7 +44,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -68,7 +67,6 @@ import com.daniebeler.pfpixelix.ui.composables.profile.ProfileTopSection
 import com.daniebeler.pfpixelix.ui.composables.profile.SwitchViewComposable
 import com.daniebeler.pfpixelix.ui.composables.profile.server_stats.DomainSoftwareComposable
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -134,7 +132,6 @@ fun OtherProfileComposable(
     var showBlockAlert by remember { mutableStateOf(false) }
     var showUnBlockAlert by remember { mutableStateOf(false) }
 
-    val context = LocalKmpContext.current
     LaunchedEffect(userId) {
         if (userId != "") {
             viewModel.loadData(userId, false)
@@ -203,7 +200,7 @@ fun OtherProfileComposable(
                                 relationship = viewModel.relationshipState.accountRelationship,
                                 navController,
                                 openUrl = { url ->
-                                    viewModel.openUrl(url, context)
+                                    viewModel.openUrl(url)
                                 })
                         }
 
@@ -290,7 +287,7 @@ fun OtherProfileComposable(
                                 getMoreCollections = {viewModel.getCollections(account.id, true)},
                                 navController = navController,
                                 instanceDomain = viewModel.domain,
-                                openUrl = { url -> viewModel.openUrl(url, context) })
+                                openUrl = { url -> viewModel.openUrl(url) })
                         }
 
                         HorizontalDivider(Modifier.padding(bottom = 12.dp, top = 12.dp))
@@ -389,7 +386,7 @@ fun OtherProfileComposable(
                 ButtonRowElement(icon = Res.drawable.browsers_outline, text = stringResource(
                     Res.string.open_in_browser
                 ), onClick = {
-                    viewModel.openUrl(viewModel.accountState.account!!.url, context)
+                    viewModel.openUrl(viewModel.accountState.account!!.url)
                 })
 
                 ButtonRowElement(icon = Res.drawable.share_social_outline,

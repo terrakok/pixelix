@@ -5,11 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.domain.service.instance.InstanceService
 import com.daniebeler.pfpixelix.domain.service.platform.Platform
+import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.ui.composables.profile.DomainSoftwareState
-import com.daniebeler.pfpixelix.utils.KmpContext
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import me.tatarka.inject.annotations.Inject
@@ -84,7 +83,7 @@ class ServerStatsViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun openUrl(url: String, context: KmpContext) {
+    fun openUrl(url: String) {
         platform.openUrl(url)
     }
 

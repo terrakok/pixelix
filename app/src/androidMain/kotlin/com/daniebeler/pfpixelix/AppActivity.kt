@@ -12,12 +12,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -29,11 +27,7 @@ class AppActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            CompositionLocalProvider(
-                LocalKmpContext provides this
-            ) {
-                App(MyApplication.appComponent) { finish() }
-            }
+            App(MyApplication.appComponent) { finish() }
         }
         if (savedInstanceState == null) {
             handleNewIntent(intent)

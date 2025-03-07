@@ -66,8 +66,6 @@ import com.daniebeler.pfpixelix.ui.composables.CustomHashtag
 import com.daniebeler.pfpixelix.ui.composables.custom_account.CustomAccount
 import com.daniebeler.pfpixelix.ui.composables.explore.trending.TrendingComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenLoadingComposable
-import com.daniebeler.pfpixelix.utils.KmpContext
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import kotlinx.coroutines.launch
@@ -88,8 +86,6 @@ fun ExploreComposable(
     initialPage: Int = 0,
     viewModel: ExploreViewModel = injectViewModel(key = "search-viewmodel-key") { exploreViewModel }
 ) {
-    val context: KmpContext = LocalKmpContext.current
-
     val textFieldState = rememberTextFieldState()
     var expanded by rememberSaveable { mutableStateOf(false) }
 

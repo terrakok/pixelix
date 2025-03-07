@@ -9,14 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode.DARK
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode.FOLLOW_SYSTEM
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode.LIGHT
-import com.daniebeler.pfpixelix.utils.KmpContext
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 
 
 fun ColorScheme.toAmoled(): ColorScheme {
@@ -141,12 +138,7 @@ fun PixelixTheme(
         nightModeValue = if (isSystemInDarkTheme()) DARK else LIGHT
     }
 
-    ChangeSystemBarColors(nightModeValue)
-
-    val context = LocalKmpContext.current
-    val colorScheme = remember(nightModeValue, dynamicColor, lightScheme, darkScheme) {
-        context.generateColorScheme(nightModeValue, dynamicColor, lightScheme, darkScheme)
-    }
+    val colorScheme = generateColorScheme(nightModeValue, dynamicColor, lightScheme, darkScheme)
 
     MaterialTheme(
         colorScheme = colorScheme,
@@ -158,9 +150,7 @@ fun PixelixTheme(
 expect fun applySystemNightMode(mode: Int)
 
 @Composable
-expect fun ChangeSystemBarColors(mode: Int)
-
-expect fun KmpContext.generateColorScheme(
+expect fun generateColorScheme(
     nightModeValue: Int,
     dynamicColor: Boolean,
     lightScheme: ColorScheme,

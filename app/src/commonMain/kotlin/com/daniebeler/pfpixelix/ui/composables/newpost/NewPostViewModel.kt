@@ -7,14 +7,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.domain.model.Instance
 import com.daniebeler.pfpixelix.domain.model.NewPost
 import com.daniebeler.pfpixelix.domain.model.Visibility
 import com.daniebeler.pfpixelix.domain.service.editor.PostEditorService
+import com.daniebeler.pfpixelix.domain.service.file.FileService
 import com.daniebeler.pfpixelix.domain.service.instance.InstanceService
-import com.daniebeler.pfpixelix.domain.service.platform.Platform
-import com.daniebeler.pfpixelix.utils.KmpContext
+import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.utils.KmpUri
 import com.daniebeler.pfpixelix.utils.Navigate
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +27,7 @@ import me.tatarka.inject.annotations.Inject
 class NewPostViewModel @Inject constructor(
     private val postEditorService: PostEditorService,
     private val instanceService: InstanceService,
-    private val platform: Platform
+    private val fileService: FileService
 ) : ViewModel() {
     data class ImageItem(
         val imageUri: KmpUri,
@@ -101,8 +100,8 @@ class NewPostViewModel @Inject constructor(
         }
     }
 
-    fun addImage(uri: KmpUri, context: KmpContext) {
-        val file = platform.getPlatformFile(uri) ?: return
+    fun addImage(uri: KmpUri) {
+        val file = fileService.getFile(uri) ?: return
         val fileType = file.getMimeType()
         if (instance != null && !instance!!.configuration.mediaAttachmentConfig.supportedMimeTypes.contains(
                 fileType
@@ -145,7 +144,7 @@ class NewPostViewModel @Inject constructor(
             return
         }
         images += ImageItem(uri, fileType, null, "", true)
-        uploadImage(context, uri, "")
+        uploadImage(uri, "")
     }
 
     fun deleteMedia(index: Int) {
@@ -168,7 +167,7 @@ class NewPostViewModel @Inject constructor(
         }
     }
 
-    private fun uploadImage(context: KmpContext, uri: KmpUri, text: String) {
+    private fun uploadImage(uri: KmpUri, text: String) {
         postEditorService.uploadMedia(uri, text).onEach { result ->
             mediaUploadState = when (result) {
                 is Resource.Success -> {

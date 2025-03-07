@@ -39,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.daniebeler.pfpixelix.di.injectViewModel
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -56,9 +55,6 @@ import pixelix.app.generated.resources.visit_url
 fun DomainSoftwareComposable(
     domain: String, viewModel: ServerStatsViewModel = injectViewModel(key = "serverstats$domain") { serverStatsViewModel }
 ) {
-
-    val context = LocalKmpContext.current
-
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -176,7 +172,7 @@ fun DomainSoftwareComposable(
                         TextButton(
                             onClick = {
                                 viewModel.openUrl(
-                                    viewModel.statsState.fediSoftware!!.website, context
+                                    viewModel.statsState.fediSoftware!!.website
                                 )
                             },
                             shape = RoundedCornerShape(12.dp),
@@ -319,7 +315,7 @@ fun DomainSoftwareComposable(
                     TextButton(
                         onClick = {
                             viewModel.openUrl(
-                                "https://" + viewModel.statsState.fediServer!!.domain, context
+                                "https://" + viewModel.statsState.fediServer!!.domain
                             )
                         },
                         shape = RoundedCornerShape(12.dp),

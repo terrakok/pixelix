@@ -20,7 +20,6 @@ import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.ui.composables.CustomPost
 import com.daniebeler.pfpixelix.ui.composables.custom_account.CustomAccount
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 
 @Composable
@@ -29,7 +28,6 @@ fun TrendingAccountElement(
     navController: NavController,
     viewModel: TrendingAccountElementViewModel = injectViewModel(key = account.id) { trendingAccountElementViewModel }
 ) {
-    val context = LocalKmpContext.current
     LaunchedEffect(account) {
         viewModel.loadItems(account.id)
     }
@@ -49,7 +47,7 @@ fun TrendingAccountElement(
                 text = account.note,
                 mentions = null,
                 navController = navController,
-                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp), openUrl = { url -> viewModel.openUrl(url, context) }
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp), openUrl = { url -> viewModel.openUrl(url) }
             )
         }
 

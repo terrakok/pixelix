@@ -22,7 +22,6 @@ import com.daniebeler.pfpixelix.ui.composables.profile.MutualFollowersState
 import com.daniebeler.pfpixelix.ui.composables.profile.PostsState
 import com.daniebeler.pfpixelix.ui.composables.profile.RelationshipState
 import com.daniebeler.pfpixelix.ui.composables.profile.ViewEnum
-import com.daniebeler.pfpixelix.utils.KmpContext
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -362,7 +361,7 @@ class OtherProfileViewModel(
         }.launchIn(viewModelScope)
     }
 
-    fun openUrl(url: String, context: KmpContext) {
+    fun openUrl(url: String) {
         platform.openUrl(url)
     }
 

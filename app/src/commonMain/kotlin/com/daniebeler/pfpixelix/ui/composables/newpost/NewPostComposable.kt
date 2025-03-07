@@ -75,7 +75,6 @@ import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_location.TextFieldLocationsComposable
 import com.daniebeler.pfpixelix.utils.KmpUri
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.getPlatformUriObject
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import com.daniebeler.pfpixelix.utils.toKmpUri
@@ -109,8 +108,6 @@ fun NewPostComposable(
     uris: List<KmpUri>? = null,
     viewModel: NewPostViewModel = injectViewModel(key = "new-post-viewmodel-key") { newPostViewModel }
 ) {
-    val context = LocalKmpContext.current
-
     var expanded by remember { mutableStateOf(false) }
     var showReleaseAlert by remember {
         mutableStateOf(false)
@@ -118,9 +115,7 @@ fun NewPostComposable(
 
     LaunchedEffect(uris) {
         uris?.let {
-            uris.forEach {
-                viewModel.addImage(uri = it, context = context)
-            }
+            uris.forEach { viewModel.addImage(uri = it) }
         }
     }
 
@@ -151,7 +146,7 @@ fun NewPostComposable(
                     { index -> viewModel.moveMediaAttachmentUp(index) },
                     { index -> viewModel.moveMediaAttachmentDown(index) },
                     { index -> viewModel.deleteMedia(index) },
-                    { kmpUri: KmpUri -> viewModel.addImage(kmpUri, context) })
+                    { kmpUri: KmpUri -> viewModel.addImage(kmpUri) })
 
                 Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     NewPostTextField(

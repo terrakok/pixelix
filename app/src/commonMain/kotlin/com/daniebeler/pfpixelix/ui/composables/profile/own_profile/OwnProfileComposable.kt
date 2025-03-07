@@ -52,7 +52,6 @@ import com.daniebeler.pfpixelix.ui.composables.profile.SwitchViewComposable
 import com.daniebeler.pfpixelix.ui.composables.profile.server_stats.DomainSoftwareComposable
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenErrorComposable
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res

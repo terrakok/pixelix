@@ -3,6 +3,7 @@ package com.daniebeler.pfpixelix
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import androidx.activity.ComponentActivity
 import androidx.work.Configuration
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
@@ -10,6 +11,8 @@ import androidx.work.WorkerParameters
 import coil3.SingletonImageLoader
 import com.daniebeler.pfpixelix.di.AppComponent
 import com.daniebeler.pfpixelix.di.create
+import com.daniebeler.pfpixelix.domain.service.file.AndroidFileService
+import com.daniebeler.pfpixelix.domain.service.icon.AndroidAppIconManager
 import com.daniebeler.pfpixelix.utils.configureLogger
 import com.daniebeler.pfpixelix.widget.notifications.work_manager.LatestImageTask
 import com.daniebeler.pfpixelix.widget.notifications.work_manager.NotificationsTask
@@ -23,7 +26,11 @@ class MyApplication : Application(), Configuration.Provider {
         get() = Configuration.Builder().setWorkerFactory(workerFactory).build()
 
     override fun onCreate() {
-        appComponent = AppComponent.create(this)
+        appComponent = AppComponent.create(
+            this,
+            AndroidFileService(this),
+            AndroidAppIconManager(this)
+        )
         SingletonImageLoader.setSafe {
             appComponent.provideImageLoader()
         }
@@ -34,7 +41,7 @@ class MyApplication : Application(), Configuration.Provider {
     companion object {
         lateinit var appComponent: AppComponent
             private set
-        var currentActivity: WeakReference<Activity>? = null
+        var currentActivity: WeakReference<ComponentActivity>? = null
     }
 }
 

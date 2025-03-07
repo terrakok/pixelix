@@ -36,7 +36,6 @@ import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenLoadingComposable
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.painterResource
@@ -62,9 +61,6 @@ fun AboutInstanceComposable(
 ) {
 
     val lazyListState = rememberLazyListState()
-
-    val context = LocalKmpContext.current
-
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {
         CenterAlignedTopAppBar(title = {
             Text(text = viewModel.ownInstanceDomain, fontWeight = FontWeight.Bold)
@@ -179,7 +175,7 @@ fun AboutInstanceComposable(
                         .clickable {
                             if (viewModel.instanceState.instance != null) {
                                 viewModel.openUrl(
-                                    url = "https://" + viewModel.instanceState.instance!!.domain + "/site/privacy", context
+                                    url = "https://" + viewModel.instanceState.instance!!.domain + "/site/privacy"
                                 )
                             }
                         })
@@ -202,7 +198,7 @@ fun AboutInstanceComposable(
                         .clickable {
                             if (viewModel.instanceState.instance != null) {
                                 viewModel.openUrl(
-                                    url = "https://" + viewModel.instanceState.instance!!.domain + "/site/terms", context
+                                    url = "https://" + viewModel.instanceState.instance!!.domain + "/site/terms"
                                 )
                             }
                         })

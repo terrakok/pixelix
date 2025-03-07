@@ -25,7 +25,6 @@ import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.model.Visibility
 import com.daniebeler.pfpixelix.domain.service.platform.PlatformFeatures
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
-import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
@@ -51,7 +50,6 @@ import pixelix.app.generated.resources.visibility_x
 
 @Composable
 fun ShareBottomSheet(
-    context: KmpContext,
     url: String,
     minePost: Boolean,
     viewModel: PostViewModel,
@@ -102,7 +100,7 @@ fun ShareBottomSheet(
             ButtonRowElement(icon = Res.drawable.document_text_outline, text = stringResource(
                 Res.string.license, mediaAttachment.license.title
             ), onClick = {
-                viewModel.openUrl(mediaAttachment.license.url, context)
+                viewModel.openUrl(mediaAttachment.license.url)
             })
         }
 
@@ -111,7 +109,7 @@ fun ShareBottomSheet(
         ButtonRowElement(icon = Res.drawable.open_outline, text = stringResource(
             Res.string.open_in_browser
         ), onClick = {
-            viewModel.openUrl(url, context)
+            viewModel.openUrl(url)
         })
 
         ButtonRowElement(icon = Res.drawable.share_social_outline,
@@ -127,8 +125,7 @@ fun ShareBottomSheet(
 
                     viewModel.saveImage(
                         post.account.username,
-                        viewModel.post!!.mediaAttachments[currentMediaAttachmentNumber].url!!,
-                        context
+                        viewModel.post!!.mediaAttachments[currentMediaAttachmentNumber].url!!
                     )
                 })
         }

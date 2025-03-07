@@ -47,8 +47,6 @@ import com.daniebeler.pfpixelix.ui.composables.states.EndOfListComposable
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenEmptyStateComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
-import com.daniebeler.pfpixelix.utils.KmpContext
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
@@ -70,7 +68,6 @@ fun NotificationsComposable(
 
     val lazyListState = rememberLazyListState()
     val scrollState = rememberScrollState()
-    val context: KmpContext = LocalKmpContext.current
 
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {
         CenterAlignedTopAppBar(title = {

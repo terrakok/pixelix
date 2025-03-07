@@ -2,25 +2,27 @@ package com.daniebeler.pfpixelix.ui.theme
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode
-import com.daniebeler.pfpixelix.utils.KmpContext
 
 
 actual fun applySystemNightMode(mode: Int) {}
 
 @Composable
-actual fun ChangeSystemBarColors(mode: Int) {}
-
-actual fun KmpContext.generateColorScheme(
+actual fun generateColorScheme(
     nightModeValue: Int,
     dynamicColor: Boolean,
     lightScheme: ColorScheme,
     darkScheme: ColorScheme
 ): ColorScheme {
     //TODO dynamicColor
-    return when (nightModeValue) {
-        AppThemeMode.AMOLED -> darkScheme.toAmoled()
-        AppThemeMode.DARK -> darkScheme
-        else -> lightScheme
+    return remember(
+        nightModeValue, dynamicColor, lightScheme, darkScheme
+    ) {
+        when (nightModeValue) {
+            AppThemeMode.AMOLED -> darkScheme.toAmoled()
+            AppThemeMode.DARK -> darkScheme
+            else -> lightScheme
+        }
     }
 }

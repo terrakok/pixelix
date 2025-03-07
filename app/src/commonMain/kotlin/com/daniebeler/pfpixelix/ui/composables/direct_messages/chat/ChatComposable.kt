@@ -53,7 +53,6 @@ import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
 import com.daniebeler.pfpixelix.ui.composables.states.EndOfListComposable
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import org.jetbrains.compose.resources.painterResource
@@ -74,7 +73,6 @@ fun ChatComposable(
     viewModel: ChatViewModel = injectViewModel(key = "chat$accountId") { chatViewModel }
 ) {
     val lazyListState = rememberLazyListState()
-    val context = LocalKmpContext.current
     LaunchedEffect(Unit) {
         viewModel.getChat(accountId)
     }
