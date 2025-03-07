@@ -100,8 +100,10 @@ fun PreferencesComposable(
 
             ThemePref()
 
-            val icon = viewModel.appIcon.collectAsState()
-            CustomizeAppIconPref(navController, closePreferencesDrawer, icon.value)
+            if (PlatformFeatures.customAppIcon) {
+                val icon = viewModel.appIcon.collectAsState()
+                CustomizeAppIconPref(navController, closePreferencesDrawer, icon.value)
+            }
 
             HorizontalDivider(modifier = Modifier.padding(12.dp))
 

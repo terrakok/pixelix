@@ -4,5 +4,5 @@ actual object PlatformFeatures {
     actual val notificationWidgets = false
     actual val inAppBrowser = false
     actual val downloadToGallery = false
-    actual val customAppIcon = true
+    actual val customAppIcon = false
 }

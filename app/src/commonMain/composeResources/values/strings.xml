@@ -236,6 +236,7 @@
     <string name="joined_date">Joined %1$s</string>
     <string name="ago">ago</string>
     <string name="delete_message">Delete message</string>
+    <string name="video_player_not_supported">Video player is not supported</string>
     <plurals name="second">
         <item quantity="one">second</item>
         <item quantity="other">seconds</item>
