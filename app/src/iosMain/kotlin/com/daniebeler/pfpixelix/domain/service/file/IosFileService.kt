@@ -103,6 +103,7 @@ private class IosFile(
 
     override fun getMimeType(): String {
         val fileExtension = uri.url.pathExtension()
+        @Suppress("UNCHECKED_CAST", "CAST_NEVER_SUCCEEDS")
         val fileExtensionRef = CFBridgingRetain(fileExtension as NSString) as CFStringRef
         val uti = UTTypeCreatePreferredIdentifierForTag(
             kUTTagClassFilenameExtension,
@@ -125,6 +126,7 @@ private class IosFile(
     }
 
     override suspend fun getThumbnail(): ByteArray? = withContext(Dispatchers.IO) {
+        @Suppress("UNCHECKED_CAST")
         val urlRef = CFBridgingRetain(uri.url) as CFURLRef
         val imageSource = CGImageSourceCreateWithURL(urlRef, null)!!
         val thumbnailOptions = CFDictionaryCreateMutable(

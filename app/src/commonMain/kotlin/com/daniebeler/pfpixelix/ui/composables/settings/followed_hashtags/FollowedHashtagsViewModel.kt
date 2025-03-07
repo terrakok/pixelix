@@ -56,11 +56,7 @@ class FollowedHashtagsViewModel @Inject constructor(
         searchService.getHashtag(tag.name).onEach { result ->
             followedHashtagsState = when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        FollowedHashtagsState(followedHashtags = followedHashtagsState.followedHashtags + result.data)
-                    } else {
-                        FollowedHashtagsState(followedHashtags = followedHashtagsState.followedHashtags)
-                    }
+                    FollowedHashtagsState(followedHashtags = followedHashtagsState.followedHashtags + result.data)
                 }
 
                 is Resource.Error -> {

@@ -39,13 +39,7 @@ class TextFieldLocationsViewModel @Inject constructor(
         searchService.searchLocations(location).onEach { result ->
             locationsSuggestions = when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        LocationsState(locations = result.data)
-                    } else {
-                        LocationsState(
-                            error = result.message ?: "An unexpected error occurred"
-                        )
-                    }
+                    LocationsState(locations = result.data)
                 }
 
                 is Resource.Error -> {

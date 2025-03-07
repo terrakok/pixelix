@@ -56,13 +56,7 @@ class NewPostViewModel @Inject constructor(
         instanceService.getInstance().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        instance = result.data
-                    } else {
-                        createPostState = CreatePostState(
-                            error = result.message ?: "An unexpected error occurred"
-                        )
-                    }
+                    instance = result.data
                 }
 
                 is Resource.Error -> {
@@ -140,7 +134,10 @@ class NewPostViewModel @Inject constructor(
         }
         val imagesNumber = images.size + 1
         if (instance != null && imagesNumber > instance!!.configuration.statusConfig.maxMediaAttachments) {
-            addImageError = Pair("To many images", "You have added to many images, your Server does only allow ${instance!!.configuration.statusConfig.maxMediaAttachments} images per post")
+            addImageError = Pair(
+                "To many images",
+                "You have added to many images, your Server does only allow ${instance!!.configuration.statusConfig.maxMediaAttachments} images per post"
+            )
             return
         }
         images += ImageItem(uri, fileType, null, "", true)
@@ -176,7 +173,10 @@ class NewPostViewModel @Inject constructor(
                     }
                     val index = images.indexOfFirst { it.imageUri == uri }
                     if (index != -1) {
-                        images[index] = images[index].copy(isLoading = false, id = result.data?.id) // Replacing the object forces recomposition
+                        images[index] = images[index].copy(
+                            isLoading = false,
+                            id = result.data?.id
+                        ) // Replacing the object forces recomposition
                     }
 
                     mediaUploadState.copy(
@@ -283,9 +283,7 @@ class NewPostViewModel @Inject constructor(
         postEditorService.createPost(createPostDto).onEach { result ->
             createPostState = when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        Navigate.navigateAndDeleteBackStack("own_profile_screen", navController)
-                    }
+                    Navigate.navigateAndDeleteBackStack("own_profile_screen", navController)
                     CreatePostState(post = result.data, isLoading = true)
                 }
 

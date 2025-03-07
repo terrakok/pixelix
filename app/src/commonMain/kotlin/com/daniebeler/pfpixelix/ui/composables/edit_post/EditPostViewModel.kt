@@ -47,21 +47,19 @@ class EditPostViewModel @Inject constructor(
         postService.getPostById(postId).onEach { result ->
             editPostState = when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        caption = TextFieldValue(result.data.content)
-                        result.data.place?.let {
-                            location = it
-                        }
-                        sensitive = result.data.sensitive
-                        sensitiveText = result.data.spoilerText
-                        mediaAttachmentsEdit.addAll(result.data.mediaAttachments)
-                        mediaAttachmentsBefore.addAll(result.data.mediaAttachments)
-                        mediaDescriptionItems.addAll(result.data.mediaAttachments.map {
-                            MediaDescriptionItem(
-                                it.id, it.description ?: "", false
-                            )
-                        })
+                    caption = TextFieldValue(result.data.content)
+                    result.data.place?.let {
+                        location = it
                     }
+                    sensitive = result.data.sensitive
+                    sensitiveText = result.data.spoilerText
+                    mediaAttachmentsEdit.addAll(result.data.mediaAttachments)
+                    mediaAttachmentsBefore.addAll(result.data.mediaAttachments)
+                    mediaDescriptionItems.addAll(result.data.mediaAttachments.map {
+                        MediaDescriptionItem(
+                            it.id, it.description ?: "", false
+                        )
+                    })
                     EditPostState(post = result.data)
                 }
 

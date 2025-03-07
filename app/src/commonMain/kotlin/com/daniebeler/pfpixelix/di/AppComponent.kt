@@ -62,6 +62,7 @@ abstract class AppComponent(
     abstract val systemFileShare: SystemFileShare
     abstract val authService: AuthService
     abstract val widgetService: WidgetService
+
     abstract val preferences: UserPreferences
 
     @get:Provides
