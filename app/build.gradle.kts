@@ -135,6 +135,9 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.appdirs)
             implementation(libs.slf4j.simple)
+            implementation(libs.vlcj)
+            implementation("net.java.dev.jna:jna:5.15.0")
+            implementation("net.java.dev.jna:jna-platform:5.15.0")
         }
     }
 

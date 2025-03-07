@@ -42,6 +42,7 @@ workRuntimeKtx = "2.10.0"
 #desktop
 appdirs = "1.1.1"
 slf4jSimple = "2.0.17"
+vlcj = "4.10.1"
 
 [libraries]
 
@@ -105,6 +106,7 @@ filekit-compose = { module = "io.github.vinceglb:filekit-compose", version.ref =
 krop = { module = "com.attafitamim.krop:ui", version.ref = "krop" }
 appdirs = { module = "ca.gosyer:kotlin-multiplatform-appdirs", version.ref = "appdirs" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
+vlcj = { module = "uk.co.caprica:vlcj", version.ref = "vlcj" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
