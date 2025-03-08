@@ -4,9 +4,9 @@ ksp = "2.1.10-1.0.29"
 agp = "8.8.2"
 
 #https://github.com/JetBrains/compose-multiplatform/releases
-composeMultiplatform = "1.8.0-alpha03"
-lifecycleMultiplatform = "2.9.0-alpha03"
-navigationMultiplatform = "2.8.0-alpha13"
+composeMultiplatform = "1.8.0-alpha04"
+lifecycleMultiplatform = "2.9.0-alpha04"
+navigationMultiplatform = "2.9.0-alpha14"
 
 #JetBrains
 kotlinx-coroutines = "1.10.1"

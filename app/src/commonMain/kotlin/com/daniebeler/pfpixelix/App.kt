@@ -1,9 +1,5 @@
 package com.daniebeler.pfpixelix
 
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Row
@@ -56,7 +52,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import co.touchlab.kermit.Logger
+import androidx.savedstate.SavedStateReader
+import androidx.savedstate.read
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.AppComponent
 import com.daniebeler.pfpixelix.di.LocalAppComponent
@@ -264,10 +261,9 @@ private fun NavGraphBuilder.navigationGraph(
     }
 
     composable(Destinations.Profile.route) { navBackStackEntry ->
-        /* val uId = navBackStackEntry.arguments?.read {
-             if (hasValue("userid")) getString("userid") else null
-         }*/
-        val uId = navBackStackEntry.arguments?.getString("userid")
+        val uId = navBackStackEntry.arguments?.read {
+            if (hasValue("userid")) getString("userid") else null
+        }
 
         uId?.let { id ->
             OtherProfileComposable(navController, userId = id, byUsername = null)
@@ -276,11 +272,9 @@ private fun NavGraphBuilder.navigationGraph(
     }
 
     composable(Destinations.ProfileByUsername.route) { navBackStackEntry ->
-        /*val username = navBackStackEntry.arguments?.read {
+        val username = navBackStackEntry.arguments?.read {
             if (hasValue("username")) getString("username") else null
         }
-*/
-        val username = navBackStackEntry.arguments?.getString("username")
 
         username?.let {
             OtherProfileComposable(navController, userId = "", byUsername = it)
@@ -288,10 +282,9 @@ private fun NavGraphBuilder.navigationGraph(
     }
 
     composable(Destinations.Hashtag.route) { navBackStackEntry ->
-        /*val uId = navBackStackEntry.arguments?.read {
+        val uId = navBackStackEntry.arguments?.read {
             if (hasValue("hashtag")) getString("hashtag") else null
-        }*/
-        val uId = navBackStackEntry.arguments?.getString("hashtag")
+        }
 
         uId?.let { id ->
             HashtagTimelineComposable(navController, id)
@@ -307,11 +300,10 @@ private fun NavGraphBuilder.navigationGraph(
     }
 
     composable("${Destinations.NewPost.route}?uris={uris}") { navBackStackEntry ->
-        /*val urisJson = navBackStackEntry.arguments?.read {
+        val urisJson = navBackStackEntry.arguments?.read {
             if (hasValue("uris")) getString("uris") else null
         }
-*/
-        val urisJson = navBackStackEntry.arguments?.getString("uris")
+
 
         val imageUris: List<KmpUri>? = urisJson?.let { json ->
             Json.decodeFromString<List<String>>(json).map { it.toKmpUri() }
@@ -320,11 +312,9 @@ private fun NavGraphBuilder.navigationGraph(
     }
 
     composable(Destinations.EditPost.route) { navBackStackEntry ->
-        /*val postId = navBackStackEntry.arguments?.read {
+        val postId = navBackStackEntry.arguments?.read {
             if (hasValue("postId")) getString("postId") else null
         }
-*/
-        val postId = navBackStackEntry.arguments?.getString("postId")
         postId?.let { id ->
             EditPostComposable(postId, navController)
         }
@@ -363,14 +353,12 @@ private fun NavGraphBuilder.navigationGraph(
     }
 
     composable(Destinations.Followers.route) { navBackStackEntry ->
-        /*val uId = navBackStackEntry.arguments?.read {
+        val uId = navBackStackEntry.arguments?.read {
             if (hasValue("userid")) getString("userid") else null
         }
         val page = navBackStackEntry.arguments?.read {
             if (hasValue("page")) getString("page") else null
-        }*/
-        val uId = navBackStackEntry.arguments?.getString("userid")
-        val page = navBackStackEntry.arguments?.getString("page")
+        }
         if (uId != null && page != null) {
             FollowersMainComposable(navController, accountId = uId, page = page)
         }
@@ -384,25 +372,21 @@ private fun NavGraphBuilder.navigationGraph(
             defaultValue = false
         })
     ) { navBackStackEntry ->
-        /*val uId = navBackStackEntry.arguments?.read {
+        val uId = navBackStackEntry.arguments?.read {
             if (hasValue("postid")) getString("postid") else null
         }
         val refresh = navBackStackEntry.arguments?.read { getBoolean("refresh") }!!
         val openReplies = navBackStackEntry.arguments?.read { getBoolean("openReplies") }!!
-       */
-        val uId = navBackStackEntry.arguments?.getString("postid")
-        val refresh = navBackStackEntry.arguments?.getBoolean("refresh")!!
-        val openReplies = navBackStackEntry.arguments?.getBoolean("openReplies")!!
+
         uId?.let { id ->
             SinglePostComposable(navController, postId = id, refresh, openReplies)
         }
     }
 
     composable(Destinations.Collection.route) { navBackStackEntry ->
-        /* val uId = navBackStackEntry.arguments?.read {
-             if (hasValue("collectionid")) getString("collectionid") else null
-         }*/
-        val uId = navBackStackEntry.arguments?.getString("collectionid")
+        val uId = navBackStackEntry.arguments?.read {
+            if (hasValue("collectionid")) getString("collectionid") else null
+        }
 
         uId?.let { id ->
             CollectionComposable(navController, collectionId = id)
@@ -410,10 +394,9 @@ private fun NavGraphBuilder.navigationGraph(
     }
 
     composable(Destinations.Search.route) { navBackStackEntry ->
-        /*val initialPage = navBackStackEntry.arguments?.read {
+        val initialPage = navBackStackEntry.arguments?.read {
             if (hasValue("initialPage")) getInt("initialPage") else 0
-        }*/
-        val initialPage = navBackStackEntry.arguments?.getInt("initialPage") ?: 0
+        }
 
         initialPage?.let {
             ExploreComposable(navController, initialPage)
@@ -425,10 +408,9 @@ private fun NavGraphBuilder.navigationGraph(
     }
 
     composable(Destinations.Chat.route) { navBackStackEntry ->
-        /* val uId = navBackStackEntry.arguments?.read {
-             if (hasValue("userid")) getString("userid") else null
-         }*/
-        val uId = navBackStackEntry.arguments?.getString("userid")
+        val uId = navBackStackEntry.arguments?.read {
+            if (hasValue("userid")) getString("userid") else null
+        }
 
         uId?.let { id ->
             ChatComposable(navController = navController, accountId = id)
@@ -436,10 +418,9 @@ private fun NavGraphBuilder.navigationGraph(
     }
 
     composable(Destinations.Mention.route) { navBackStackEntry ->
-        /*  val mentionId = navBackStackEntry.arguments?.read {
-              if (hasValue("mentionid")) getString("mentionid") else null
-          }*/
-        val mentionId = navBackStackEntry.arguments?.getString("mentionid")
+        val mentionId = navBackStackEntry.arguments?.read {
+            if (hasValue("mentionid")) getString("mentionid") else null
+        }
 
         mentionId?.let { id ->
             MentionComposable(navController = navController, mentionId = id)
@@ -447,7 +428,7 @@ private fun NavGraphBuilder.navigationGraph(
     }
 }
 
-//private fun SavedStateReader.hasValue(key: String) = contains(key) && !isNull(key)
+private fun SavedStateReader.hasValue(key: String) = contains(key) && !isNull(key)
 
 @Composable
 private fun BottomBar(
@@ -506,39 +487,40 @@ private fun BottomBar(
                     }
                 }
             }
-            NavigationBarItem(icon = {
+            NavigationBarItem(
+                icon = {
 
 
-                if (screen.route == Destinations.OwnProfile.route && avatar != null) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        AsyncImage(
-                            model = avatar,
-                            error = painterResource(Res.drawable.default_avatar),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .height(30.dp)
-                                .width(30.dp)
-                                .clip(CircleShape)
-                        )
+                    if (screen.route == Destinations.OwnProfile.route && avatar != null) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            AsyncImage(
+                                model = avatar,
+                                error = painterResource(Res.drawable.default_avatar),
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .height(30.dp)
+                                    .width(30.dp)
+                                    .clip(CircleShape)
+                            )
+                            Icon(
+                                Icons.Outlined.UnfoldMore,
+                                contentDescription = "long press to switch account"
+                            )
+                        }
+                    } else if (currentRoute?.startsWith(screen.route) == true) {
                         Icon(
-                            Icons.Outlined.UnfoldMore,
-                            contentDescription = "long press to switch account"
+                            imageVector = vectorResource(screen.activeIcon),
+                            modifier = Modifier.size(30.dp),
+                            contentDescription = stringResource(screen.label)
+                        )
+                    } else {
+                        Icon(
+                            imageVector = vectorResource(screen.icon),
+                            modifier = Modifier.size(30.dp),
+                            contentDescription = stringResource(screen.label)
                         )
                     }
-                } else if (currentRoute?.startsWith(screen.route) == true) {
-                    Icon(
-                        imageVector = vectorResource(screen.activeIcon),
-                        modifier = Modifier.size(30.dp),
-                        contentDescription = stringResource(screen.label)
-                    )
-                } else {
-                    Icon(
-                        imageVector = vectorResource(screen.icon),
-                        modifier = Modifier.size(30.dp),
-                        contentDescription = stringResource(screen.label)
-                    )
-                }
-            },
+                },
                 selected = currentRoute == screen.route,
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.inverseSurface,
