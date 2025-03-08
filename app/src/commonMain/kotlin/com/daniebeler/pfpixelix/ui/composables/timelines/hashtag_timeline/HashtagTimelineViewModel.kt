@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.model.RelatedHashtag
 import com.daniebeler.pfpixelix.domain.repository.PixelfedApi
@@ -135,10 +136,10 @@ class HashtagTimelineViewModel @Inject constructor(
     fun getRelatedHashtags(hashtag: String) {
         searchService.getRelatedHashtags(hashtag).onEach { result ->
             if (result is Resource.Success) {
-                relatedHashtags = result.data ?: emptyList()
-                println("juhuu" + result.data)
+                relatedHashtags = result.data
+                Logger.v("juhuu" + result.data)
             } else {
-                println("fief" + result.message)
+                Logger.v("fief" + result.message)
             }
         }.launchIn(viewModelScope)
     }

@@ -5,10 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.daniebeler.pfpixelix.domain.service.utils.Resource
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.Message
 import com.daniebeler.pfpixelix.domain.model.NewMessage
 import com.daniebeler.pfpixelix.domain.service.dm.DirectMessagesService
+import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import me.tatarka.inject.annotations.Inject
@@ -131,11 +132,11 @@ class ChatViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    println(result.message)
+                    Logger.e(result.message)
                 }
 
                 is Resource.Loading -> {
-                    println("is loading")
+                    Logger.v("is loading")
                 }
             }
         }.launchIn(viewModelScope)

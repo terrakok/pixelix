@@ -53,12 +53,10 @@ class AndroidFileService(
                     return@launch
                 }
 
-                println(bitmap.toString())
-
                 uri = saveImageToMediaStore(
                     context,
                     generateUniqueName(name, false, context),
-                    bitmap!!
+                    bitmap
                 )
                 if (uri == null) {
                     cancel("an error occured when saving the image")
