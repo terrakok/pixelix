@@ -56,7 +56,7 @@ import com.daniebeler.pfpixelix.ui.composables.states.EndOfListComposable
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenEmptyStateComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
@@ -263,9 +263,7 @@ private fun CreateNewConversation(
     }, confirmButton = {
         TextButton(enabled = viewModel.newConversationSelectedAccount != null, onClick = {
             if (viewModel.newConversationSelectedAccount != null) {
-                Navigate.navigate(
-                    "chat/" + viewModel.newConversationSelectedAccount!!.id, navController
-                )
+                navController.navigate(Destination.Chat(viewModel.newConversationSelectedAccount!!.id))
                 close()
             }
         }) {

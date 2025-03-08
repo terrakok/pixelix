@@ -66,7 +66,7 @@ import com.daniebeler.pfpixelix.ui.composables.CustomHashtag
 import com.daniebeler.pfpixelix.ui.composables.custom_account.CustomAccount
 import com.daniebeler.pfpixelix.ui.composables.explore.trending.TrendingComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenLoadingComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -292,13 +292,9 @@ private fun PastSearchItem(
             .fillMaxWidth()
             .clickable {
                 when (item.savedSearchType) {
-                    SavedSearchType.Account -> Navigate.navigate(
-                        "profile_screen/" + item.account!!.id, navController
-                    )
+                    SavedSearchType.Account -> navController.navigate(Destination.Profile(item.account!!.id))
 
-                    SavedSearchType.Hashtag -> Navigate.navigate(
-                        "hashtag_timeline_screen/${item.value}", navController
-                    )
+                    SavedSearchType.Hashtag -> navController.navigate(Destination.HashtagTimeline(item.value))
 
                     SavedSearchType.Search -> setSearchText(item.value)
                 }

@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.domain.model.Account
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.painterResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.default_avatar
@@ -32,7 +32,7 @@ fun FollowerElementComposable(
     Row(
         modifier = Modifier
             .clickable {
-                Navigate.navigate("profile_screen/" + account.id, navController, false)
+                navController.navigate(Destination.Profile(account.id))
             }
             .padding(horizontal = 12.dp, vertical = 8.dp)
             .fillMaxWidth()

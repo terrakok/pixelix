@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Notification
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.TimeAgo
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -88,13 +88,11 @@ fun CustomNotification(
             .padding(horizontal = 12.dp, vertical = 8.dp)
             .fillMaxWidth().clickable {
                 if (notification.post != null && notification.post.mediaAttachments.isEmpty()) {
-                    Navigate.navigate("mention/" + notification.post.id, navController)
+                    navController.navigate(Destination.Mention(notification.post.id))
                 } else if (notification.post != null && notification.post.mediaAttachments.isNotEmpty()) {
-                    Navigate.navigate(
-                        "single_post_screen/" + notification.post.id, navController
-                    )
+                    navController.navigate(Destination.Post(notification.post.id))
                 } else if (notification.post == null) {
-                    Navigate.navigate("profile_screen/" + notification.account.id, navController)
+                    navController.navigate(Destination.Profile(notification.account.id))
                 }
             },
         verticalAlignment = Alignment.CenterVertically
@@ -108,7 +106,7 @@ fun CustomNotification(
                 .width(46.dp)
                 .clip(CircleShape)
                 .clickable {
-                    Navigate.navigate("profile_screen/" + notification.account?.id, navController)
+                    navController.navigate(Destination.Profile(notification.account.id))
                 })
         Spacer(modifier = Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
@@ -117,10 +115,7 @@ fun CustomNotification(
                     text = notification.account.username,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable {
-                        Navigate.navigate(
-                            "profile_screen/" + notification.account.id,
-                            navController
-                        )
+                        navController.navigate(Destination.Profile(notification.account.id))
                     })
 
                 Text(text = text, overflow = TextOverflow.Ellipsis)
@@ -152,12 +147,15 @@ fun CustomNotification(
                     .aspectRatio(1f)
                     .clip(RoundedCornerShape(4.dp))
                     .clickable {
-                        Navigate.navigate(
-                            "single_post_screen/" + if (doesMediaAttachmentExsist) {
-                                notification.post!!.id
-                            } else {
-                                viewModel.ancestor!!.id + "?openReplies=true"
-                            }, navController
+                        navController.navigate(
+                            Destination.Post(
+                                id = if (doesMediaAttachmentExsist) {
+                                    notification.account.id
+                                } else {
+                                    viewModel.ancestor!!.id
+                                },
+                                openReplies = true
+                            )
                         )
                     })
         }

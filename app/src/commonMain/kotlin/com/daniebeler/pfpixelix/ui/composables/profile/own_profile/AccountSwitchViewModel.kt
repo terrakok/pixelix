@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.daniebeler.pfpixelix.domain.service.session.AuthService
 import com.daniebeler.pfpixelix.domain.service.session.Credentials
 import com.daniebeler.pfpixelix.domain.service.session.SessionStorage
-import com.daniebeler.pfpixelix.utils.Navigate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Inject
@@ -45,7 +44,6 @@ class AccountSwitchViewModel @Inject constructor(
         }
 
         coroutine.invokeOnCompletion {
-            Navigate.changeAccount()
             changedAccount()
             loadAccounts()
         }

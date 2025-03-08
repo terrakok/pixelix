@@ -53,7 +53,7 @@ import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
 import com.daniebeler.pfpixelix.ui.composables.states.EndOfListComposable
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -82,7 +82,7 @@ fun ChatComposable(
             if (viewModel.chatState.chat != null) {
                 Row(
                     modifier = Modifier.clickable {
-                        Navigate.navigate("profile_screen/$accountId", navController)
+                        navController.navigate(Destination.Profile(accountId))
                     }, verticalAlignment = Alignment.CenterVertically
                 ) {
                     AsyncImage(

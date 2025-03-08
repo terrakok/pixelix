@@ -67,7 +67,7 @@ import com.daniebeler.pfpixelix.ui.composables.profile.ProfileTopSection
 import com.daniebeler.pfpixelix.ui.composables.profile.SwitchViewComposable
 import com.daniebeler.pfpixelix.ui.composables.profile.server_stats.DomainSoftwareComposable
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -265,9 +265,7 @@ fun OtherProfileComposable(
                             Button(
                                 onClick = {
                                     viewModel.accountState.account?.let { account ->
-                                        Navigate.navigate(
-                                            "chat/" + account.id, navController
-                                        )
+                                        navController.navigate(Destination.Chat(account.id))
                                     }
                                 },
                                 modifier = Modifier.weight(1f),

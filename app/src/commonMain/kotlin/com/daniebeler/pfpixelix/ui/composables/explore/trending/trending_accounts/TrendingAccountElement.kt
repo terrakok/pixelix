@@ -20,7 +20,7 @@ import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.ui.composables.CustomPost
 import com.daniebeler.pfpixelix.ui.composables.custom_account.CustomAccount
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 
 @Composable
 fun TrendingAccountElement(
@@ -37,7 +37,7 @@ fun TrendingAccountElement(
             .padding(12.dp)
             .fillMaxWidth()
             .clickable {
-                Navigate.navigate("profile_screen/" + account.id, navController)
+                navController.navigate(Destination.Profile(account.id))
             }) {
 
         CustomAccount(account = account)

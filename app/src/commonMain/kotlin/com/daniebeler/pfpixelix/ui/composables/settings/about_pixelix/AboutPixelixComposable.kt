@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -172,9 +172,7 @@ fun AboutPixelixComposable(
                             .width(32.dp)
                             .height(32.dp)
                             .clickable {
-                                Navigate.navigate(
-                                    "profile_screen/677938259497057424", navController
-                                )
+                                navController.navigate(Destination.Profile("677938259497057424"))
                             })
 
                     Spacer(modifier = Modifier.width(16.dp))
@@ -221,9 +219,7 @@ fun AboutPixelixComposable(
                             .width(32.dp)
                             .height(32.dp)
                             .clickable {
-                                Navigate.navigate(
-                                    "profile_screen/497910174831013185", navController
-                                )
+                                navController.navigate(Destination.Profile("497910174831013185"))
                             })
 
                     Spacer(modifier = Modifier.width(16.dp))

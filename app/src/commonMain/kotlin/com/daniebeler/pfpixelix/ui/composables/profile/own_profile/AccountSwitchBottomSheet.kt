@@ -29,10 +29,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.daniebeler.pfpixelix.utils.Destinations
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.credentialsToAccount
 import com.daniebeler.pfpixelix.ui.composables.custom_account.CustomAccount
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -98,7 +98,7 @@ fun AccountSwitchBottomSheet(
                 .padding(horizontal = 12.dp, vertical = 8.dp)
                 .fillMaxWidth()
                 .clickable {
-                    navController.navigate(Destinations.NewLogin.route)
+                    navController.navigate(Destination.NewLogin)
                     closeBottomSheet()
                 },
             verticalAlignment = Alignment.CenterVertically
