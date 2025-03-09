@@ -33,7 +33,7 @@ import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.domain.model.Relationship
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.StringFormat
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.MonthNames
@@ -46,12 +46,11 @@ import pixelix.app.generated.resources.admin
 import pixelix.app.generated.resources.blocked
 import pixelix.app.generated.resources.default_avatar
 import pixelix.app.generated.resources.follower
-import pixelix.app.generated.resources.followers
 import pixelix.app.generated.resources.following
 import pixelix.app.generated.resources.follows_you
+import pixelix.app.generated.resources.joined_date
 import pixelix.app.generated.resources.muted
 import pixelix.app.generated.resources.posts
-import pixelix.app.generated.resources.joined_date
 
 @Composable
 fun ProfileTopSection(
@@ -88,9 +87,7 @@ fun ProfileTopSection(
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.clickable {
-                            Navigate.navigate(
-                                "followers_screen/" + "followers/" + account.id, navController
-                            )
+                            navController.navigate(Destination.Followers(account.id, true))
                         }) {
                         Text(
                             text = StringFormat.groupDigits(account.followersCount),
@@ -102,9 +99,7 @@ fun ProfileTopSection(
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.clickable {
-                            Navigate.navigate(
-                                "followers_screen/" + "following/" + account.id, navController
-                            )
+                            navController.navigate(Destination.Followers(account.id, false))
                         }) {
                         Text(
                             text = StringFormat.groupDigits(account.followingCount),

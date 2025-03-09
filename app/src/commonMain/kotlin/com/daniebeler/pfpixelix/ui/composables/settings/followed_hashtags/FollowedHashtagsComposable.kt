@@ -30,7 +30,7 @@ import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenEmptyStateComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenLoadingComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
@@ -89,7 +89,7 @@ fun FollowedHashtagsComposable(
                             message = "Followed hashtags will appear here",
                             buttonText = "Explore trending hashtags",
                             onClick = {
-                                Navigate.navigate("search_screen/2", navController)
+                                navController.navigate(Destination.Search(2))
                             })
                     )
                 }

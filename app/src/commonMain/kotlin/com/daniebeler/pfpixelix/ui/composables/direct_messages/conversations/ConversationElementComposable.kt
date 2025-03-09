@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.domain.model.Conversation
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.painterResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.default_avatar
@@ -33,7 +33,7 @@ fun ConversationElementComposable(conversation: Conversation, navController: Nav
         Modifier
             .fillMaxWidth()
             .clickable {
-                Navigate.navigate("chat/" + conversation.accounts.first().id, navController)
+                navController.navigate(Destination.Chat(conversation.accounts.first().id))
             }
             .padding(horizontal = 12.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically) {

@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.LikedBy
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.service.account.AccountService
@@ -17,7 +18,6 @@ import com.daniebeler.pfpixelix.domain.service.session.AuthService
 import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.ui.composables.post.reply.OwnReplyState
 import com.daniebeler.pfpixelix.ui.composables.post.reply.RepliesState
-import com.daniebeler.pfpixelix.utils.TimeAgo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -163,11 +163,11 @@ class PostViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    println(result.message)
+                    Logger.e(result.message)
                 }
 
                 is Resource.Loading -> {
-                    println("is loading")
+                    Logger.v("is loading")
                 }
             }
         }.launchIn(viewModelScope)

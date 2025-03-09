@@ -32,7 +32,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.di.injectViewModel
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -47,7 +46,7 @@ import pixelix.app.generated.resources.following
 fun FollowersMainComposable(
     navController: NavController,
     accountId: String,
-    page: String,
+    isFollowers: Boolean,
     viewModel: FollowersViewModel = injectViewModel(key = "followers-viewmodel-key") { followersViewModel }
 ) {
 
@@ -59,7 +58,7 @@ fun FollowersMainComposable(
         viewModel.setLoggedInAccountIdValue()
     }
 
-    val pageId = if (page == "followers") 0 else 1
+    val pageId = if (isFollowers) 0 else 1
     val pagerState = rememberPagerState(initialPage = pageId, pageCount = { 2 })
 
     val scope = rememberCoroutineScope()

@@ -24,11 +24,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Account
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.read_less
@@ -131,41 +130,31 @@ fun HashtagsMentionsTextView(
                 }
             },
             modifier = modifier, onClick = { position ->
-                CoroutineScope(Dispatchers.Default).launch {
+                CoroutineScope(Dispatchers.Main).launch {
                     val annotatedStringRange =
                         annotatedStringList.firstOrNull { it.start <= position && position < it.end }
                     if (annotatedStringRange != null) {
                         if (annotatedStringRange.tag == "tag" || annotatedStringRange.tag == "account") {
                             val newItem = annotatedStringRange.item.drop(1)
-                            val route = if (annotatedStringRange.tag == "tag") {
-                                "hashtag_timeline_screen/$newItem"
+                            if (annotatedStringRange.tag == "tag") {
+                                navController.navigate(Destination.HashtagTimeline(newItem))
                             } else {
                                 if (mentions == null) {
-                                    "profile_screen/byUsername/${annotatedStringRange.item.drop(1)}"
+                                    navController.navigate(Destination.ProfileByUsername(annotatedStringRange.item.drop(1)))
                                 } else {
-                                    var account =
-                                        mentions.find { account: Account -> account.acct == newItem }
+                                    var account = mentions.find { account: Account -> account.acct == newItem }
                                     if (account == null) {
-                                        account =
-                                            mentions.find { account: Account -> account.username == newItem }
+                                        account = mentions.find { account: Account -> account.username == newItem }
                                     }
                                     if (account != null) {
                                         //get my account id and check if it is mine account
                                         val myAccountId = viewModel.getMyAccountId()
                                         if (account.id == myAccountId) {
-                                            "own_profile_screen"
+                                            navController.navigate(Destination.OwnProfile)
                                         } else {
-                                            "profile_screen/${account.id}"
+                                            navController.navigate(Destination.Profile(account.id))
                                         }
-                                    } else {
-                                        ""
                                     }
-                                }
-
-                            }
-                            withContext(Dispatchers.Main) {
-                                if (route.isNotBlank() && route.isNotEmpty()) {
-                                    Navigate.navigate(route, navController)
                                 }
                             }
                         } else if (annotatedStringRange.tag == "link") {

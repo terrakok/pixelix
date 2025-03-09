@@ -25,7 +25,7 @@ import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.model.Visibility
 import com.daniebeler.pfpixelix.domain.service.platform.PlatformFeatures
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -137,7 +137,7 @@ fun ShareBottomSheet(
                 icon = Res.drawable.pencil_outline,
                 text = stringResource(Res.string.edit_post),
                 onClick = {
-                    Navigate.navigate("edit_post_screen/${post.id}", navController = navController)
+                    navController.navigate(Destination.EditPost(post.id))
                 }
             )
             ButtonRowElement(

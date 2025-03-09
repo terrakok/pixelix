@@ -27,7 +27,7 @@ import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.post.PostComposable
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
@@ -87,7 +87,9 @@ fun SinglePostComposable(
             Column(modifier = Modifier.verticalScroll(scrollState)) {
                 if (viewModel.postState.post != null) {
                     PostComposable(viewModel.postState.post!!, navController, postGetsDeleted = {
-                        Navigate.navigateAndDeleteBackStack("own_profile_screen", navController)
+                        navController.navigate(Destination.OwnProfile) {
+                            popUpTo(0) { inclusive = true }
+                        }
                     },
                         setZindex = { }, openReplies)
                 }

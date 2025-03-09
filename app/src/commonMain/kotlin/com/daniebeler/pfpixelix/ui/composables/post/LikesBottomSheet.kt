@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.domain.model.Account
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
@@ -93,7 +93,7 @@ private fun LikedByAccountElement(account: Account, navController: NavController
             .padding(horizontal = 12.dp, vertical = 8.dp)
             .fillMaxWidth()
             .clickable {
-                Navigate.navigate("profile_screen/" + account.id, navController)
+                navController.navigate(Destination.Profile(account.id))
             }, verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(

@@ -29,11 +29,10 @@ import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.domain.model.Relationship
 import com.daniebeler.pfpixelix.ui.composables.FollowButton
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
-import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.default_avatar
 import pixelix.app.generated.resources.follower
@@ -124,7 +123,7 @@ private fun CustomAccountPrivate(
     Row(modifier = Modifier
         .clickable {
             onClick()
-            Navigate.navigate("profile_screen/" + account.id, navController)
+            navController.navigate(Destination.Profile(account.id))
         }
         .padding(horizontal = 12.dp, vertical = 8.dp)
         .fillMaxWidth(),

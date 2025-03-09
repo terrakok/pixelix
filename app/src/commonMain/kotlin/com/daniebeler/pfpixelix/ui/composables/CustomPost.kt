@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.domain.model.Post
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.BlurHashDecoder
-import com.daniebeler.pfpixelix.utils.Navigate
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.stack
@@ -64,7 +64,7 @@ fun CustomPost(
                     .aspectRatio(1f)
                     .clickable(onClick = {
                         if (!edit && onClick == null) {
-                            Navigate.navigate("single_post_screen/" + post.id, navController)
+                            navController.navigate(Destination.Post(post.id))
                         } else if (onClick != null){
                             onClick(post.id)
                         }
@@ -83,7 +83,7 @@ fun CustomPost(
                 customModifier
                     .clickable(onClick = {
                         if (!edit && onClick == null) {
-                            Navigate.navigate("single_post_screen/" + post.id, navController)
+                            navController.navigate(Destination.Post(post.id))
                         } else if (onClick != null){
                             onClick(post.id)
                         }

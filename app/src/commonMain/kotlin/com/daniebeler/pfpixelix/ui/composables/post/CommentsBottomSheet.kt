@@ -65,7 +65,7 @@ import com.daniebeler.pfpixelix.ui.composables.post.reply.ReplyElementViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FixedHeightLoadingComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_mentions.TextFieldMentionsComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.TimeAgo
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
@@ -260,9 +260,7 @@ private fun ReplyElement(
                     .width(42.dp)
                     .clip(CircleShape)
                     .clickable {
-                        Navigate.navigate(
-                            "profile_screen/" + reply.account.id, navController
-                        )
+                        navController.navigate(Destination.Profile(reply.account.id))
                     })
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -273,9 +271,7 @@ private fun ReplyElement(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.clickable {
-                            Navigate.navigate(
-                                "profile_screen/" + reply.account.id, navController
-                            )
+                            navController.navigate(Destination.Profile(reply.account.id))
                         })
 
                     Text(

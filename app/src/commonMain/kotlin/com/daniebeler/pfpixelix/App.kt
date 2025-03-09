@@ -1,9 +1,5 @@
 package com.daniebeler.pfpixelix
 
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Row
@@ -36,6 +32,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,61 +45,45 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import co.touchlab.kermit.Logger
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.AppComponent
 import com.daniebeler.pfpixelix.di.LocalAppComponent
-import com.daniebeler.pfpixelix.ui.composables.HomeComposable
 import com.daniebeler.pfpixelix.ui.composables.ReverseModalNavigationDrawer
-import com.daniebeler.pfpixelix.ui.composables.collection.CollectionComposable
-import com.daniebeler.pfpixelix.ui.composables.direct_messages.chat.ChatComposable
-import com.daniebeler.pfpixelix.ui.composables.direct_messages.conversations.ConversationsComposable
-import com.daniebeler.pfpixelix.ui.composables.edit_post.EditPostComposable
-import com.daniebeler.pfpixelix.ui.composables.edit_profile.EditProfileComposable
-import com.daniebeler.pfpixelix.ui.composables.explore.ExploreComposable
-import com.daniebeler.pfpixelix.ui.composables.followers.FollowersMainComposable
-import com.daniebeler.pfpixelix.ui.composables.mention.MentionComposable
-import com.daniebeler.pfpixelix.ui.composables.newpost.NewPostComposable
-import com.daniebeler.pfpixelix.ui.composables.notifications.NotificationsComposable
-import com.daniebeler.pfpixelix.ui.composables.profile.other_profile.OtherProfileComposable
 import com.daniebeler.pfpixelix.ui.composables.profile.own_profile.AccountSwitchBottomSheet
-import com.daniebeler.pfpixelix.ui.composables.profile.own_profile.OwnProfileComposable
-import com.daniebeler.pfpixelix.ui.composables.session.LoginComposable
-import com.daniebeler.pfpixelix.ui.composables.settings.about_instance.AboutInstanceComposable
-import com.daniebeler.pfpixelix.ui.composables.settings.about_pixelix.AboutPixelixComposable
-import com.daniebeler.pfpixelix.ui.composables.settings.blocked_accounts.BlockedAccountsComposable
-import com.daniebeler.pfpixelix.ui.composables.settings.bookmarked_posts.BookmarkedPostsComposable
-import com.daniebeler.pfpixelix.ui.composables.settings.followed_hashtags.FollowedHashtagsComposable
-import com.daniebeler.pfpixelix.ui.composables.settings.icon_selection.IconSelectionComposable
-import com.daniebeler.pfpixelix.ui.composables.settings.liked_posts.LikedPostsComposable
-import com.daniebeler.pfpixelix.ui.composables.settings.muted_accounts.MutedAccountsComposable
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.PreferencesComposable
-import com.daniebeler.pfpixelix.ui.composables.single_post.SinglePostComposable
-import com.daniebeler.pfpixelix.ui.composables.timelines.hashtag_timeline.HashtagTimelineComposable
+import com.daniebeler.pfpixelix.ui.navigation.Destination
+import com.daniebeler.pfpixelix.ui.navigation.navigationGraph
 import com.daniebeler.pfpixelix.ui.theme.PixelixTheme
-import com.daniebeler.pfpixelix.utils.Destinations
-import com.daniebeler.pfpixelix.utils.KmpUri
-import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.end
-import com.daniebeler.pfpixelix.utils.toKmpUri
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.add_circle
+import pixelix.app.generated.resources.add_circle_outline
+import pixelix.app.generated.resources.bookmark_outline
 import pixelix.app.generated.resources.default_avatar
+import pixelix.app.generated.resources.home
+import pixelix.app.generated.resources.house
+import pixelix.app.generated.resources.house_fill
+import pixelix.app.generated.resources.new_post
+import pixelix.app.generated.resources.notifications
+import pixelix.app.generated.resources.notifications_outline
+import pixelix.app.generated.resources.profile
+import pixelix.app.generated.resources.search
+import pixelix.app.generated.resources.search_outline
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -170,7 +151,7 @@ fun App(
                             modifier = Modifier.fillMaxSize().padding(paddingValues)
                                 .consumeWindowInsets(WindowInsets.navigationBars),
                             navController = navController,
-                            startDestination = Destinations.FirstLogin.route,
+                            startDestination = Destination.FirstLogin,
                             builder = {
                                 navigationGraph(
                                     navController,
@@ -180,11 +161,8 @@ fun App(
                             }
                         )
                         LaunchedEffect(activeUser) {
-                            val rootScreen = if (activeUser == null) {
-                                Destinations.FirstLogin.route
-                            } else {
-                                Destinations.HomeScreen.route
-                            }
+                            val rootScreen =
+                                if (activeUser == null) Destination.FirstLogin else Destination.Feeds
                             navController.navigate(rootScreen) {
                                 val root = navController.currentBackStack.value
                                     .firstOrNull { it.destination.route != null }
@@ -196,11 +174,8 @@ fun App(
 
                             if (activeUser != null) {
                                 appComponent.systemFileShare.shareFilesRequests.collect { uris ->
-                                    val urisJson = Json.encodeToString(
-                                        uris.map { uri -> uri.toString() }
-                                    )
-                                    Navigate.navigate(
-                                        "new_post_screen?uris=$urisJson", navController
+                                    navController.navigate(
+                                        Destination.NewPost(uris.map { it.toString() })
                                     )
                                 }
                             }
@@ -225,242 +200,44 @@ fun App(
     }
 }
 
-private fun NavGraphBuilder.navigationGraph(
-    navController: NavHostController,
-    openPreferencesDrawer: () -> Unit,
-    exitApp: () -> Unit
+private enum class HomeTab(
+    val destination: Destination,
+    val icon: DrawableResource,
+    val activeIcon: DrawableResource,
+    val label: StringResource
 ) {
-    dialog(
-        route = Destinations.FirstLogin.route,
-    ) {
-        EdgeToEdgeDialog(
-            onDismissRequest = exitApp,
-            properties = DialogProperties(
-                dismissOnClickOutside = false,
-                usePlatformDefaultWidth = false,
-            )
-        ) {
-            LoginComposable(navController = navController)
-        }
-    }
-    dialog(route = Destinations.NewLogin.route) {
-        EdgeToEdgeDialog(
-            onDismissRequest = { navController.popBackStack() },
-            properties = DialogProperties(
-                dismissOnClickOutside = false,
-                usePlatformDefaultWidth = false,
-            )
-        ) {
-            LoginComposable(true, navController)
-        }
-    }
-
-    composable(Destinations.HomeScreen.route) {
-        HomeComposable(navController, openPreferencesDrawer)
-    }
-
-    composable(Destinations.NotificationsScreen.route) {
-        NotificationsComposable(navController)
-    }
-
-    composable(Destinations.Profile.route) { navBackStackEntry ->
-        /* val uId = navBackStackEntry.arguments?.read {
-             if (hasValue("userid")) getString("userid") else null
-         }*/
-        val uId = navBackStackEntry.arguments?.getString("userid")
-
-        uId?.let { id ->
-            OtherProfileComposable(navController, userId = id, byUsername = null)
-
-        }
-    }
-
-    composable(Destinations.ProfileByUsername.route) { navBackStackEntry ->
-        /*val username = navBackStackEntry.arguments?.read {
-            if (hasValue("username")) getString("username") else null
-        }
-*/
-        val username = navBackStackEntry.arguments?.getString("username")
-
-        username?.let {
-            OtherProfileComposable(navController, userId = "", byUsername = it)
-        }
-    }
-
-    composable(Destinations.Hashtag.route) { navBackStackEntry ->
-        /*val uId = navBackStackEntry.arguments?.read {
-            if (hasValue("hashtag")) getString("hashtag") else null
-        }*/
-        val uId = navBackStackEntry.arguments?.getString("hashtag")
-
-        uId?.let { id ->
-            HashtagTimelineComposable(navController, id)
-        }
-    }
-
-    composable(Destinations.EditProfile.route) {
-        EditProfileComposable(navController)
-    }
-
-    composable(Destinations.IconSelection.route) {
-        IconSelectionComposable(navController)
-    }
-
-    composable("${Destinations.NewPost.route}?uris={uris}") { navBackStackEntry ->
-        /*val urisJson = navBackStackEntry.arguments?.read {
-            if (hasValue("uris")) getString("uris") else null
-        }
-*/
-        val urisJson = navBackStackEntry.arguments?.getString("uris")
-
-        val imageUris: List<KmpUri>? = urisJson?.let { json ->
-            Json.decodeFromString<List<String>>(json).map { it.toKmpUri() }
-        }
-        NewPostComposable(navController, imageUris)
-    }
-
-    composable(Destinations.EditPost.route) { navBackStackEntry ->
-        /*val postId = navBackStackEntry.arguments?.read {
-            if (hasValue("postId")) getString("postId") else null
-        }
-*/
-        val postId = navBackStackEntry.arguments?.getString("postId")
-        postId?.let { id ->
-            EditPostComposable(postId, navController)
-        }
-    }
-
-    composable(Destinations.MutedAccounts.route) {
-        MutedAccountsComposable(navController)
-    }
-
-    composable(Destinations.BlockedAccounts.route) {
-        BlockedAccountsComposable(navController)
-    }
-
-    composable(Destinations.LikedPosts.route) {
-        LikedPostsComposable(navController)
-    }
-
-    composable(Destinations.BookmarkedPosts.route) {
-        BookmarkedPostsComposable(navController)
-    }
-
-    composable(Destinations.FollowedHashtags.route) {
-        FollowedHashtagsComposable(navController)
-    }
-
-    composable(Destinations.AboutInstance.route) {
-        AboutInstanceComposable(navController)
-    }
-
-    composable(Destinations.AboutPixelix.route) {
-        AboutPixelixComposable(navController)
-    }
-
-    composable(Destinations.OwnProfile.route) {
-        OwnProfileComposable(navController, openPreferencesDrawer)
-    }
-
-    composable(Destinations.Followers.route) { navBackStackEntry ->
-        /*val uId = navBackStackEntry.arguments?.read {
-            if (hasValue("userid")) getString("userid") else null
-        }
-        val page = navBackStackEntry.arguments?.read {
-            if (hasValue("page")) getString("page") else null
-        }*/
-        val uId = navBackStackEntry.arguments?.getString("userid")
-        val page = navBackStackEntry.arguments?.getString("page")
-        if (uId != null && page != null) {
-            FollowersMainComposable(navController, accountId = uId, page = page)
-        }
-    }
-
-    composable(
-        "${Destinations.SinglePost.route}?refresh={refresh}&openReplies={openReplies}",
-        arguments = listOf(navArgument("refresh") {
-            defaultValue = false
-        }, navArgument("openReplies") {
-            defaultValue = false
-        })
-    ) { navBackStackEntry ->
-        /*val uId = navBackStackEntry.arguments?.read {
-            if (hasValue("postid")) getString("postid") else null
-        }
-        val refresh = navBackStackEntry.arguments?.read { getBoolean("refresh") }!!
-        val openReplies = navBackStackEntry.arguments?.read { getBoolean("openReplies") }!!
-       */
-        val uId = navBackStackEntry.arguments?.getString("postid")
-        val refresh = navBackStackEntry.arguments?.getBoolean("refresh")!!
-        val openReplies = navBackStackEntry.arguments?.getBoolean("openReplies")!!
-        uId?.let { id ->
-            SinglePostComposable(navController, postId = id, refresh, openReplies)
-        }
-    }
-
-    composable(Destinations.Collection.route) { navBackStackEntry ->
-        /* val uId = navBackStackEntry.arguments?.read {
-             if (hasValue("collectionid")) getString("collectionid") else null
-         }*/
-        val uId = navBackStackEntry.arguments?.getString("collectionid")
-
-        uId?.let { id ->
-            CollectionComposable(navController, collectionId = id)
-        }
-    }
-
-    composable(Destinations.Search.route) { navBackStackEntry ->
-        /*val initialPage = navBackStackEntry.arguments?.read {
-            if (hasValue("initialPage")) getInt("initialPage") else 0
-        }*/
-        val initialPage = navBackStackEntry.arguments?.getInt("initialPage") ?: 0
-
-        initialPage?.let {
-            ExploreComposable(navController, initialPage)
-        }
-    }
-
-    composable(Destinations.Conversation.route) {
-        ConversationsComposable(navController = navController)
-    }
-
-    composable(Destinations.Chat.route) { navBackStackEntry ->
-        /* val uId = navBackStackEntry.arguments?.read {
-             if (hasValue("userid")) getString("userid") else null
-         }*/
-        val uId = navBackStackEntry.arguments?.getString("userid")
-
-        uId?.let { id ->
-            ChatComposable(navController = navController, accountId = id)
-        }
-    }
-
-    composable(Destinations.Mention.route) { navBackStackEntry ->
-        /*  val mentionId = navBackStackEntry.arguments?.read {
-              if (hasValue("mentionid")) getString("mentionid") else null
-          }*/
-        val mentionId = navBackStackEntry.arguments?.getString("mentionid")
-
-        mentionId?.let { id ->
-            MentionComposable(navController = navController, mentionId = id)
-        }
-    }
+    Feeds(Destination.Feeds, Res.drawable.house, Res.drawable.house_fill, Res.string.home),
+    Search(
+        Destination.Search(),
+        Res.drawable.search_outline,
+        Res.drawable.search,
+        Res.string.search
+    ),
+    NewPost(
+        Destination.NewPost(),
+        Res.drawable.add_circle_outline,
+        Res.drawable.add_circle,
+        Res.string.new_post
+    ),
+    Notifications(
+        Destination.Notifications,
+        Res.drawable.notifications_outline,
+        Res.drawable.notifications,
+        Res.string.notifications
+    ),
+    OwnProfile(
+        Destination.OwnProfile,
+        Res.drawable.bookmark_outline,
+        Res.drawable.bookmark_outline,
+        Res.string.profile
+    )
 }
-
-//private fun SavedStateReader.hasValue(key: String) = contains(key) && !isNull(key)
 
 @Composable
 private fun BottomBar(
     navController: NavHostController,
     openAccountSwitchBottomSheet: () -> Unit
 ) {
-    val screens = listOf(
-        Destinations.HomeScreen,
-        Destinations.Search,
-        Destinations.NewPost,
-        Destinations.NotificationsScreen,
-        Destinations.OwnProfile
-    )
     val systemNavigationBarHeight =
         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
@@ -478,10 +255,13 @@ private fun BottomBar(
     NavigationBar(
         modifier = Modifier.height(60.dp + systemNavigationBarHeight)
     ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
+        val currentStack by navController.currentBackStack.collectAsState()
 
-        screens.forEach { screen ->
+        HomeTab.entries.forEach { tab ->
+            val isSelected = currentStack.any { it.destination.hasRoute(tab.destination::class) }
+            val isCurrentDestination =
+                currentStack.lastOrNull()?.destination?.hasRoute(tab.destination::class) == true
+
             val interactionSource = remember { MutableInteractionSource() }
             val coroutineScope = rememberCoroutineScope()
             var isLongPress by remember { mutableStateOf(false) }
@@ -493,7 +273,7 @@ private fun BottomBar(
                             isLongPress = false // Reset flag before starting detection
                             coroutineScope.launch {
                                 delay(500L) // Long-press threshold
-                                if (screen.route == Destinations.OwnProfile.route) {
+                                if (tab == HomeTab.OwnProfile) {
                                     openAccountSwitchBottomSheet()
                                 }
                                 isLongPress = true
@@ -506,48 +286,53 @@ private fun BottomBar(
                     }
                 }
             }
-            NavigationBarItem(icon = {
-
-
-                if (screen.route == Destinations.OwnProfile.route && avatar != null) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        AsyncImage(
-                            model = avatar,
-                            error = painterResource(Res.drawable.default_avatar),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .height(30.dp)
-                                .width(30.dp)
-                                .clip(CircleShape)
-                        )
+            NavigationBarItem(
+                icon = {
+                    if (tab == HomeTab.OwnProfile && avatar != null) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            AsyncImage(
+                                model = avatar,
+                                error = painterResource(Res.drawable.default_avatar),
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .height(30.dp)
+                                    .width(30.dp)
+                                    .clip(CircleShape)
+                            )
+                            Icon(
+                                Icons.Outlined.UnfoldMore,
+                                contentDescription = "long press to switch account"
+                            )
+                        }
+                    } else {
                         Icon(
-                            Icons.Outlined.UnfoldMore,
-                            contentDescription = "long press to switch account"
+                            imageVector = vectorResource(
+                                if (isSelected) tab.activeIcon else tab.icon
+                            ),
+                            modifier = Modifier.size(30.dp),
+                            contentDescription = stringResource(tab.label)
                         )
                     }
-                } else if (currentRoute?.startsWith(screen.route) == true) {
-                    Icon(
-                        imageVector = vectorResource(screen.activeIcon),
-                        modifier = Modifier.size(30.dp),
-                        contentDescription = stringResource(screen.label)
-                    )
-                } else {
-                    Icon(
-                        imageVector = vectorResource(screen.icon),
-                        modifier = Modifier.size(30.dp),
-                        contentDescription = stringResource(screen.label)
-                    )
-                }
-            },
-                selected = currentRoute == screen.route,
+                },
+                selected = isSelected,
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.inverseSurface,
                     indicatorColor = Color.Transparent
                 ),
                 interactionSource = interactionSource,
                 onClick = {
-                    if (!isLongPress) {
-                        Navigate.navigateWithPopUp(screen.route, navController)
+                    if (!isLongPress && !isCurrentDestination) {
+                        navController.navigate(tab.destination) {
+                            if (!isSelected) {
+                                popUpTo(0) {
+                                    saveState = true
+                                }
+                                restoreState = true
+                            } else {
+                                popUpTo(0)
+                            }
+                            launchSingleTop = true
+                        }
                     }
                 })
         }

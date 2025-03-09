@@ -29,7 +29,7 @@ import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Tag
 import com.daniebeler.pfpixelix.ui.composables.CustomPost
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
@@ -52,7 +52,7 @@ fun TrendingHashtagElement(
             .padding(vertical = 8.dp)
             .fillMaxWidth()
             .clickable {
-                Navigate.navigate("hashtag_timeline_screen/${hashtag.name}", navController)
+                navController.navigate(Destination.HashtagTimeline(hashtag.name))
             }) {
 
         Row(

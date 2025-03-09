@@ -14,8 +14,8 @@ import com.daniebeler.pfpixelix.domain.service.editor.PostEditorService
 import com.daniebeler.pfpixelix.domain.service.file.FileService
 import com.daniebeler.pfpixelix.domain.service.instance.InstanceService
 import com.daniebeler.pfpixelix.domain.service.utils.Resource
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.KmpUri
-import com.daniebeler.pfpixelix.utils.Navigate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.flowOn
@@ -283,7 +283,7 @@ class NewPostViewModel @Inject constructor(
         postEditorService.createPost(createPostDto).onEach { result ->
             createPostState = when (result) {
                 is Resource.Success -> {
-                    Navigate.navigateAndDeleteBackStack("own_profile_screen", navController)
+                    navController.navigate(Destination.OwnProfile)
                     CreatePostState(post = result.data, isLoading = true)
                 }
 

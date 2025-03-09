@@ -36,13 +36,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.ui.composables.post.PostComposable
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -115,7 +114,7 @@ fun MentionComposable(
                             post,
                             navController,
                             postGetsDeleted = {
-                                Navigate.navigateAndDeleteBackStack("own_profile_screen", navController)
+                                navController.navigate(Destination.OwnProfile)
                             },
                             setZindex = { },
                             openReplies = false,
@@ -146,15 +145,15 @@ private fun SubPosts(posts: List<Post>, navController: NavController) {
                     ancestor,
                     navController,
                     postGetsDeleted = {
-                        Navigate.navigateAndDeleteBackStack(
-                            "own_profile_screen", navController
-                        )
+                        navController.navigate(Destination.OwnProfile) {
+                            popUpTo(0) { inclusive = true }
+                        }
                     },
                     setZindex = { },
                     openReplies = false,
                     showReplies = false,
                     modifier = Modifier.clickable {
-                        Navigate.navigate("mention/" + ancestor.id, navController)
+                        navController.navigate(Destination.Mention(ancestor.id))
                     }
                 )
             }

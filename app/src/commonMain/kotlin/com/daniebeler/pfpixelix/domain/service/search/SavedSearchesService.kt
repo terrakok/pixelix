@@ -1,6 +1,7 @@
 package com.daniebeler.pfpixelix.domain.service.search
 
 import androidx.datastore.core.DataStore
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.domain.model.SavedSearchItem
 import com.daniebeler.pfpixelix.domain.model.SavedSearchType
@@ -38,7 +39,7 @@ class SavedSearchesService(
                 }
             }
         } catch (e: Exception) {
-            println(e)
+            Logger.e("Add item error", e)
         }
     }
 
@@ -50,7 +51,7 @@ class SavedSearchesService(
                 )
             }
         } catch (e: Exception) {
-            println(e)
+            Logger.e("deleteElement error", e)
         }
     }
 
@@ -59,7 +60,7 @@ class SavedSearchesService(
         try {
             dataStore.updateData { SavedSearches() }
         } catch (e: Exception) {
-            println(e)
+            Logger.e("clearSavedSearches error", e)
         }
     }
 }

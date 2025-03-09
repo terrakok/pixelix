@@ -82,8 +82,8 @@ import com.daniebeler.pfpixelix.domain.model.MediaAttachment
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.BlurHashDecoder
-import com.daniebeler.pfpixelix.utils.Navigate
 import com.daniebeler.pfpixelix.utils.TimeAgo
 import com.daniebeler.pfpixelix.utils.zoomable.rememberZoomState
 import kotlinx.coroutines.CoroutineScope
@@ -208,9 +208,7 @@ fun PostComposable(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.padding(start = 16.dp, end = 12.dp).clickable(onClick = {
-                        Navigate.navigate(
-                            "profile_screen/" + reblogAccount.id, navController
-                        )
+                        navController.navigate(Destination.Profile(reblogAccount.id))
                     })
                 ) {
                     Icon(Icons.Outlined.Cached, contentDescription = "reblogged by")
@@ -226,9 +224,7 @@ fun PostComposable(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(start = 16.dp, end = 12.dp).clickable(onClick = {
-                    Navigate.navigate(
-                        "profile_screen/" + viewModel.post!!.account.id, navController
-                    )
+                    navController.navigate(Destination.Profile(viewModel.post!!.account.id))
                 })
             ) {
                 AsyncImage(
@@ -532,10 +528,7 @@ fun PostComposable(
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.clickable {
-                                    Navigate.navigate(
-                                        "profile_screen/" + viewModel.post!!.likedBy!!.id,
-                                        navController
-                                    )
+                                    navController.navigate(Destination.Profile(viewModel.post!!.likedBy!!.id!!))
                                 })
                             if (post.favouritesCount > 1) {
                                 Text(

@@ -36,7 +36,7 @@ import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenLoadingComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -133,9 +133,7 @@ fun AboutInstanceComposable(
 
                         Row(modifier = Modifier
                             .clickable {
-                                Navigate.navigate(
-                                    "profile_screen/" + account.id, navController
-                                )
+                                navController.navigate(Destination.Profile(account.id))
                             }
                             .padding(horizontal = 12.dp, vertical = 8.dp)
                             .fillMaxWidth(),
