@@ -17,6 +17,7 @@ import com.daniebeler.pfpixelix.domain.model.PostContext
 import com.daniebeler.pfpixelix.domain.model.RelatedHashtag
 import com.daniebeler.pfpixelix.domain.model.Relationship
 import com.daniebeler.pfpixelix.domain.model.Search
+import com.daniebeler.pfpixelix.domain.model.Server
 import com.daniebeler.pfpixelix.domain.model.Settings
 import com.daniebeler.pfpixelix.domain.model.Tag
 import de.jensklingenberg.ktorfit.Call
@@ -25,6 +26,7 @@ import de.jensklingenberg.ktorfit.http.DELETE
 import de.jensklingenberg.ktorfit.http.Field
 import de.jensklingenberg.ktorfit.http.FormUrlEncoded
 import de.jensklingenberg.ktorfit.http.GET
+import de.jensklingenberg.ktorfit.http.Header
 import de.jensklingenberg.ktorfit.http.Headers
 import de.jensklingenberg.ktorfit.http.POST
 import de.jensklingenberg.ktorfit.http.PUT
@@ -370,4 +372,9 @@ interface PixelfedApi {
     suspend fun getServerFromFediDB(
         @Path("slug") domain: String
     ): FediServerData
+
+    @GET("https://pixelfed.org/api/v1/mobile-app/servers/open.json")
+    suspend fun getOpenServers(
+        @Header("X-Pixelfed-App") pixelfedApp: Int = 1
+    ): List<Server>
 }
