@@ -42,10 +42,12 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -75,6 +77,8 @@ fun LoginComposable(
     navController: NavController,
     viewModel: LoginViewModel = injectViewModel("LoginViewModel") { loginViewModel }
 ) {
+    val dark = MaterialTheme.colorScheme.background.luminance() < 0.5
+
     Scaffold(Modifier.fillMaxSize()) { paddingValues ->
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -85,7 +89,7 @@ fun LoginComposable(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        if (isSystemInDarkTheme()) Color.White else Color.Black
+                        if (dark) Color.White else Color.Black
                     )
                     .windowInsetsPadding(
                         WindowInsets.systemBars.only(
@@ -105,7 +109,7 @@ fun LoginComposable(
                         }) {
                             Icon(
                                 imageVector = vectorResource(Res.drawable.close_outline),
-                                tint = if (isSystemInDarkTheme()) Color.Black else Color.White,
+                                tint = if (dark) Color.Black else Color.White,
                                 contentDescription = ""
                             )
                         }
@@ -116,7 +120,7 @@ fun LoginComposable(
                         .size(150.dp)
                         .clip(CircleShape),
                     painter = painterResource(
-                        if (isSystemInDarkTheme()) {
+                        if (dark) {
                             Res.drawable.pixelix_logo_black_xxl
                         } else {
                             Res.drawable.pixelix_logo_white_xxl
@@ -131,7 +135,7 @@ fun LoginComposable(
                     text = "PIXELIX",
                     fontSize = 38.sp,
                     fontWeight = FontWeight.Black,
-                    color = if (isSystemInDarkTheme()) Color.Black else Color.White
+                    color = if (dark) Color.Black else Color.White
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -139,7 +143,7 @@ fun LoginComposable(
 
             Image(
                 painterResource(
-                    if (isSystemInDarkTheme()) {
+                    if (dark) {
                         Res.drawable.login_wave_light
                     } else {
                         Res.drawable.login_wave_dark
