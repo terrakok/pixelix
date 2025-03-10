@@ -63,7 +63,7 @@ sealed interface Destination {
     @Serializable data object FirstLogin : Destination
     @Serializable data object NewLogin : Destination
     @Serializable data object Feeds : Destination
-    @Serializable data class Search(val page: Int = 0) : Destination
+    @Serializable data class Search(val page: Int = 0, val activeSearch: Int = 0) : Destination
     @Serializable data class NewPost(val uris: List<String> = emptyList()) : Destination
     @Serializable data object Notifications : Destination
     @Serializable data object OwnProfile : Destination
@@ -197,7 +197,7 @@ internal fun NavGraphBuilder.navigationGraph(
 
     composable<Destination.Search> { navBackStackEntry ->
         val args = navBackStackEntry.toRoute<Destination.Search>()
-        ExploreComposable(navController, args.page)
+        ExploreComposable(navController, args.page, args.activeSearch)
     }
 
     composable<Destination.Conversations> {

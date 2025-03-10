@@ -51,6 +51,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import co.touchlab.kermit.Logger
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.AppComponent
 import com.daniebeler.pfpixelix.di.LocalAppComponent
@@ -208,7 +209,7 @@ private enum class HomeTab(
 ) {
     Feeds(Destination.Feeds, Res.drawable.house, Res.drawable.house_fill, Res.string.home),
     Search(
-        Destination.Search(),
+        Destination.Search(activeSearch = 0),
         Res.drawable.search_outline,
         Res.drawable.search,
         Res.string.search
@@ -321,7 +322,25 @@ private fun BottomBar(
                 ),
                 interactionSource = interactionSource,
                 onClick = {
-                    if (!isLongPress && !isCurrentDestination) {
+                    if (isCurrentDestination && tab == HomeTab.Search) {
+                        Logger.d("search") { "true" }
+                        navController.navigate(Destination.Search(activeSearch = 1)) {
+                            if (!isSelected) {
+                                popUpTo(0) {
+                                    saveState = true
+                                }
+                                restoreState = true
+                            } else {
+                                popUpTo(0)
+                            }
+                            launchSingleTop = true
+                        }
+                    } else if (tab == HomeTab.Search) {
+                        navController.navigate(Destination.Search(activeSearch = 0)) {
+                            popUpTo(0)
+                            launchSingleTop = true
+                        }
+                    } else if (!isLongPress && !isCurrentDestination) {
                         navController.navigate(tab.destination) {
                             if (!isSelected) {
                                 popUpTo(0) {

@@ -52,11 +52,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import co.touchlab.kermit.Logger
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Account
@@ -84,10 +87,20 @@ import pixelix.app.generated.resources.search_outline
 fun ExploreComposable(
     navController: NavController,
     initialPage: Int = 0,
+    activeSearch: Int = 0,
     viewModel: ExploreViewModel = injectViewModel(key = "search-viewmodel-key") { exploreViewModel }
 ) {
+    val focusRequester = FocusRequester()
     val textFieldState = rememberTextFieldState()
     var expanded by rememberSaveable { mutableStateOf(false) }
+    Logger.d("search") {
+        "active search $activeSearch"
+    }
+    LaunchedEffect(activeSearch) {
+        if (activeSearch == 1) {
+            focusRequester.requestFocus()
+        }
+    }
 
     Box(Modifier
         .fillMaxSize()
@@ -108,6 +121,7 @@ fun ExploreComposable(
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
                     placeholder = { Text(stringResource(Res.string.explore)) },
+                    modifier = Modifier.focusRequester(focusRequester),
                     leadingIcon = {
                         if (!expanded) {
                             Icon(vectorResource(Res.drawable.search_outline), contentDescription = null)
