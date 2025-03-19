@@ -13,6 +13,7 @@ import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,13 +40,9 @@ fun CustomPost(
     editRemove: (postId: String) -> Unit = {}
 ) {
 
-    val blurHashBitmap = BlurHashDecoder.decode(
-        if (post.mediaAttachments.isNotEmpty()) {
-            post.mediaAttachments[0].blurHash ?: "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
-        } else {
-            "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
-        },
-    )
+    val firstBlurHash = post.mediaAttachments.firstOrNull()?.blurHash
+        ?: "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
+    val blurHashBitmap = remember(firstBlurHash) { BlurHashDecoder.decode(firstBlurHash) }
 
     Box(modifier = customModifier.aspectRatio(1f)) {
         if (blurHashBitmap != null) {
