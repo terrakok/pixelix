@@ -15,8 +15,10 @@ class UserPreferences(observableSettings: DataStoreSettings) {
     private val settings = observableSettings.toBlockingSettings()
 
     var hideSensitiveContent by settings.boolean("k_hide_sensitive_content", true)
-    var useInAppBrowser by settings.boolean("k_use_in_app_browser", true)
+    var blurSensitiveContent by settings.boolean("k_blur_sensitive_content", true)
+    var blurSensitiveContentFlow = observableSettings.getBooleanFlow("k_blur_sensitive_content", blurSensitiveContent)
 
+    var useInAppBrowser by settings.boolean("k_use_in_app_browser", true)
 
     var hideAltTextButton by settings.boolean("k_hide_alt_text_button", false)
     val hideAltTextButtonFlow = observableSettings.getBooleanFlow("k_hide_alt_text_button", hideAltTextButton)

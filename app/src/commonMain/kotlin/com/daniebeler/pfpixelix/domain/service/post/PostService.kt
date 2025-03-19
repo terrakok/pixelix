@@ -29,7 +29,6 @@ class PostService(
     private val authService: AuthService,
     private val json: Json
 ) {
-
     fun getPostById(postId: String) = loadResource {
         api.getPostById(postId)
     }

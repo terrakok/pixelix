@@ -52,9 +52,9 @@ class PostViewModel @Inject constructor(
     var myAccountId: String? = null
     var myUsername: String? = null
 
-
     var isAltTextButtonHidden by mutableStateOf(false)
     var isInFocusMode by mutableStateOf(false)
+    var blurSensitiveContent by mutableStateOf(false)
 
     var volume by mutableStateOf(prefs.enableVolume)
 
@@ -69,6 +69,9 @@ class PostViewModel @Inject constructor(
         }
         viewModelScope.launch {
             prefs.focusModeFlow.collect { isInFocusMode = it }
+        }
+        viewModelScope.launch {
+            prefs.blurSensitiveContentFlow.collect { blurSensitiveContent = it }
         }
     }
 

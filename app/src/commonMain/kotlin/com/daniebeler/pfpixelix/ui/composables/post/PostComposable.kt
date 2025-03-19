@@ -77,6 +77,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
+import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
 import com.daniebeler.pfpixelix.domain.model.Post
@@ -280,9 +281,9 @@ fun PostComposable(
             Spacer(modifier = Modifier.height(6.dp))
 
             if (viewModel.post!!.mediaAttachments.isNotEmpty()) {
-                if (viewModel.post!!.sensitive && !viewModel.showPost) {
+                if (viewModel.post!!.sensitive && !viewModel.showPost && viewModel.blurSensitiveContent) {
 
-                    Box {
+                    Box(modifier.padding(start = 12.dp, end = 12.dp).clip(RoundedCornerShape(16.dp))) {
                         val blurHashBitmap = BlurHashDecoder.decode(
                             viewModel.post!!.mediaAttachments[0].blurHash
                         )

@@ -13,17 +13,25 @@ import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
+import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.BlurHashDecoder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.stack
@@ -38,6 +46,15 @@ fun CustomPost(
     edit: Boolean = false,
     editRemove: (postId: String) -> Unit = {}
 ) {
+    val prefs = LocalAppComponent.current.preferences
+    val blurSensitiveContent = remember { mutableStateOf(prefs.hideSensitiveContent) }
+
+    val coroutineScope = rememberCoroutineScope()
+    LaunchedEffect(Unit) {
+        coroutineScope.launch {
+            prefs.blurSensitiveContentFlow.collect { blurSensitiveContent.value = it }
+        }
+    }
 
     val blurHashBitmap = BlurHashDecoder.decode(
         if (post.mediaAttachments.isNotEmpty()) {
@@ -57,7 +74,7 @@ fun CustomPost(
             )
         }
 
-        if (post.sensitive) {
+        if (post.sensitive && blurSensitiveContent.value) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
