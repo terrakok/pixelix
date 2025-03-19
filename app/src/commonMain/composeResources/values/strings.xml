@@ -265,4 +265,5 @@
         <item quantity="one">year</item>
         <item quantity="other">years</item>
     </plurals>
+    <string name="blur_sensitive_content">Blur sensitive content</string>
 </resources>

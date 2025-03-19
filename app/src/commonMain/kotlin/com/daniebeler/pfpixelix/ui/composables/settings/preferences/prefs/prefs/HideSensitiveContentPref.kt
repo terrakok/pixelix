@@ -9,6 +9,9 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BlurOn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -20,7 +23,9 @@ import com.daniebeler.pfpixelix.ui.composables.settings.preferences.basic.Switch
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.eye_off_outline
+import pixelix.app.generated.resources.blur
 import pixelix.app.generated.resources.hide_sensitive_content
+import pixelix.app.generated.resources.blur_sensitive_content
 
 @Composable
 fun HideSensitiveContentPref() {
@@ -48,8 +53,8 @@ fun HideSensitiveContentPref() {
             exit = shrinkVertically(animationSpec = spring(stiffness = Spring.StiffnessMedium)) + fadeOut(),
         ) {
             SwitchPref(
-                leadingIcon = Res.drawable.eye_off_outline,
-                title = "Blur sensitive content",
+                leadingIcon = Res.drawable.blur,
+                title = stringResource(Res.string.blur_sensitive_content),
                 state = blurState
             )
         }
