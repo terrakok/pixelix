@@ -56,13 +56,9 @@ fun CustomPost(
         }
     }
 
-    val blurHashBitmap = BlurHashDecoder.decode(
-        if (post.mediaAttachments.isNotEmpty()) {
-            post.mediaAttachments[0].blurHash ?: "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
-        } else {
-            "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
-        },
-    )
+    val firstBlurHash = post.mediaAttachments.firstOrNull()?.blurHash
+        ?: "LEHLk~WB2yk8pyo0adR*.7kCMdnj"
+    val blurHashBitmap = remember(firstBlurHash) { BlurHashDecoder.decode(firstBlurHash) }
 
     Box(modifier = customModifier.aspectRatio(1f)) {
         if (blurHashBitmap != null) {
