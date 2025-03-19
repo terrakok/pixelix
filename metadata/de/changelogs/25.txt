@@ -6,5 +6,4 @@ Fehlerbehebungen:
     - Ein Problem wurde behoben, bei dem keine Beiträge angezeigt wurden, wenn private Profile betrachtet wurden.
   - Liken und Boost von rebloggeden Beiträgen:
     - Ein Fehler wurde behoben, durch den das Liken und Boosten von erneut geposteten Beiträgen nicht funktionierte.
-  - Toolbar-Insets im Einstellungsbildschirm:
-    - Falsche Fenster-Insets für die Toolbar im Einstellungsbildschirm wurden korrigiert.
+  - Toolbar-Insets im Einstellungsbildschirm fixes
