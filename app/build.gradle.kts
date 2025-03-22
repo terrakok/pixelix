@@ -89,8 +89,6 @@ kotlin {
 
             //image loader
             implementation(libs.coil.compose)
-            implementation(libs.coil.video)
-            implementation(libs.coil.gif)
             implementation(libs.coil.network)
 
             //image crop
@@ -117,6 +115,8 @@ kotlin {
             implementation(libs.androidx.media3.exoplayer.dash)
             implementation(libs.androidx.media3.ui)
             implementation(libs.android.image.cropper)
+            implementation(libs.coil.video)
+            implementation(libs.coil.gif)
 
             // widget
             implementation(libs.androidx.glance.appwidget)
@@ -136,8 +136,8 @@ kotlin {
             implementation(libs.appdirs)
             implementation(libs.slf4j.simple)
             implementation(libs.vlcj)
-            implementation("net.java.dev.jna:jna:5.15.0")
-            implementation("net.java.dev.jna:jna-platform:5.15.0")
+            implementation(libs.jna)
+            implementation(libs.jna.platform)
         }
     }
 
