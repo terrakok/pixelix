@@ -327,11 +327,13 @@ fun PostComposable(
 
                 } else {
                     if (viewModel.post!!.mediaAttachments.count() > 1) {
-                        Box(
-
-                        ) {
+                        val smallestAspectRatio = viewModel.post!!.mediaAttachments
+                            .minByOrNull { it.meta?.original?.aspect ?: 1.0 }
+                        Box {
                             HorizontalPager(
-                                state = pagerState, modifier = Modifier.zIndex(50f)
+                                state = pagerState, modifier = Modifier.zIndex(50f).aspectRatio(
+                                    smallestAspectRatio?.meta?.original?.aspect?.toFloat() ?: 1f
+                                )
                             ) { page ->
                                 Box(
                                     modifier = Modifier.zIndex(10f)
