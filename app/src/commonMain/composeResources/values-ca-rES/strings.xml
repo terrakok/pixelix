@@ -18,7 +18,19 @@
     <string name="follow">Segueix</string>
     <string name="unfollow">Deixa de seguir</string>
     <string name="followers">Seguidors</string>
+    <plurals name="follower">
+        <item quantity="one">Follower</item>
+        <item quantity="other">Followers</item>
+    </plurals>
     <string name="following">Següent</string>
+    <plurals name="following">
+        <item quantity="one">Following</item>
+        <item quantity="other">Following</item>
+    </plurals>
+    <plurals name="posts">
+        <item quantity="one">Post</item>
+        <item quantity="other">Posts</item>
+    </plurals>
     <string name="posts">Entrades</string>
     <string name="hashtags">Etiquetes</string>
     <string name="reblogged_your_post">ha reblogjat la teva publicació</string>
@@ -216,4 +228,41 @@
     <string name="focus_mode_description">Hides description, likes and buttons from posts.</string>
     <string name="repost_settings">Repost settings</string>
     <string name="amoled">AMOLED</string>
+    <string name="no_followers_yet">No followers yet</string>
+    <string name="not_following_anyone">Not following anyone</string>
+    <string name="read_more">Read More</string>
+    <string name="read_less">Read Less</string>
+    <string name="joined_date">Joined %1$s</string>
+    <string name="ago">ago</string>
+    <string name="delete_message">Delete message</string>
+    <string name="video_player_not_supported">Video player is not supported</string>
+    <plurals name="second">
+        <item quantity="one">second</item>
+        <item quantity="other">seconds</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">hour</item>
+        <item quantity="other">hours</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="one">week</item>
+        <item quantity="other">weeks</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="one">month</item>
+        <item quantity="other">months</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="one">year</item>
+        <item quantity="other">years</item>
+    </plurals>
+    <string name="blur_sensitive_content">Blur sensitive content</string>
 </resources>

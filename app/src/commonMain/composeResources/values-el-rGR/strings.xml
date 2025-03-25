@@ -18,7 +18,19 @@
     <string name="follow">Ακολούθησε</string>
     <string name="unfollow">Άρση ακολούθησης</string>
     <string name="followers">Ακόλουθοι</string>
+    <plurals name="follower">
+        <item quantity="one">Ακόλουθος</item>
+        <item quantity="other">Ακόλουθοι</item>
+    </plurals>
     <string name="following">Ακολουθείς</string>
+    <plurals name="following">
+        <item quantity="one">Ακολουθεί</item>
+        <item quantity="other">Ακολουθούν</item>
+    </plurals>
+    <plurals name="posts">
+        <item quantity="one">Ανάρτηση</item>
+        <item quantity="other">Αναρτήσεις</item>
+    </plurals>
     <string name="posts">Αναρτήσεις</string>
     <string name="hashtags">Ετικέτες</string>
     <string name="reblogged_your_post">αναδημοσίευσε την ανάρτησή σου</string>
@@ -216,4 +228,41 @@
     <string name="focus_mode_description">Κρύβει την περιγραφή, μου αρέσει και κουμπιά από αναρτήσεις.</string>
     <string name="repost_settings">Ρυθμίσεις αναδημοσίευσης</string>
     <string name="amoled">AMOLED</string>
+    <string name="no_followers_yet">Κανένας ακόλουθος ακόμα</string>
+    <string name="not_following_anyone">Δεν ακολουθείται κανένας</string>
+    <string name="read_more">Διάβασε περισσότερα</string>
+    <string name="read_less">Διάβασε Λιγότερα</string>
+    <string name="joined_date">Έγινε Μέλος %1$s</string>
+    <string name="ago">πριν</string>
+    <string name="delete_message">Διαγραφή μηνύματος</string>
+    <string name="video_player_not_supported">Ο αναπαραγωγέας βίντεο δεν υποστηρίζεται</string>
+    <plurals name="second">
+        <item quantity="one">δευτερόλεπτο</item>
+        <item quantity="other">δευτερόλεπτα</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">λεπτό</item>
+        <item quantity="other">λεπτά</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">ώρα</item>
+        <item quantity="other">ώρες</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="one">ημέρα</item>
+        <item quantity="other">ημέρες</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="one">εβδομάδα</item>
+        <item quantity="other">εβδομάδες</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="one">μήνας</item>
+        <item quantity="other">μήνες</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="one">έτος</item>
+        <item quantity="other">έτη</item>
+    </plurals>
+    <string name="blur_sensitive_content">Blur sensitive content</string>
 </resources>

@@ -18,7 +18,19 @@
     <string name="follow">Folgen</string>
     <string name="unfollow">Entfolgen</string>
     <string name="followers">Follower</string>
+    <plurals name="follower">
+        <item quantity="one">Follower</item>
+        <item quantity="other">Followers</item>
+    </plurals>
     <string name="following">Gefolgt</string>
+    <plurals name="following">
+        <item quantity="one">Following</item>
+        <item quantity="other">Following</item>
+    </plurals>
+    <plurals name="posts">
+        <item quantity="one">Beitrag</item>
+        <item quantity="other">Beiträge</item>
+    </plurals>
     <string name="posts">Beiträge</string>
     <string name="hashtags">Hashtags</string>
     <string name="reblogged_your_post">hat deinen Beitrag geteilt</string>
@@ -206,14 +218,51 @@
     <string name="server_version">%1$s Version %2$s</string>
     <string name="visit_url">Besuche %1$s</string>
     <string name="displayname">Anzeigename</string>
-    <string name="bio">Bio</string>
+    <string name="bio">Über mich</string>
     <string name="website">Website</string>
     <string name="location">Standort</string>
     <string name="mentions">Erwähnungen</string>
     <string name="explore">Entdecken</string>
     <string name="reblogged_by">geteilt von %1$s</string>
-    <string name="focus_mode">Focus Mode</string>
-    <string name="focus_mode_description">Hides description, likes and buttons from posts.</string>
+    <string name="focus_mode">Fokusmodus</string>
+    <string name="focus_mode_description">Versteckt Beschreibung, Likes und Buttons von Beiträgen.</string>
     <string name="repost_settings">Boost-Einstellungen</string>
     <string name="amoled">AMOLED</string>
+    <string name="no_followers_yet">Noch keine Follower</string>
+    <string name="not_following_anyone">Sie folgen niemanden</string>
+    <string name="read_more">Mehr lesen</string>
+    <string name="read_less">Weniger anzeigen</string>
+    <string name="joined_date">Beigetreten %1$s</string>
+    <string name="ago">her</string>
+    <string name="delete_message">Nachricht löschen</string>
+    <string name="video_player_not_supported">Video-Player wird nicht unterstützt</string>
+    <plurals name="second">
+        <item quantity="one">Sekunde</item>
+        <item quantity="other">Sekunden</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">Minute</item>
+        <item quantity="other">Minuten</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">Stunde</item>
+        <item quantity="other">Stunden</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="one">Tag</item>
+        <item quantity="other">Tage</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="one">Woche</item>
+        <item quantity="other">Wochen</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="one">Monat</item>
+        <item quantity="other">Monate</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="one">Jahr</item>
+        <item quantity="other">Jahre</item>
+    </plurals>
+    <string name="blur_sensitive_content">Blur sensitive content</string>
 </resources>
