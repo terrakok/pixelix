@@ -10,6 +10,7 @@ expect class VideoPlayer(
 ) {
     var progress: ((current: Long, duration: Long) -> Unit)?
     var hasAudio: ((Boolean) -> Unit)?
+    var isVideoPlaying: ((Boolean) -> Unit)?
 
     @Composable
     fun view(modifier: Modifier)

@@ -26,6 +26,10 @@ class UserPreferences(observableSettings: DataStoreSettings) {
     var focusMode by settings.boolean("k_focus_mode", false)
     val focusModeFlow = observableSettings.getBooleanFlow("k_focus_mode", focusMode)
 
+    var autoplayVideo by settings.boolean("k_autoplay_mode", true)
+    val autoplayVideoFlow = observableSettings.getBooleanFlow("k_autoplay_mode", autoplayVideo)
+
+
     var showUserGridTimeline by settings.boolean("k_grid_timeline", true)
     val showUserGridTimelineFlow = observableSettings.getBooleanFlow("k_grid_timeline", showUserGridTimeline)
 

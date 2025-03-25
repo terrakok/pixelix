@@ -54,6 +54,7 @@ class PostViewModel @Inject constructor(
 
     var isAltTextButtonHidden by mutableStateOf(false)
     var isInFocusMode by mutableStateOf(false)
+    var isAutoplayVideos by mutableStateOf(true)
     var blurSensitiveContent by mutableStateOf(false)
 
     var volume by mutableStateOf(prefs.enableVolume)
@@ -69,6 +70,9 @@ class PostViewModel @Inject constructor(
         }
         viewModelScope.launch {
             prefs.focusModeFlow.collect { isInFocusMode = it }
+        }
+        viewModelScope.launch {
+            prefs.autoplayVideoFlow.collect { isAutoplayVideos = it }
         }
         viewModelScope.launch {
             prefs.blurSensitiveContentFlow.collect { blurSensitiveContent = it }

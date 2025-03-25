@@ -2,6 +2,7 @@ package com.daniebeler.pfpixelix.utils
 
 import androidx.annotation.OptIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.AudioAttributes
@@ -25,6 +26,7 @@ actual class VideoPlayer actual constructor(
 ) {
     actual var progress: ((current: Long, duration: Long) -> Unit)? = null
     actual var hasAudio: ((Boolean) -> Unit)? = null
+    actual var isVideoPlaying: ((Boolean) -> Unit)? = null
 
     private val audioAttributes =
         AudioAttributes.Builder()
@@ -49,6 +51,10 @@ actual class VideoPlayer actual constructor(
                     }
                 }
             }
+
+            override fun onIsPlayingChanged(isPlaying: Boolean) {
+                isVideoPlaying?.invoke(isPlaying)
+            }
         })
     }
 
@@ -68,6 +74,9 @@ actual class VideoPlayer actual constructor(
     @OptIn(UnstableApi::class)
     @Composable
     actual fun view(modifier: Modifier) {
+        LaunchedEffect(player) {
+            player.isPlaying
+        }
         AndroidView(
             modifier = modifier,
             factory = { ctx ->
