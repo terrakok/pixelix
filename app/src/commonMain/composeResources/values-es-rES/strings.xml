@@ -18,7 +18,19 @@
     <string name="follow">Seguir</string>
     <string name="unfollow">No seguir</string>
     <string name="followers">Seguidores</string>
+    <plurals name="follower">
+        <item quantity="one">Seguidor</item>
+        <item quantity="other">Seguidores</item>
+    </plurals>
     <string name="following">Siguiendo</string>
+    <plurals name="following">
+        <item quantity="one">Siguiendo</item>
+        <item quantity="other">Siguiendo</item>
+    </plurals>
+    <plurals name="posts">
+        <item quantity="one">Publicación</item>
+        <item quantity="other">Publicaciones</item>
+    </plurals>
     <string name="posts">Publicaciones</string>
     <string name="hashtags">Hashtags</string>
     <string name="reblogged_your_post">reblogueó tu publicación</string>
@@ -216,4 +228,41 @@
     <string name="focus_mode_description">Oculta la descripción, me gusta y los botones de los mensajes.</string>
     <string name="repost_settings">Configuración de volver a publicar</string>
     <string name="amoled">AMOLED</string>
+    <string name="no_followers_yet">Todavía no hay seguidores</string>
+    <string name="not_following_anyone">No sigues a nadie</string>
+    <string name="read_more">Leer más</string>
+    <string name="read_less">Leer menos</string>
+    <string name="joined_date">Se unió el %1$s</string>
+    <string name="ago">hace</string>
+    <string name="delete_message">Eliminar mensaje</string>
+    <string name="video_player_not_supported">El reproductor de vídeo no es compatible</string>
+    <plurals name="second">
+        <item quantity="one">segundo</item>
+        <item quantity="other">segundos</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">minuto</item>
+        <item quantity="other">minutos</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">hora</item>
+        <item quantity="other">horas</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="one">día</item>
+        <item quantity="other">días</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="one">semana</item>
+        <item quantity="other">semanas</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="one">mes</item>
+        <item quantity="other">meses</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="one">año</item>
+        <item quantity="other">años</item>
+    </plurals>
+    <string name="blur_sensitive_content">Difuminar contenido sensible</string>
 </resources>

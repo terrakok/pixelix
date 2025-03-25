@@ -18,7 +18,19 @@
     <string name="follow">Seguir</string>
     <string name="unfollow">Deixar de seguir</string>
     <string name="followers">Seguidoras</string>
+    <plurals name="follower">
+        <item quantity="one">Seguidora</item>
+        <item quantity="other">Seguidoras</item>
+    </plurals>
     <string name="following">Seguindo</string>
+    <plurals name="following">
+        <item quantity="one">Seguimento</item>
+        <item quantity="other">Seguimentos</item>
+    </plurals>
+    <plurals name="posts">
+        <item quantity="one">Publicación</item>
+        <item quantity="other">Publicacións</item>
+    </plurals>
     <string name="posts">Publicacións</string>
     <string name="hashtags">Cancelos</string>
     <string name="reblogged_your_post">compartiu a túa publicación</string>
@@ -211,9 +223,46 @@
     <string name="location">Localización</string>
     <string name="mentions">Mencións</string>
     <string name="explore">Descubrir</string>
-    <string name="reblogged_by">reblogged by %1$s</string>
-    <string name="focus_mode">Focus Mode</string>
-    <string name="focus_mode_description">Hides description, likes and buttons from posts.</string>
-    <string name="repost_settings">Repost settings</string>
+    <string name="reblogged_by">compartido por %1$s</string>
+    <string name="focus_mode">Modo de Concentración</string>
+    <string name="focus_mode_description">Oculta a descrición, os favorecementos e os botóns nas publicacións.</string>
+    <string name="repost_settings">Axustes das promocións</string>
     <string name="amoled">AMOLED</string>
+    <string name="no_followers_yet">Sen seguidoras</string>
+    <string name="not_following_anyone">Sen seguimentos</string>
+    <string name="read_more">Ler máis</string>
+    <string name="read_less">Ler menos</string>
+    <string name="joined_date">Creada hai %1$s</string>
+    <string name="ago">ago</string>
+    <string name="delete_message">Eliminar mensaxe</string>
+    <string name="video_player_not_supported">Video player is not supported</string>
+    <plurals name="second">
+        <item quantity="one">segundo</item>
+        <item quantity="other">segundos</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">minuto</item>
+        <item quantity="other">minutos</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">hora</item>
+        <item quantity="other">horas</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="one">día</item>
+        <item quantity="other">días</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="one">semana</item>
+        <item quantity="other">semanas</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="one">mes</item>
+        <item quantity="other">meses</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="one">ano</item>
+        <item quantity="other">anos</item>
+    </plurals>
+    <string name="blur_sensitive_content">Blur sensitive content</string>
 </resources>

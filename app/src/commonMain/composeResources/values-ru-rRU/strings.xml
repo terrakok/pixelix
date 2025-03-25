@@ -18,7 +18,25 @@
     <string name="follow">Подписаться</string>
     <string name="unfollow">Отписаться</string>
     <string name="followers">Подписчиков</string>
+    <plurals name="follower">
+        <item quantity="one">Follower</item>
+        <item quantity="few">Followers</item>
+        <item quantity="many">Followers</item>
+        <item quantity="other">Followers</item>
+    </plurals>
     <string name="following">В читаемых</string>
+    <plurals name="following">
+        <item quantity="one">Following</item>
+        <item quantity="few">Following</item>
+        <item quantity="many">Following</item>
+        <item quantity="other">Following</item>
+    </plurals>
+    <plurals name="posts">
+        <item quantity="one">Post</item>
+        <item quantity="few">Posts</item>
+        <item quantity="many">Posts</item>
+        <item quantity="other">Posts</item>
+    </plurals>
     <string name="posts">Записей</string>
     <string name="hashtags">Хештеги</string>
     <string name="reblogged_your_post">переопубликовал вашу запись</string>
@@ -216,4 +234,55 @@
     <string name="focus_mode_description">Hides description, likes and buttons from posts.</string>
     <string name="repost_settings">Repost settings</string>
     <string name="amoled">AMOLED</string>
+    <string name="no_followers_yet">No followers yet</string>
+    <string name="not_following_anyone">Not following anyone</string>
+    <string name="read_more">Read More</string>
+    <string name="read_less">Read Less</string>
+    <string name="joined_date">Joined %1$s</string>
+    <string name="ago">ago</string>
+    <string name="delete_message">Delete message</string>
+    <string name="video_player_not_supported">Video player is not supported</string>
+    <plurals name="second">
+        <item quantity="one">second</item>
+        <item quantity="few">seconds</item>
+        <item quantity="many">seconds</item>
+        <item quantity="other">seconds</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">minute</item>
+        <item quantity="few">minutes</item>
+        <item quantity="many">minutes</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">hour</item>
+        <item quantity="few">hours</item>
+        <item quantity="many">hours</item>
+        <item quantity="other">hours</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="one">day</item>
+        <item quantity="few">days</item>
+        <item quantity="many">days</item>
+        <item quantity="other">days</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="one">week</item>
+        <item quantity="few">weeks</item>
+        <item quantity="many">weeks</item>
+        <item quantity="other">weeks</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="one">month</item>
+        <item quantity="few">months</item>
+        <item quantity="many">months</item>
+        <item quantity="other">months</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="one">year</item>
+        <item quantity="few">years</item>
+        <item quantity="many">years</item>
+        <item quantity="other">years</item>
+    </plurals>
+    <string name="blur_sensitive_content">Blur sensitive content</string>
 </resources>

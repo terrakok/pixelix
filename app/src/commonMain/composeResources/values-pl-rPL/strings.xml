@@ -18,7 +18,25 @@
     <string name="follow">Obserwuj</string>
     <string name="unfollow">Przestań obserwować</string>
     <string name="followers">Obserwujące</string>
+    <plurals name="follower">
+        <item quantity="one">Obserwujący</item>
+        <item quantity="few">Obserwujące</item>
+        <item quantity="many">Obserwujących</item>
+        <item quantity="other">Obserwujących</item>
+    </plurals>
     <string name="following">Obserwowane</string>
+    <plurals name="following">
+        <item quantity="one">Obserwowany</item>
+        <item quantity="few">Obserwowane</item>
+        <item quantity="many">Obserwowanych</item>
+        <item quantity="other">Obserwowanych</item>
+    </plurals>
+    <plurals name="posts">
+        <item quantity="one">Wpis</item>
+        <item quantity="few">Wpisy</item>
+        <item quantity="many">Wpisów</item>
+        <item quantity="other">Wpisów</item>
+    </plurals>
     <string name="posts">Wpisy</string>
     <string name="hashtags">Hasztagi</string>
     <string name="reblogged_your_post">podbił(a) twój wpis</string>
@@ -48,7 +66,7 @@
     <string name="delete">Usunąć</string>
     <string name="this_is_the_end">To już koniec!</string>
     <string name="and">oraz</string>
-    <string name="followed_by">Następnie</string>
+    <string name="followed_by">Obserwują:</string>
     <string name="other">inne</string>
     <string name="others">inne</string>
     <string name="yearly">rocznie</string>
@@ -216,4 +234,55 @@
     <string name="focus_mode_description">Ukrywa opisy, polubienia i przyciski z wpisów.</string>
     <string name="repost_settings">Ustawienia podbić</string>
     <string name="amoled">AMOLED</string>
+    <string name="no_followers_yet">Na razie brak obserwujących kont</string>
+    <string name="not_following_anyone">Brak obserwowanych kont</string>
+    <string name="read_more">Więcej</string>
+    <string name="read_less">Mniej</string>
+    <string name="joined_date">Data dołączenia: %1$s</string>
+    <string name="ago">temu</string>
+    <string name="delete_message">Usuń wiadomość</string>
+    <string name="video_player_not_supported">Odtwarzacz wideo nie jest obsługiwany</string>
+    <plurals name="second">
+        <item quantity="one">sekundę</item>
+        <item quantity="few">sekundy</item>
+        <item quantity="many">sekund</item>
+        <item quantity="other">sekund</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">minutę</item>
+        <item quantity="few">minuty</item>
+        <item quantity="many">minut</item>
+        <item quantity="other">minut</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">godzinę</item>
+        <item quantity="few">godziny</item>
+        <item quantity="many">godzin</item>
+        <item quantity="other">godzin</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="one">dzień</item>
+        <item quantity="few">dni</item>
+        <item quantity="many">dni</item>
+        <item quantity="other">dni</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="one">tydzień</item>
+        <item quantity="few">tygodnie</item>
+        <item quantity="many">tygodni</item>
+        <item quantity="other">tygodni</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="one">miesiąc</item>
+        <item quantity="few">miesiące</item>
+        <item quantity="many">miesięcy</item>
+        <item quantity="other">miesięcy</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="one">rok</item>
+        <item quantity="few">lata</item>
+        <item quantity="many">lat</item>
+        <item quantity="other">lat</item>
+    </plurals>
+    <string name="blur_sensitive_content">Blur sensitive content</string>
 </resources>
