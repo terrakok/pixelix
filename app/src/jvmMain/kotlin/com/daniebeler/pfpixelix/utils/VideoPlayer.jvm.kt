@@ -21,6 +21,7 @@ actual class VideoPlayer actual constructor(
 ) {
     private val mpComponent = initializeMediaPlayerComponent()
     private val player = mpComponent.mediaPlayer()
+    actual var isVideoPlaying: ((Boolean) -> Unit)? = null
 
     actual var progress: ((current: Long, duration: Long) -> Unit)? = null
     actual var hasAudio: ((Boolean) -> Unit)? = null
@@ -33,6 +34,14 @@ actual class VideoPlayer actual constructor(
         override fun positionChanged(mediaPlayer: MediaPlayer?, newPosition: Float) {
             val status = player.status()
             progress?.invoke((status.length() * status.position()).toLong(), status.length())
+        }
+
+        override fun playing(mediaPlayer: MediaPlayer?) {
+            isVideoPlaying?.invoke(true)
+        }
+
+        override fun paused(mediaPlayer: MediaPlayer?) {
+            isVideoPlaying?.invoke(false)
         }
     }
 

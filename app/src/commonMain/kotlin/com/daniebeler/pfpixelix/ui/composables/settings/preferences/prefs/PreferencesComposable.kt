@@ -95,7 +95,9 @@ fun PreferencesComposable(
                 UseInAppBrowserPref()
             }
 
-            AutoplayVideoPref()
+            if (PlatformFeatures.autoplayVideosPref) {
+                AutoplayVideoPref()
+            }
 
             RepostSettingsPref { viewModel.openRepostSettings() }
 

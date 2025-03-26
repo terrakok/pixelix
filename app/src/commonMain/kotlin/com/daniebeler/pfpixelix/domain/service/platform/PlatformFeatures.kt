@@ -5,4 +5,5 @@ expect object PlatformFeatures {
     val inAppBrowser: Boolean
     val downloadToGallery: Boolean
     val customAppIcon: Boolean
+    val autoplayVideosPref: Boolean
 }
