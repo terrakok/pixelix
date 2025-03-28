@@ -1,5 +1,7 @@
 package com.daniebeler.pfpixelix.ui.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -62,11 +64,13 @@ sealed interface Destination {
     @Serializable data class ProfileByUsername(val userName: String) : Destination
     @Serializable data object FirstLogin : Destination
     @Serializable data object NewLogin : Destination
-    @Serializable data object Feeds : Destination
-    @Serializable data class Search(val page: Int = 0, val activeSearch: Int = 0) : Destination
-    @Serializable data class NewPost(val uris: List<String> = emptyList()) : Destination
-    @Serializable data object Notifications : Destination
+    @Serializable data class Search(val page: Int = 0) : Destination
     @Serializable data object OwnProfile : Destination
+    @Serializable data object HomeTabFeeds : Destination
+    @Serializable data object HomeTabSearch : Destination
+    @Serializable data class HomeTabNewPost(val uris: List<String> = emptyList()) : Destination
+    @Serializable data object HomeTabNotifications : Destination
+    @Serializable data object HomeTabOwnProfile : Destination
 }
 
 internal fun NavGraphBuilder.navigationGraph(
@@ -74,6 +78,8 @@ internal fun NavGraphBuilder.navigationGraph(
     openPreferencesDrawer: () -> Unit,
     exitApp: () -> Unit
 ) {
+
+    //login dialogs
     dialog<Destination.FirstLogin> {
         EdgeToEdgeDialog(
             onDismissRequest = exitApp,
@@ -97,17 +103,48 @@ internal fun NavGraphBuilder.navigationGraph(
         }
     }
 
-    composable<Destination.Feeds> {
+    //home tabs (with no transition animations)
+    composable<Destination.HomeTabFeeds>(
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None }
+    ) {
         HomeComposable(navController, openPreferencesDrawer)
     }
 
+    composable<Destination.HomeTabSearch>(
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None }
+    ) {
+        ExploreComposable(navController)
+    }
+
+    composable<Destination.HomeTabNewPost>(
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None }
+    ) { navBackStackEntry ->
+        val args = navBackStackEntry.toRoute<Destination.HomeTabNewPost>()
+        val imageUris: List<KmpUri>? = args.uris.map { it.toKmpUri() }
+        NewPostComposable(navController, imageUris)
+    }
+
+    composable<Destination.HomeTabNotifications>(
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None }
+    ) {
+        NotificationsComposable(navController)
+    }
+
+    composable<Destination.HomeTabOwnProfile>(
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None }
+    ) {
+        OwnProfileComposable(navController, openPreferencesDrawer)
+    }
+
+    //other screens
     composable<Destination.HashtagTimeline> { navBackStackEntry ->
         val args = navBackStackEntry.toRoute<Destination.HashtagTimeline>()
         HashtagTimelineComposable(navController, args.hashtag)
-    }
-
-    composable<Destination.Notifications> {
-        NotificationsComposable(navController)
     }
 
     composable<Destination.Profile> { navBackStackEntry ->
@@ -131,12 +168,6 @@ internal fun NavGraphBuilder.navigationGraph(
 
     composable<Destination.IconSelection> {
         IconSelectionComposable(navController)
-    }
-
-    composable<Destination.NewPost> { navBackStackEntry ->
-        val args = navBackStackEntry.toRoute<Destination.NewPost>()
-        val imageUris: List<KmpUri>? = args.uris.map { it.toKmpUri() }
-        NewPostComposable(navController, imageUris)
     }
 
     composable<Destination.EditPost> { navBackStackEntry ->
@@ -197,7 +228,7 @@ internal fun NavGraphBuilder.navigationGraph(
 
     composable<Destination.Search> { navBackStackEntry ->
         val args = navBackStackEntry.toRoute<Destination.Search>()
-        ExploreComposable(navController, args.page, args.activeSearch)
+        ExploreComposable(navController, args.page)
     }
 
     composable<Destination.Conversations> {

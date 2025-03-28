@@ -163,7 +163,7 @@ fun App(
                         )
                         LaunchedEffect(activeUser) {
                             val rootScreen =
-                                if (activeUser == null) Destination.FirstLogin else Destination.Feeds
+                                if (activeUser == null) Destination.FirstLogin else Destination.HomeTabFeeds
                             navController.navigate(rootScreen) {
                                 val root = navController.currentBackStack.value
                                     .firstOrNull { it.destination.route != null }
@@ -176,7 +176,7 @@ fun App(
                             if (activeUser != null) {
                                 appComponent.systemFileShare.shareFilesRequests.collect { uris ->
                                     navController.navigate(
-                                        Destination.NewPost(uris.map { it.toString() })
+                                        Destination.HomeTabNewPost(uris.map { it.toString() })
                                     )
                                 }
                             }
@@ -207,27 +207,32 @@ private enum class HomeTab(
     val activeIcon: DrawableResource,
     val label: StringResource
 ) {
-    Feeds(Destination.Feeds, Res.drawable.house, Res.drawable.house_fill, Res.string.home),
+    Feeds(
+        Destination.HomeTabFeeds,
+        Res.drawable.house,
+        Res.drawable.house_fill,
+        Res.string.home
+    ),
     Search(
-        Destination.Search(activeSearch = 0),
+        Destination.HomeTabSearch,
         Res.drawable.search_outline,
         Res.drawable.search,
         Res.string.search
     ),
     NewPost(
-        Destination.NewPost(),
+        Destination.HomeTabNewPost(),
         Res.drawable.add_circle_outline,
         Res.drawable.add_circle,
         Res.string.new_post
     ),
     Notifications(
-        Destination.Notifications,
+        Destination.HomeTabNotifications,
         Res.drawable.notifications_outline,
         Res.drawable.notifications,
         Res.string.notifications
     ),
     OwnProfile(
-        Destination.OwnProfile,
+        Destination.HomeTabOwnProfile,
         Res.drawable.bookmark_outline,
         Res.drawable.bookmark_outline,
         Res.string.profile
@@ -323,23 +328,7 @@ private fun BottomBar(
                 interactionSource = interactionSource,
                 onClick = {
                     if (isCurrentDestination && tab == HomeTab.Search) {
-                        Logger.d("search") { "true" }
-                        navController.navigate(Destination.Search(activeSearch = 1)) {
-                            if (!isSelected) {
-                                popUpTo(0) {
-                                    saveState = true
-                                }
-                                restoreState = true
-                            } else {
-                                popUpTo(0)
-                            }
-                            launchSingleTop = true
-                        }
-                    } else if (tab == HomeTab.Search) {
-                        navController.navigate(Destination.Search(activeSearch = 0)) {
-                            popUpTo(0)
-                            launchSingleTop = true
-                        }
+                        appComponent.searchFieldFocus.focus()
                     } else if (!isLongPress && !isCurrentDestination) {
                         navController.navigate(tab.destination) {
                             if (!isSelected) {

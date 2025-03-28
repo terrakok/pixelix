@@ -17,6 +17,7 @@ import com.daniebeler.pfpixelix.domain.repository.serializers.SavedSearchesSeria
 import com.daniebeler.pfpixelix.domain.service.file.FileService
 import com.daniebeler.pfpixelix.domain.service.icon.AppIconManager
 import com.daniebeler.pfpixelix.domain.service.preferences.UserPreferences
+import com.daniebeler.pfpixelix.domain.service.search.SearchFieldFocus
 import com.daniebeler.pfpixelix.domain.service.session.AuthService
 import com.daniebeler.pfpixelix.domain.service.session.Session
 import com.daniebeler.pfpixelix.domain.service.session.SessionStorage
@@ -64,6 +65,7 @@ abstract class AppComponent(
     abstract val widgetService: WidgetService
 
     abstract val preferences: UserPreferences
+    abstract val searchFieldFocus: SearchFieldFocus
 
     @get:Provides
     @get:AppSingleton
