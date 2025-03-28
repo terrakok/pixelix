@@ -166,7 +166,7 @@ class NewPostViewModel @Inject constructor(
     }
 
     private fun uploadImage(uri: KmpUri, text: String) {
-        postEditorService.uploadMedia(EmptyKmpUri, text).onEach { result ->
+        postEditorService.uploadMedia(uri, text).onEach { result ->
             mediaUploadState = when (result) {
                 is Resource.Success -> {
                     if (result.data?.type?.take(5) == "video") {
