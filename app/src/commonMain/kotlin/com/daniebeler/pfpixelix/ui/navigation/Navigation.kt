@@ -2,13 +2,14 @@ package com.daniebeler.pfpixelix.ui.navigation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
-import com.daniebeler.pfpixelix.EdgeToEdgeDialog
+import com.daniebeler.pfpixelix.EdgeToEdgeDialogProperties
 import com.daniebeler.pfpixelix.ui.composables.HomeComposable
 import com.daniebeler.pfpixelix.ui.composables.collection.CollectionComposable
 import com.daniebeler.pfpixelix.ui.composables.direct_messages.chat.ChatComposable
@@ -81,23 +82,17 @@ internal fun NavGraphBuilder.navigationGraph(
 
     //login dialogs
     dialog<Destination.FirstLogin> {
-        EdgeToEdgeDialog(
+        Dialog(
             onDismissRequest = exitApp,
-            properties = DialogProperties(
-                dismissOnClickOutside = false,
-                usePlatformDefaultWidth = false,
-            )
+            properties = EdgeToEdgeDialogProperties()
         ) {
             LoginComposable(navController = navController)
         }
     }
     dialog<Destination.NewLogin> {
-        EdgeToEdgeDialog(
+        Dialog(
             onDismissRequest = { navController.popBackStack() },
-            properties = DialogProperties(
-                dismissOnClickOutside = false,
-                usePlatformDefaultWidth = false,
-            )
+            properties = EdgeToEdgeDialogProperties()
         ) {
             LoginComposable(true, navController)
         }
