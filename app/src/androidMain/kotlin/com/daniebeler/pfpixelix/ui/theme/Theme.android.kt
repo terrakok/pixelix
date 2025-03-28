@@ -1,5 +1,6 @@
 package com.daniebeler.pfpixelix.ui.theme
 
+import android.app.Activity
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -12,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.core.view.WindowInsetsControllerCompat
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.MyApplication
 import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode.AMOLED
@@ -46,27 +49,12 @@ actual fun generateColorScheme(
 }
 
 actual fun applySystemNightMode(mode: Int) {
-    AppCompatDelegate.setDefaultNightMode(
-        when (mode) {
-            LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
-            AMOLED, DARK -> AppCompatDelegate.MODE_NIGHT_YES
-            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        }
-    )
-    val activity = MyApplication.currentActivity?.get()
-    activity?.enableEdgeToEdge(
-        when (mode) {
-            LIGHT -> SystemBarStyle.light(
-                Color.Transparent.toArgb(), Color.Transparent.toArgb()
-            )
-
-            AMOLED, DARK -> SystemBarStyle.dark(
-                Color.Transparent.toArgb()
-            )
-
-            else -> SystemBarStyle.dark(
-                Color.Transparent.toArgb()
-            )
-        }
-    )
+    val activity = MyApplication.currentActivity?.get() ?: return
+    val window = activity.window
+    val isDark = mode == AMOLED || mode == DARK
+    Logger.d { "applySystemNightMode isDark=$isDark" }
+    WindowInsetsControllerCompat(window, window.decorView).apply {
+        isAppearanceLightStatusBars = !isDark
+        isAppearanceLightNavigationBars = !isDark
+    }
 }
