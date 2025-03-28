@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import com.daniebeler.pfpixelix.di.LocalAppComponent
+import com.daniebeler.pfpixelix.domain.model.AppThemeMode.AMOLED
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode.DARK
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode.FOLLOW_SYSTEM
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode.LIGHT
@@ -131,12 +132,12 @@ fun PixelixTheme(
     val prefs = LocalAppComponent.current.preferences
     val theme by prefs.appThemeModeFlow.collectAsState(prefs.appThemeMode)
 
-    LaunchedEffect(theme) { applySystemNightMode(theme) }
-
     var nightModeValue = theme
     if (nightModeValue == FOLLOW_SYSTEM) {
         nightModeValue = if (isSystemInDarkTheme()) DARK else LIGHT
     }
+
+    LaunchedEffect(nightModeValue) { applySystemNightMode(nightModeValue != LIGHT) }
 
     val colorScheme = generateColorScheme(nightModeValue, dynamicColor, lightScheme, darkScheme)
 
@@ -147,7 +148,7 @@ fun PixelixTheme(
     )
 }
 
-expect fun applySystemNightMode(mode: Int)
+expect fun applySystemNightMode(isDark: Boolean)
 
 @Composable
 expect fun generateColorScheme(

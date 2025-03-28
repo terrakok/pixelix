@@ -6,7 +6,7 @@ import androidx.compose.runtime.remember
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode
 
 
-actual fun applySystemNightMode(mode: Int) {}
+actual fun applySystemNightMode(isDark: Boolean) {}
 
 @Composable
 actual fun generateColorScheme(

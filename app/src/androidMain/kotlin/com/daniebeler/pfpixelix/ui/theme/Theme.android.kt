@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowInsetsControllerCompat
 import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.MyApplication
@@ -48,10 +49,9 @@ actual fun generateColorScheme(
     }
 }
 
-actual fun applySystemNightMode(mode: Int) {
+actual fun applySystemNightMode(isDark: Boolean) {
     val activity = MyApplication.currentActivity?.get() ?: return
     val window = activity.window
-    val isDark = mode == AMOLED || mode == DARK
     Logger.d { "applySystemNightMode isDark=$isDark" }
     WindowInsetsControllerCompat(window, window.decorView).apply {
         isAppearanceLightStatusBars = !isDark
