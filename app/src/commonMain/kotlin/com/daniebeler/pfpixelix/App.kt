@@ -347,10 +347,8 @@ private fun BottomBar(
     }
 }
 
-//https://partnerissuetracker.corp.google.com/issues/246909281
-@Composable
-expect fun EdgeToEdgeDialog(
-    onDismissRequest: () -> Unit,
-    properties: DialogProperties,
-    content: @Composable () -> Unit
-)
+expect fun EdgeToEdgeDialogProperties(
+    dismissOnBackPress: Boolean = true,
+    dismissOnClickOutside: Boolean = false,
+    usePlatformDefaultWidth: Boolean = false
+): DialogProperties

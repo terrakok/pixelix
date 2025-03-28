@@ -51,6 +51,7 @@ import androidx.compose.ui.graphics.decodeToImageBitmap
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
@@ -62,7 +63,7 @@ import com.attafitamim.krop.core.crop.rememberImageCropper
 import com.attafitamim.krop.core.images.ImageBitmapSrc
 import com.attafitamim.krop.ui.CropperPreview
 import com.attafitamim.krop.ui.DefaultControls
-import com.daniebeler.pfpixelix.EdgeToEdgeDialog
+import com.daniebeler.pfpixelix.EdgeToEdgeDialogProperties
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import io.github.vinceglb.filekit.compose.rememberFilePickerLauncher
@@ -330,12 +331,9 @@ private fun ImageCropperFullscreenDialog(
     }
 
     CompositionLocalProvider(LocalCropperStyle provides style) {
-        EdgeToEdgeDialog(
+        Dialog(
             onDismissRequest = { state.done(accept = false) },
-            properties = DialogProperties(
-                dismissOnClickOutside = false,
-                usePlatformDefaultWidth = false,
-            )
+            properties = EdgeToEdgeDialogProperties()
         ) {
             Scaffold(
                 contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top),

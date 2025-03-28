@@ -12,6 +12,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -73,40 +74,16 @@ class AppActivity : ComponentActivity() {
     }
 }
 
-@Composable
-actual fun EdgeToEdgeDialog(
-    onDismissRequest: () -> Unit,
-    properties: DialogProperties,
-    content: @Composable () -> Unit
-) {
-    Dialog(
-        onDismissRequest = onDismissRequest,
-        properties = DialogProperties(
-            dismissOnBackPress = properties.dismissOnBackPress,
-            dismissOnClickOutside = properties.dismissOnClickOutside,
-            usePlatformDefaultWidth = true,
-            decorFitsSystemWindows = false
-        ),
-        content = {
-            SetUpEdgeToEdgeDialog()
-            content()
-        }
-    )
-}
-
-@Composable
-private fun SetUpEdgeToEdgeDialog() {
-    val parentView = LocalView.current.parent as View
-    val window = (parentView as DialogWindowProvider).window
-
-    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-
-    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        window.attributes.fitInsetsTypes = 0
-        window.attributes.fitInsetsSides = 0
-    }
-}
+actual fun EdgeToEdgeDialogProperties(
+    dismissOnBackPress: Boolean,
+    dismissOnClickOutside: Boolean,
+    usePlatformDefaultWidth: Boolean
+): DialogProperties = DialogProperties(
+    dismissOnBackPress = dismissOnBackPress,
+    dismissOnClickOutside = dismissOnClickOutside,
+    usePlatformDefaultWidth = usePlatformDefaultWidth,
+    decorFitsSystemWindows = false
+)
 
 private fun saveUriToCache(uri: Uri, contentResolver: ContentResolver, cacheDir: File): Uri? {
     try {
