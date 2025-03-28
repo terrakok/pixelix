@@ -72,6 +72,7 @@ import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Visibility
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
+import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposableDialog
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_location.TextFieldLocationsComposable
 import com.daniebeler.pfpixelix.utils.KmpUri
@@ -277,8 +278,15 @@ fun NewPostComposable(
 
             LoadingComposable(isLoading = viewModel.createPostState.isLoading)
             //LoadingComposable(isLoading = viewModel.mediaUploadState.isLoading)
-            ErrorComposable(message = viewModel.mediaUploadState.error)
-            ErrorComposable(message = viewModel.createPostState.error)
+            ErrorComposableDialog(
+                errorMessage = viewModel.mediaUploadState.error,
+                onDismiss = { viewModel.mediaUploadState = viewModel.mediaUploadState.copy(error = "") }
+            )
+
+            ErrorComposableDialog(
+                errorMessage = viewModel.createPostState.error,
+                onDismiss = { viewModel.createPostState = viewModel.createPostState.copy(error = "") }
+            )
         }
     }
 }
@@ -387,7 +395,8 @@ fun ImagesPager(
                             AsyncImage(
                                 model = image.imageUri.getPlatformUriObject(),
                                 contentDescription = "video thumbnail",
-                                modifier = Modifier.width(100.dp)
+                                modifier = Modifier.fillMaxWidth(),
+                                contentScale = ContentScale.Inside
                             )
                         } else {
                             AsyncImage(

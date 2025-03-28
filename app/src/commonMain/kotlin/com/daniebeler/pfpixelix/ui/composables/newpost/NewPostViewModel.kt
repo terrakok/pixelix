@@ -15,6 +15,7 @@ import com.daniebeler.pfpixelix.domain.service.file.FileService
 import com.daniebeler.pfpixelix.domain.service.instance.InstanceService
 import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.ui.navigation.Destination
+import com.daniebeler.pfpixelix.utils.EmptyKmpUri
 import com.daniebeler.pfpixelix.utils.KmpUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -165,7 +166,7 @@ class NewPostViewModel @Inject constructor(
     }
 
     private fun uploadImage(uri: KmpUri, text: String) {
-        postEditorService.uploadMedia(uri, text).onEach { result ->
+        postEditorService.uploadMedia(EmptyKmpUri, text).onEach { result ->
             mediaUploadState = when (result) {
                 is Resource.Success -> {
                     if (result.data?.type?.take(5) == "video") {
@@ -186,11 +187,11 @@ class NewPostViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    if (!result.message.isNullOrEmpty()) {
-                        MediaUploadState(error = result.message)
-                    } else {
-                        MediaUploadState(error = "An unexpected error occured")
+                    val index = images.indexOfFirst { it.imageUri == uri }
+                    if (index != -1) {
+                        images.removeAt(index)
                     }
+                    MediaUploadState(error = "An unexpected error occured")
                 }
 
                 is Resource.Loading -> {
