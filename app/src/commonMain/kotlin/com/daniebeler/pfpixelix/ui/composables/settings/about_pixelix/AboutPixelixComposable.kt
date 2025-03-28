@@ -172,7 +172,7 @@ fun AboutPixelixComposable(
                             .width(32.dp)
                             .height(32.dp)
                             .clickable {
-                                navController.navigate(Destination.Profile("677938259497057424"))
+                                navController.navigate(Destination.ProfileByUsername("hiebeler05@pixelix.social"))
                             })
 
                     Spacer(modifier = Modifier.width(16.dp))
@@ -219,7 +219,7 @@ fun AboutPixelixComposable(
                             .width(32.dp)
                             .height(32.dp)
                             .clickable {
-                                navController.navigate(Destination.Profile("497910174831013185"))
+                                navController.navigate(Destination.ProfileByUsername("daniebeler@pixelix.social"))
                             })
 
                     Spacer(modifier = Modifier.width(16.dp))
@@ -243,6 +243,53 @@ fun AboutPixelixComposable(
                             .size(32.dp)
                             .clickable {
                                 viewModel.openUrl("https://daniebeler.com")
+                            },
+                        tint = Color(0xFF4793FF)
+                    )
+                }
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 16.dp)
+            ) {
+                Text(text = "Konstantin Tskhovrebov", fontWeight = FontWeight.Bold)
+
+                Row {
+                    Image(
+                        painter = painterResource(Res.drawable.pixelfed_logo),
+                        contentDescription = null,
+                        Modifier
+                            .width(32.dp)
+                            .height(32.dp)
+                            .clickable {
+                                navController.navigate(Destination.ProfileByUsername("dagboek@pixey.org"))
+                            })
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Image(
+                        painter = painterResource(Res.drawable.mastodon_logo),
+                        contentDescription = null,
+                        Modifier
+                            .width(32.dp)
+                            .height(32.dp)
+                            .clickable {
+                                viewModel.openUrl("https://androiddev.social/@terrakok")
+                            })
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Icon(
+                        imageVector = Icons.Outlined.Language,
+                        contentDescription = "",
+                        Modifier
+                            .size(32.dp)
+                            .clickable {
+                                viewModel.openUrl("https://github.com/terrakok")
                             },
                         tint = Color(0xFF4793FF)
                     )
