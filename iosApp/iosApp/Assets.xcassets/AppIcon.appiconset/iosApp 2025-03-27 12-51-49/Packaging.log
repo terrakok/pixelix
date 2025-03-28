@@ -1,0 +1,1330 @@
+2025-03-27 11:51:38 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x13aa4c4e0; archive(resolved)="<IDEArchive: 0x6000177d2450>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team(resolved)="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	Chain (16, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x13aa4c4e0; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionProcessingPipelineContext: 0x32e893e20; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x10f412080; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x339ce4a20; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x339cb8010; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x339c878e0; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x339c8ed30; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x338519810; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x339c86160; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000009cf100; teamID='4FA7X6639Y', teamName='Daniel Hiebeler', teamType='Individual', username='hiebeler.daniel@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x339c85f50; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="(null)">
+	<IDEDistributionContext: 0x339cb7b00; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="(null)">
+	<IDEDistributionContext: 0x339cb7350; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="(null)">
+	<IDEDistributionContext: 0x17cfe36a0; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="<IDEDistributionMethodiOSAdHoc: 0x600001f65f30>", team="(null)">
+	<IDEDistributionContext: 0x17cfde280; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="(null)", team="(null)">
+	<IDEDistributionContext: 0x3392be9e0; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="(null)", team="(null)">
+	<IDEDistributionContext: 0x3392be7d0; archive = "<IDEArchive: 0x6000177d2450>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x13aa4c4e0>
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionCreateDestRootStep
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionCopyItemStep
+2025-03-27 11:51:38 +0000  Running /usr/bin/ditto '-V' '/Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app' '/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app'
+2025-03-27 11:51:38 +0000  >>> Copying /Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app 
+2025-03-27 11:51:38 +0000  copying file ./_CodeSignature/CodeResources ... 
+2025-03-27 11:51:38 +0000  48217 bytes for ./_CodeSignature/CodeResources
+2025-03-27 11:51:38 +0000  copying file ./AppIcon60x60@2x.png ... 
+2025-03-27 11:51:38 +0000  1027 bytes for ./AppIcon60x60@2x.png
+2025-03-27 11:51:38 +0000  copying file ./Assets.car ... 
+2025-03-27 11:51:38 +0000  481503 bytes for ./Assets.car
+2025-03-27 11:51:38 +0000  copying file ./AppIcon76x76@2x~ipad.png ... 
+2025-03-27 11:51:38 +0000  1230 bytes for ./AppIcon76x76@2x~ipad.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_right.xml ... 
+2025-03-27 11:51:38 +0000  755 bytes for ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_right.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_left.xml ... 
+2025-03-27 11:51:38 +0000  809 bytes for ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_left.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/restore.xml ... 
+2025-03-27 11:51:38 +0000  521 bytes for ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/restore.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/resize.xml ... 
+2025-03-27 11:51:38 +0000  570 bytes for ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/resize.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_ver.xml ... 
+2025-03-27 11:51:38 +0000  473 bytes for ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_ver.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_hor.xml ... 
+2025-03-27 11:51:38 +0000  502 bytes for ./compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_hor.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-sv-rSE/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13700 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-sv-rSE/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-fi-rFI/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13248 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-fi-rFI/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-es-rES/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14820 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-es-rES/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-gl-rES/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14236 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-gl-rES/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-en-rUS/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13056 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-en-rUS/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-pl-rPL/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14862 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-pl-rPL/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rTW/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  12922 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rTW/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-iw-rIL/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13358 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-iw-rIL/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rCN/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  12922 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rCN/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-tlh-rAA/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13056 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-tlh-rAA/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_02.png ... 
+2025-03-27 11:51:38 +0000  4311 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_02.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart_outline.xml ... 
+2025-03-27 11:51:38 +0000  645 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/default_avatar.png ... 
+2025-03-27 11:51:38 +0000  14936 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/default_avatar.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four_outline.xml ... 
+2025-03-27 11:51:38 +0000  507 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/log_out_outline.xml ... 
+2025-03-27 11:51:38 +0000  565 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/log_out_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/close_outline.xml ... 
+2025-03-27 11:51:38 +0000  455 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/close_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/hash.xml ... 
+2025-03-27 11:51:38 +0000  718 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/hash.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/settings_outline.xml ... 
+2025-03-27 11:51:38 +0000  1594 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/settings_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_03.png ... 
+2025-03-27 11:51:38 +0000  4461 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_03.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/planet_outline.xml ... 
+2025-03-27 11:51:38 +0000  703 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/planet_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_01.png ... 
+2025-03-27 11:51:38 +0000  4298 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_01.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications_outline.xml ... 
+2025-03-27 11:51:38 +0000  798 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_forward_outline.xml ... 
+2025-03-27 11:51:38 +0000  448 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_forward_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four.xml ... 
+2025-03-27 11:51:38 +0000  505 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_dark.png ... 
+2025-03-27 11:51:38 +0000  6013 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_dark.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_00.png ... 
+2025-03-27 11:51:38 +0000  734483 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_00.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/lemmy_logo.png ... 
+2025-03-27 11:51:38 +0000  7314 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/lemmy_logo.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle_outline.xml ... 
+2025-03-27 11:51:38 +0000  650 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelfed_logo.png ... 
+2025-03-27 11:51:38 +0000  12479 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelfed_logo.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/browsers_outline.xml ... 
+2025-03-27 11:51:38 +0000  713 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/browsers_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_05.png ... 
+2025-03-27 11:51:38 +0000  12296 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_05.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/color_palette_outline.xml ... 
+2025-03-27 11:51:38 +0000  1319 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/color_palette_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_up_outline.xml ... 
+2025-03-27 11:51:38 +0000  448 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_up_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_07.png ... 
+2025-03-27 11:51:38 +0000  6836 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_07.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/shield_outline.xml ... 
+2025-03-27 11:51:38 +0000  583 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/shield_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_06.png ... 
+2025-03-27 11:51:38 +0000  9480 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_06.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline_bold.xml ... 
+2025-03-27 11:51:38 +0000  852 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline_bold.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/refresh_icon.xml ... 
+2025-03-27 11:51:38 +0000  480 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/refresh_icon.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/blur.xml ... 
+2025-03-27 11:51:38 +0000  2576 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/blur.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_circle_outline.xml ... 
+2025-03-27 11:51:38 +0000  893 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_circle_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/paper_plane_right.xml ... 
+2025-03-27 11:51:38 +0000  541 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/paper_plane_right.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/share_social_outline.xml ... 
+2025-03-27 11:51:38 +0000  1309 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/share_social_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/remove_circle_outline.xml ... 
+2025-03-27 11:51:38 +0000  667 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/remove_circle_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/extension_puzzle_outline.xml ... 
+2025-03-27 11:51:38 +0000  1009 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/extension_puzzle_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/mastodon_logo.png ... 
+2025-03-27 11:51:38 +0000  4798 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/mastodon_logo.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/document_text_outline.xml ... 
+2025-03-27 11:51:38 +0000  817 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/document_text_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo.png ... 
+2025-03-27 11:51:38 +0000  1386 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/mail_outline.xml ... 
+2025-03-27 11:51:38 +0000  789 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/mail_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/cloud_download_outline.xml ... 
+2025-03-27 11:51:38 +0000  627 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/cloud_download_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid_outline.xml ... 
+2025-03-27 11:51:38 +0000  1571 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark_outline.xml ... 
+2025-03-27 11:51:38 +0000  498 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/house.xml ... 
+2025-03-27 11:51:38 +0000  528 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/house.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_back_outline.xml ... 
+2025-03-27 11:51:38 +0000  447 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_back_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/search.xml ... 
+2025-03-27 11:51:38 +0000  560 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/search.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_off_outline.xml ... 
+2025-03-27 11:51:38 +0000  1493 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_off_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid.xml ... 
+2025-03-27 11:51:38 +0000  673 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart.xml ... 
+2025-03-27 11:51:38 +0000  629 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_outline.xml ... 
+2025-03-27 11:51:38 +0000  447 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/search_outline.xml ... 
+2025-03-27 11:51:38 +0000  630 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/search_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_outline.xml ... 
+2025-03-27 11:51:38 +0000  694 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/ellipsis_vertical.xml ... 
+2025-03-27 11:51:38 +0000  575 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/ellipsis_vertical.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark.xml ... 
+2025-03-27 11:51:38 +0000  424 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/open_outline.xml ... 
+2025-03-27 11:51:38 +0000  538 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/open_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmarks_outline.xml ... 
+2025-03-27 11:51:38 +0000  738 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmarks_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_white_xxl.png ... 
+2025-03-27 11:51:38 +0000  6401 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_white_xxl.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications.xml ... 
+2025-03-27 11:51:38 +0000  874 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle.xml ... 
+2025-03-27 11:51:38 +0000  470 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_old.png ... 
+2025-03-27 11:51:38 +0000  734483 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_old.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/chatbubble_outline.xml ... 
+2025-03-27 11:51:38 +0000  829 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/chatbubble_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/stack.xml ... 
+2025-03-27 11:51:38 +0000  569 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/stack.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/trash_outline.xml ... 
+2025-03-27 11:51:38 +0000  1042 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/trash_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/threads_logo.png ... 
+2025-03-27 11:51:38 +0000  9411 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/threads_logo.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_black_xxl.png ... 
+2025-03-27 11:51:38 +0000  6412 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_black_xxl.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_light.png ... 
+2025-03-27 11:51:38 +0000  8603 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_light.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pencil_outline.xml ... 
+2025-03-27 11:51:38 +0000  587 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/pencil_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/peertube_logo.png ... 
+2025-03-27 11:51:38 +0000  6902 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/peertube_logo.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/house_fill.xml ... 
+2025-03-27 11:51:38 +0000  468 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/house_fill.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/misskey_logo.png ... 
+2025-03-27 11:51:38 +0000  22328 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/misskey_logo.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_outline.xml ... 
+2025-03-27 11:51:38 +0000  831 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_08.png ... 
+2025-03-27 11:51:38 +0000  4494 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_08.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/star_outline.xml ... 
+2025-03-27 11:51:38 +0000  457 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/star_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_09.png ... 
+2025-03-27 11:51:38 +0000  64227 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_09.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/code_slash_outline.xml ... 
+2025-03-27 11:51:38 +0000  489 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/code_slash_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/save_outline.xml ... 
+2025-03-27 11:51:38 +0000  757 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/save_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline.xml ... 
+2025-03-27 11:51:38 +0000  852 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline.xml
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/fediverse_logo.png ... 
+2025-03-27 11:51:38 +0000  47174 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/fediverse_logo.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/full_character.png ... 
+2025-03-27 11:51:38 +0000  7142423 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/full_character.png
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/square_outline.xml ... 
+546 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/square_outline.xml
+copying file ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/list_outline.xml ... 
+1409 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/drawable/list_outline.xml
+copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-sr-rSP/strings.commonMain.cvr ... 
+13202 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-sr-rSP/strings.commonMain.cvr
+copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-el-rGR/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  22300 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-el-rGR/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-de-rDE/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14512 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-de-rDE/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-ru-rRU/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  21382 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-ru-rRU/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-no-rNO/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13088 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-no-rNO/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rBR/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14200 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rBR/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13140 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-ca-rES/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14424 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-ca-rES/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-ko-rKR/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  12922 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-ko-rKR/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-vi-rVN/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  12922 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-vi-rVN/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-hu-rHU/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  15020 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-hu-rHU/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rPT/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14712 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rPT/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-da-rDK/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13108 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-da-rDK/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-eo-rUY/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13056 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-eo-rUY/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-uk-rUA/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  21694 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-uk-rUA/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-it-rIT/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14356 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-it-rIT/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-tr-rTR/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13056 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-tr-rTR/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-ro-rRO/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13226 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-ro-rRO/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-cs-rCZ/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14850 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-cs-rCZ/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-nl-rNL/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14372 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-nl-rNL/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-ja-rJP/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  12922 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-ja-rJP/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-io-rEN/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13056 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-io-rEN/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-ar-rSA/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  14896 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-ar-rSA/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-af-rZA/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  13056 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-af-rZA/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./compose-resources/composeResources/pixelix.app.generated.resources/values-fr-rFR/strings.commonMain.cvr ... 
+2025-03-27 11:51:38 +0000  15808 bytes for ./compose-resources/composeResources/pixelix.app.generated.resources/values-fr-rFR/strings.commonMain.cvr
+2025-03-27 11:51:38 +0000  copying file ./embedded.mobileprovision ... 
+2025-03-27 11:51:38 +0000  12295 bytes for ./embedded.mobileprovision
+2025-03-27 11:51:38 +0000  copying file ./Pixelix ... 
+2025-03-27 11:51:38 +0000  57535632 bytes for ./Pixelix
+copying file ./Info.plist ... 
+2025-03-27 11:51:38 +0000  /usr/bin/ditto exited with 0
+2025-03-27 11:51:38 +0000  1687 bytes for ./Info.plist
+copying file ./PkgInfo ... 
+8 bytes for ./PkgInfo
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionEmbedProfileStep
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionInfoPlistStep
+2025-03-27 11:51:38 +0000  Skipping step: IDEDistributionInfoPlistStep because it said so
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2025-03-27 11:51:38 +0000  Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionSymbolsStep
+2025-03-27 11:51:38 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionAppThinningStep
+2025-03-27 11:51:38 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionArchThinningStep
+2025-03-27 11:51:38 +0000  Item /Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app doesn't have the entitlement com.apple.developer.web-browser-engine.host enabled, returning ["arm64e"]
+2025-03-27 11:51:38 +0000  Archs to thin for item /Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app are ["arm64e"]
+2025-03-27 11:51:38 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app/Pixelix' '-verify_arch' 'arm64e'
+2025-03-27 11:51:38 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2025-03-27 11:51:38 +0000  Skipping architecture thinning for item "Pixelix" because arch "arm64e" wasn't found
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionODRStep
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionStripXattrsStep
+2025-03-27 11:51:38 +0000  Skipping stripping extended attributes because the codesign step will strip them.
+2025-03-27 11:51:38 +0000  Processing step: IDEDistributionCodesignStep
+2025-03-27 11:51:38 +0000  Entitlements for <IDEDistributionItem: 0x60000f8bde00; bundleID='com.daniebeler.pfpixelix.iosApp', path='<DVTFilePath:0x60000f882520:'/Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x600017fa60d0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x60000690c000; name='Apple Development: Daniel Hiebeler (7X2QM3GR64)', hash='02A7B57249C40F65467FD92999EC98E4C74E0DC6', serialNumber='1180BE9EB5154C4C7AFB6ED75BBEFDF7', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-03-27 09:17:04 +0000''>', entitlements='{
+    "application-identifier" = "4FA7X6639Y.com.daniebeler.pfpixelix.iosApp";
+    "com.apple.developer.team-identifier" = 4FA7X6639Y;
+    "get-task-allow" = 1;
+}', teamID='4FA7X6639Y', identifier='com.daniebeler.pfpixelix.iosApp', executablePath='<DVTFilePath:0x600013882520:'/Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app/Pixelix'>', hardenedRuntime='0'>'>: {
+    "application-identifier" = "4FA7X6639Y.com.daniebeler.pfpixelix.iosApp";
+    "com.apple.developer.team-identifier" = 4FA7X6639Y;
+    "get-task-allow" = 0;
+}
+2025-03-27 11:51:38 +0000  Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2025-03-27 11:51:38 +0000  Entitlements for <IDEDistributionItem: 0x60000f8bde00; bundleID='com.daniebeler.pfpixelix.iosApp', path='<DVTFilePath:0x60000f882520:'/Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x600017fa60d0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x60000690c180; name='Apple Development: Daniel Hiebeler (7X2QM3GR64)', hash='02A7B57249C40F65467FD92999EC98E4C74E0DC6', serialNumber='1180BE9EB5154C4C7AFB6ED75BBEFDF7', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-03-27 09:17:04 +0000''>', entitlements='{
+    "application-identifier" = "4FA7X6639Y.com.daniebeler.pfpixelix.iosApp";
+    "com.apple.developer.team-identifier" = 4FA7X6639Y;
+    "get-task-allow" = 1;
+}', teamID='4FA7X6639Y', identifier='com.daniebeler.pfpixelix.iosApp', executablePath='<DVTFilePath:0x600013882520:'/Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app/Pixelix'>', hardenedRuntime='0'>'> are: {
+    "application-identifier" = "4FA7X6639Y.com.daniebeler.pfpixelix.iosApp";
+    "com.apple.developer.team-identifier" = 4FA7X6639Y;
+    "get-task-allow" = 0;
+}
+2025-03-27 11:51:38 +0000  Writing entitlements for <IDEDistributionItem: 0x60000f8bde00; bundleID='com.daniebeler.pfpixelix.iosApp', path='<DVTFilePath:0x60000f882520:'/Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x600017fa60d0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x60000690d8c0; name='Apple Development: Daniel Hiebeler (7X2QM3GR64)', hash='02A7B57249C40F65467FD92999EC98E4C74E0DC6', serialNumber='1180BE9EB5154C4C7AFB6ED75BBEFDF7', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-03-27 09:17:04 +0000''>', entitlements='{
+    "application-identifier" = "4FA7X6639Y.com.daniebeler.pfpixelix.iosApp";
+    "com.apple.developer.team-identifier" = 4FA7X6639Y;
+    "get-task-allow" = 1;
+}', teamID='4FA7X6639Y', identifier='com.daniebeler.pfpixelix.iosApp', executablePath='<DVTFilePath:0x600013882520:'/Users/danielhiebeler/Library/Developer/Xcode/Archives/2025-03-27/iosApp 27.03.25, 12.49.xcarchive/Products/Applications/Pixelix.app/Pixelix'>', hardenedRuntime='0'>'> to: /var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/entitlements~~~cClFs3
+2025-03-27 11:51:39 +0000  invoking codesign: <NSConcreteTask: 0x600013c91ae0; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    "-",
+    "--signature-size",
+    16000,
+    "--entitlements",
+    "/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/entitlements~~~cClFs3",
+    "--requirements",
+    "=designated => anchor apple generic and identifier \"com.daniebeler.pfpixelix.iosApp\" and certificate leaf[subject.CN] = \"Apple Distribution: Daniel Hiebeler (4FA7X6639Y)\" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */",
+    "--preserve-metadata=identifier,flags,runtime",
+    "--omit-adhoc-flag",
+    "--team-identifier",
+    4FA7X6639Y,
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app"
+)'>
+2025-03-27 11:51:39 +0000  codesign output: /var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app: replacing existing signature
+/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app: signed app bundle with Mach-O thin (arm64) [com.daniebeler.pfpixelix.iosApp]
+2025-03-27 11:51:39 +0000  Remote code signing '/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app' with signature slices '[<DVTCodeSignatureSlice: 0x6000113cf180; architecture='arm64', cmsDigest='<DVTCodeSignatureHash: 0x6000058057a0; digestAlgorithmDescription='sha256', cdHashHexEncoded='b65ffd9af64dc380e056752418de0f7e147ce4d7269786cd2088ef7b06256de8'>', codeSignatureHashes='{(
+    <DVTCodeSignatureHash: 0x6000058064e0; digestAlgorithmDescription='sha256', cdHashHexEncoded='b65ffd9af64dc380e056752418de0f7e147ce4d7269786cd2088ef7b06256de8'>
+)}', cmsHexEncoded=''>]' and configuration 'RemoteSigningToolConfiguration(path: <DVTFilePath:0x6000078e35a0:'/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app'>, signingCertificate: <DVTSigningCertificate: 0x600006911b00; name='Apple Distribution: Daniel Hiebeler (4FA7X6639Y)', hash='66DAA4A8B7C2787F5E413DDE4F415C859E6C756C', serialNumber='27010016094F5D7AE8D20C8434DBF1C', certificateKinds='(
+    "1.2.840.113635.100.6.1.7",
+    "1.2.840.113635.100.6.1.4"
+), issueDate='2025-03-27 09:34:22 +0000''>, session: <DVTServicesAccountBasedSession: 0x6000078eaca0; account='<DVTAppleIDBasedDeveloperAccount: 0x600004910640; username='hiebeler.daniel@gmail.com'>'>, team: <DVTPortalTeam: 0x600000934dc0; name='Daniel Hiebeler', teamID='4FA7X6639Y', type='Individual', memberships='(
+    "<DVTPortalMembership: 0x600000bf29d0; programs='{(\n    <DVTPortalProgram: 0x600003bdca50; <DVTPortalProgram: 0x600003bdca50; identifier='Xcode.Portal.Program.iOS'>>\n)}'>",
+    "<DVTPortalMembership: 0x600000bf2280; programs='{(\n    <DVTPortalProgram: 0x600003bdc3c0; <DVTPortalProgram: 0x600003bdc3c0; identifier='Xcode.Portal.Program.Mac'>>\n)}'>"
+)'>, codeResourcesDictionary: [AnyHashable("rules2"): {
+    ".*\\.dSYM($|/)" =     {
+        weight = 11;
+    };
+    "^(.*/)?\\.DS_Store$" =     {
+        omit = 1;
+        weight = 2000;
+    };
+    "^.*" = 1;
+    "^.*\\.lproj/" =     {
+        optional = 1;
+        weight = 1000;
+    };
+    "^.*\\.lproj/locversion.plist$" =     {
+        omit = 1;
+        weight = 1100;
+    };
+    "^Base\\.lproj/" =     {
+        weight = 1010;
+    };
+    "^Info\\.plist$" =     {
+        omit = 1;
+        weight = 20;
+    };
+    "^PkgInfo$" =     {
+        omit = 1;
+        weight = 20;
+    };
+    "^embedded\\.provisionprofile$" =     {
+        weight = 20;
+    };
+    "^version\\.plist$" =     {
+        weight = 20;
+    };
+}, AnyHashable("rules"): {
+    "^.*" = 1;
+    "^.*\\.lproj/" =     {
+        optional = 1;
+        weight = 1000;
+    };
+    "^.*\\.lproj/locversion.plist$" =     {
+        omit = 1;
+        weight = 1100;
+    };
+    "^Base\\.lproj/" =     {
+        weight = 1010;
+    };
+    "^version.plist$" = 1;
+}, AnyHashable("files"): {
+    "AppIcon60x60@2x.png" = {length = 20, bytes = 0x51236b8e153c2245ccc4527073e77e2c00be533b};
+    "AppIcon76x76@2x~ipad.png" = {length = 20, bytes = 0x213c8e0452a482e2fb467aaaf8b376f30b186421};
+    "Assets.car" = {length = 20, bytes = 0x5105f735cfeb76fa47480247990ed46cbe510f25};
+    "Info.plist" = {length = 20, bytes = 0xdbc0d9412e8acee250c434e65c48d0c8c4679821};
+    PkgInfo = {length = 20, bytes = 0x9f9eea0cfe2d65f2c3d6b092e375b40782d08f31};
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_hor.xml" = {length = 20, bytes = 0x25f2f216fe1741de3137a30acd5287826d32c924};
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_ver.xml" = {length = 20, bytes = 0xe591bf7d52745cc03b6a13ee693092d9a48b50b2};
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/resize.xml" = {length = 20, bytes = 0xf2dbff53caf48dea7183cd72f77416d2e10b2c27};
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/restore.xml" = {length = 20, bytes = 0x309f67a2d0abfdd6e6ae7b84c5eb89566c63284c};
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_left.xml" = {length = 20, bytes = 0x3706713e1f6023c356081f168d764bc0f81cbfa0};
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_right.xml" = {length = 20, bytes = 0x393e5ad8a330ffbf471431a3f77a2826348b011a};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle.xml" = {length = 20, bytes = 0xa53a8e08416c8faa4730ad6dd15e91fec0093f34};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle_outline.xml" = {length = 20, bytes = 0xbe9de740f90e48057a2a9565e2aac27993853456};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_outline.xml" = {length = 20, bytes = 0x8196885561a5e5c0c07e0f96a6e04a432fa706d7};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_00.png" = {length = 20, bytes = 0x6280b2070234e7376fd3e2ea464c583874b01875};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_01.png" = {length = 20, bytes = 0xfacb21d89e9092b5de147f43319cb9a58a516208};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_02.png" = {length = 20, bytes = 0x3e6aef9995cec79a1b4171eea8b6b6b7c25313e1};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_03.png" = {length = 20, bytes = 0x207678bde5888e892ac23d7e43c1bb56c5f42a11};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_05.png" = {length = 20, bytes = 0xf9ce2628e47534b043f8f16f1e97010042eebe4c};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_06.png" = {length = 20, bytes = 0x70e5c100c9d5fdea688261dc7e6ab49190d2fcfb};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_07.png" = {length = 20, bytes = 0xb3a464c15e97d4040df8a14ffe18fcd07630b80a};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_08.png" = {length = 20, bytes = 0x874f13037fd47a32cc08568d37cbc16d6ae870ac};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_09.png" = {length = 20, bytes = 0x745deed4d6dfe1cf5d4535fe8f59fadecbee4dde};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/blur.xml" = {length = 20, bytes = 0xc984f6036da58e85317a378455973626fefd9a1a};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark.xml" = {length = 20, bytes = 0xa657f7066320193be33c0adb26a3f980f2ad38dc};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark_outline.xml" = {length = 20, bytes = 0xcda357cf743e95394318d10c3590a29886845c28};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmarks_outline.xml" = {length = 20, bytes = 0xbf8b3d96eb0e967b3c167bb322c709e48c3f4f23};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/browsers_outline.xml" = {length = 20, bytes = 0x44af69d5c95a0144e35ea765e1c9f48febe1c709};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/chatbubble_outline.xml" = {length = 20, bytes = 0x2294dee1297e5666242e54e728745fe48ecd3d95};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_back_outline.xml" = {length = 20, bytes = 0x6f946d0c2a86bc83e4ae3fb860e0ac6a66d75da8};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_forward_outline.xml" = {length = 20, bytes = 0x5e7d8cd3b54df70f64d2dd905c1635f4bd1ea40d};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_up_outline.xml" = {length = 20, bytes = 0x7a579a851a09b1c9e22b2557110c3d38279611db};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/close_outline.xml" = {length = 20, bytes = 0xabe96c87b55d08c9731ca64aa9f85ed919ea90a4};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/cloud_download_outline.xml" = {length = 20, bytes = 0x75bf34e37217d6f6013fec755e5e9280a45f5092};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/code_slash_outline.xml" = {length = 20, bytes = 0x7fc6c24af7e57cc0d6b55742a3d8d7ebb4098445};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/color_palette_outline.xml" = {length = 20, bytes = 0x9c4435f1db6da8189219b94194fb73c2f7fe70f6};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/default_avatar.png" = {length = 20, bytes = 0xae6ef05a6a1d14b5cd11121eed9c2f2f44ade02b};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/document_text_outline.xml" = {length = 20, bytes = 0xb0a5bdf93c5b4233ffdd204f325aec1f9e42b760};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/ellipsis_vertical.xml" = {length = 20, bytes = 0xce1522b1aae1f85924023d4fe59ffa729e748afd};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/extension_puzzle_outline.xml" = {length = 20, bytes = 0xdf8ac7a9aad7ca8dd994387d96719794ffc083d4};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_off_outline.xml" = {length = 20, bytes = 0xe8145daa6279ed9fd032e383ca524cbe194a4418};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_outline.xml" = {length = 20, bytes = 0x1428d31c0250c4305eeb05253b8237406d76abd0};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/fediverse_logo.png" = {length = 20, bytes = 0xea6f96b19a9d5c4e5fc1828defa6a136894cadf8};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/full_character.png" = {length = 20, bytes = 0x26fdfe37cdef0a4ba51d74c8fb1361317e979cee};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid.xml" = {length = 20, bytes = 0x511e4e0290699171bb7ad3e5fefa49e56ec6cf51};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid_outline.xml" = {length = 20, bytes = 0x3e24bddce85b002317c448fbd42dee6a9a765d1c};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/hash.xml" = {length = 20, bytes = 0x6fb74ebbcb82d9ade37e8fe451c4092eb01d66b3};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart.xml" = {length = 20, bytes = 0x6494887a9bf1626a4edf3a0450218e618bab57e1};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart_outline.xml" = {length = 20, bytes = 0xf95e3aa52be9718e033d24e019c3c757c6417daa};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_circle_outline.xml" = {length = 20, bytes = 0x1f0e5f13a8e407684555c8aa8ac01829aaab3ed0};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_outline.xml" = {length = 20, bytes = 0x23cac00c205e07b4840e0ce1f46083975f817ce2};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/house.xml" = {length = 20, bytes = 0x435ed83c49246b4ad700ee029de5d6cf7a77cdfd};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/house_fill.xml" = {length = 20, bytes = 0x9d71101e155bdd07d61e2bb49424a7433ddd5d8e};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/lemmy_logo.png" = {length = 20, bytes = 0x8a471c288b3f876bd683e6bf743c9a97b4fe0b41};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/list_outline.xml" = {length = 20, bytes = 0x185e1c4acd2c882c4a3c2a2d961e8bfb87b1e521};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/log_out_outline.xml" = {length = 20, bytes = 0x07a10818aaee7740939a03691e71edc5df5a355b};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_dark.png" = {length = 20, bytes = 0xf4f5c938223e0d7c40b7b395f7f0a96a4018be09};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_light.png" = {length = 20, bytes = 0xecc53cc97da48dffccfc7a7b1d70d70777a25534};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/mail_outline.xml" = {length = 20, bytes = 0x05394cf5fa81330bf9aaeb537e8ed815a5094fa8};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/mastodon_logo.png" = {length = 20, bytes = 0xc56c4ad4096092e07a92b45c22cce3860cac4923};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/misskey_logo.png" = {length = 20, bytes = 0x8778267b14b6326ee7e101f849884d8a9778325d};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications.xml" = {length = 20, bytes = 0xfd0bbd22386d02cc390216f66f2329bbcd9a388f};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications_outline.xml" = {length = 20, bytes = 0x027700d3677fa4ac5c6cf54cb5adce8605e8f5d2};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/open_outline.xml" = {length = 20, bytes = 0x804a66c1d40578e28b1287f06a128f146efd48a2};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/paper_plane_right.xml" = {length = 20, bytes = 0x30c89335407350383925b1a6efe945c4fe8281f6};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/peertube_logo.png" = {length = 20, bytes = 0xfe2a96988ea0f797dd0972e7e546cf27ede6120b};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pencil_outline.xml" = {length = 20, bytes = 0x71af1c44d8e489a9694364e1ca4b054b97249bba};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelfed_logo.png" = {length = 20, bytes = 0x2fcba530684db1de6df34c9d7fe2d87280284a0b};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo.png" = {length = 20, bytes = 0x16a28f1af6ac212eb89fb13bd32406f3058a9fb6};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_black_xxl.png" = {length = 20, bytes = 0x3f2f7013250393a7812dda47e8606ac95a01210f};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_old.png" = {length = 20, bytes = 0x6280b2070234e7376fd3e2ea464c583874b01875};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_white_xxl.png" = {length = 20, bytes = 0x6faaa971109402e57bf90f97767f5f8600b26c9e};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/planet_outline.xml" = {length = 20, bytes = 0x224a0761841bbf77f5a1d459ee19042a7b2b885e};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/refresh_icon.xml" = {length = 20, bytes = 0x06cec1f48e0e902cc0d1e86493101210f7693501};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/remove_circle_outline.xml" = {length = 20, bytes = 0x1b9b1b642becc25978d7f55cd57122c8abba12b9};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four.xml" = {length = 20, bytes = 0x2655d6c3295e8f808eccfdebea71ac211db45b91};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four_outline.xml" = {length = 20, bytes = 0x3a8a3aed84cd0a922c4ea85c64edfc87ec4c8973};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/save_outline.xml" = {length = 20, bytes = 0x5f5cc3cdaa636c81a7140ae8c683eb0a3ee6b39e};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/search.xml" = {length = 20, bytes = 0x0d92284237a357f8e651aedc0b04cb0ff6a1fbf7};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/search_outline.xml" = {length = 20, bytes = 0x1f66eef1f095a3372afe3c041dc75154f60764fa};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/settings_outline.xml" = {length = 20, bytes = 0xdb5b2cfc4ea9c06f391bb0e764696e09ef136886};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/share_social_outline.xml" = {length = 20, bytes = 0x6945cbde07170e8295a0aad887ce6626bd31e8e7};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/shield_outline.xml" = {length = 20, bytes = 0xba87f25eb01103dad5ba903570f1f346500d0f20};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/square_outline.xml" = {length = 20, bytes = 0x6873632f4f4ef59f5c66baa540fc949a13a5f853};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/stack.xml" = {length = 20, bytes = 0xb5ae89310a000e4bfedbb1a9359e8224847b638a};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/star_outline.xml" = {length = 20, bytes = 0xdefdf30ea5c574b7cc65adcb48bc2068be23eaeb};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline.xml" = {length = 20, bytes = 0xabedd2b970beed7a0b00d71ea04ec37177df4ecc};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline_bold.xml" = {length = 20, bytes = 0x3c8c1bae3eb415c112e288dc7a77cfffe23ae479};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/threads_logo.png" = {length = 20, bytes = 0x4fb12be619eaa6df520205c64f047d3babe0d8be};
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/trash_outline.xml" = {length = 20, bytes = 0x5a6f0dab27c6f299bafbdb0b59da35b5c78d3d15};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-af-rZA/strings.commonMain.cvr" = {length = 20, bytes = 0xdff2695c833c06e257863db467bdc877026f2a65};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ar-rSA/strings.commonMain.cvr" = {length = 20, bytes = 0xb8123d7a1857d12507a5bb9134b4f10d607d199a};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ca-rES/strings.commonMain.cvr" = {length = 20, bytes = 0xa01128b29a5c43664fa4d31dfb93ff302a3f935d};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-cs-rCZ/strings.commonMain.cvr" = {length = 20, bytes = 0xe96a494acd55abddf6020f896da949e40e63b835};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-da-rDK/strings.commonMain.cvr" = {length = 20, bytes = 0x25597431561278b4b4afed367bdd68aa7c85f2df};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-de-rDE/strings.commonMain.cvr" = {length = 20, bytes = 0x7179f79109ac0f891c6721ecfbd44338ae75b875};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-el-rGR/strings.commonMain.cvr" = {length = 20, bytes = 0xa8bb31590f395eacb5ddaf764d3baf1ed513de2c};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-en-rUS/strings.commonMain.cvr" = {length = 20, bytes = 0xdff2695c833c06e257863db467bdc877026f2a65};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-eo-rUY/strings.commonMain.cvr" = {length = 20, bytes = 0xdff2695c833c06e257863db467bdc877026f2a65};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-es-rES/strings.commonMain.cvr" = {length = 20, bytes = 0x58bdef6332f90019f01cfadedc1f26beb36d1e4b};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-fi-rFI/strings.commonMain.cvr" = {length = 20, bytes = 0xa341c7622819de6a299cbc7201c2967cec8d567d};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-fr-rFR/strings.commonMain.cvr" = {length = 20, bytes = 0x1af74c745f72f6e1b78be6bfa1eaaadcfc835bac};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-gl-rES/strings.commonMain.cvr" = {length = 20, bytes = 0x22a7c9421cb39dc31c0895159115c1b7e84565eb};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-hu-rHU/strings.commonMain.cvr" = {length = 20, bytes = 0x78c69ca80f0b741ac1d8282d112aacefce948740};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-io-rEN/strings.commonMain.cvr" = {length = 20, bytes = 0xdff2695c833c06e257863db467bdc877026f2a65};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-it-rIT/strings.commonMain.cvr" = {length = 20, bytes = 0x0c9b85b67543e9a61498cf09e3676579f0b99952};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-iw-rIL/strings.commonMain.cvr" = {length = 20, bytes = 0x8acd04dbda7f0080593ceea298507adb3940b4c2};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ja-rJP/strings.commonMain.cvr" = {length = 20, bytes = 0x17336417777fb76667c2b66f475cde7116838a70};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ko-rKR/strings.commonMain.cvr" = {length = 20, bytes = 0x17336417777fb76667c2b66f475cde7116838a70};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-nl-rNL/strings.commonMain.cvr" = {length = 20, bytes = 0x42a6ce9c422735748afe49f0cb2a8a4142e8a2a8};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-no-rNO/strings.commonMain.cvr" = {length = 20, bytes = 0xe7938521caa709ad47fc34c0b86d42b1608e516f};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-pl-rPL/strings.commonMain.cvr" = {length = 20, bytes = 0xfc01ccc19b734a59a6a86230a7c6ce75da95162c};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rBR/strings.commonMain.cvr" = {length = 20, bytes = 0x5b90d0ed7d8a462b501b6d40c3c10594998453f9};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rPT/strings.commonMain.cvr" = {length = 20, bytes = 0xcf3317d6067e992b68e311d7ec3029c5b3ae22ca};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ro-rRO/strings.commonMain.cvr" = {length = 20, bytes = 0x22aedf019d28d1f945f4e6fe82e59f0dace48b7c};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ru-rRU/strings.commonMain.cvr" = {length = 20, bytes = 0x8cf1d7d491973c58db72a151c41b504ce616d282};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-sr-rSP/strings.commonMain.cvr" = {length = 20, bytes = 0xd7c39376df2b890462bfecf4ba6812fed95e472f};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-sv-rSE/strings.commonMain.cvr" = {length = 20, bytes = 0x1336a5becde378314bc5aa91ada8816809d05c7b};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-tlh-rAA/strings.commonMain.cvr" = {length = 20, bytes = 0xdff2695c833c06e257863db467bdc877026f2a65};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-tr-rTR/strings.commonMain.cvr" = {length = 20, bytes = 0xdff2695c833c06e257863db467bdc877026f2a65};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-uk-rUA/strings.commonMain.cvr" = {length = 20, bytes = 0x7e4877ab7a8b79aabf31fd3b856a1458105c23dd};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-vi-rVN/strings.commonMain.cvr" = {length = 20, bytes = 0x17336417777fb76667c2b66f475cde7116838a70};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rCN/strings.commonMain.cvr" = {length = 20, bytes = 0x17336417777fb76667c2b66f475cde7116838a70};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rTW/strings.commonMain.cvr" = {length = 20, bytes = 0x17336417777fb76667c2b66f475cde7116838a70};
+    "compose-resources/composeResources/pixelix.app.generated.resources/values/strings.commonMain.cvr" = {length = 20, bytes = 0x67e817e7bba69c7966b6a3159e7486f06dcc14a8};
+    "embedded.mobileprovision" = {length = 20, bytes = 0x1a2b313b571d9f4ef9f223b4f06879450033db36};
+}, AnyHashable("files2"): {
+    "AppIcon60x60@2x.png" =     {
+        hash2 = {length = 32, bytes = 0x388eb4b5 83e80aaa 4d3e0796 5a0fd433 ... 802aad48 00d91628 };
+    };
+    "AppIcon76x76@2x~ipad.png" =     {
+        hash2 = {length = 32, bytes = 0x2ef7f182 ac0430ca a838b83d 0127bcc6 ... 2a061897 bab79feb };
+    };
+    "Assets.car" =     {
+        hash2 = {length = 32, bytes = 0xf3b627a5 04c03284 d31eaf13 1b1df55c ... 03e36d10 3abd121e };
+    };
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_hor.xml" =     {
+        hash2 = {length = 32, bytes = 0xd634402d cdd22d12 af59a645 6e5165ce ... 18aa7d80 994100c9 };
+    };
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_ver.xml" =     {
+        hash2 = {length = 32, bytes = 0x40a0fbde 0cc34a1b 593d61c3 7c2a26f2 ... aac9018e 21b718e6 };
+    };
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/resize.xml" =     {
+        hash2 = {length = 32, bytes = 0x3fb59a11 157362af e9d7e368 874c556d ... 713d6555 611a2f45 };
+    };
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/restore.xml" =     {
+        hash2 = {length = 32, bytes = 0xdce2fa29 82f55ac7 526e2b90 7404bb36 ... 68e75324 318bfd86 };
+    };
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_left.xml" =     {
+        hash2 = {length = 32, bytes = 0xf0a0bc83 4e7f2ed7 d531e354 b496781d ... d70e535c eeafd5d1 };
+    };
+    "compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_right.xml" =     {
+        hash2 = {length = 32, bytes = 0xed613460 54def436 7cc42bfb 8ce3994c ... 81d12a60 8c3ca690 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle.xml" =     {
+        hash2 = {length = 32, bytes = 0xebc01bdd 683931dc fffc5d24 a3f770d2 ... d410562f bb87ac26 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xb3f9910e 461baf66 f64fdb62 1e315e5c ... 76064a16 0f78c04b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xc9589d85 a09516cb 60b12940 14d2779e ... edc7786f cf25cdbc };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_00.png" =     {
+        hash2 = {length = 32, bytes = 0xd939b498 158a4deb 54de838c 7f67d854 ... c06d4e9c 934d9369 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_01.png" =     {
+        hash2 = {length = 32, bytes = 0x27f088c6 a6344ecb 01bd4154 f8c76e3a ... 750aa4df 4ba4300b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_02.png" =     {
+        hash2 = {length = 32, bytes = 0x35feef19 405a4030 c33e4eb6 3c464b1a ... 1bf30f44 2886a108 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_03.png" =     {
+        hash2 = {length = 32, bytes = 0x9af7e483 489ece54 9110be85 7fad00a3 ... 680f531f 0993a5d8 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_05.png" =     {
+        hash2 = {length = 32, bytes = 0x7f2a59df d22ff213 7b04ae2b c8f52055 ... 9268f829 73037289 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_06.png" =     {
+        hash2 = {length = 32, bytes = 0xa9e3fde8 8b01cad0 47123812 a89f0119 ... bdb89109 920af8cb };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_07.png" =     {
+        hash2 = {length = 32, bytes = 0x1cb53031 9d44f6cf af1afa45 ac19a4ef ... 6d1cfd02 4dad9d70 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_08.png" =     {
+        hash2 = {length = 32, bytes = 0x9b835e36 b2544f56 f4331a7c b2c53e58 ... ea8acd09 fd54f578 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_09.png" =     {
+        hash2 = {length = 32, bytes = 0xfaed57a9 8800d09a 2fa765f8 91b27858 ... 3e163e74 24adcdcd };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/blur.xml" =     {
+        hash2 = {length = 32, bytes = 0x1de4ab6b d1214e4b d5217af2 02795e79 ... d033ef43 e5ab074b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark.xml" =     {
+        hash2 = {length = 32, bytes = 0x726a59c5 83cbc950 92225c61 e503948a ... f66ac156 f95216a4 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x5cf8d54a f54296bd c242c850 f3e6148b ... 04c46626 515cb117 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmarks_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x4bf4cf9f bd57ecfe d20c258e bd2284a5 ... 40060a0d 7727755a };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/browsers_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xe0e1a052 3c8a8004 15a286a5 5aafb389 ... fc26c60c 6a50cbd6 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/chatbubble_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x87efd41d 40f77427 8d812f13 bb1f32d2 ... 2f9c2b5f 721709c5 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_back_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xe34b0c4f ad733bfa 2b06e63d d86ac7b4 ... d3dad9f4 129db882 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_forward_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xc4b1176a 0e7380e0 70726d48 58276fcc ... 6c4291ca d265a354 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_up_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x37526d5e 6d8024ec d00ace85 b580f88c ... 79257735 d6f8a1c7 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/close_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x13fd5182 1681a70b 246e245b d538fc5d ... b7a2da78 32168ede };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/cloud_download_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x903e3c79 19210647 5fddd3a5 f0dfdfa4 ... 792bdef2 d191b3f5 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/code_slash_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xe1454ff2 2cef0dd1 e7b2822d d20bf364 ... 5607e174 a30e37ec };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/color_palette_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x5ff7856e 0f7c42ac efb9e17e f88b9302 ... 416d8702 95b5d79b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/default_avatar.png" =     {
+        hash2 = {length = 32, bytes = 0x17681ff7 e7c33fb2 5b1a3959 47f51935 ... 30003eac 338e435b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/document_text_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xc4e7eee4 05cb2a10 7e8b3261 68f1e926 ... 2151944c 244e0d2c };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/ellipsis_vertical.xml" =     {
+        hash2 = {length = 32, bytes = 0xb3eef557 612e41c7 2bb04ead 474b0660 ... 61c8507f 73843ec9 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/extension_puzzle_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x3bb9d6de 0ecb6fc0 ffa88c17 de1a4532 ... e8b090c5 fffa98e0 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_off_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x27b9cbdb 2cf6a98f a01a79f5 7e75cc63 ... 78473fc8 987fe10c };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x3cdb5003 dc23f6fe bb3c6a1b 18edc1f1 ... e9a12345 bd410544 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/fediverse_logo.png" =     {
+        hash2 = {length = 32, bytes = 0x48e141ce 11cd4c4e beb3694c c09789a0 ... 7b335551 7ed97969 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/full_character.png" =     {
+        hash2 = {length = 32, bytes = 0x3c849485 01af0bf1 d6703b89 0b854bb6 ... f311316f 1846c3e0 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid.xml" =     {
+        hash2 = {length = 32, bytes = 0xe8239680 13b543da e10a5753 1ae256a5 ... 576870d7 ab77dff8 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x05c2fe31 f183bbee fa037dff 9dc209ad ... 3a786a7e 8a6fefaf };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/hash.xml" =     {
+        hash2 = {length = 32, bytes = 0xc666b26f 62cdc69e 3760d270 d27fc337 ... 53cc18a8 f7e4a487 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart.xml" =     {
+        hash2 = {length = 32, bytes = 0x5776cf29 c8acb46f a97cc541 3e08edde ... ee48d6a9 c42b98cd };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xdea96800 a1e0ae6e eb1bf34f 92e6f916 ... 57f9ef47 edb16ceb };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_circle_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x36f0bf5d e6a0e16c 4751a48d 0f0b4b35 ... 106edd3f 2066416b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x1355e5ab f552dd22 f26c3a0e 7b6303d6 ... e3eafeff 6314c9cc };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/house.xml" =     {
+        hash2 = {length = 32, bytes = 0x84dbd9bd 3e1459e0 52952d18 543b990e ... 0da68582 f2f1106d };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/house_fill.xml" =     {
+        hash2 = {length = 32, bytes = 0x9f45e1c8 86a2098f c8320129 5debe5e0 ... 542bb53e e19c1e0c };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/lemmy_logo.png" =     {
+        hash2 = {length = 32, bytes = 0x33bd151f 7dac715a f8c2c857 f6d6b9b2 ... 5ada3a37 bb6a3467 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/list_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x7de869e6 164ced0b 0ea282af c630e60a ... a2ad7013 cbff2a6d };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/log_out_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x687cbdd2 ef55069e 9c7fd572 5a002b80 ... c7764e60 cbc00144 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_dark.png" =     {
+        hash2 = {length = 32, bytes = 0x423a1383 7c26f7c0 3120995e d0eeb036 ... 2a1572da 09745ef8 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_light.png" =     {
+        hash2 = {length = 32, bytes = 0xa25b2fa5 6042fa58 c5358f2e 8b63b73a ... 5778f274 28f192dd };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/mail_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x2ae9bccd a6a23be3 bea9cb48 14ddcc9b ... 490bbbe4 43fac5cf };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/mastodon_logo.png" =     {
+        hash2 = {length = 32, bytes = 0x2671bd73 766ab7b6 fc457ceb 9b5683e3 ... 2645aff1 ccfb0eb1 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/misskey_logo.png" =     {
+        hash2 = {length = 32, bytes = 0x1025c35c ded00259 d24fb069 cc31d265 ... a768ce71 eff4799f };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications.xml" =     {
+        hash2 = {length = 32, bytes = 0x6dc4ca67 658b7b78 d1573d96 36542812 ... b61bc1a7 5d287b6b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xd1ecbdc3 b24be222 2dda87c5 d79ce0e9 ... 396166f8 c18e6118 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/open_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x4bfef40b cbcdaa57 d1ed2135 f1db2ea1 ... c7d3bb52 9b5ed1af };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/paper_plane_right.xml" =     {
+        hash2 = {length = 32, bytes = 0xdb419299 4f493f7d 618bd7e8 985cbc2a ... 98c941dd c51277be };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/peertube_logo.png" =     {
+        hash2 = {length = 32, bytes = 0x69deb4b8 fbc4fbb4 70aea54d 9bdb20b3 ... 743d5a45 8bc9588d };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pencil_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x69840e4c 496b566d 65fca91f 4f994c86 ... d0de967a 9d243a8f };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelfed_logo.png" =     {
+        hash2 = {length = 32, bytes = 0x87e21763 ee825944 50f8dc09 21405cf4 ... 400bf627 5de0012c };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo.png" =     {
+        hash2 = {length = 32, bytes = 0xa7e43821 89cffefc 2756c8a7 b0a275f8 ... 7acc59dc e75444b1 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_black_xxl.png" =     {
+        hash2 = {length = 32, bytes = 0xe9f4c0fd b0108d48 30f074c5 2561d6ab ... 2c18a307 698525a8 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_old.png" =     {
+        hash2 = {length = 32, bytes = 0xd939b498 158a4deb 54de838c 7f67d854 ... c06d4e9c 934d9369 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_white_xxl.png" =     {
+        hash2 = {length = 32, bytes = 0x64a14aa6 e528a73e 138e9993 a31bf530 ... 44fa01ac 5eab9b86 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/planet_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xa494609f a1c4a5c2 2f42c682 546e4de0 ... 12888040 65883fc8 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/refresh_icon.xml" =     {
+        hash2 = {length = 32, bytes = 0x6ea61ab5 95dd75c1 fa3e085a d65cb5e2 ... d3cfb8b2 87bee8a6 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/remove_circle_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xbb53205a 79689fbb ac06fad2 e8a007a5 ... 8afae3a0 06ab790b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four.xml" =     {
+        hash2 = {length = 32, bytes = 0xf54eb3ee 7f7c31be e3bc38f5 76516455 ... 9c2e688f a8892c4e };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xb8719632 3d9d495c e0e7db10 6f8f0277 ... ef0a5c47 9cbd00b0 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/save_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xd6b7aa9d 0498e42b 8400320d 80134255 ... 4041b041 42109c21 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/search.xml" =     {
+        hash2 = {length = 32, bytes = 0x1d07d2be 70da70e9 d6825dcd 6056cfd4 ... 53c64485 116dfb65 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/search_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x729992d2 64c15fa9 1d406dc4 0e6fa1f1 ... 7e05d9ee 5c2493ab };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/settings_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x02dce09e 929e9a6c fbc7e955 002e6a8c ... a3853cbb 3c68dab8 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/share_social_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x9a9a6a0b 49c3df91 217ce385 41230813 ... 7a56fa5d 6573911a };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/shield_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x34ec6cd7 63ec3f47 c92fa1bf 1adcacd7 ... a37623e5 92669270 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/square_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x67a34ecb b29bff23 b1a82230 33020511 ... 06e67dde f59b3655 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/stack.xml" =     {
+        hash2 = {length = 32, bytes = 0x1d00c1ae b26d3892 9873e2ee 5bb762b8 ... 59b11051 35ab15a0 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/star_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xa8631dfd 9843d788 2a00a1fb 0f159244 ... 2828c31b 8c6117ef };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0xe3af607e e4f4f5ca 83d57515 f64a7d36 ... eef0afda c7649aef };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline_bold.xml" =     {
+        hash2 = {length = 32, bytes = 0xddd6abca 7f34110d 6de66f8f e1dccbf9 ... 88c25203 e12471b0 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/threads_logo.png" =     {
+        hash2 = {length = 32, bytes = 0xc8d585aa 29af5726 19513bf0 80c44cd4 ... c311a92a c6f9614f };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/drawable/trash_outline.xml" =     {
+        hash2 = {length = 32, bytes = 0x93b2c2ef 709a0b04 0b2f2be7 b082e673 ... 45b19939 a853411c };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-af-rZA/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x70e386d3 4c3e2d6f 67626c47 566d7709 ... 76e37a4c 3c0aab1f };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ar-rSA/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x738cd7b6 c1122d3f e33b4dbb 4dc0f727 ... cc910121 5a87e8ac };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ca-rES/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x5763c719 043bfde1 5d7668c7 afe2a2db ... f1275b8e 26c5d260 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-cs-rCZ/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x0c87ad99 fbc7f53a 3baf1f3e de25f76b ... 9e8fe4c3 9dc61a13 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-da-rDK/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xdfd074ca 70b886bc 5a20f57f 0a3dbfcd ... 2b8bcf25 7bed6748 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-de-rDE/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x43477e59 1292362d 4e717248 31428e85 ... b8182a0e 25eb772b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-el-rGR/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xe21fda80 9f97b75f 26c140dc b9d0ea5e ... af2f6247 2ec0c8f8 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-en-rUS/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x70e386d3 4c3e2d6f 67626c47 566d7709 ... 76e37a4c 3c0aab1f };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-eo-rUY/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x70e386d3 4c3e2d6f 67626c47 566d7709 ... 76e37a4c 3c0aab1f };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-es-rES/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x97167abd 09273f3d aee8d414 e1d4ad94 ... 7d458bdd fd6ec06c };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-fi-rFI/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xe59bec68 503a7342 46123ff5 89877978 ... a16791a3 801113d6 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-fr-rFR/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xc32252ff d548935e 4946824c d39af965 ... db5b2a13 f5dea7f9 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-gl-rES/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x65039aa5 c0484e7b 8dc0da65 146d30cc ... 50cbcfe0 c5873c77 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-hu-rHU/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xd16f1c19 2250e439 35d8ffa5 36eeaa41 ... 033faadd 74040ff0 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-io-rEN/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x70e386d3 4c3e2d6f 67626c47 566d7709 ... 76e37a4c 3c0aab1f };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-it-rIT/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x685b6b11 f5222d67 b2199f91 d28c9d88 ... 058ac685 ac2c9a9b };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-iw-rIL/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x6d01850c cf64d6d5 07fe57b6 7571a48c ... 42f01ed6 845a1729 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ja-rJP/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x03b6dd76 16c65871 2c54430a b8136274 ... 3c4416b0 a31678d4 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ko-rKR/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x03b6dd76 16c65871 2c54430a b8136274 ... 3c4416b0 a31678d4 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-nl-rNL/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xa006eadf cbb38617 f7192544 a9ca8068 ... d3118543 34666b9a };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-no-rNO/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x796b1b9c 547a6030 83d0b390 af06844e ... a2db0591 82d8c935 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-pl-rPL/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xadae44bc 4a97accd 2d0c8bf8 b6ba4445 ... 35c96081 1c55d40d };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rBR/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xfeaa353a b16e5974 d850429a 1387af6f ... 60e0aee6 add8b259 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rPT/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xf9c4a247 f1a4a16a dbb738e2 c6389dba ... aa40da33 4b564d81 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ro-rRO/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xe6fc7b1d fadadb74 5b42c99e f414209e ... 3f95a5bc 22e8b944 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-ru-rRU/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0xcf8bdd98 e79165d7 b9ec8df0 7efd7c6c ... d30afdff f0003dd3 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-sr-rSP/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x8d3e0324 7126a5b6 cac774fe c6a2d931 ... 532a8b33 a299eb99 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-sv-rSE/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x31c94f9e c7333369 e36bd1c1 b5e6d379 ... bf984034 8fa971cd };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-tlh-rAA/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x70e386d3 4c3e2d6f 67626c47 566d7709 ... 76e37a4c 3c0aab1f };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-tr-rTR/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x70e386d3 4c3e2d6f 67626c47 566d7709 ... 76e37a4c 3c0aab1f };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-uk-rUA/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x7f141c17 cea96da9 dad1da68 b0307d7d ... 9155a8bc 052353d3 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-vi-rVN/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x03b6dd76 16c65871 2c54430a b8136274 ... 3c4416b0 a31678d4 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rCN/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x03b6dd76 16c65871 2c54430a b8136274 ... 3c4416b0 a31678d4 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rTW/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x03b6dd76 16c65871 2c54430a b8136274 ... 3c4416b0 a31678d4 };
+    };
+    "compose-resources/composeResources/pixelix.app.generated.resources/values/strings.commonMain.cvr" =     {
+        hash2 = {length = 32, bytes = 0x95f3ed8d 8b1b6ae0 e9c28196 5d8d0ea9 ... cb5150ed 2744ec56 };
+    };
+    "embedded.mobileprovision" =     {
+        hash2 = {length = 32, bytes = 0xba8c5faf 920f471a 00e5eb86 c42e1184 ... bae26d55 369fb3d3 };
+    };
+}], enableSignatureValidation: true, logAspect: <DVTLogAspect:0x6000086ed540:IDEDistributionPipeline:level=verbose(3):effective-level=verbose(3)>)'
+2025-03-27 11:51:39 +0000  Sending request D5629507-B53B-43EE-B471-C29C1EC31671 to <https://developerservices2.apple.com/services/v1/certificates> for session <DVTServicesAccountBasedSession: 0x6000078eaca0; account='<DVTAppleIDBasedDeveloperAccount: 0x600004910640; username='hiebeler.daniel@gmail.com'>'>.
+Method: POST
+
+Headers:
+{
+    Accept = "application/vnd.api+json";
+    "Accept-Encoding" = "gzip, deflate";
+    "Content-Length" = 112;
+    "Content-Type" = "application/vnd.api+json";
+    DSESSIONID = 1dpi3u5329ia194u4s92gbhgemujiv9lh0747cfr093097src702;
+    "User-Agent" = Xcode;
+    "X-Apple-App-Info" = "com.apple.gs.xcode.auth";
+    "X-Apple-GS-Token" = "AAAABLwIAAAAAGflGaYRDWdzLnhjb2RlLmF1dGi9ANOmZgzI9QqUIayzQysLPFo7YkyJO+6xnI8lwlLi4PAuNywsf3crZIYvp4WTfR4bTlXbBB8SyFhd4qLTq4h4uL3jTPruLCXBlYc6gd6gCvB7TYM6gODbr9Yhd9lY4QB9GuGu1SOTW1T1zyTGAKmnrIdmG1gr";
+    "X-Apple-I-Identity-Id" = "001772-08-10f30ea9-6207-43e5-a8cb-d555a5419868";
+    "X-HTTP-Method-Override" = GET;
+    "X-MMe-Client-Info" = "<Mac15,12> <macOS;15.3.2;24D81> <com.apple.AuthKit/1 (com.apple.dt.Xcode/23507)>";
+    "X-Mme-Device-Id" = "A4D30F9C-34ED-5227-9805-0A2F619E72F0";
+    "X-Xcode-Version" = "16.2 (16C5032a)";
+}
+
+Payload:
+{"urlEncodedQueryParams":"teamId=4FA7X6639Y&filter%5BserialNumber%5D=27010016094F5D7AE8D20C8434DBF1C&limit=200"}
+2025-03-27 11:51:39 +0000  Received response for D5629507-B53B-43EE-B471-C29C1EC31671 @ <https://developerservices2.apple.com/services/v1/certificates>. Code = 0
+2025-03-27 11:51:39 +0000  Response payload: {
+  "data" : [ {
+    "type" : "certificates",
+    "id" : "JPJD96B9JG",
+    "attributes" : {
+      "requesterEmail" : "hiebeler.daniel@gmail.com",
+      "serialNumber" : "027010016094F5D7AE8D20C8434DBF1C",
+      "certificateContent" : "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",
+      "displayName" : "Daniel Hiebeler",
+      "requesterLastName" : "Hiebeler",
+      "csrContent" : null,
+      "machineName" : null,
+      "platform" : null,
+      "requesterFirstName" : "Daniel",
+      "machineId" : null,
+      "name" : "Apple Distribution: Daniel Hiebeler",
+      "responseId" : "a53e6edc-9ff2-4cb3-8c8e-a762fe86a19e",
+      "expirationDate" : "2026-03-27T09:34:21.000+00:00",
+      "certificateType" : "DISTRIBUTION_MANAGED"
+    },
+    "links" : {
+      "self" : "https://developerservices2.apple.com:443/services/v1/certificates/JPJD96B9JG"
+    }
+  } ],
+  "links" : {
+    "self" : "https://developerservices2.apple.com:443/services/v1/certificates?filter%5BserialNumber%5D=27010016094F5D7AE8D20C8434DBF1C&limit=200"
+  },
+  "meta" : {
+    "paging" : {
+      "total" : 1,
+      "limit" : 200
+    }
+  }
+}
+
+2025-03-27 11:51:39 +0000  Sending request CB92609B-3D4B-4089-9B61-56161F139CD3 to <https://developerservices3.apple.com/services/v1/batch> for session <DVTServicesAccountBasedSession: 0x6000078eaca0; account='<DVTAppleIDBasedDeveloperAccount: 0x600004910640; username='hiebeler.daniel@gmail.com'>'>.
+Method: POST
+
+Headers:
+{
+    Accept = "application/vnd.api+json";
+    "Accept-Encoding" = "gzip, deflate";
+    "Content-Length" = 488;
+    "Content-Type" = "application/vnd.api+json";
+    DSESSIONID = 1dpi3u5329ia194u4s92gbhgemujiv9lh0747cfr093097src702;
+    "User-Agent" = Xcode;
+    "X-Apple-App-Info" = "com.apple.gs.xcode.auth";
+    "X-Apple-GS-Token" = "AAAABLwIAAAAAGflGaYRDWdzLnhjb2RlLmF1dGi9ANOmZgzI9QqUIayzQysLPFo7YkyJO+6xnI8lwlLi4PAuNywsf3crZIYvp4WTfR4bTlXbBB8SyFhd4qLTq4h4uL3jTPruLCXBlYc6gd6gCvB7TYM6gODbr9Yhd9lY4QB9GuGu1SOTW1T1zyTGAKmnrIdmG1gr";
+    "X-Apple-I-Identity-Id" = "001772-08-10f30ea9-6207-43e5-a8cb-d555a5419868";
+    "X-MMe-Client-Info" = "<Mac15,12> <macOS;15.3.2;24D81> <com.apple.AuthKit/1 (com.apple.dt.Xcode/23507)>";
+    "X-Mme-Device-Id" = "A4D30F9C-34ED-5227-9805-0A2F619E72F0";
+    "X-Xcode-Version" = "16.2 (16C5032a)";
+}
+
+Payload:
+{"data":{"attributes":{"resourceVersion":"1","teamId":"4FA7X6639Y","resourceList":[{"data":{"type":"codeSignatures","attributes":{"teamId":"4FA7X6639Y","digestHash":"B65FFD9AF64DC380E056752418DE0F7E147CE4D7269786CD2088EF7B06256DE8","name":"0","cdHashSha256":"B65FFD9AF64DC380E056752418DE0F7E147CE4D7269786CD2088EF7B06256DE8"},"relationships":{"bundleId":{"data":{"type":"bundleIds","id":"5N7498MSTZ"}},"certificate":{"data":{"id":"JPJD96B9JG","type":"certificates"}}}}}]},"type":"batch"}}
+2025-03-27 11:51:40 +0000  Received response for CB92609B-3D4B-4089-9B61-56161F139CD3 @ <https://developerservices3.apple.com/services/v1/batch>. Code = 0
+2025-03-27 11:51:40 +0000  Response payload: {
+  "data" : {
+    "type" : "batch",
+    "id" : "7f876541-c526-42a8-b5fe-6c5d37b79185",
+    "attributes" : {
+      "responseId" : "7f876541-c526-42a8-b5fe-6c5d37b79185",
+      "resourceList" : [ {
+        "type" : "codeSignatures",
+        "id" : "5bdcc686-0bd5-44a2-83ff-335fb9c472dd",
+        "attributes" : {
+          "digestHash" : "B65FFD9AF64DC380E056752418DE0F7E147CE4D7269786CD2088EF7B06256DE8",
+          "cdHashSha256" : "B65FFD9AF64DC380E056752418DE0F7E147CE4D7269786CD2088EF7B06256DE8",
+          "signature" : "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",
+          "name" : "0",
+          "responseId" : "7f876541-c526-42a8-b5fe-6c5d37b79185",
+          "cmsSignature" : "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",
+          "timestamp" : false
+        },
+        "relationships" : {
+          "bundleId" : {
+            "data" : {
+              "type" : "bundleIds",
+              "id" : "5N7498MSTZ"
+            },
+            "links" : {
+              "self" : {
+                "href" : "https://developerservices3.apple.com:443/services/v1/codeSignatures/5bdcc686-0bd5-44a2-83ff-335fb9c472dd/relationships/bundleId"
+              },
+              "related" : {
+                "href" : "https://developerservices3.apple.com:443/services/v1/codeSignatures/5bdcc686-0bd5-44a2-83ff-335fb9c472dd/bundleId"
+              }
+            }
+          },
+          "certificate" : {
+            "data" : {
+              "type" : "certificates",
+              "id" : "JPJD96B9JG"
+            },
+            "links" : {
+              "self" : {
+                "href" : "https://developerservices3.apple.com:443/services/v1/codeSignatures/5bdcc686-0bd5-44a2-83ff-335fb9c472dd/relationships/certificate"
+              },
+              "related" : {
+                "href" : "https://developerservices3.apple.com:443/services/v1/codeSignatures/5bdcc686-0bd5-44a2-83ff-335fb9c472dd/certificate"
+              }
+            }
+          }
+        },
+        "links" : {
+          "self" : {
+            "href" : "https://developerservices3.apple.com:443/services/v1/codeSignatures/5bdcc686-0bd5-44a2-83ff-335fb9c472dd"
+          }
+        }
+      } ],
+      "resourceVersion" : "1"
+    },
+    "links" : {
+      "self" : "https://developerservices3.apple.com:443/services/v1/batch/7f876541-c526-42a8-b5fe-6c5d37b79185"
+    }
+  },
+  "links" : {
+    "self" : "https://developerservices3.apple.com:443/services/v1/batch"
+  }
+}
+
+2025-03-27 11:51:40 +0000  Remote signature for /var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app (arch: arm64) is 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
+2025-03-27 11:51:40 +0000  invoking codesign: <NSConcreteTask: 0x600013c90fa0; launchPath='/usr/bin/codesign', arguments='(
+    "-e",
+    "--edit-cms",
+    "/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/cms~~~9h4yym",
+    "/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app"
+)'>
+2025-03-27 11:51:40 +0000  codesign output: 
+2025-03-27 11:51:40 +0000  Processing step: IDEDistributionZipODRItemStep
+2025-03-27 11:51:40 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2025-03-27 11:51:40 +0000  Processing step: IDEDistributionCreateIPAStep
+2025-03-27 11:51:40 +0000  Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root' '/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Packages/Pixelix.ipa'
+2025-03-27 11:51:40 +0000  >>> Copying /var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root 
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/_CodeSignature/CodeResources ... 
+2025-03-27 11:51:40 +0000  48217 bytes for ./Payload/Pixelix.app/_CodeSignature/CodeResources
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/AppIcon60x60@2x.png ... 
+2025-03-27 11:51:40 +0000  1027 bytes for ./Payload/Pixelix.app/AppIcon60x60@2x.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/Assets.car ... 
+2025-03-27 11:51:40 +0000  481503 bytes for ./Payload/Pixelix.app/Assets.car
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/AppIcon76x76@2x~ipad.png ... 
+2025-03-27 11:51:40 +0000  1230 bytes for ./Payload/Pixelix.app/AppIcon76x76@2x~ipad.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_right.xml ... 
+2025-03-27 11:51:40 +0000  755 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_right.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_left.xml ... 
+2025-03-27 11:51:40 +0000  809 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/rot_left.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/restore.xml ... 
+2025-03-27 11:51:40 +0000  521 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/restore.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/resize.xml ... 
+2025-03-27 11:51:40 +0000  570 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/resize.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_ver.xml ... 
+2025-03-27 11:51:40 +0000  473 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_ver.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_hor.xml ... 
+2025-03-27 11:51:40 +0000  502 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/krop.library.ui.generated.resources/drawable/flip_hor.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-sv-rSE/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13700 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-sv-rSE/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-fi-rFI/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13248 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-fi-rFI/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-es-rES/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14820 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-es-rES/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-gl-rES/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14236 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-gl-rES/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-en-rUS/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13056 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-en-rUS/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-pl-rPL/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14862 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-pl-rPL/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rTW/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  12922 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rTW/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-iw-rIL/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13358 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-iw-rIL/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rCN/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  12922 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-zh-rCN/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-tlh-rAA/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13056 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-tlh-rAA/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_02.png ... 
+2025-03-27 11:51:40 +0000  4311 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_02.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart_outline.xml ... 
+2025-03-27 11:51:40 +0000  645 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/default_avatar.png ... 
+2025-03-27 11:51:40 +0000  14936 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/default_avatar.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four_outline.xml ... 
+2025-03-27 11:51:40 +0000  507 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/log_out_outline.xml ... 
+2025-03-27 11:51:40 +0000  565 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/log_out_outline.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/close_outline.xml ... 
+2025-03-27 11:51:40 +0000  455 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/close_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/hash.xml ... 
+2025-03-27 11:51:40 +0000  718 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/hash.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/settings_outline.xml ... 
+2025-03-27 11:51:40 +0000  1594 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/settings_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_03.png ... 
+2025-03-27 11:51:40 +0000  4461 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_03.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/planet_outline.xml ... 
+2025-03-27 11:51:40 +0000  703 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/planet_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_01.png ... 
+2025-03-27 11:51:40 +0000  4298 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_01.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications_outline.xml ... 
+2025-03-27 11:51:40 +0000  798 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_forward_outline.xml ... 
+2025-03-27 11:51:40 +0000  448 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_forward_outline.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four.xml ... 
+2025-03-27 11:51:40 +0000  505 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/reorder_four.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_dark.png ... 
+2025-03-27 11:51:40 +0000  6013 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_dark.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_00.png ... 
+2025-03-27 11:51:40 +0000  734483 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_00.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/lemmy_logo.png ... 
+2025-03-27 11:51:40 +0000  7314 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/lemmy_logo.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle_outline.xml ... 
+2025-03-27 11:51:40 +0000  650 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelfed_logo.png ... 
+2025-03-27 11:51:40 +0000  12479 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelfed_logo.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/browsers_outline.xml ... 
+2025-03-27 11:51:40 +0000  713 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/browsers_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_05.png ... 
+2025-03-27 11:51:40 +0000  12296 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_05.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/color_palette_outline.xml ... 
+2025-03-27 11:51:40 +0000  1319 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/color_palette_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_up_outline.xml ... 
+2025-03-27 11:51:40 +0000  448 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_up_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_07.png ... 
+2025-03-27 11:51:40 +0000  6836 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_07.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/shield_outline.xml ... 
+2025-03-27 11:51:40 +0000  583 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/shield_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_06.png ... 
+2025-03-27 11:51:40 +0000  9480 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_06.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline_bold.xml ... 
+2025-03-27 11:51:40 +0000  852 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline_bold.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/refresh_icon.xml ... 
+2025-03-27 11:51:40 +0000  480 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/refresh_icon.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/blur.xml ... 
+2025-03-27 11:51:40 +0000  2576 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/blur.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_circle_outline.xml ... 
+2025-03-27 11:51:40 +0000  893 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_circle_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/paper_plane_right.xml ... 
+2025-03-27 11:51:40 +0000  541 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/paper_plane_right.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/share_social_outline.xml ... 
+2025-03-27 11:51:40 +0000  1309 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/share_social_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/remove_circle_outline.xml ... 
+2025-03-27 11:51:40 +0000  667 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/remove_circle_outline.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/extension_puzzle_outline.xml ... 
+2025-03-27 11:51:40 +0000  1009 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/extension_puzzle_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/mastodon_logo.png ... 
+2025-03-27 11:51:40 +0000  4798 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/mastodon_logo.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/document_text_outline.xml ... 
+2025-03-27 11:51:40 +0000  817 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/document_text_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo.png ... 
+2025-03-27 11:51:40 +0000  1386 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/mail_outline.xml ... 
+2025-03-27 11:51:40 +0000  789 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/mail_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/cloud_download_outline.xml ... 
+2025-03-27 11:51:40 +0000  627 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/cloud_download_outline.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid_outline.xml ... 
+2025-03-27 11:51:40 +0000  1571 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark_outline.xml ... 
+2025-03-27 11:51:40 +0000  498 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/house.xml ... 
+2025-03-27 11:51:40 +0000  528 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/house.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_back_outline.xml ... 
+2025-03-27 11:51:40 +0000  447 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/chevron_back_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/search.xml ... 
+2025-03-27 11:51:40 +0000  560 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/search.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_off_outline.xml ... 
+2025-03-27 11:51:40 +0000  1493 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_off_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid.xml ... 
+2025-03-27 11:51:40 +0000  673 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/grid.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart.xml ... 
+2025-03-27 11:51:40 +0000  629 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/heart.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_outline.xml ... 
+2025-03-27 11:51:40 +0000  447 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/search_outline.xml ... 
+2025-03-27 11:51:40 +0000  630 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/search_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_outline.xml ... 
+2025-03-27 11:51:40 +0000  694 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/help_outline.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/ellipsis_vertical.xml ... 
+2025-03-27 11:51:40 +0000  575 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/ellipsis_vertical.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark.xml ... 
+2025-03-27 11:51:40 +0000  424 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmark.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/open_outline.xml ... 
+2025-03-27 11:51:40 +0000  538 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/open_outline.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmarks_outline.xml ... 
+2025-03-27 11:51:40 +0000  738 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/bookmarks_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_white_xxl.png ... 
+2025-03-27 11:51:40 +0000  6401 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_white_xxl.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications.xml ... 
+2025-03-27 11:51:40 +0000  874 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/notifications.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle.xml ... 
+2025-03-27 11:51:40 +0000  470 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/add_circle.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_old.png ... 
+2025-03-27 11:51:40 +0000  734483 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_old.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/chatbubble_outline.xml ... 
+2025-03-27 11:51:40 +0000  829 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/chatbubble_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/stack.xml ... 
+2025-03-27 11:51:40 +0000  569 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/stack.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/trash_outline.xml ... 
+2025-03-27 11:51:40 +0000  1042 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/trash_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/threads_logo.png ... 
+2025-03-27 11:51:40 +0000  9411 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/threads_logo.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_black_xxl.png ... 
+2025-03-27 11:51:40 +0000  6412 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pixelix_logo_black_xxl.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_light.png ... 
+2025-03-27 11:51:40 +0000  8603 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/login_wave_light.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pencil_outline.xml ... 
+2025-03-27 11:51:40 +0000  587 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/pencil_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/peertube_logo.png ... 
+2025-03-27 11:51:40 +0000  6902 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/peertube_logo.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/house_fill.xml ... 
+2025-03-27 11:51:40 +0000  468 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/house_fill.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/misskey_logo.png ... 
+2025-03-27 11:51:40 +0000  22328 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/misskey_logo.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_outline.xml ... 
+2025-03-27 11:51:40 +0000  831 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/eye_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_08.png ... 
+2025-03-27 11:51:40 +0000  4494 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_08.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/star_outline.xml ... 
+2025-03-27 11:51:40 +0000  457 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/star_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_09.png ... 
+2025-03-27 11:51:40 +0000  64227 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/app_icon_09.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/code_slash_outline.xml ... 
+2025-03-27 11:51:40 +0000  489 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/code_slash_outline.xml
+copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/save_outline.xml ... 
+2025-03-27 11:51:40 +0000  757 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/save_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline.xml ... 
+2025-03-27 11:51:40 +0000  852 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/sync_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/fediverse_logo.png ... 
+2025-03-27 11:51:40 +0000  47174 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/fediverse_logo.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/full_character.png ... 
+2025-03-27 11:51:40 +0000  7142423 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/full_character.png
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/square_outline.xml ... 
+2025-03-27 11:51:40 +0000  546 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/square_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/list_outline.xml ... 
+2025-03-27 11:51:40 +0000  1409 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/drawable/list_outline.xml
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-sr-rSP/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13202 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-sr-rSP/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-el-rGR/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  22300 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-el-rGR/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-de-rDE/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14512 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-de-rDE/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ru-rRU/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  21382 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ru-rRU/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-no-rNO/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13088 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-no-rNO/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rBR/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14200 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rBR/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13140 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ca-rES/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14424 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ca-rES/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ko-rKR/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  12922 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ko-rKR/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-vi-rVN/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  12922 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-vi-rVN/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-hu-rHU/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  15020 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-hu-rHU/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rPT/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14712 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-pt-rPT/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-da-rDK/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13108 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-da-rDK/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-eo-rUY/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13056 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-eo-rUY/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-uk-rUA/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  21694 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-uk-rUA/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-it-rIT/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14356 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-it-rIT/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-tr-rTR/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13056 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-tr-rTR/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ro-rRO/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13226 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ro-rRO/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-cs-rCZ/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14850 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-cs-rCZ/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-nl-rNL/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14372 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-nl-rNL/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ja-rJP/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  12922 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ja-rJP/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-io-rEN/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13056 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-io-rEN/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ar-rSA/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  14896 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-ar-rSA/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-af-rZA/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  13056 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-af-rZA/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-fr-rFR/strings.commonMain.cvr ... 
+2025-03-27 11:51:40 +0000  15808 bytes for ./Payload/Pixelix.app/compose-resources/composeResources/pixelix.app.generated.resources/values-fr-rFR/strings.commonMain.cvr
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/embedded.mobileprovision ... 
+2025-03-27 11:51:40 +0000  12339 bytes for ./Payload/Pixelix.app/embedded.mobileprovision
+2025-03-27 11:51:40 +0000  copying file ./Payload/Pixelix.app/Pixelix ... 
+2025-03-27 11:51:41 +0000  57533632 bytes for ./Payload/Pixelix.app/Pixelix
+2025-03-27 11:51:41 +0000  copying file ./Payload/Pixelix.app/Info.plist ... 
+2025-03-27 11:51:41 +0000  1687 bytes for ./Payload/Pixelix.app/Info.plist
+2025-03-27 11:51:41 +0000  copying file ./Payload/Pixelix.app/PkgInfo ... 
+8 bytes for ./Payload/Pixelix.app/PkgInfo
+2025-03-27 11:51:41 +0000  /usr/bin/ditto exited with 0
+2025-03-27 11:51:41 +0000  Processing step: IDEDistributionAppStoreInformationStep
+2025-03-27 11:51:41 +0000  Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2025-03-27 11:51:41 +0000  Processing step: IDEDistributionGenerateProcessedDistributionItems
+2025-03-27 11:51:41 +0000  IDEDistributionItem init <DVTFilePath:0x6000078e35a0:'/var/folders/9t/h48nbsp955q3sfr_bycykzwh0000gn/T/XcodeDistPipeline.~~~n5pCtO/Root/Payload/Pixelix.app'>
+2025-03-27 11:51:41 +0000  Processing step: IDEDistributionCreateManifestStep
