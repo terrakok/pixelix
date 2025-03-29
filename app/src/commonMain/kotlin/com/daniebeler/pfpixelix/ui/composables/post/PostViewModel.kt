@@ -245,10 +245,27 @@ class PostViewModel @Inject constructor(
             return
         }
         post = post?.copy(
-            favourited = false, favouritesCount = post?.favouritesCount?.minus(
+            favourited = false,
+            favouritesCount = post?.favouritesCount?.minus(
                 1
-            ) ?: 0
+            ) ?: 0,
         )
+
+        post?.likedBy?.let {
+            if (it.username == myUsername) {
+                post = post!!.copy(
+                    likedBy = post!!.likedBy!!.copy(
+                        username = null,
+                        totalCount = post!!.likedBy!!.totalCount - 1
+                    )
+                )
+            } else {
+                post = post!!.copy(
+                    likedBy = post!!.likedBy!!.copy(totalCount = post!!.likedBy!!.totalCount - 1)
+                )
+            }
+        }
+
         post?.let { updatePost(it) }
 
         CoroutineScope(Dispatchers.Default).launch {
