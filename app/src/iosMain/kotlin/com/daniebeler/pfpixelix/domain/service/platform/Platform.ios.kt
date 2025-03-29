@@ -1,10 +1,12 @@
 package com.daniebeler.pfpixelix.domain.service.platform
 
+import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.domain.service.preferences.UserPreferences
 import com.daniebeler.pfpixelix.utils.KmpContext
 import me.tatarka.inject.annotations.Inject
 import platform.Foundation.NSBundle
 import platform.Foundation.NSURL
+import platform.Foundation.NSURL.Companion.URLWithString
 import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
 
@@ -14,8 +16,11 @@ actual class Platform actual constructor(
     private val prefs: UserPreferences
 ) {
     actual fun openUrl(url: String) {
-        //UIApplication.sharedApplication.openURL(NSURL(string = url))
-        
+        UIApplication.sharedApplication.openURL(
+            url = URLWithString(url)!!,
+            options = emptyMap<Any?, Any>(),
+            completionHandler = null
+        )
     }
 
     actual fun shareText(text: String) {

@@ -24,15 +24,15 @@ class PreferencesViewModel(
         }
     }
 
-    fun openMoreSettingsPage(uriHandler: UriHandler) {
+    fun openMoreSettingsPage() {
         authService.getCurrentSession()?.let {
-            uriHandler.openUri("${it.serverUrl}settings/home")
+            platform.openUrl("${it.serverUrl}settings/home")
         }
     }
 
-    fun openRepostSettings(uriHandler: UriHandler) {
+    fun openRepostSettings() {
         authService.getCurrentSession()?.let {
-            uriHandler.openUri("${it.serverUrl}settings/timeline")
+            platform.openUrl("${it.serverUrl}settings/timeline")
         }
     }
 }

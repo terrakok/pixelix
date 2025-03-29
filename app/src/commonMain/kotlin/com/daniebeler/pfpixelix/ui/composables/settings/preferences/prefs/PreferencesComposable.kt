@@ -100,8 +100,7 @@ fun PreferencesComposable(
                 AutoplayVideoPref()
             }
 
-            val uriHandler = LocalUriHandler.current
-            RepostSettingsPref { viewModel.openRepostSettings(uriHandler) }
+            RepostSettingsPref { viewModel.openRepostSettings() }
 
             HorizontalDivider(modifier = Modifier.padding(12.dp))
 
