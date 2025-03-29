@@ -121,7 +121,6 @@ fun OtherProfileComposable(
     byUsername: String?,
     viewModel: OtherProfileViewModel = injectViewModel(key = "other-profile$userId$byUsername") { otherProfileViewModel }
 ) {
-
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     val lazyGridState = rememberLazyListState()
@@ -134,9 +133,9 @@ fun OtherProfileComposable(
 
     LaunchedEffect(userId) {
         if (userId != "") {
-            viewModel.loadData(userId, false)
+            viewModel.loadData(userId, false, navController)
         } else {
-            viewModel.loadDataByUsername(byUsername!!, false)
+            viewModel.loadDataByUsername(byUsername!!, false, navController)
         }
     }
 
@@ -183,7 +182,7 @@ fun OtherProfileComposable(
     }) { paddingValues ->
         PullToRefreshBox (
             isRefreshing = viewModel.accountState.refreshing || viewModel.postsState.refreshing,
-            onRefresh = { viewModel.loadData(userId, true) },
+            onRefresh = { viewModel.loadData(userId, true, navController) },
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
@@ -330,7 +329,7 @@ fun OtherProfileComposable(
         }
     }
 
-    ToTopButton(listState = lazyGridState, refresh = {viewModel.loadData(userId, true)})
+    ToTopButton(listState = lazyGridState, refresh = {viewModel.loadData(userId, true, navController)})
 
     InfiniteListHandler(lazyListState = lazyGridState) {
         viewModel.getPostsPaginated(viewModel.userId)

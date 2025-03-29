@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.repository.PixelfedApi
@@ -15,6 +16,7 @@ import com.daniebeler.pfpixelix.domain.service.hashtag.SearchService
 import com.daniebeler.pfpixelix.domain.service.platform.Platform
 import com.daniebeler.pfpixelix.domain.service.post.PostService
 import com.daniebeler.pfpixelix.domain.service.preferences.UserPreferences
+import com.daniebeler.pfpixelix.domain.service.session.AuthService
 import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.ui.composables.profile.AccountState
 import com.daniebeler.pfpixelix.ui.composables.profile.CollectionsState
@@ -22,6 +24,7 @@ import com.daniebeler.pfpixelix.ui.composables.profile.MutualFollowersState
 import com.daniebeler.pfpixelix.ui.composables.profile.PostsState
 import com.daniebeler.pfpixelix.ui.composables.profile.RelationshipState
 import com.daniebeler.pfpixelix.ui.composables.profile.ViewEnum
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -35,6 +38,7 @@ class OtherProfileViewModel(
     private val platform: Platform,
     private val prefs: UserPreferences,
     private val collectionService: CollectionService,
+    private val authService: AuthService
 ) : ViewModel() {
     var userId: String = ""
     var accountState by mutableStateOf(AccountState())
@@ -47,10 +51,17 @@ class OtherProfileViewModel(
     var domain by mutableStateOf("")
     var view by mutableStateOf(ViewEnum.Grid)
 
-    fun loadData(_userId: String, refreshing: Boolean) {
-            userId = _userId
-            getAccount(userId, refreshing)
-            loadDataExceptAccount(refreshing)
+    fun loadData(_userId: String, refreshing: Boolean, navController: NavController) {
+        val myAccountId = authService.getCurrentSession()!!.accountId
+
+        if (_userId == myAccountId) {
+            navController.popBackStack()
+            navController.navigate(Destination.OwnProfile)
+        }
+
+        userId = _userId
+        getAccount(userId, refreshing)
+        loadDataExceptAccount(refreshing)
 
     }
 
@@ -69,7 +80,12 @@ class OtherProfileViewModel(
         }
     }
 
-    fun loadDataByUsername(username: String, refreshing: Boolean) {
+    fun loadDataByUsername(username: String, refreshing: Boolean, navController: NavController) {
+        val myUsername = authService.getCurrentSession()!!.username
+        if (username == myUsername) {
+            navController.popBackStack()
+            navController.navigate(Destination.OwnProfile)
+        }
         getAccountByUsername(username, refreshing)
     }
 
@@ -132,7 +148,11 @@ class OtherProfileViewModel(
                 }
 
                 is Resource.Loading -> {
-                    AccountState(isLoading = true, account = accountState.account, refreshing = refreshing)
+                    AccountState(
+                        isLoading = true,
+                        account = accountState.account,
+                        refreshing = refreshing
+                    )
                 }
             }
 
@@ -157,7 +177,11 @@ class OtherProfileViewModel(
                 }
 
                 is Resource.Loading -> {
-                    AccountState(isLoading = true, account = accountState.account, refreshing = refreshing)
+                    AccountState(
+                        isLoading = true,
+                        account = accountState.account,
+                        refreshing = refreshing
+                    )
                 }
             }
 
@@ -184,12 +208,16 @@ class OtherProfileViewModel(
                         CollectionsState(collections = result.data ?: emptyList())
                     } else {
                         val endReached = result.data!!.isEmpty()
-                        CollectionsState(collections = collectionsState.collections + result.data, endReached = endReached)
+                        CollectionsState(
+                            collections = collectionsState.collections + result.data,
+                            endReached = endReached
+                        )
                     }
                 }
 
                 is Resource.Error -> {
-                    collectionsState = CollectionsState(error = result.message ?: "An unexpected error occurred")
+                    collectionsState =
+                        CollectionsState(error = result.message ?: "An unexpected error occurred")
                 }
 
                 is Resource.Loading -> {
