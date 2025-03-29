@@ -284,5 +284,6 @@
         <item quantity="many">lat</item>
         <item quantity="other">lat</item>
     </plurals>
-    <string name="blur_sensitive_content">Blur sensitive content</string>
+    <string name="blur_sensitive_content">Rozmyj drażliwe treści</string>
+    <string name="autoplay_videos">Automatycznie odtwarzaj wideo</string>
 </resources>
