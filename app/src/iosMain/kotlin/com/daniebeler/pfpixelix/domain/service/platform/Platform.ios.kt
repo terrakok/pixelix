@@ -14,7 +14,8 @@ actual class Platform actual constructor(
     private val prefs: UserPreferences
 ) {
     actual fun openUrl(url: String) {
-        UIApplication.sharedApplication.openURL(NSURL(string = url))
+        //UIApplication.sharedApplication.openURL(NSURL(string = url))
+        
     }
 
     actual fun shareText(text: String) {

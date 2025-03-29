@@ -1,5 +1,6 @@
 package com.daniebeler.pfpixelix.ui.composables.settings.preferences
 
+import androidx.compose.ui.platform.UriHandler
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.daniebeler.pfpixelix.domain.service.icon.AppIconService
@@ -23,15 +24,15 @@ class PreferencesViewModel(
         }
     }
 
-    fun openMoreSettingsPage() {
+    fun openMoreSettingsPage(uriHandler: UriHandler) {
         authService.getCurrentSession()?.let {
-            platform.openUrl("${it.serverUrl}settings/home")
+            uriHandler.openUri("${it.serverUrl}settings/home")
         }
     }
 
-    fun openRepostSettings() {
+    fun openRepostSettings(uriHandler: UriHandler) {
         authService.getCurrentSession()?.let {
-            platform.openUrl("${it.serverUrl}settings/timeline")
+            uriHandler.openUri("${it.serverUrl}settings/timeline")
         }
     }
 }

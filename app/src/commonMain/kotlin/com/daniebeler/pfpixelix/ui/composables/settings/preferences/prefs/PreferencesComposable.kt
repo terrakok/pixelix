@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -99,7 +100,8 @@ fun PreferencesComposable(
                 AutoplayVideoPref()
             }
 
-            RepostSettingsPref { viewModel.openRepostSettings() }
+            val uriHandler = LocalUriHandler.current
+            RepostSettingsPref { viewModel.openRepostSettings(uriHandler) }
 
             HorizontalDivider(modifier = Modifier.padding(12.dp))
 
