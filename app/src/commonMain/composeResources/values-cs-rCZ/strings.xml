@@ -285,4 +285,5 @@
         <item quantity="other">years</item>
     </plurals>
     <string name="blur_sensitive_content">Blur sensitive content</string>
+    <string name="autoplay_videos">Autoplay Videos</string>
 </resources>

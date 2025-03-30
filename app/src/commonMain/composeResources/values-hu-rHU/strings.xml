@@ -19,17 +19,17 @@
     <string name="unfollow">Követés vége</string>
     <string name="followers">Követő</string>
     <plurals name="follower">
-        <item quantity="one">Follower</item>
-        <item quantity="other">Followers</item>
+        <item quantity="one">Követő</item>
+        <item quantity="other">Követő</item>
     </plurals>
     <string name="following">Követett</string>
     <plurals name="following">
-        <item quantity="one">Following</item>
-        <item quantity="other">Following</item>
+        <item quantity="one">Követett</item>
+        <item quantity="other">Követett</item>
     </plurals>
     <plurals name="posts">
-        <item quantity="one">Post</item>
-        <item quantity="other">Posts</item>
+        <item quantity="one">Bejegyzés</item>
+        <item quantity="other">Bejegyzés</item>
     </plurals>
     <string name="posts">Bejegyzés</string>
     <string name="hashtags">Hashtagek</string>
@@ -230,39 +230,40 @@
     <string name="amoled">AMOLED</string>
     <string name="no_followers_yet">Még nincsenek követői</string>
     <string name="not_following_anyone">Nem követ senkit</string>
-    <string name="read_more">Read More</string>
-    <string name="read_less">Read Less</string>
-    <string name="joined_date">Joined %1$s</string>
-    <string name="ago">ago</string>
-    <string name="delete_message">Delete message</string>
-    <string name="video_player_not_supported">Video player is not supported</string>
+    <string name="read_more">Bővebben</string>
+    <string name="read_less">Rövidebben</string>
+    <string name="joined_date">Csatlakozás ideje %1$s</string>
+    <string name="ago">ezelőtt</string>
+    <string name="delete_message">Üzenet törlése</string>
+    <string name="video_player_not_supported">Nem támogatott videólejátszó</string>
     <plurals name="second">
-        <item quantity="one">second</item>
-        <item quantity="other">seconds</item>
+        <item quantity="one">másodperccel</item>
+        <item quantity="other">másodperccel</item>
     </plurals>
     <plurals name="minute">
-        <item quantity="one">minute</item>
-        <item quantity="other">minutes</item>
+        <item quantity="one">perccel</item>
+        <item quantity="other">perccel</item>
     </plurals>
     <plurals name="hour">
-        <item quantity="one">hour</item>
-        <item quantity="other">hours</item>
+        <item quantity="one">órával</item>
+        <item quantity="other">órával</item>
     </plurals>
     <plurals name="day">
-        <item quantity="one">day</item>
-        <item quantity="other">days</item>
+        <item quantity="one">nappal</item>
+        <item quantity="other">nappal</item>
     </plurals>
     <plurals name="week">
-        <item quantity="one">week</item>
-        <item quantity="other">weeks</item>
+        <item quantity="one">héttel</item>
+        <item quantity="other">héttel</item>
     </plurals>
     <plurals name="month">
-        <item quantity="one">month</item>
-        <item quantity="other">months</item>
+        <item quantity="one">hónappal</item>
+        <item quantity="other">hónappal</item>
     </plurals>
     <plurals name="year">
-        <item quantity="one">year</item>
-        <item quantity="other">years</item>
+        <item quantity="one">évvel</item>
+        <item quantity="other">évvel</item>
     </plurals>
-    <string name="blur_sensitive_content">Blur sensitive content</string>
+    <string name="blur_sensitive_content">Érzékeny tartalom elhomályosítása</string>
+    <string name="autoplay_videos">Videók automatikus lejátszása</string>
 </resources>
