@@ -129,13 +129,18 @@ fun CollectionComposable(
                 }
             } else {
 
-                IconButton(onClick = {
-                    viewModel.toggleEditMode()
-                }) {
-                    Icon(
-                        imageVector = Icons.Outlined.Edit, contentDescription = ""
-                    )
+                viewModel.collectionState.collection?.let {
+                    if (it.username == viewModel.myUsername) {
+                        IconButton(onClick = {
+                            viewModel.toggleEditMode()
+                        }) {
+                            Icon(
+                                imageVector = Icons.Outlined.Edit, contentDescription = ""
+                            )
+                        }
+                    }
                 }
+
                 IconButton(onClick = {
                     //Navigate.navigate("settings_screen", navController)
                     showBottomSheet = true
@@ -165,7 +170,7 @@ fun CollectionComposable(
                 ),
                 navController = navController,
                 getItemsPaginated = {
-                    //viewModel.getItemsPaginated()
+                    //viewModel.getPostsPaginated(false)
                 },
                 after = {
                     if (viewModel.editState.editMode) {

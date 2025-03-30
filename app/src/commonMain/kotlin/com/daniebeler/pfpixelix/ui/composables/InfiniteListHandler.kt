@@ -49,7 +49,11 @@ fun InfiniteGridHandler(
             val totalItems = layoutInfo.totalItemsCount
             val lastVisibleItemIndex = (layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0) + 1
 
-            lastVisibleItemIndex > (totalItems - buffer)
+            if (totalItems != 0) {
+                lastVisibleItemIndex > (totalItems - buffer)
+            } else {
+                false
+            }
         }
     }
 

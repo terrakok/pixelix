@@ -232,8 +232,9 @@ interface PixelfedApi {
 
     @GET("api/v1.1/collections/items/{collectionid}")
     suspend fun getPostsOfCollection(
-        @Path("collectionid") collectionId: String
-    ): List<Post>
+        @Path("collectionid") collectionId: String,
+        @Query("page") page: Int,
+        ): List<Post>
 
     @POST("api/v1.1/collections/remove")
     suspend fun removePostOfCollection(
