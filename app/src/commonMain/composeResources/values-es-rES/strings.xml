@@ -265,4 +265,5 @@
         <item quantity="other">años</item>
     </plurals>
     <string name="blur_sensitive_content">Difuminar contenido sensible</string>
+    <string name="autoplay_videos">Reproducir automáticamente los videos</string>
 </resources>
