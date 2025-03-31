@@ -47,6 +47,8 @@ import pixelix.app.generated.resources.share_this_post
 import pixelix.app.generated.resources.trash_outline
 import pixelix.app.generated.resources.unlisted
 import pixelix.app.generated.resources.visibility_x
+import pixelix.app.generated.resources.warning
+import pixelix.app.generated.resources.report_this_post
 
 @Composable
 fun ShareBottomSheet(
@@ -61,6 +63,8 @@ fun ShareBottomSheet(
     var humanReadableVisibility by remember {
         mutableStateOf("")
     }
+
+    var isReportDialogOpen by remember { mutableStateOf(false) }
 
     val mediaAttachment: MediaAttachment? = viewModel.post?.mediaAttachments?.let { attachments ->
         if (attachments.isNotEmpty() && currentMediaAttachmentNumber in attachments.indices) {
@@ -97,29 +101,33 @@ fun ShareBottomSheet(
             Text(text = stringResource(Res.string.visibility_x, humanReadableVisibility))
         }
         if (mediaAttachment?.license != null) {
-            ButtonRowElement(icon = Res.drawable.document_text_outline, text = stringResource(
-                Res.string.license, mediaAttachment.license.title
-            ), onClick = {
-                viewModel.openUrl(mediaAttachment.license.url)
-            })
+            ButtonRowElement(
+                icon = Res.drawable.document_text_outline, text = stringResource(
+                    Res.string.license, mediaAttachment.license.title
+                ), onClick = {
+                    viewModel.openUrl(mediaAttachment.license.url)
+                })
         }
 
         HorizontalDivider(Modifier.padding(12.dp))
 
-        ButtonRowElement(icon = Res.drawable.open_outline, text = stringResource(
-            Res.string.open_in_browser
-        ), onClick = {
-            viewModel.openUrl(url)
-        })
+        ButtonRowElement(
+            icon = Res.drawable.open_outline, text = stringResource(
+                Res.string.open_in_browser
+            ), onClick = {
+                viewModel.openUrl(url)
+            })
 
-        ButtonRowElement(icon = Res.drawable.share_social_outline,
+        ButtonRowElement(
+            icon = Res.drawable.share_social_outline,
             text = stringResource(Res.string.share_this_post),
             onClick = {
                 viewModel.shareText(url)
             })
 
         if (mediaAttachment != null && PlatformFeatures.downloadToGallery && mediaAttachment.type == "image") {
-            ButtonRowElement(icon = Res.drawable.cloud_download_outline,
+            ButtonRowElement(
+                icon = Res.drawable.cloud_download_outline,
                 text = stringResource(Res.string.download_image),
                 onClick = {
 
@@ -148,6 +156,30 @@ fun ShareBottomSheet(
                 },
                 color = MaterialTheme.colorScheme.error
             )
+        } else {
+            HorizontalDivider(Modifier.padding(12.dp))
+
+            ButtonRowElement(
+                icon = Res.drawable.warning,
+                text = stringResource(Res.string.report_this_post),
+                onClick = {
+                    isReportDialogOpen = true
+                },
+                color = MaterialTheme.colorScheme.error
+            )
+        }
+    }
+
+    if (isReportDialogOpen) {
+        ReportDialog(
+            dismissDialog = {
+                isReportDialogOpen = false
+                viewModel.reportState = null
+            },
+            reportState = viewModel.reportState
+        ) { category ->
+            viewModel.reportPost(category)
+            viewModel.reportState = null
         }
     }
 }

@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.LikedBy
+import com.daniebeler.pfpixelix.domain.model.NewReport
 import com.daniebeler.pfpixelix.domain.model.Post
+import com.daniebeler.pfpixelix.domain.model.ReportObjectType
 import com.daniebeler.pfpixelix.domain.service.account.AccountService
 import com.daniebeler.pfpixelix.domain.service.editor.PostEditorService
 import com.daniebeler.pfpixelix.domain.service.file.FileService
@@ -46,7 +48,7 @@ class PostViewModel @Inject constructor(
 
     var deleteState by mutableStateOf(DeleteState())
     var deleteDialog: String? by mutableStateOf(null)
-
+    var reportState by mutableStateOf<ReportState?>(null)
     var showPost: Boolean by mutableStateOf(false)
 
     var myAccountId: String? = null
@@ -389,7 +391,42 @@ class PostViewModel @Inject constructor(
                 }.launchIn(viewModelScope)
             }
         }
+    }
 
+    fun reportPost(category: String) {
+        reportState = ReportState(isLoading = true, reported = false)
+        if (post == null) {
+            reportState = ReportState(isLoading = false, reported = false, error = "an unexpected error occurred")
+            return
+        }
+        val newReport = NewReport(
+            reportType = category,
+            objectType = ReportObjectType.POST,
+            objectId = post!!.id
+        )
+        CoroutineScope(Dispatchers.Default).launch {
+            postService.reportPost(newReport).onEach { result ->
+                reportState = when (result) {
+                    is Resource.Success -> {
+                        ReportState(
+                            reported = true
+                        )
+                    }
+
+                    is Resource.Error -> {
+                        ReportState(
+                            error = "an unexpected error occured"
+                        )
+                    }
+
+                    is Resource.Loading -> {
+                        ReportState(
+                            isLoading = true
+                        )
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 
     fun openUrl(url: String) {

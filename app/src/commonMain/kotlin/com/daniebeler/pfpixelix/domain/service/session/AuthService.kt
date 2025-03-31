@@ -92,6 +92,7 @@ class AuthService(
             }
             session.setCredentials(cred)
             data.copy(activeUserId = cred?.accountId)
+
         }
     }
 

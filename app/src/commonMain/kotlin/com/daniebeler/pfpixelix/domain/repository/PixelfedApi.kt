@@ -16,6 +16,7 @@ import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.model.PostContext
 import com.daniebeler.pfpixelix.domain.model.RelatedHashtag
 import com.daniebeler.pfpixelix.domain.model.Relationship
+import com.daniebeler.pfpixelix.domain.model.ReportResponse
 import com.daniebeler.pfpixelix.domain.model.Search
 import com.daniebeler.pfpixelix.domain.model.Server
 import com.daniebeler.pfpixelix.domain.model.Settings
@@ -357,6 +358,12 @@ interface PixelfedApi {
     suspend fun deletePost(
         @Path("id") postid: String
     ): Post
+
+    @Headers("Content-Type: application/json")
+    @POST("api/v1.1/report")
+    suspend fun reportPost(
+        @Body reportPostBody: String
+    ): ReportResponse
 
     @GET("api/pixelfed/v1/web/settings")
     suspend fun getSettings(): Settings
