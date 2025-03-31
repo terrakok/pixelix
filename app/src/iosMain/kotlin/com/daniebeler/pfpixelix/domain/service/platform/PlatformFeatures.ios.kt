@@ -6,4 +6,5 @@ actual object PlatformFeatures {
     actual val downloadToGallery = false
     actual val customAppIcon = true
     actual val autoplayVideosPref = false
+    actual val addCollection = false
 }

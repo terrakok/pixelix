@@ -43,7 +43,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.di.injectViewModel
+import com.daniebeler.pfpixelix.domain.service.platform.PlatformFeatures
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
 import com.daniebeler.pfpixelix.ui.composables.profile.CollectionsComposable
 import com.daniebeler.pfpixelix.ui.composables.profile.PostsWrapperComposable
@@ -64,7 +66,6 @@ fun OwnProfileComposable(
     openPreferencesDrawer: () -> Unit,
     viewModel: OwnProfileViewModel = injectViewModel(key = "own-profile-key") { ownProfileViewModel }
 ) {
-
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showBottomSheet by remember { mutableStateOf(0) }
 
@@ -155,7 +156,7 @@ fun OwnProfileComposable(
                                 }
                             },
                             navController = navController,
-                            addNewButton = true,
+                            addNewButton = PlatformFeatures.addCollection,
                             instanceDomain = viewModel.ownDomain,
                         ) { url -> viewModel.openUrl(url) }
 
