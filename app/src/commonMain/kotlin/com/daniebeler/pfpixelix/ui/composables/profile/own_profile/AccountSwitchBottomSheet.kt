@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.credentialsToAccount
 import com.daniebeler.pfpixelix.ui.composables.custom_account.CustomAccount
@@ -54,7 +56,9 @@ fun AccountSwitchBottomSheet(
     viewModel: AccountSwitchViewModel = injectViewModel(key = "account_switcher_viewmodel") { accountSwitchViewModel }
 ) {
     val showRemoveLoginDataAlert = remember { mutableStateOf("") }
-
+    LaunchedEffect(Unit) {
+        viewModel.loadData()
+    }
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         val sessionStorage = viewModel.sessionStorage
         if (viewModel.currentCredentials != null) {

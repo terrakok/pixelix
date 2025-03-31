@@ -15,6 +15,8 @@ actual class Platform actual constructor(
         Desktop.getDesktop().browse(URI(url))
     }
 
+    actual fun dismissBrowser() {}
+
     actual fun shareText(text: String) {}
 
     actual fun getAppVersion(): String {

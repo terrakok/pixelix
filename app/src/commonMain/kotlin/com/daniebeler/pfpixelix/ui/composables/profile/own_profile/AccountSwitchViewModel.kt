@@ -17,7 +17,8 @@ class AccountSwitchViewModel @Inject constructor(
 ) : ViewModel() {
     var sessionStorage by mutableStateOf<SessionStorage?>(null)
     var currentCredentials by mutableStateOf<Credentials?>(null)
-    init {
+
+    fun loadData() {
         viewModelScope.launch {
             loadCurrentCredentials()
         }

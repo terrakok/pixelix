@@ -7,6 +7,7 @@ import me.tatarka.inject.annotations.Inject
 import platform.Foundation.NSBundle
 import platform.Foundation.NSURL
 import platform.Foundation.NSURL.Companion.URLWithString
+import platform.SafariServices.SFSafariViewController
 import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
 
@@ -16,11 +17,27 @@ actual class Platform actual constructor(
     private val prefs: UserPreferences
 ) {
     actual fun openUrl(url: String) {
-        UIApplication.sharedApplication.openURL(
-            url = URLWithString(url)!!,
-            options = emptyMap<Any?, Any>(),
-            completionHandler = null
-        )
+        if (prefs.useInAppBrowser) {
+            val safariViewController = SFSafariViewController(uRL = NSURL(string = url))
+            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
+                safariViewController,
+                animated = true,
+                null
+            )
+
+        } else {
+            UIApplication.sharedApplication.openURL(
+                url = URLWithString(url)!!,
+                options = emptyMap<Any?, Any>(),
+                completionHandler = null
+            )
+        }
+    }
+
+    actual fun dismissBrowser() {
+        if (prefs.useInAppBrowser) {
+            UIApplication.sharedApplication.keyWindow?.rootViewController?.dismissModalViewControllerAnimated(true)
+        }
     }
 
     actual fun shareText(text: String) {
