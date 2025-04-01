@@ -33,9 +33,11 @@ import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
+import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.default_avatar
 import pixelix.app.generated.resources.follower
+import pixelix.app.generated.resources.trash
 
 @Composable
 fun CustomAccount(
@@ -268,7 +270,7 @@ private fun CustomAccountPrivateNotClickable(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Delete,
+                    imageVector = vectorResource(Res.drawable.trash),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.error
                 )

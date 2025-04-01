@@ -35,4 +35,10 @@ class PreferencesViewModel(
             platform.openUrl("${it.serverUrl}settings/timeline")
         }
     }
+
+    fun openDeleteAccountPage() {
+        authService.getCurrentSession()?.let {
+            platform.openUrl("${it.serverUrl}settings/remove/request/permanent")
+        }
+    }
 }

@@ -35,6 +35,7 @@ import com.daniebeler.pfpixelix.domain.service.platform.PlatformFeatures
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.AutoplayVideoPref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.ClearCachePref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.CustomizeAppIconPref
+import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.DeleteAccountPref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.FocusModePref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.HideAltTextButtonPref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.HideSensitiveContentPref
@@ -118,6 +119,8 @@ fun PreferencesComposable(
             MoreSettingsPref { viewModel.openMoreSettingsPage() }
 
             LogoutPref { viewModel.logout() }
+
+            DeleteAccountPref { viewModel.openDeleteAccountPage() }
 
             HorizontalDivider(modifier = Modifier.padding(12.dp))
 

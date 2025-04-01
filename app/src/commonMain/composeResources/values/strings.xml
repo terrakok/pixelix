@@ -279,4 +279,5 @@
     <string name="scam">Scam</string>
     <string name="terrorism">Terrorism</string>
     <string name="reported">Reported</string>
+    <string name="delete_account">Delete Account</string>
 </resources>
