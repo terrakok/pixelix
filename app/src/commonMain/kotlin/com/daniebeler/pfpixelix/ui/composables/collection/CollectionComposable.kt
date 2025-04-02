@@ -200,8 +200,7 @@ fun CollectionComposable(
                 onDismissRequest = {
                     showBottomSheet = false
                 },
-                sheetState = sheetState,
-                modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+                sheetState = sheetState
             ) {
                 Column(
                     modifier = Modifier.padding(bottom = 32.dp)
@@ -229,8 +228,7 @@ fun CollectionComposable(
                 onDismissRequest = {
                     showAddPostBottomSheet = false
                 },
-                sheetState = showAddPostBottomSheetState,
-                modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+                sheetState = showAddPostBottomSheetState
             ) {
                 Column(
                     modifier = Modifier.padding(bottom = 32.dp)

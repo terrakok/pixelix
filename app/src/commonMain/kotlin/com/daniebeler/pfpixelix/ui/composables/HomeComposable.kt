@@ -162,8 +162,7 @@ fun HomeComposable(navController: NavController, openPreferencesDrawer: () -> Un
             onDismissRequest = {
                 showBottomSheet = false
             },
-            sheetState = sheetState,
-            modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+            sheetState = sheetState
         ) {
             Box(
                 modifier = Modifier
