@@ -25,10 +25,11 @@ actual class Platform actual constructor(
     actual fun openUrl(url: String) {
         if (prefs.useInAppBrowser) {
             val safariViewController = SFSafariViewController(uRL = NSURL(string = url))
-            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
-                safariViewController,
+            val self = context.viewController
+            self.presentViewController(
+                viewControllerToPresent = safariViewController,
                 animated = true,
-                null
+                completion = null
             )
 
         } else {
@@ -42,7 +43,8 @@ actual class Platform actual constructor(
 
     actual fun dismissBrowser() {
         if (prefs.useInAppBrowser) {
-            UIApplication.sharedApplication.keyWindow?.rootViewController?.dismissModalViewControllerAnimated(true)
+            val self = context.viewController
+            self.dismissModalViewControllerAnimated(true)
         }
     }
 
