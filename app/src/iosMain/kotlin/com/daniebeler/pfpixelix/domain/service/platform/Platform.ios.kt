@@ -59,12 +59,7 @@ actual class Platform actual constructor(
             Logger.d("share on iPad")
             vc.popoverPresentationController?.apply {
                 sourceView = self.view
-                sourceRect = CGRectMake(
-                    x = self.view.center.useContents { x },
-                    y = self.view.center.useContents { y },
-                    width = 0.0,
-                    height = 0.0
-                )
+                sourceRect = self.view.center.useContents { CGRectMake(x, y, 0.0, 0.0) }
                 permittedArrowDirections = 0uL
             }
         }
