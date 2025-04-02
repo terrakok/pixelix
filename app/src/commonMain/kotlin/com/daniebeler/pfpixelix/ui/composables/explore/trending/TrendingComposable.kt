@@ -125,8 +125,7 @@ fun TrendingComposable(navController: NavController, initialPage: Int) {
             onDismissRequest = {
                 showBottomSheet = false
             },
-            sheetState = sheetState,
-            modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+            sheetState = sheetState
         ) {
             Box(
                 modifier = Modifier

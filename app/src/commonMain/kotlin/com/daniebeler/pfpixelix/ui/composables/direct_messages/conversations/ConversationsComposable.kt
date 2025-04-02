@@ -176,8 +176,7 @@ fun ConversationsComposable(
                 onDismissRequest = {
                     showBottomSheet = false
                 },
-                sheetState = sheetState,
-                modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+                sheetState = sheetState
             ) {
                 Box(
                     modifier = Modifier

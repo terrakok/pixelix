@@ -605,8 +605,7 @@ fun PostComposable(
             onDismissRequest = {
                 showBottomSheet = 0
             },
-            sheetState = sheetState,
-            modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+            sheetState = sheetState
         ) {
             if (showBottomSheet == 1) {
                 CommentsBottomSheet(post, navController, viewModel)
