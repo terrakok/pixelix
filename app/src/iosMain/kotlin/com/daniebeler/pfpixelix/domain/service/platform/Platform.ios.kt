@@ -4,7 +4,9 @@ import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.service.preferences.UserPreferences
 import com.daniebeler.pfpixelix.utils.KmpContext
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.useContents
 import me.tatarka.inject.annotations.Inject
+import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSBundle
 import platform.Foundation.NSURL
 import platform.Foundation.NSURL.Companion.URLWithString
@@ -12,9 +14,8 @@ import platform.SafariServices.SFSafariViewController
 import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
 import platform.UIKit.UIDevice
-import platform.UIKit.*
-import platform.UIKit.UIUserInterfaceIdiom
 import platform.UIKit.UIUserInterfaceIdiomPad
+import platform.UIKit.popoverPresentationController
 
 @Inject
 actual class Platform actual constructor(
@@ -24,10 +25,11 @@ actual class Platform actual constructor(
     actual fun openUrl(url: String) {
         if (prefs.useInAppBrowser) {
             val safariViewController = SFSafariViewController(uRL = NSURL(string = url))
-            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
-                safariViewController,
+            val self = context.viewController
+            self.presentViewController(
+                viewControllerToPresent = safariViewController,
                 animated = true,
-                null
+                completion = null
             )
 
         } else {
@@ -41,7 +43,8 @@ actual class Platform actual constructor(
 
     actual fun dismissBrowser() {
         if (prefs.useInAppBrowser) {
-            UIApplication.sharedApplication.keyWindow?.rootViewController?.dismissModalViewControllerAnimated(true)
+            val self = context.viewController
+            self.dismissModalViewControllerAnimated(true)
         }
     }
 
@@ -54,7 +57,11 @@ actual class Platform actual constructor(
         )
         if (isIpad()) {
             Logger.d("share on iPad")
-            vc.popoverPresentationController?.sourceView = self.view
+            vc.popoverPresentationController?.apply {
+                sourceView = self.view
+                sourceRect = self.view.center.useContents { CGRectMake(x, y, 0.0, 0.0) }
+                permittedArrowDirections = 0uL
+            }
         }
         self.presentViewController(vc, true, null)
     }
