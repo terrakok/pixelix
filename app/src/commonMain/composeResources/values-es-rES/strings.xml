@@ -266,4 +266,17 @@
     </plurals>
     <string name="blur_sensitive_content">Difuminar contenido sensible</string>
     <string name="autoplay_videos">Reproducir automáticamente los videos</string>
+    <string name="report_this_post">Reportar esta publicación</string>
+    <string name="report">Reportar</string>
+    <string name="spam">Spam</string>
+    <string name="adult_or_sensitive_content">Contenido para adultos o sensible</string>
+    <string name="abusive_or_harmful">Abusivo o dañino</string>
+    <string name="underage_account">Cuenta para menores</string>
+    <string name="violence">Violencia</string>
+    <string name="copyright_infringement">Violación de derechos de autor</string>
+    <string name="impersonation">Suplantación de la identidad</string>
+    <string name="scam">Estafa</string>
+    <string name="terrorism">Terrorismo</string>
+    <string name="reported">Reporte enviado</string>
+    <string name="delete_account">Eliminar la cuenta</string>
 </resources>
