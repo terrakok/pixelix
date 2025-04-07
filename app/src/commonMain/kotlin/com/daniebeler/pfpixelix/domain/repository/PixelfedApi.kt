@@ -126,7 +126,7 @@ interface PixelfedApi {
         @Body body: MultiPartFormDataContent
     ): Account
 
-    @GET("api/pixelfed/v1/accounts/{accountid}/statuses?pe=1")
+    @GET("api/v1/accounts/{accountid}/statuses?pe=1")
     suspend fun getPostsByAccountId(
         @Path("accountid") accountId: String,
         @Query("max_id") maxId: String? = null,
