@@ -1,5 +1,6 @@
 package com.daniebeler.pfpixelix.domain.service.preferences
 
+import com.daniebeler.pfpixelix.domain.model.AppAccentColor
 import com.daniebeler.pfpixelix.domain.model.AppThemeMode
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ExperimentalSettingsImplementation
@@ -7,6 +8,8 @@ import com.russhwolf.settings.boolean
 import com.russhwolf.settings.coroutines.toBlockingSettings
 import com.russhwolf.settings.datastore.DataStoreSettings
 import com.russhwolf.settings.int
+import com.russhwolf.settings.long
+import com.russhwolf.settings.string
 import me.tatarka.inject.annotations.Inject
 
 @OptIn(ExperimentalSettingsApi::class, ExperimentalSettingsImplementation::class)
@@ -38,4 +41,7 @@ class UserPreferences(observableSettings: DataStoreSettings) {
 
     var appThemeMode by settings.int("k_theme_mode", AppThemeMode.FOLLOW_SYSTEM)
     val appThemeModeFlow = observableSettings.getIntFlow("k_theme_mode", appThemeMode)
+
+    var accentColor by settings.long("k_accent_color", AppAccentColor.GREEN)
+    val accentColorFlow = observableSettings.getLongFlow("k_accent_color", accentColor)
 }

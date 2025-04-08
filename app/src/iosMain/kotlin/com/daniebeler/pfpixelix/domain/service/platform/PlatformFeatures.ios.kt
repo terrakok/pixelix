@@ -7,4 +7,5 @@ actual object PlatformFeatures {
     actual val customAppIcon = true
     actual val autoplayVideosPref = false
     actual val addCollection = false
+    actual val customAccentColors = true
 }

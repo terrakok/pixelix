@@ -7,4 +7,5 @@ expect object PlatformFeatures {
     val customAppIcon: Boolean
     val autoplayVideosPref: Boolean
     val addCollection: Boolean
+    val customAccentColors: Boolean
 }
