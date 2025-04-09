@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -59,7 +60,7 @@ import com.daniebeler.pfpixelix.ui.composables.ReverseModalNavigationDrawer
 import com.daniebeler.pfpixelix.ui.composables.profile.own_profile.AccountSwitchBottomSheet
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.PreferencesComposable
 import com.daniebeler.pfpixelix.ui.navigation.Destination
-import com.daniebeler.pfpixelix.ui.navigation.navigationGraph
+import com.daniebeler.pfpixelix.ui.navigation.appGraph
 import com.daniebeler.pfpixelix.ui.theme.PixelixTheme
 import com.daniebeler.pfpixelix.utils.end
 import kotlinx.coroutines.cancelChildren
@@ -154,7 +155,7 @@ fun App(
                             navController = navController,
                             startDestination = Destination.FirstLogin,
                             builder = {
-                                navigationGraph(
+                                appGraph(
                                     navController,
                                     { scope.launch { drawerState.open() } },
                                     exitApp
@@ -176,7 +177,7 @@ fun App(
                             if (activeUser != null) {
                                 appComponent.systemFileShare.shareFilesRequests.collect { uris ->
                                     navController.navigate(
-                                        Destination.HomeTabNewPost(uris.map { it.toString() })
+                                        Destination.NewPost(uris.map { it.toString() })
                                     )
                                 }
                             }
@@ -220,7 +221,7 @@ private enum class HomeTab(
         Res.string.search
     ),
     NewPost(
-        Destination.HomeTabNewPost(),
+        Destination.HomeTabNewPost,
         Res.drawable.add_circle_outline,
         Res.drawable.add_circle,
         Res.string.new_post
@@ -261,12 +262,14 @@ private fun BottomBar(
     NavigationBar(
         modifier = Modifier.height(60.dp + systemNavigationBarHeight)
     ) {
-        val currentStack by navController.currentBackStack.collectAsState()
+        val navBackStackEntry = navController.currentBackStackEntryAsState().value
+        val currentDestination = navBackStackEntry?.destination ?: return@NavigationBar
+        val tabContainer = currentDestination.parent ?: return@NavigationBar
 
         HomeTab.entries.forEach { tab ->
-            val isSelected = currentStack.any { it.destination.hasRoute(tab.destination::class) }
-            val isCurrentDestination =
-                currentStack.lastOrNull()?.destination?.hasRoute(tab.destination::class) == true
+            val isSelected = currentDestination.hierarchy.any {
+                it.hasRoute(tab.destination::class)
+            }
 
             val interactionSource = remember { MutableInteractionSource() }
             val coroutineScope = rememberCoroutineScope()
@@ -327,22 +330,33 @@ private fun BottomBar(
                 ),
                 interactionSource = interactionSource,
                 onClick = {
-                    if (isCurrentDestination && tab == HomeTab.Search) {
-                        appComponent.searchFieldFocus.focus()
-                    } else if (!isLongPress && !isCurrentDestination) {
-                        navController.navigate(tab.destination) {
-                            if (!isSelected) {
-                                popUpTo(0) {
+                    if (!isLongPress) {
+                        if (!isSelected) {
+                            //switch tab
+                            navController.navigate(tab.destination) {
+                                launchSingleTop = true
+                                restoreState = true
+                                popUpTo(tabContainer.route!!) {
+                                    inclusive = true
                                     saveState = true
                                 }
-                                restoreState = true
-                            } else {
-                                popUpTo(0)
                             }
-                            launchSingleTop = true
+                        } else {
+                            val tabRoot = tabContainer.findStartDestination()
+                            val isOnRoot = currentDestination == tabRoot
+                            if (!isOnRoot) {
+                                //back to root
+                                navController.popBackStack(
+                                    route = tabRoot.route!!,
+                                    inclusive = false
+                                )
+                            } else if (currentDestination.hasRoute<Destination.Search>()) {
+                                appComponent.searchFieldFocus.focus()
+                            }
                         }
                     }
-                })
+                }
+            )
         }
     }
 }

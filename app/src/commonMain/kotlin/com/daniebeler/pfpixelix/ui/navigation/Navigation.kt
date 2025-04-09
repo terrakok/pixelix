@@ -1,13 +1,18 @@
 package com.daniebeler.pfpixelix.ui.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
+import androidx.navigation.compose.navigation
 import androidx.navigation.toRoute
 import com.daniebeler.pfpixelix.EdgeToEdgeDialogProperties
 import com.daniebeler.pfpixelix.ui.composables.HomeComposable
@@ -37,6 +42,7 @@ import com.daniebeler.pfpixelix.ui.composables.timelines.hashtag_timeline.Hashta
 import com.daniebeler.pfpixelix.utils.KmpUri
 import com.daniebeler.pfpixelix.utils.toKmpUri
 import kotlinx.serialization.Serializable
+import kotlin.jvm.JvmSuppressWildcards
 
 sealed interface Destination {
     @Serializable data class Hashtag(val hashtag: String) : Destination
@@ -67,20 +73,22 @@ sealed interface Destination {
     @Serializable data object NewLogin : Destination
     @Serializable data class Search(val page: Int = 0) : Destination
     @Serializable data object OwnProfile : Destination
+    @Serializable data object Feeds : Destination
+    @Serializable data class NewPost(val uris: List<String> = emptyList()) : Destination
+    @Serializable data object Notifications : Destination
+
     @Serializable data object HomeTabFeeds : Destination
     @Serializable data object HomeTabSearch : Destination
-    @Serializable data class HomeTabNewPost(val uris: List<String> = emptyList()) : Destination
+    @Serializable data object HomeTabNewPost : Destination
     @Serializable data object HomeTabNotifications : Destination
     @Serializable data object HomeTabOwnProfile : Destination
 }
 
-internal fun NavGraphBuilder.navigationGraph(
+internal fun NavGraphBuilder.appGraph(
     navController: NavHostController,
     openPreferencesDrawer: () -> Unit,
     exitApp: () -> Unit
 ) {
-
-    //login dialogs
     dialog<Destination.FirstLogin> {
         Dialog(
             onDismissRequest = exitApp,
@@ -89,6 +97,71 @@ internal fun NavGraphBuilder.navigationGraph(
             LoginComposable(navController = navController)
         }
     }
+
+    //home tabs (with no transition animations)
+    //more info: https://issuetracker.google.com/408010634
+    navigation<Destination.HomeTabFeeds>(
+        startDestination = Destination.Feeds,
+        enterTransition = { tabEnterTransition<Destination.HomeTabFeeds>() },
+        exitTransition = { tabExitTransition<Destination.HomeTabFeeds>() }
+    ) {
+        tabGraph(navController, openPreferencesDrawer)
+    }
+
+    navigation<Destination.HomeTabSearch>(
+        startDestination = Destination.Search(),
+        enterTransition = { tabEnterTransition<Destination.HomeTabSearch>() },
+        exitTransition = { tabExitTransition<Destination.HomeTabSearch>() }
+    ) {
+        tabGraph(navController, openPreferencesDrawer)
+    }
+
+    navigation<Destination.HomeTabNewPost>(
+        startDestination = Destination.NewPost(),
+        enterTransition = { tabEnterTransition<Destination.HomeTabNewPost>() },
+        exitTransition = { tabExitTransition<Destination.HomeTabNewPost>() }
+    ) {
+
+        composable<Destination.NewPost> { navBackStackEntry ->
+            val args = navBackStackEntry.toRoute<Destination.NewPost>()
+            val imageUris: List<KmpUri>? = args.uris.map { it.toKmpUri() }
+            NewPostComposable(navController, imageUris)
+        }
+
+        tabGraph(navController, openPreferencesDrawer)
+    }
+
+    navigation<Destination.HomeTabNotifications>(
+        startDestination = Destination.Notifications,
+        enterTransition = { tabEnterTransition<Destination.HomeTabNotifications>() },
+        exitTransition = { tabExitTransition<Destination.HomeTabNotifications>() }
+    ) {
+        tabGraph(navController, openPreferencesDrawer)
+    }
+
+    navigation<Destination.HomeTabOwnProfile>(
+        startDestination = Destination.OwnProfile,
+        enterTransition = { tabEnterTransition<Destination.HomeTabOwnProfile>() },
+        exitTransition = { tabExitTransition<Destination.HomeTabOwnProfile>() }
+    ) {
+        tabGraph(navController, openPreferencesDrawer)
+    }
+}
+
+private inline fun <reified T: Any> AnimatedContentTransitionScope<NavBackStackEntry>.tabEnterTransition(): EnterTransition? {
+    val initialHierarchy = initialState.destination.hierarchy
+    return if (initialHierarchy.none { it.hasRoute<T>() }) EnterTransition.None else null
+}
+
+private inline fun <reified T: Any> AnimatedContentTransitionScope<NavBackStackEntry>.tabExitTransition(): ExitTransition? {
+    val targetHierarchy = targetState.destination.hierarchy
+    return if (targetHierarchy.none { it.hasRoute<T>() }) ExitTransition.None else null
+}
+
+private fun NavGraphBuilder.tabGraph(
+    navController: NavHostController,
+    openPreferencesDrawer: () -> Unit
+) {
     dialog<Destination.NewLogin> {
         Dialog(
             onDismissRequest = { navController.popBackStack() },
@@ -98,45 +171,14 @@ internal fun NavGraphBuilder.navigationGraph(
         }
     }
 
-    //home tabs (with no transition animations)
-    composable<Destination.HomeTabFeeds>(
-        enterTransition = { EnterTransition.None },
-        exitTransition = { ExitTransition.None }
-    ) {
+    composable<Destination.Feeds> {
         HomeComposable(navController, openPreferencesDrawer)
     }
 
-    composable<Destination.HomeTabSearch>(
-        enterTransition = { EnterTransition.None },
-        exitTransition = { ExitTransition.None }
-    ) {
-        ExploreComposable(navController)
-    }
-
-    composable<Destination.HomeTabNewPost>(
-        enterTransition = { EnterTransition.None },
-        exitTransition = { ExitTransition.None }
-    ) { navBackStackEntry ->
-        val args = navBackStackEntry.toRoute<Destination.HomeTabNewPost>()
-        val imageUris: List<KmpUri>? = args.uris.map { it.toKmpUri() }
-        NewPostComposable(navController, imageUris)
-    }
-
-    composable<Destination.HomeTabNotifications>(
-        enterTransition = { EnterTransition.None },
-        exitTransition = { ExitTransition.None }
-    ) {
+    composable<Destination.Notifications> {
         NotificationsComposable(navController)
     }
 
-    composable<Destination.HomeTabOwnProfile>(
-        enterTransition = { EnterTransition.None },
-        exitTransition = { ExitTransition.None }
-    ) {
-        OwnProfileComposable(navController, openPreferencesDrawer)
-    }
-
-    //other screens
     composable<Destination.HashtagTimeline> { navBackStackEntry ->
         val args = navBackStackEntry.toRoute<Destination.HashtagTimeline>()
         HashtagTimelineComposable(navController, args.hashtag)
