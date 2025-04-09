@@ -2,6 +2,7 @@ package com.daniebeler.pfpixelix
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -26,6 +27,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -149,11 +151,14 @@ fun App(
                         )
                     },
                     content = { paddingValues ->
+                        val startDestination =
+                            if (activeUser == null) Destination.FirstLogin
+                            else Destination.HomeTabFeeds
                         NavHost(
                             modifier = Modifier.fillMaxSize().padding(paddingValues)
                                 .consumeWindowInsets(WindowInsets.navigationBars),
                             navController = navController,
-                            startDestination = Destination.FirstLogin,
+                            startDestination = startDestination,
                             builder = {
                                 appGraph(
                                     navController,
@@ -162,7 +167,9 @@ fun App(
                                 )
                             }
                         )
+                        val launchUser = remember { activeUser }
                         LaunchedEffect(activeUser) {
+                            if (launchUser == activeUser) return@LaunchedEffect
                             val rootScreen =
                                 if (activeUser == null) Destination.FirstLogin else Destination.HomeTabFeeds
                             navController.navigate(rootScreen) {

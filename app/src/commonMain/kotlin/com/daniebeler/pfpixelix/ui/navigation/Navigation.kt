@@ -3,6 +3,12 @@ package com.daniebeler.pfpixelix.ui.navigation
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavBackStackEntry
@@ -89,7 +95,10 @@ internal fun NavGraphBuilder.appGraph(
     openPreferencesDrawer: () -> Unit,
     exitApp: () -> Unit
 ) {
-    dialog<Destination.FirstLogin> {
+    composable<Destination.FirstLogin>(
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None }
+    ) {
         Dialog(
             onDismissRequest = exitApp,
             properties = EdgeToEdgeDialogProperties()
@@ -162,13 +171,10 @@ private fun NavGraphBuilder.tabGraph(
     navController: NavHostController,
     openPreferencesDrawer: () -> Unit
 ) {
-    dialog<Destination.NewLogin> {
-        Dialog(
-            onDismissRequest = { navController.popBackStack() },
-            properties = EdgeToEdgeDialogProperties()
-        ) {
-            LoginComposable(true, navController)
-        }
+    dialog<Destination.NewLogin>(
+        dialogProperties = EdgeToEdgeDialogProperties()
+    ) {
+        LoginComposable(true, navController)
     }
 
     composable<Destination.Feeds> {
