@@ -266,17 +266,17 @@
     </plurals>
     <string name="blur_sensitive_content">Érzékeny tartalom elhomályosítása</string>
     <string name="autoplay_videos">Videók automatikus lejátszása</string>
-    <string name="report_this_post">Report this post</string>
-    <string name="report">Report</string>
+    <string name="report_this_post">Bejegyzés jelentése</string>
+    <string name="report">Jelentés</string>
     <string name="spam">Spam</string>
-    <string name="adult_or_sensitive_content">Adult or Sensitive Content</string>
-    <string name="abusive_or_harmful">Abusive or Harmful</string>
-    <string name="underage_account">Underage Account</string>
-    <string name="violence">Violence</string>
-    <string name="copyright_infringement">Copyright infringement</string>
-    <string name="impersonation">Impersonation</string>
-    <string name="scam">Scam</string>
-    <string name="terrorism">Terrorism</string>
-    <string name="reported">Reported</string>
-    <string name="delete_account">Delete Account</string>
+    <string name="adult_or_sensitive_content">Felnőtt vagy érzékeny tartalom</string>
+    <string name="abusive_or_harmful">Bántalmazó vagy káros</string>
+    <string name="underage_account">Kiskorú fiók</string>
+    <string name="violence">Erőszak</string>
+    <string name="copyright_infringement">Szerzői jog megsértése</string>
+    <string name="impersonation">Hamis személyazonosság</string>
+    <string name="scam">Csalás</string>
+    <string name="terrorism">Terrorizmus</string>
+    <string name="reported">Jelentve</string>
+    <string name="delete_account">Fiók törlése</string>
 </resources>
