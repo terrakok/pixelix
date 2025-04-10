@@ -170,7 +170,7 @@ fun CollectionComposable(
                 ),
                 navController = navController,
                 getItemsPaginated = {
-                    //viewModel.getPostsPaginated(false)
+                    viewModel.getPostsPaginated(false)
                 },
                 after = {
                     if (viewModel.editState.editMode) {

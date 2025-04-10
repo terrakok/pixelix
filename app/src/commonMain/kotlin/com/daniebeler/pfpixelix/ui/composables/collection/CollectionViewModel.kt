@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
+import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.service.collection.CollectionService
 import com.daniebeler.pfpixelix.domain.service.platform.Platform
 import com.daniebeler.pfpixelix.domain.service.post.PostService
@@ -70,22 +71,23 @@ class CollectionViewModel @Inject constructor(
     private fun getPostsFirstLoad(refreshing: Boolean) {
         if (collectionState.id != null) {
             collectionService.getPostsOfCollection(collectionState.id!!, 1).onEach { result ->
-                collectionPostsState = when (result) {
+                when (result) {
                     is Resource.Success -> {
                         val endReached = (result.data?.size ?: 0) == 0
-                        CollectionPostsState(
+                        collectionPostsState = CollectionPostsState(
                             posts = result.data ?: emptyList(), endReached = endReached
                         )
+                        getPostsPaginated(false)
                     }
 
                     is Resource.Error -> {
-                        CollectionPostsState(
+                        collectionPostsState = CollectionPostsState(
                             error = result.message ?: "An unexpected error occurred"
                         )
                     }
 
                     is Resource.Loading -> {
-                        CollectionPostsState(
+                        collectionPostsState =  CollectionPostsState(
                             isLoading = true,
                             isRefreshing = refreshing,
                             posts = collectionPostsState.posts
@@ -96,7 +98,7 @@ class CollectionViewModel @Inject constructor(
         }
     }
 
-    /*fun getPostsPaginated(refreshing: Boolean) {
+    fun getPostsPaginated(refreshing: Boolean) {
         if (collectionState.id != null) {
             if (collectionPostsState.posts.isEmpty()) {
                 return
@@ -110,8 +112,10 @@ class CollectionViewModel @Inject constructor(
                 collectionPostsState = when (result) {
                     is Resource.Success -> {
                         val endReached = (result.data?.size ?: 0) == 0
+                        var newPosts: List<Post> = result.data
+                        newPosts = newPosts.drop(1);
                         CollectionPostsState(
-                            posts = collectionPostsState.posts + result.data,
+                            posts = collectionPostsState.posts + newPosts,
                             endReached = endReached
                         )
                     }
@@ -132,7 +136,7 @@ class CollectionViewModel @Inject constructor(
                 }
             }.launchIn(viewModelScope)
         }
-    }*/
+    }
 
     fun getPostsExceptCollection() {
         postService.getOwnPosts().onEach { result ->
@@ -271,6 +275,7 @@ class CollectionViewModel @Inject constructor(
     }
 
     fun refresh() {
+        page = 1
         getPostsFirstLoad(true)
     }
 
