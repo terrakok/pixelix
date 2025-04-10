@@ -23,6 +23,9 @@ class GlobalTimelineViewModel @Inject constructor(
     }
 
     private fun getItemsFirstLoad(refreshing: Boolean) {
+        if (globalTimelineState.globalTimeline.isNotEmpty() && !refreshing) {
+            return
+        }
         timelineService.getGlobalTimeline().onEach { result ->
             globalTimelineState = when (result) {
                 is Resource.Success -> {

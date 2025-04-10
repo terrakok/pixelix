@@ -5,19 +5,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.daniebeler.pfpixelix.domain.service.utils.Resource
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.LikedBy
+import com.daniebeler.pfpixelix.domain.model.NewReport
 import com.daniebeler.pfpixelix.domain.model.Post
+import com.daniebeler.pfpixelix.domain.model.ReportObjectType
 import com.daniebeler.pfpixelix.domain.service.account.AccountService
 import com.daniebeler.pfpixelix.domain.service.editor.PostEditorService
+import com.daniebeler.pfpixelix.domain.service.file.FileService
 import com.daniebeler.pfpixelix.domain.service.platform.Platform
 import com.daniebeler.pfpixelix.domain.service.post.PostService
 import com.daniebeler.pfpixelix.domain.service.preferences.UserPreferences
 import com.daniebeler.pfpixelix.domain.service.session.AuthService
+import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.ui.composables.post.reply.OwnReplyState
 import com.daniebeler.pfpixelix.ui.composables.post.reply.RepliesState
-import com.daniebeler.pfpixelix.utils.KmpContext
-import com.daniebeler.pfpixelix.utils.TimeAgo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -32,7 +34,8 @@ class PostViewModel @Inject constructor(
     private val postEditorService: PostEditorService,
     private val authService: AuthService,
     private val accountService: AccountService,
-    private val platform: Platform
+    private val platform: Platform,
+    private val fileService: FileService
 ) : ViewModel() {
 
     var post: Post? by mutableStateOf(null)
@@ -45,16 +48,16 @@ class PostViewModel @Inject constructor(
 
     var deleteState by mutableStateOf(DeleteState())
     var deleteDialog: String? by mutableStateOf(null)
-    var timeAgoString: String by mutableStateOf("")
-
+    var reportState by mutableStateOf<ReportState?>(null)
     var showPost: Boolean by mutableStateOf(false)
 
     var myAccountId: String? = null
     var myUsername: String? = null
 
-
     var isAltTextButtonHidden by mutableStateOf(false)
     var isInFocusMode by mutableStateOf(false)
+    var isAutoplayVideos by mutableStateOf(true)
+    var blurSensitiveContent by mutableStateOf(false)
 
     var volume by mutableStateOf(prefs.enableVolume)
 
@@ -69,6 +72,12 @@ class PostViewModel @Inject constructor(
         }
         viewModelScope.launch {
             prefs.focusModeFlow.collect { isInFocusMode = it }
+        }
+        viewModelScope.launch {
+            prefs.autoplayVideoFlow.collect { isAutoplayVideos = it }
+        }
+        viewModelScope.launch {
+            prefs.blurSensitiveContentFlow.collect { blurSensitiveContent = it }
         }
     }
 
@@ -111,10 +120,6 @@ class PostViewModel @Inject constructor(
 
     fun toggleShowPost() {
         showPost = !showPost
-    }
-
-    fun convertTime(createdAt: String) {
-        timeAgoString = TimeAgo.convertTimeToText(createdAt)
     }
 
     fun loadReplies(postId: String) {
@@ -167,11 +172,11 @@ class PostViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    println(result.message)
+                    Logger.e(result.message)
                 }
 
                 is Resource.Loading -> {
-                    println("is loading")
+                    Logger.v("is loading")
                 }
             }
         }.launchIn(viewModelScope)
@@ -242,10 +247,27 @@ class PostViewModel @Inject constructor(
             return
         }
         post = post?.copy(
-            favourited = false, favouritesCount = post?.favouritesCount?.minus(
+            favourited = false,
+            favouritesCount = post?.favouritesCount?.minus(
                 1
-            ) ?: 0
+            ) ?: 0,
         )
+
+        post?.likedBy?.let {
+            if (it.username == myUsername) {
+                post = post!!.copy(
+                    likedBy = post!!.likedBy!!.copy(
+                        username = null,
+                        totalCount = post!!.likedBy!!.totalCount - 1
+                    )
+                )
+            } else {
+                post = post!!.copy(
+                    likedBy = post!!.likedBy!!.copy(totalCount = post!!.likedBy!!.totalCount - 1)
+                )
+            }
+        }
+
         post?.let { updatePost(it) }
 
         CoroutineScope(Dispatchers.Default).launch {
@@ -253,7 +275,7 @@ class PostViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> {
                         post = post?.copy(favourited = result.data?.favourited ?: false)
-                        result.data?.let { updatePost(result.data) }
+                        post?.let { updatePost(it) }
                     }
 
                     is Resource.Error -> {
@@ -280,7 +302,7 @@ class PostViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             post = post?.copy(reblogged = result.data?.reblogged ?: false)
-                            result.data?.let { updatePost(result.data) }
+                            post?.let { updatePost(it) }
                         }
 
                         is Resource.Error -> {
@@ -305,7 +327,7 @@ class PostViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             post = post?.copy(reblogged = result.data?.reblogged ?: false)
-                            result.data?.let { updatePost(result.data) }
+                            post?.let { updatePost(it) }
                         }
 
                         is Resource.Error -> {
@@ -329,8 +351,8 @@ class PostViewModel @Inject constructor(
                 postService.bookmarkPost(postId).onEach { result ->
                     when (result) {
                         is Resource.Success -> {
-                            post = post?.copy(bookmarked = result.data?.bookmarked ?: false)
-                            result.data?.let { updatePost(result.data) }
+                            post = post?.copy(bookmarked = result.data.bookmarked)
+                            post?.let { updatePost(it) }
                         }
 
                         is Resource.Error -> {
@@ -355,7 +377,7 @@ class PostViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             post = post?.copy(bookmarked = result.data?.bookmarked ?: false)
-                            result.data?.let { updatePost(result.data) }
+                            post?.let { updatePost(it) }
                         }
 
                         is Resource.Error -> {
@@ -369,15 +391,50 @@ class PostViewModel @Inject constructor(
                 }.launchIn(viewModelScope)
             }
         }
-
     }
 
-    fun openUrl(url: String, context: KmpContext) {
+    fun reportPost(category: String) {
+        reportState = ReportState(isLoading = true, reported = false)
+        if (post == null) {
+            reportState = ReportState(isLoading = false, reported = false, error = "an unexpected error occurred")
+            return
+        }
+        val newReport = NewReport(
+            reportType = category,
+            objectType = ReportObjectType.POST,
+            objectId = post!!.id
+        )
+        CoroutineScope(Dispatchers.Default).launch {
+            postService.reportPost(newReport).onEach { result ->
+                reportState = when (result) {
+                    is Resource.Success -> {
+                        ReportState(
+                            reported = true
+                        )
+                    }
+
+                    is Resource.Error -> {
+                        ReportState(
+                            error = "an unexpected error occured"
+                        )
+                    }
+
+                    is Resource.Loading -> {
+                        ReportState(
+                            isLoading = true
+                        )
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    fun openUrl(url: String) {
         platform.openUrl(url)
     }
 
-    fun saveImage(name: String?, url: String, context: KmpContext) {
-        platform.downloadImageToGallery(name, url)
+    fun saveImage(name: String?, url: String) {
+        fileService.downloadFile(name, url)
     }
 
     fun shareText(text: String) {

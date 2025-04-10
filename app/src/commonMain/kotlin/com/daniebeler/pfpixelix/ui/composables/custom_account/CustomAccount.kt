@@ -29,13 +29,15 @@ import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.domain.model.Relationship
 import com.daniebeler.pfpixelix.ui.composables.FollowButton
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.pluralStringResource
+import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.default_avatar
-import pixelix.app.generated.resources.followers
+import pixelix.app.generated.resources.follower
+import pixelix.app.generated.resources.trash
 
 @Composable
 fun CustomAccount(
@@ -123,7 +125,7 @@ private fun CustomAccountPrivate(
     Row(modifier = Modifier
         .clickable {
             onClick()
-            Navigate.navigate("profile_screen/" + account.id, navController)
+            navController.navigate(Destination.Profile(account.id))
         }
         .padding(horizontal = 12.dp, vertical = 8.dp)
         .fillMaxWidth(),
@@ -153,7 +155,7 @@ private fun CustomAccountPrivate(
                             Text(
                                 text = " • " + StringFormat.groupDigits(
                                     account.followersCount
-                                ) + " " + stringResource(Res.string.followers),
+                                ) + " " + pluralStringResource(Res.plurals.follower, account.followersCount),
                                 fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.primary,
                                 lineHeight = 8.sp
@@ -238,7 +240,7 @@ private fun CustomAccountPrivateNotClickable(
                             Text(
                                 text = " • " + StringFormat.groupDigits(
                                     account.followersCount
-                                ) + " " + stringResource(Res.string.followers),
+                                ) + " " + pluralStringResource(Res.plurals.follower, account.followersCount),
                                 fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.primary,
                                 lineHeight = 8.sp
@@ -268,7 +270,7 @@ private fun CustomAccountPrivateNotClickable(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Delete,
+                    imageVector = vectorResource(Res.drawable.trash),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.error
                 )

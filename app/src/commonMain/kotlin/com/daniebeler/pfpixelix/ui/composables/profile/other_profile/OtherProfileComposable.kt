@@ -67,8 +67,7 @@ import com.daniebeler.pfpixelix.ui.composables.profile.ProfileTopSection
 import com.daniebeler.pfpixelix.ui.composables.profile.SwitchViewComposable
 import com.daniebeler.pfpixelix.ui.composables.profile.server_stats.DomainSoftwareComposable
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -122,7 +121,6 @@ fun OtherProfileComposable(
     byUsername: String?,
     viewModel: OtherProfileViewModel = injectViewModel(key = "other-profile$userId$byUsername") { otherProfileViewModel }
 ) {
-
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     val lazyGridState = rememberLazyListState()
@@ -133,13 +131,11 @@ fun OtherProfileComposable(
     var showBlockAlert by remember { mutableStateOf(false) }
     var showUnBlockAlert by remember { mutableStateOf(false) }
 
-    val context = LocalKmpContext.current
-
-    LaunchedEffect(Unit) {
+    LaunchedEffect(userId) {
         if (userId != "") {
-            viewModel.loadData(userId, false)
+            viewModel.loadData(userId, false, navController)
         } else {
-            viewModel.loadDataByUsername(byUsername!!, false)
+            viewModel.loadDataByUsername(byUsername!!, false, navController)
         }
     }
 
@@ -186,7 +182,7 @@ fun OtherProfileComposable(
     }) { paddingValues ->
         PullToRefreshBox (
             isRefreshing = viewModel.accountState.refreshing || viewModel.postsState.refreshing,
-            onRefresh = { viewModel.loadData(userId, true) },
+            onRefresh = { viewModel.loadData(userId, true, navController) },
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
@@ -203,7 +199,7 @@ fun OtherProfileComposable(
                                 relationship = viewModel.relationshipState.accountRelationship,
                                 navController,
                                 openUrl = { url ->
-                                    viewModel.openUrl(url, context)
+                                    viewModel.openUrl(url)
                                 })
                         }
 
@@ -268,9 +264,7 @@ fun OtherProfileComposable(
                             Button(
                                 onClick = {
                                     viewModel.accountState.account?.let { account ->
-                                        Navigate.navigate(
-                                            "chat/" + account.id, navController
-                                        )
+                                        navController.navigate(Destination.Chat(account.id))
                                     }
                                 },
                                 modifier = Modifier.weight(1f),
@@ -290,7 +284,7 @@ fun OtherProfileComposable(
                                 getMoreCollections = {viewModel.getCollections(account.id, true)},
                                 navController = navController,
                                 instanceDomain = viewModel.domain,
-                                openUrl = { url -> viewModel.openUrl(url, context) })
+                                openUrl = { url -> viewModel.openUrl(url) })
                         }
 
                         HorizontalDivider(Modifier.padding(bottom = 12.dp, top = 12.dp))
@@ -335,7 +329,7 @@ fun OtherProfileComposable(
         }
     }
 
-    ToTopButton(listState = lazyGridState, refresh = {viewModel.loadData(userId, true)})
+    ToTopButton(listState = lazyGridState, refresh = {viewModel.loadData(userId, true, navController)})
 
     InfiniteListHandler(lazyListState = lazyGridState) {
         viewModel.getPostsPaginated(viewModel.userId)
@@ -389,7 +383,7 @@ fun OtherProfileComposable(
                 ButtonRowElement(icon = Res.drawable.browsers_outline, text = stringResource(
                     Res.string.open_in_browser
                 ), onClick = {
-                    viewModel.openUrl(viewModel.accountState.account!!.url, context)
+                    viewModel.openUrl(viewModel.accountState.account!!.url)
                 })
 
                 ButtonRowElement(icon = Res.drawable.share_social_outline,

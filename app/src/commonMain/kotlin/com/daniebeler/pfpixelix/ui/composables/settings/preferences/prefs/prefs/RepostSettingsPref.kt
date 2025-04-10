@@ -18,10 +18,3 @@ fun RepostSettingsPref(openUrl: () -> Unit) {
         onClick = openUrl
     )
 }
-
-@Composable
-private fun RepostSettingsPrefPreview() {
-    RepostSettingsPref(openUrl = {
-        println("URL opened: url")
-    })
-}

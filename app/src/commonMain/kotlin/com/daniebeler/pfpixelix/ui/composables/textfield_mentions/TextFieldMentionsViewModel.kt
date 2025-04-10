@@ -46,13 +46,7 @@ class TextFieldMentionsViewModel @Inject constructor(
         searchService.search(searchShortened).onEach { result ->
             mentionSuggestions = when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        SuggestionsState(suggestions = if (type == "accounts") {result.data.accounts.map { "@" + it.acct }} else {result.data.tags.map { "#" + it.name }})
-                    } else {
-                        SuggestionsState(
-                            error = result.message ?: "An unexpected error occurred"
-                        )
-                    }
+                    SuggestionsState(suggestions = if (type == "accounts") {result.data.accounts.map { "@" + it.acct }} else {result.data.tags.map { "#" + it.name }})
                 }
 
                 is Resource.Error -> {

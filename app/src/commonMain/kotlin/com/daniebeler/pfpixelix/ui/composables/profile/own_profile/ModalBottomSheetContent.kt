@@ -8,12 +8,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElementWithRoundedImage
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.imageResource
 import org.jetbrains.compose.resources.stringResource
@@ -29,7 +28,6 @@ import pixelix.app.generated.resources.heart_outline
 import pixelix.app.generated.resources.liked_posts
 import pixelix.app.generated.resources.muted_accounts
 import pixelix.app.generated.resources.pixelfed_logo
-import pixelix.app.generated.resources.pixelix_logo
 import pixelix.app.generated.resources.remove_circle_outline
 import pixelix.app.generated.resources.settings
 import pixelix.app.generated.resources.settings_outline
@@ -64,7 +62,7 @@ fun ModalBottomSheetContent(
             text = stringResource(Res.string.liked_posts),
             onClick = {
                 closeBottomSheet()
-                Navigate.navigate("liked_posts_screen", navController)
+                navController.navigate(Destination.LikedPosts)
             })
 
         ButtonRowElement(
@@ -72,7 +70,7 @@ fun ModalBottomSheetContent(
             text = stringResource(Res.string.bookmarked_posts),
             onClick = {
                 closeBottomSheet()
-                Navigate.navigate("bookmarked_posts_screen", navController)
+                navController.navigate(Destination.BookmarkedPosts)
             })
 
         ButtonRowElement(
@@ -80,7 +78,7 @@ fun ModalBottomSheetContent(
             text = stringResource(Res.string.followed_hashtags),
             onClick = {
                 closeBottomSheet()
-                Navigate.navigate("followed_hashtags_screen", navController)
+                navController.navigate(Destination.FollowedHashtags)
             })
 
         ButtonRowElement(
@@ -88,7 +86,7 @@ fun ModalBottomSheetContent(
             text = stringResource(Res.string.muted_accounts),
             onClick = {
                 closeBottomSheet()
-                Navigate.navigate("muted_accounts_screen", navController)
+                navController.navigate(Destination.MutedAccounts)
             })
 
         ButtonRowElement(
@@ -96,7 +94,7 @@ fun ModalBottomSheetContent(
             text = stringResource(Res.string.blocked_accounts),
             onClick = {
                 closeBottomSheet()
-                Navigate.navigate("blocked_accounts_screen", navController)
+                navController.navigate(Destination.BlockedAccounts)
             })
 
         HorizontalDivider(Modifier.padding(12.dp))
@@ -106,7 +104,7 @@ fun ModalBottomSheetContent(
             text = stringResource(Res.string.about_x, instanceDomain),
             onClick = {
                 closeBottomSheet()
-                Navigate.navigate("about_instance_screen", navController)
+                navController.navigate(Destination.AboutInstance)
             })
 
         ButtonRowElement(
@@ -114,7 +112,7 @@ fun ModalBottomSheetContent(
             text = stringResource(Res.string.about_pixelix),
             onClick = {
                 closeBottomSheet()
-                Navigate.navigate("about_pixelix_screen", navController)
+                navController.navigate(Destination.AboutPixelix)
             })
 
     }

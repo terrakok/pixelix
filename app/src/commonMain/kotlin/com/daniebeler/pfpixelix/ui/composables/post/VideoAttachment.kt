@@ -1,8 +1,6 @@
 package com.daniebeler.pfpixelix.ui.composables.post
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -32,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.VideoPlayer
 
 @Composable
@@ -42,16 +40,23 @@ fun VideoAttachment(
     viewModel: PostViewModel,
     onReady: () -> Unit
 ) {
-    val context = LocalKmpContext.current
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalAppComponent.current.context
     val player = remember { VideoPlayer(context, coroutineScope) }
     var progress by remember { mutableFloatStateOf(0f) }
     var hasAudio by remember { mutableStateOf(false) }
+    var isPlaying by remember { mutableStateOf(false) }
 
     var videoFrameIsVisible by remember { mutableStateOf(false) }
 
     Column {
-        Box {
+        Box(Modifier.clickable {
+            if (isPlaying) {
+                player.pause()
+            } else {
+                player.play()
+            }
+        }) {
             player.view(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -109,6 +114,7 @@ fun VideoAttachment(
             progress = current.toFloat() / duration.toFloat()
         }
         player.hasAudio = { hasAudio = it }
+        player.isVideoPlaying = { isPlaying = it }
 
         onDispose {
             player.progress = null
@@ -118,7 +124,7 @@ fun VideoAttachment(
     }
 
     LaunchedEffect(videoFrameIsVisible) {
-        if (videoFrameIsVisible) {
+        if (videoFrameIsVisible && viewModel.isAutoplayVideos) {
             player.play()
         } else {
             player.pause()
@@ -130,10 +136,11 @@ fun VideoAttachment(
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_RESUME -> {
-                    if (videoFrameIsVisible) {
+                    if (videoFrameIsVisible && viewModel.isAutoplayVideos) {
                         player.play()
                     }
                 }
+
                 Lifecycle.Event.ON_PAUSE -> {
                     player.pause()
                 }

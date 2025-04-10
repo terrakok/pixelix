@@ -98,6 +98,9 @@ class OwnProfileViewModel @Inject constructor(
     }
 
     private fun getPostsFirstLoad(refreshing: Boolean) {
+        if (postsState.posts.isNotEmpty() && !refreshing) {
+            return
+        }
         postService.getOwnPosts().onEach { result ->
             postsState = when (result) {
                 is Resource.Success -> {

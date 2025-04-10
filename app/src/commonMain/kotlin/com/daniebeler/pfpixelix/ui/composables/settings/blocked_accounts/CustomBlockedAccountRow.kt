@@ -20,7 +20,7 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.ui.composables.profile.other_profile.UnBlockAccountAlert
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
@@ -39,7 +39,7 @@ fun CustomBlockedAccountRow(
     ) {
 
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clickable {
-            Navigate.navigate("profile_screen/" + account.id, navController)
+            navController.navigate(Destination.Profile(account.id))
         }) {
             AsyncImage(
                 model = account.avatar,

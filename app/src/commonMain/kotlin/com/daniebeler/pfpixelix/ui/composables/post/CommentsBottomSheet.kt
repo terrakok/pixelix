@@ -65,8 +65,7 @@ import com.daniebeler.pfpixelix.ui.composables.post.reply.ReplyElementViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FixedHeightLoadingComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_mentions.TextFieldMentionsComposable
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.TimeAgo
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
@@ -82,7 +81,6 @@ fun CommentsBottomSheet(
     post: Post, navController: NavController, viewModel: PostViewModel
 ) {
     var replyText by remember { mutableStateOf(TextFieldValue("")) }
-    val context = LocalKmpContext.current
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -122,7 +120,7 @@ fun CommentsBottomSheet(
                         navController = navController,
                         {},
                         viewModel.myAccountId,
-                        { url -> viewModel.openUrl(url, context) })
+                        { url -> viewModel.openUrl(url) })
                 }
 
                 TextFieldMentionsComposable(submit = { text ->
@@ -182,7 +180,7 @@ fun CommentsBottomSheet(
                     navController = navController,
                     { viewModel.deleteReply(reply.id) },
                     viewModel.myAccountId,
-                    { url -> viewModel.openUrl(url, context) })
+                    { url -> viewModel.openUrl(url) })
             }
 
             if (viewModel.repliesState.isLoading) {
@@ -262,9 +260,7 @@ private fun ReplyElement(
                     .width(42.dp)
                     .clip(CircleShape)
                     .clickable {
-                        Navigate.navigate(
-                            "profile_screen/" + reply.account.id, navController
-                        )
+                        navController.navigate(Destination.Profile(reply.account.id))
                     })
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -275,9 +271,7 @@ private fun ReplyElement(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.clickable {
-                            Navigate.navigate(
-                                "profile_screen/" + reply.account.id, navController
-                            )
+                            navController.navigate(Destination.Profile(reply.account.id))
                         })
 
                     Text(

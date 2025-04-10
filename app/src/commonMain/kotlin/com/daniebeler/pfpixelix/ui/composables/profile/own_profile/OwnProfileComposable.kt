@@ -43,7 +43,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.di.injectViewModel
+import com.daniebeler.pfpixelix.domain.service.platform.PlatformFeatures
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
 import com.daniebeler.pfpixelix.ui.composables.profile.CollectionsComposable
 import com.daniebeler.pfpixelix.ui.composables.profile.PostsWrapperComposable
@@ -52,8 +54,7 @@ import com.daniebeler.pfpixelix.ui.composables.profile.SwitchViewComposable
 import com.daniebeler.pfpixelix.ui.composables.profile.server_stats.DomainSoftwareComposable
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenErrorComposable
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.edit_profile
@@ -65,7 +66,6 @@ fun OwnProfileComposable(
     openPreferencesDrawer: () -> Unit,
     viewModel: OwnProfileViewModel = injectViewModel(key = "own-profile-key") { ownProfileViewModel }
 ) {
-
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showBottomSheet by remember { mutableStateOf(0) }
 
@@ -130,9 +130,7 @@ fun OwnProfileComposable(
                             ) {
                                 Button(
                                     onClick = {
-                                        Navigate.navigate(
-                                            "edit_profile_screen", navController
-                                        )
+                                        navController.navigate(Destination.EditProfile)
                                     },
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RoundedCornerShape(12.dp),
@@ -158,7 +156,7 @@ fun OwnProfileComposable(
                                 }
                             },
                             navController = navController,
-                            addNewButton = true,
+                            addNewButton = PlatformFeatures.addCollection,
                             instanceDomain = viewModel.ownDomain,
                         ) { url -> viewModel.openUrl(url) }
 

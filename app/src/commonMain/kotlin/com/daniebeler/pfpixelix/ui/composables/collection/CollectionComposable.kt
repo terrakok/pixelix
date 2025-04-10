@@ -48,7 +48,6 @@ import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.composables.InfinitePostsGrid
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
@@ -73,8 +72,6 @@ fun CollectionComposable(
     val showAddPostBottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     var showBottomSheet by remember { mutableStateOf(false) }
     var showAddPostBottomSheet by remember { mutableStateOf(false) }
-
-    val context = LocalKmpContext.current
 
     LaunchedEffect(Unit) {
         viewModel.loadData(collectionId)
@@ -132,13 +129,18 @@ fun CollectionComposable(
                 }
             } else {
 
-                IconButton(onClick = {
-                    viewModel.toggleEditMode()
-                }) {
-                    Icon(
-                        imageVector = Icons.Outlined.Edit, contentDescription = ""
-                    )
+                viewModel.collectionState.collection?.let {
+                    if (it.username == viewModel.myUsername) {
+                        IconButton(onClick = {
+                            viewModel.toggleEditMode()
+                        }) {
+                            Icon(
+                                imageVector = Icons.Outlined.Edit, contentDescription = ""
+                            )
+                        }
+                    }
                 }
+
                 IconButton(onClick = {
                     //Navigate.navigate("settings_screen", navController)
                     showBottomSheet = true
@@ -168,7 +170,7 @@ fun CollectionComposable(
                 ),
                 navController = navController,
                 getItemsPaginated = {
-                    //viewModel.getItemsPaginated()
+                    viewModel.getPostsPaginated(false)
                 },
                 after = {
                     if (viewModel.editState.editMode) {
@@ -198,8 +200,7 @@ fun CollectionComposable(
                 onDismissRequest = {
                     showBottomSheet = false
                 },
-                sheetState = sheetState,
-                modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+                sheetState = sheetState
             ) {
                 Column(
                     modifier = Modifier.padding(bottom = 32.dp)
@@ -209,9 +210,7 @@ fun CollectionComposable(
                         Res.string.open_in_browser
                     ), onClick = {
                         if (viewModel.collectionState.collection != null) {
-                            viewModel.openUrl(
-                                viewModel.collectionState.collection!!.url, context
-                            )
+                            viewModel.openUrl(viewModel.collectionState.collection!!.url)
                         }
                     })
 
@@ -229,8 +228,7 @@ fun CollectionComposable(
                 onDismissRequest = {
                     showAddPostBottomSheet = false
                 },
-                sheetState = showAddPostBottomSheetState,
-                modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+                sheetState = showAddPostBottomSheetState
             ) {
                 Column(
                     modifier = Modifier.padding(bottom = 32.dp)

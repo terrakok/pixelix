@@ -1,3 +1,5 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinMultiplatform)
@@ -11,7 +13,7 @@ plugins {
 kotlin {
     jvmToolchain(17)
     androidTarget()
-    
+    jvm()
     listOf(
         iosX64(),
         iosArm64(),
@@ -87,8 +89,6 @@ kotlin {
 
             //image loader
             implementation(libs.coil.compose)
-            implementation(libs.coil.video)
-            implementation(libs.coil.gif)
             implementation(libs.coil.network)
 
             //image crop
@@ -104,7 +104,6 @@ kotlin {
 
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.runtime.livedata)
             implementation(libs.androidx.browser)
 
             implementation(libs.accompanist.systemuicontroller)
@@ -116,6 +115,8 @@ kotlin {
             implementation(libs.androidx.media3.exoplayer.dash)
             implementation(libs.androidx.media3.ui)
             implementation(libs.android.image.cropper)
+            implementation(libs.coil.video)
+            implementation(libs.coil.gif)
 
             // widget
             implementation(libs.androidx.glance.appwidget)
@@ -127,6 +128,21 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
+
+        jvmMain.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.appdirs)
+            implementation(libs.slf4j.simple)
+            implementation(libs.vlcj)
+            implementation(libs.jna)
+            implementation(libs.jna.platform)
+        }
+    }
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
 
@@ -138,8 +154,8 @@ android {
         applicationId = "com.daniebeler.pfpixelix"
         minSdk = 26
         targetSdk = 35
-        versionCode = 30
-        versionName = "4.0.3"
+        versionCode = 31
+        versionName = "4.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -177,10 +193,53 @@ android {
 dependencies {
     listOf(
         "kspAndroid",
+        "kspJvm",
         "kspIosX64",
         "kspIosArm64",
         "kspIosSimulatorArm64"
     ).forEach {
         add(it, libs.kotlin.inject.compiler.ksp)
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "com.daniebeler.pfpixelix.MainKt"
+
+        nativeDistributions {
+            targetFormats(Dmg, Msi, Deb)
+            packageName = "Pixelix"
+            packageVersion = "1.0.0"
+
+            //data store https://issuetracker.google.com/280205600
+            modules("jdk.unsupported")
+            modules("jdk.unsupported.desktop")
+
+            linux {
+                iconFile.set(project.file("desktopAppIcons/LinuxIcon.png"))
+            }
+            windows {
+                iconFile.set(project.file("desktopAppIcons/WindowsIcon.ico"))
+            }
+            macOS {
+                iconFile.set(project.file("desktopAppIcons/MacosIcon.icns"))
+                bundleID = "com.daniebeler.pfpixelix"
+                infoPlist {
+                    extraKeysRawXml = """
+                      <key>CFBundleURLTypes</key>
+                      <array>
+                        <dict>
+                          <key>CFBundleURLName</key>
+                          <string>Pixelix auth redirect</string>
+                          <key>CFBundleURLSchemes</key>
+                          <array>
+                            <string>pixelix-android-auth</string>
+                          </array>
+                        </dict>
+                      </array>
+                    """.trimIndent()
+                }
+            }
+        }
     }
 }

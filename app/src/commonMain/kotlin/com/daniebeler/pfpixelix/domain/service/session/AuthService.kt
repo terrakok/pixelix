@@ -3,6 +3,7 @@ package com.daniebeler.pfpixelix.domain.service.session
 import androidx.datastore.core.DataStore
 import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.di.AppSingleton
+import com.daniebeler.pfpixelix.domain.service.platform.Platform
 import com.daniebeler.pfpixelix.domain.service.search.SavedSearchesService
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
@@ -25,7 +26,8 @@ class AuthService(
     private val session: Session,
     private val sessionStorage: DataStore<SessionStorage>,
     private val savedSearchesService: SavedSearchesService,
-    private val json: Json
+    private val json: Json,
+    private val platform: Platform
 ) {
     companion object {
         private const val clientName = "pixelix"
@@ -50,9 +52,11 @@ class AuthService(
             }
         }.build()
 
-        urlHandler.openBrowser(authUrl.toString())
+       // urlHandler.openBrowser(authUrl.toString())
+        platform.openUrl(authUrl.toString())
 
         val redirect = Url(urlHandler.redirects.first())
+        platform.dismissBrowser()
 
         val code = redirect.parameters["code"] ?: error("Redirect doesn't have a code")
 
@@ -92,6 +96,7 @@ class AuthService(
             }
             session.setCredentials(cred)
             data.copy(activeUserId = cred?.accountId)
+
         }
     }
 

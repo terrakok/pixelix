@@ -1,6 +1,5 @@
 package com.daniebeler.pfpixelix.ui.composables.edit_post
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
@@ -32,8 +30,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.ArrowLeft
 import androidx.compose.material.icons.automirrored.outlined.ArrowRight
-import androidx.compose.material.icons.outlined.ArrowDownward
-import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -72,24 +68,17 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
-import com.daniebeler.pfpixelix.ui.composables.newpost.ImagesPager
-import com.daniebeler.pfpixelix.ui.composables.newpost.NewPostViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
+import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposableDialog
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_location.TextFieldLocationsComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_mentions.TextFieldMentionsComposable
-import com.daniebeler.pfpixelix.utils.KmpUri
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.getPlatformUriObject
 import com.daniebeler.pfpixelix.utils.toKmpUri
-import io.github.vinceglb.filekit.compose.rememberFilePickerLauncher
-import io.github.vinceglb.filekit.core.PickerMode
-import io.github.vinceglb.filekit.core.PickerType
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
-import pixelix.app.generated.resources.add_outline
 import pixelix.app.generated.resources.alt_text
 import pixelix.app.generated.resources.cancel
 import pixelix.app.generated.resources.caption
@@ -117,8 +106,6 @@ fun EditPostComposable(
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
-
-    val context = LocalKmpContext.current
 
     LaunchedEffect(Unit) {
         viewModel.loadData(postId)
@@ -335,7 +322,11 @@ fun EditPostComposable(
                 }
 
                 LoadingComposable(isLoading = viewModel.editPostState.isLoading)
-                ErrorComposable(message = viewModel.editPostState.error)
+                ErrorComposableDialog(
+                    errorMessage = viewModel.editPostState.error,
+                    onDismiss = { viewModel.editPostState = viewModel.editPostState.copy(error = "") }
+                )
+
                 Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.ime))
             }
 
@@ -469,7 +460,8 @@ fun ImagesPagerEditPost(
                             AsyncImage(
                                 model = image.url.toKmpUri().getPlatformUriObject(),
                                 contentDescription = "video thumbnail",
-                                modifier = Modifier.width(100.dp)
+                                modifier = Modifier.fillMaxWidth(),
+                                contentScale = ContentScale.Inside
                             )
                         } else {
                             AsyncImage(

@@ -21,10 +21,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,8 +32,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.service.platform.PlatformFeatures
+import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.AutoplayVideoPref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.ClearCachePref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.CustomizeAppIconPref
+import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.DeleteAccountPref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.FocusModePref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.HideAltTextButtonPref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.HideSensitiveContentPref
@@ -42,7 +44,6 @@ import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.MoreSe
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.RepostSettingsPref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.ThemePref
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.UseInAppBrowserPref
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
@@ -96,14 +97,20 @@ fun PreferencesComposable(
                 UseInAppBrowserPref()
             }
 
+            if (PlatformFeatures.autoplayVideosPref) {
+                AutoplayVideoPref()
+            }
+
             RepostSettingsPref { viewModel.openRepostSettings() }
 
             HorizontalDivider(modifier = Modifier.padding(12.dp))
 
             ThemePref()
 
-            val icon = viewModel.appIcon.collectAsState()
-            CustomizeAppIconPref(navController, closePreferencesDrawer, icon.value)
+            if (PlatformFeatures.customAppIcon) {
+                val icon = viewModel.appIcon.collectAsState()
+                CustomizeAppIconPref(navController, closePreferencesDrawer, icon.value)
+            }
 
             HorizontalDivider(modifier = Modifier.padding(12.dp))
 
@@ -112,6 +119,8 @@ fun PreferencesComposable(
             MoreSettingsPref { viewModel.openMoreSettingsPage() }
 
             LogoutPref { viewModel.logout() }
+
+            DeleteAccountPref { viewModel.openDeleteAccountPage() }
 
             HorizontalDivider(modifier = Modifier.padding(12.dp))
 

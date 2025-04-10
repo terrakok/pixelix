@@ -30,7 +30,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,8 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -56,7 +54,6 @@ import pixelix.app.generated.resources.code_slash_outline
 import pixelix.app.generated.resources.developed_by
 import pixelix.app.generated.resources.mastodon_logo
 import pixelix.app.generated.resources.pixelfed_logo
-import pixelix.app.generated.resources.pixelix_logo
 import pixelix.app.generated.resources.shield_outline
 import pixelix.app.generated.resources.star_outline
 
@@ -175,9 +172,7 @@ fun AboutPixelixComposable(
                             .width(32.dp)
                             .height(32.dp)
                             .clickable {
-                                Navigate.navigate(
-                                    "profile_screen/677938259497057424", navController
-                                )
+                                navController.navigate(Destination.ProfileByUsername("hiebeler05@pixelix.social"))
                             })
 
                     Spacer(modifier = Modifier.width(16.dp))
@@ -224,9 +219,7 @@ fun AboutPixelixComposable(
                             .width(32.dp)
                             .height(32.dp)
                             .clickable {
-                                Navigate.navigate(
-                                    "profile_screen/497910174831013185", navController
-                                )
+                                navController.navigate(Destination.ProfileByUsername("daniebeler@pixelix.social"))
                             })
 
                     Spacer(modifier = Modifier.width(16.dp))
@@ -250,6 +243,53 @@ fun AboutPixelixComposable(
                             .size(32.dp)
                             .clickable {
                                 viewModel.openUrl("https://daniebeler.com")
+                            },
+                        tint = Color(0xFF4793FF)
+                    )
+                }
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 16.dp)
+            ) {
+                Text(text = "Konstantin Tskhovrebov", fontWeight = FontWeight.Bold)
+
+                Row {
+                    Image(
+                        painter = painterResource(Res.drawable.pixelfed_logo),
+                        contentDescription = null,
+                        Modifier
+                            .width(32.dp)
+                            .height(32.dp)
+                            .clickable {
+                                navController.navigate(Destination.ProfileByUsername("dagboek@pixey.org"))
+                            })
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Image(
+                        painter = painterResource(Res.drawable.mastodon_logo),
+                        contentDescription = null,
+                        Modifier
+                            .width(32.dp)
+                            .height(32.dp)
+                            .clickable {
+                                viewModel.openUrl("https://androiddev.social/@terrakok")
+                            })
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Icon(
+                        imageVector = Icons.Outlined.Language,
+                        contentDescription = "",
+                        Modifier
+                            .size(32.dp)
+                            .clickable {
+                                viewModel.openUrl("https://github.com/terrakok")
                             },
                         tint = Color(0xFF4793FF)
                     )

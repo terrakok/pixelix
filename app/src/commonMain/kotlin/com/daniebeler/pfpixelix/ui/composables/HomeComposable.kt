@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -41,7 +38,7 @@ import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.ui.composables.timelines.global_timeline.GlobalTimelineComposable
 import com.daniebeler.pfpixelix.ui.composables.timelines.home_timeline.HomeTimelineComposable
 import com.daniebeler.pfpixelix.ui.composables.timelines.local_timeline.LocalTimelineComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -81,10 +78,7 @@ fun HomeComposable(navController: NavController, openPreferencesDrawer: () -> Un
                 Row {
 
                     IconButton(onClick = {
-                        Navigate.navigate(
-                            "conversations",
-                            navController
-                        )
+                        navController.navigate(Destination.Conversations)
                     }) {
                         Icon(
                             imageVector = vectorResource(Res.drawable.mail_outline),
@@ -168,8 +162,7 @@ fun HomeComposable(navController: NavController, openPreferencesDrawer: () -> Un
             onDismissRequest = {
                 showBottomSheet = false
             },
-            sheetState = sheetState,
-            modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+            sheetState = sheetState
         ) {
             Box(
                 modifier = Modifier

@@ -48,6 +48,9 @@ class HomeTimelineViewModel @Inject constructor(
     }
 
     private fun getItemsFirstLoad(refreshing: Boolean, enableReblogs: Boolean) {
+        if (homeTimelineState.homeTimeline.isNotEmpty() && !refreshing) {
+            return
+        }
         timelineService.getHomeTimeline(
             enableReblogs = enableReblogs
         ).onEach { result ->

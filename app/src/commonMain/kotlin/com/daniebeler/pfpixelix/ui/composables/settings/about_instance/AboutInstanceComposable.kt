@@ -36,8 +36,7 @@ import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenErrorComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenLoadingComposable
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.StringFormat
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -62,9 +61,6 @@ fun AboutInstanceComposable(
 ) {
 
     val lazyListState = rememberLazyListState()
-
-    val context = LocalKmpContext.current
-
     Scaffold(contentWindowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), topBar = {
         CenterAlignedTopAppBar(title = {
             Text(text = viewModel.ownInstanceDomain, fontWeight = FontWeight.Bold)
@@ -137,9 +133,7 @@ fun AboutInstanceComposable(
 
                         Row(modifier = Modifier
                             .clickable {
-                                Navigate.navigate(
-                                    "profile_screen/" + account.id, navController
-                                )
+                                navController.navigate(Destination.Profile(account.id))
                             }
                             .padding(horizontal = 12.dp, vertical = 8.dp)
                             .fillMaxWidth(),
@@ -179,7 +173,7 @@ fun AboutInstanceComposable(
                         .clickable {
                             if (viewModel.instanceState.instance != null) {
                                 viewModel.openUrl(
-                                    url = "https://" + viewModel.instanceState.instance!!.domain + "/site/privacy", context
+                                    url = "https://" + viewModel.instanceState.instance!!.domain + "/site/privacy"
                                 )
                             }
                         })
@@ -202,7 +196,7 @@ fun AboutInstanceComposable(
                         .clickable {
                             if (viewModel.instanceState.instance != null) {
                                 viewModel.openUrl(
-                                    url = "https://" + viewModel.instanceState.instance!!.domain + "/site/terms", context
+                                    url = "https://" + viewModel.instanceState.instance!!.domain + "/site/terms"
                                 )
                             }
                         })

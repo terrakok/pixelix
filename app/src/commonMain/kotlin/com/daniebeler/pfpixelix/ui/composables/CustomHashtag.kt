@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.domain.model.Tag
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 
 @Composable
 fun CustomHashtag(hashtag: Tag, navController: NavController) {
@@ -43,7 +43,7 @@ private fun CustomHashtagPrivate(hashtag: Tag, onClick: () -> Unit, navControlle
             .fillMaxWidth()
             .clickable {
                 onClick()
-                Navigate.navigate("hashtag_timeline_screen/${hashtag.name}", navController)
+                navController.navigate(Destination.HashtagTimeline(hashtag.name))
             }, verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
@@ -64,18 +64,11 @@ private fun CustomHashtagPrivate(hashtag: Tag, onClick: () -> Unit, navControlle
 
         Column {
             Text(text = "#" + hashtag.name)
-            if (hashtag.count != null) {
-                Text(
-                    text = hashtag.count.toString() + " posts",
-                    fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            } else {/*Text(
-                    text = hashtag.total.toString() + " people are talking",
-                    fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )*/
-            }
+            Text(
+                text = hashtag.count.toString() + " posts",
+                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.primary
+            )
         }
     }
 }

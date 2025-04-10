@@ -28,6 +28,7 @@ import platform.AVFoundation.tracksWithMediaType
 import platform.AVKit.AVPlayerViewController
 import platform.CoreMedia.CMTimeGetSeconds
 import platform.Foundation.NSURL
+import platform.Foundation.observeValueForKeyPath
 import platform.UIKit.UIView
 
 @OptIn(ExperimentalForeignApi::class)
@@ -37,6 +38,7 @@ actual class VideoPlayer actual constructor(
 ) {
     actual var progress: ((current: Long, duration: Long) -> Unit)? = null
     actual var hasAudio: ((Boolean) -> Unit)? = null
+    actual var isVideoPlaying: ((Boolean) -> Unit)? = null
 
     private var extractAudioInfoJob: Job? = null
 
@@ -86,7 +88,6 @@ actual class VideoPlayer actual constructor(
 
     actual fun prepare(url: String) {
         release()
-
         val item = AVPlayerItem(NSURL(string = url))
         player.replaceCurrentItemWithPlayerItem(item)
 

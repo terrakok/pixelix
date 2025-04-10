@@ -2,6 +2,7 @@ package com.daniebeler.pfpixelix.domain.service.post
 
 import com.daniebeler.pfpixelix.domain.model.LikedPostsWithNext
 import com.daniebeler.pfpixelix.domain.model.NewReply
+import com.daniebeler.pfpixelix.domain.model.NewReport
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.repository.PixelfedApi
 import com.daniebeler.pfpixelix.domain.service.preferences.UserPreferences
@@ -29,7 +30,6 @@ class PostService(
     private val authService: AuthService,
     private val json: Json
 ) {
-
     fun getPostById(postId: String) = loadResource {
         api.getPostById(postId)
     }
@@ -108,6 +108,10 @@ class PostService(
 
     fun getBookmarkedPosts() = loadListResources {
         api.getBookmarkedPosts()
+    }
+
+    fun reportPost(reportBody: NewReport) = loadResource {
+        api.reportPost(json.encodeToString(reportBody))
     }
 
     fun getTrendingPosts(range: String) = loadListResources {

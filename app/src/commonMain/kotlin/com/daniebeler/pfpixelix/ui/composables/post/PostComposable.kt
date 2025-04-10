@@ -31,6 +31,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Cached
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.LocationOn
@@ -46,11 +47,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -74,25 +75,24 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
-import co.touchlab.kermit.Logger
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
+import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.BlurHashDecoder
-import com.daniebeler.pfpixelix.utils.KmpUri
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
-import com.daniebeler.pfpixelix.utils.Navigate
-import com.daniebeler.pfpixelix.utils.toKmpUri
+import com.daniebeler.pfpixelix.utils.TimeAgo
 import com.daniebeler.pfpixelix.utils.zoomable.rememberZoomState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.engawapg.lib.zoomable.snapBackZoomable
+import net.engawapg.lib.zoomable.zoomable
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -115,6 +115,7 @@ import pixelix.app.generated.resources.ok
 import pixelix.app.generated.resources.others
 import pixelix.app.generated.resources.reblogged_by
 import pixelix.app.generated.resources.sync_outline
+import pixelix.app.generated.resources.sync_outline_bold
 import pixelix.app.generated.resources.this_action_cannot_be_undone
 import pixelix.app.generated.resources.view_comments
 
@@ -132,9 +133,6 @@ fun PostComposable(
     updatePost: (post: Post) -> Unit = {},
     viewModel: PostViewModel = injectViewModel(key = "post" + post.id) { postViewModel }
 ) {
-
-    val context = LocalKmpContext.current
-
     var postId by remember { mutableStateOf(post.id) }
     val sheetState = rememberModalBottomSheetState()
     var showBottomSheet by remember {
@@ -147,9 +145,8 @@ fun PostComposable(
         )
     }
 
-    DisposableEffect(post.createdAt) {
-        viewModel.convertTime(post.createdAt)
-        onDispose {}
+    val timeAgoText = produceState(initialValue = "") {
+        value = TimeAgo.convertTimeToText(post.createdAt)
     }
 
     LaunchedEffect(Unit) {
@@ -197,7 +194,8 @@ fun PostComposable(
 
 
     var animateHeart by remember { mutableStateOf(false) }
-    val heartScale by animateFloatAsState(targetValue = if (animateHeart) 1.3f else 1f,
+    val heartScale by animateFloatAsState(
+        targetValue = if (animateHeart) 1.3f else 1f,
         animationSpec = tween(durationMillis = 200, easing = LinearEasing),
         finishedListener = {
             animateHeart = false
@@ -211,9 +209,7 @@ fun PostComposable(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.padding(start = 16.dp, end = 12.dp).clickable(onClick = {
-                        Navigate.navigate(
-                            "profile_screen/" + reblogAccount.id, navController
-                        )
+                        navController.navigate(Destination.Profile(reblogAccount.id))
                     })
                 ) {
                     Icon(Icons.Outlined.Cached, contentDescription = "reblogged by")
@@ -229,9 +225,7 @@ fun PostComposable(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(start = 16.dp, end = 12.dp).clickable(onClick = {
-                    Navigate.navigate(
-                        "profile_screen/" + viewModel.post!!.account.id, navController
-                    )
+                    navController.navigate(Destination.Profile(viewModel.post!!.account.id))
                 })
             ) {
                 AsyncImage(
@@ -287,9 +281,9 @@ fun PostComposable(
             Spacer(modifier = Modifier.height(6.dp))
 
             if (viewModel.post!!.mediaAttachments.isNotEmpty()) {
-                if (viewModel.post!!.sensitive && !viewModel.showPost) {
+                if (viewModel.post!!.sensitive && !viewModel.showPost && viewModel.blurSensitiveContent) {
 
-                    Box {
+                    Box(modifier.padding(start = 12.dp, end = 12.dp).clip(RoundedCornerShape(16.dp))) {
                         val blurHashBitmap = BlurHashDecoder.decode(
                             viewModel.post!!.mediaAttachments[0].blurHash
                         )
@@ -333,11 +327,13 @@ fun PostComposable(
 
                 } else {
                     if (viewModel.post!!.mediaAttachments.count() > 1) {
-                        Box(
-
-                        ) {
+                        val smallestAspectRatio = viewModel.post!!.mediaAttachments
+                            .minByOrNull { it.meta?.original?.aspect ?: 1.0 }
+                        Box {
                             HorizontalPager(
-                                state = pagerState, modifier = Modifier.zIndex(50f)
+                                state = pagerState, modifier = Modifier.zIndex(50f).aspectRatio(
+                                    smallestAspectRatio?.meta?.original?.aspect?.toFloat() ?: 1f
+                                )
                             ) { page ->
                                 Box(
                                     modifier = Modifier.zIndex(10f)
@@ -406,7 +402,7 @@ fun PostComposable(
                             mentions = viewModel.post!!.mentions,
                             navController = navController,
                             textSize = 18.sp,
-                            openUrl = { url -> viewModel.openUrl(url, context) },
+                            openUrl = { url -> viewModel.openUrl(url) },
                             modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
                         )
                         HorizontalDivider()
@@ -483,7 +479,7 @@ fun PostComposable(
                                     viewModel.unreblogPost(postId, updatePost)
                                 }) {
                                     Icon(
-                                        imageVector = vectorResource(Res.drawable.sync_outline),
+                                        imageVector = vectorResource(Res.drawable.sync_outline_bold),
                                         contentDescription = "undo reblog post",
                                         tint = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier.rotate(boostRotation)
@@ -530,23 +526,22 @@ fun PostComposable(
                             Text(
                                 text = stringResource(Res.string.liked_by) + " ", fontSize = 14.sp
                             )
-                            Text(text = viewModel.post!!.likedBy!!.username!!,
+                            Text(
+                                text = viewModel.post!!.likedBy!!.username!!,
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.clickable {
-                                    Navigate.navigate(
-                                        "profile_screen/" + viewModel.post!!.likedBy!!.id,
-                                        navController
-                                    )
+                                    navController.navigate(Destination.Profile(viewModel.post!!.likedBy!!.id!!))
                                 })
                             if (post.favouritesCount > 1) {
                                 Text(
                                     text = " " + stringResource(Res.string.and) + " ",
                                     fontSize = 14.sp
                                 )
-                                Text(text = (viewModel.post!!.favouritesCount - 1).toString() + " " + stringResource(
-                                    Res.string.others
-                                ),
+                                Text(
+                                    text = (viewModel.post!!.favouritesCount - 1).toString() + " " + stringResource(
+                                        Res.string.others
+                                    ),
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 14.sp,
                                     modifier = Modifier.clickable {
@@ -569,7 +564,7 @@ fun PostComposable(
                                 text = viewModel.post!!.content,
                                 mentions = viewModel.post!!.mentions,
                                 navController = navController,
-                                openUrl = { url -> viewModel.openUrl(url, context) },
+                                openUrl = { url -> viewModel.openUrl(url) },
                                 maximumLines = 4
                             )
                         }
@@ -579,9 +574,10 @@ fun PostComposable(
 
                         Spacer(modifier = Modifier.height(6.dp))
 
-                        Text(text = stringResource(
-                            Res.string.view_comments, viewModel.post!!.replyCount
-                        ),
+                        Text(
+                            text = stringResource(
+                                Res.string.view_comments, viewModel.post!!.replyCount
+                            ),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.clickable {
                                 viewModel.loadReplies(
@@ -592,7 +588,7 @@ fun PostComposable(
                     }
 
                     Text(
-                        text = viewModel.timeAgoString,
+                        text = timeAgoText.value,
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -609,15 +605,13 @@ fun PostComposable(
             onDismissRequest = {
                 showBottomSheet = 0
             },
-            sheetState = sheetState,
-            modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+            sheetState = sheetState
         ) {
             if (showBottomSheet == 1) {
                 CommentsBottomSheet(post, navController, viewModel)
             } else if (showBottomSheet == 2) {
                 if (viewModel.myAccountId != null && post.account.id == viewModel.myAccountId) {
                     ShareBottomSheet(
-                        context,
                         post.url,
                         true,
                         viewModel,
@@ -627,7 +621,6 @@ fun PostComposable(
                     )
                 } else {
                     ShareBottomSheet(
-                        context,
                         post.url,
                         false,
                         viewModel,
@@ -737,14 +730,13 @@ fun PostImage(
             })
         }) {
             if (mediaAttachment.type == "image") {
-                ImageWrapper(mediaAttachment,
+                ImageWrapper(
+                    mediaAttachment,
                     { zoomState.setContentSize(it.painter.intrinsicSize) },
                     { imageLoaded = true })
             } else {
                 VideoAttachment(
-                    mediaAttachment,
-                    viewModel,
-                    { imageLoaded = true })
+                    mediaAttachment, viewModel, { imageLoaded = true })
             }
         }
 
@@ -800,7 +792,8 @@ private fun ImageWrapper(
     setContentSize: (painter: AsyncImagePainter.State.Success) -> Unit,
     onSuccess: () -> Unit
 ) {
-    AsyncImage(model = mediaAttachment.url,
+    AsyncImage(
+        model = mediaAttachment.url,
         contentDescription = "",
         Modifier.fillMaxWidth(),
         contentScale = ContentScale.FillWidth,
@@ -847,18 +840,24 @@ fun MediaDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Box(
-            modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.8f))
-                .clickable(onClick = closeDialog), // Close on background tap
+            modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.8f)).clickable {
+                closeDialog()
+            },
             contentAlignment = Alignment.Center
         ) {
-            Box(modifier = Modifier.zIndex(2f).snapBackZoomable(zoomState)) {
+            Box(modifier = Modifier.zIndex(2f).zoomable(zoomState).clickable { }) {
                 if (mediaAttachment.type == "image") {
-                    ImageWrapper(mediaAttachment,
+                    ImageWrapper(
+                        mediaAttachment,
                         { zoomState.setContentSize(it.painter.intrinsicSize) },
                         {})
                 } else {
                     VideoAttachment(mediaAttachment, postViewModel, {})
-
+                }
+            }
+            Box(Modifier.align(Alignment.TopEnd).padding(20.dp).zIndex(2f)) {
+                IconButton(onClick = { closeDialog() }) {
+                    Icon(Icons.Outlined.Close, "", tint = Color.White)
                 }
             }
         }

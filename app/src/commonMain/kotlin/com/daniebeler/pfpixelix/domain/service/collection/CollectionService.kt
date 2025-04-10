@@ -18,8 +18,8 @@ class CollectionService(
         api.getCollection(collectionId)
     }
 
-    fun getPostsOfCollection(collectionId: String) = loadListResources {
-        api.getPostsOfCollection(collectionId)
+    fun getPostsOfCollection(collectionId: String, page: Int = 1) = loadListResources {
+        api.getPostsOfCollection(collectionId, page)
     }
 
     fun removePostOfCollection(collectionId: String, postId: String) = loadResource {

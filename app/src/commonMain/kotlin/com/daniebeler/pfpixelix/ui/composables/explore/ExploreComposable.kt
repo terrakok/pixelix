@@ -46,18 +46,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import co.touchlab.kermit.Logger
 import coil3.compose.AsyncImage
+import com.daniebeler.pfpixelix.di.LocalAppComponent
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.domain.model.SavedSearchItem
@@ -66,9 +71,7 @@ import com.daniebeler.pfpixelix.ui.composables.CustomHashtag
 import com.daniebeler.pfpixelix.ui.composables.custom_account.CustomAccount
 import com.daniebeler.pfpixelix.ui.composables.explore.trending.TrendingComposable
 import com.daniebeler.pfpixelix.ui.composables.states.FullscreenLoadingComposable
-import com.daniebeler.pfpixelix.utils.KmpContext
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -88,13 +91,21 @@ fun ExploreComposable(
     initialPage: Int = 0,
     viewModel: ExploreViewModel = injectViewModel(key = "search-viewmodel-key") { exploreViewModel }
 ) {
-    val context: KmpContext = LocalKmpContext.current
-
+    val focusRequester = remember { FocusRequester() }
     val textFieldState = rememberTextFieldState()
     var expanded by rememberSaveable { mutableStateOf(false) }
 
+    val appComponent = LocalAppComponent.current
+    LaunchedEffect(Unit) {
+        appComponent.searchFieldFocus.events.collect {
+            Logger.d("search") { "Request search focus" }
+            focusRequester.requestFocus()
+        }
+    }
+
     Box(Modifier
         .fillMaxSize()
+        .background(MaterialTheme.colorScheme.surface)
         .semantics { isTraversalGroup = true }) {
         SearchBar(
             modifier = Modifier
@@ -112,6 +123,7 @@ fun ExploreComposable(
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
                     placeholder = { Text(stringResource(Res.string.explore)) },
+                    modifier = Modifier.focusRequester(focusRequester),
                     leadingIcon = {
                         if (!expanded) {
                             Icon(vectorResource(Res.drawable.search_outline), contentDescription = null)
@@ -296,13 +308,9 @@ private fun PastSearchItem(
             .fillMaxWidth()
             .clickable {
                 when (item.savedSearchType) {
-                    SavedSearchType.Account -> Navigate.navigate(
-                        "profile_screen/" + item.account!!.id, navController
-                    )
+                    SavedSearchType.Account -> navController.navigate(Destination.Profile(item.account!!.id))
 
-                    SavedSearchType.Hashtag -> Navigate.navigate(
-                        "hashtag_timeline_screen/${item.value}", navController
-                    )
+                    SavedSearchType.Hashtag -> navController.navigate(Destination.HashtagTimeline(item.value))
 
                     SavedSearchType.Search -> setSearchText(item.value)
                 }

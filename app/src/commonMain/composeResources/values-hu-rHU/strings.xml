@@ -18,7 +18,19 @@
     <string name="follow">Követés</string>
     <string name="unfollow">Követés vége</string>
     <string name="followers">Követő</string>
+    <plurals name="follower">
+        <item quantity="one">Követő</item>
+        <item quantity="other">Követő</item>
+    </plurals>
     <string name="following">Követett</string>
+    <plurals name="following">
+        <item quantity="one">Követett</item>
+        <item quantity="other">Követett</item>
+    </plurals>
+    <plurals name="posts">
+        <item quantity="one">Bejegyzés</item>
+        <item quantity="other">Bejegyzés</item>
+    </plurals>
     <string name="posts">Bejegyzés</string>
     <string name="hashtags">Hashtagek</string>
     <string name="reblogged_your_post">megosztotta a bejegyzésed</string>
@@ -216,4 +228,55 @@
     <string name="focus_mode_description">Elrejti a bejegyzések alól a leírást, a kedveléseket és a gombokat.</string>
     <string name="repost_settings">Megosztások beállítása</string>
     <string name="amoled">AMOLED</string>
+    <string name="no_followers_yet">Még nincsenek követői</string>
+    <string name="not_following_anyone">Nem követ senkit</string>
+    <string name="read_more">Bővebben</string>
+    <string name="read_less">Rövidebben</string>
+    <string name="joined_date">Csatlakozás ideje %1$s</string>
+    <string name="ago">ezelőtt</string>
+    <string name="delete_message">Üzenet törlése</string>
+    <string name="video_player_not_supported">Nem támogatott videólejátszó</string>
+    <plurals name="second">
+        <item quantity="one">másodperccel</item>
+        <item quantity="other">másodperccel</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">perccel</item>
+        <item quantity="other">perccel</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">órával</item>
+        <item quantity="other">órával</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="one">nappal</item>
+        <item quantity="other">nappal</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="one">héttel</item>
+        <item quantity="other">héttel</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="one">hónappal</item>
+        <item quantity="other">hónappal</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="one">évvel</item>
+        <item quantity="other">évvel</item>
+    </plurals>
+    <string name="blur_sensitive_content">Érzékeny tartalom elhomályosítása</string>
+    <string name="autoplay_videos">Videók automatikus lejátszása</string>
+    <string name="report_this_post">Bejegyzés jelentése</string>
+    <string name="report">Jelentés</string>
+    <string name="spam">Spam</string>
+    <string name="adult_or_sensitive_content">Felnőtt vagy érzékeny tartalom</string>
+    <string name="abusive_or_harmful">Bántalmazó vagy káros</string>
+    <string name="underage_account">Kiskorú fiók</string>
+    <string name="violence">Erőszak</string>
+    <string name="copyright_infringement">Szerzői jog megsértése</string>
+    <string name="impersonation">Hamis személyazonosság</string>
+    <string name="scam">Csalás</string>
+    <string name="terrorism">Terrorizmus</string>
+    <string name="reported">Jelentve</string>
+    <string name="delete_account">Fiók törlése</string>
 </resources>

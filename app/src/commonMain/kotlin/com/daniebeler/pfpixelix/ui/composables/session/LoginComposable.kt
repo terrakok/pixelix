@@ -1,7 +1,9 @@
 package com.daniebeler.pfpixelix.ui.composables.session
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +24,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,7 +36,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -42,15 +49,23 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -69,12 +84,20 @@ import pixelix.app.generated.resources.pixelix_logo_black_xxl
 import pixelix.app.generated.resources.pixelix_logo_white_xxl
 import pixelix.app.generated.resources.server_url
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginComposable(
     isCloseable: Boolean = false,
     navController: NavController,
     viewModel: LoginViewModel = injectViewModel("LoginViewModel") { loginViewModel }
 ) {
+    val dark = MaterialTheme.colorScheme.background.luminance() < 0.5
+
+    var expanded by remember { mutableStateOf(false) }
+
+    val filteredServers = viewModel.openServers
+        .filter { it.domain.startsWith(viewModel.serverHost.text, ignoreCase = true) }
+
     Scaffold(Modifier.fillMaxSize()) { paddingValues ->
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -85,7 +108,7 @@ fun LoginComposable(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        if (isSystemInDarkTheme()) Color.White else Color.Black
+                        if (dark) Color.White else Color.Black
                     )
                     .windowInsetsPadding(
                         WindowInsets.systemBars.only(
@@ -105,7 +128,7 @@ fun LoginComposable(
                         }) {
                             Icon(
                                 imageVector = vectorResource(Res.drawable.close_outline),
-                                tint = if (isSystemInDarkTheme()) Color.Black else Color.White,
+                                tint = if (dark) Color.Black else Color.White,
                                 contentDescription = ""
                             )
                         }
@@ -116,7 +139,7 @@ fun LoginComposable(
                         .size(150.dp)
                         .clip(CircleShape),
                     painter = painterResource(
-                        if (isSystemInDarkTheme()) {
+                        if (dark) {
                             Res.drawable.pixelix_logo_black_xxl
                         } else {
                             Res.drawable.pixelix_logo_white_xxl
@@ -131,7 +154,7 @@ fun LoginComposable(
                     text = "PIXELIX",
                     fontSize = 38.sp,
                     fontWeight = FontWeight.Black,
-                    color = if (isSystemInDarkTheme()) Color.Black else Color.White
+                    color = if (dark) Color.Black else Color.White
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -139,7 +162,7 @@ fun LoginComposable(
 
             Image(
                 painterResource(
-                    if (isSystemInDarkTheme()) {
+                    if (dark) {
                         Res.drawable.login_wave_light
                     } else {
                         Res.drawable.login_wave_dark
@@ -177,12 +200,16 @@ fun LoginComposable(
                     keyboardController?.hide()
                     focusManager.clearFocus()
                     viewModel.auth()
+                    expanded = false
                 }
 
                 Row(verticalAlignment = Alignment.Bottom) {
                     TextField(
                         value = viewModel.serverHost,
-                        onValueChange = { viewModel.updateServerHost(it) },
+                        onValueChange = {
+                            viewModel.updateServerHost(it)
+                            expanded = true
+                        },
                         prefix = { Text("https://") },
                         singleLine = true,
                         modifier = Modifier.weight(1f),
@@ -196,6 +223,7 @@ fun LoginComposable(
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                         keyboardActions = KeyboardActions(onDone = { login() })
                     )
+
 
                     Spacer(Modifier.width(12.dp))
                     if (viewModel.isLoading) {
@@ -216,7 +244,10 @@ fun LoginComposable(
                         }
                     } else {
                         Button(
-                            onClick = { login() },
+                            onClick = {
+                                login()
+                                expanded = false
+                            },
                             Modifier
                                 .height(56.dp)
                                 .width(56.dp)
@@ -240,6 +271,43 @@ fun LoginComposable(
                         }
                     }
                 }
+
+                Spacer(Modifier.height(24.dp))
+
+                AnimatedVisibility(
+                    visible = expanded,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Card(
+                        shape = RoundedCornerShape(10.dp),
+                    ) {
+
+                        LazyColumn(
+                            modifier = Modifier.padding(horizontal = 12.dp).heightIn(max = 200.dp),
+                        ) {
+                            items(
+                                filteredServers.take(5)
+                            ) {
+                                Row(Modifier.padding(12.dp).fillParentMaxWidth().clickable {
+                                    viewModel.updateServerHost(
+                                        TextFieldValue(
+                                            it.domain,
+                                            selection = TextRange(it.domain.length)
+                                        )
+                                    )
+                                    expanded = false
+                                }) {
+                                    Text(it.domain, fontSize = 20.sp)
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+
                 Spacer(modifier = Modifier.height(24.dp))
 
                 TextButton(onClick = {

@@ -25,8 +25,7 @@ import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.model.Visibility
 import com.daniebeler.pfpixelix.domain.service.platform.PlatformFeatures
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
-import com.daniebeler.pfpixelix.utils.KmpContext
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -48,10 +47,11 @@ import pixelix.app.generated.resources.share_this_post
 import pixelix.app.generated.resources.trash_outline
 import pixelix.app.generated.resources.unlisted
 import pixelix.app.generated.resources.visibility_x
+import pixelix.app.generated.resources.warning
+import pixelix.app.generated.resources.report_this_post
 
 @Composable
 fun ShareBottomSheet(
-    context: KmpContext,
     url: String,
     minePost: Boolean,
     viewModel: PostViewModel,
@@ -63,6 +63,8 @@ fun ShareBottomSheet(
     var humanReadableVisibility by remember {
         mutableStateOf("")
     }
+
+    var isReportDialogOpen by remember { mutableStateOf(false) }
 
     val mediaAttachment: MediaAttachment? = viewModel.post?.mediaAttachments?.let { attachments ->
         if (attachments.isNotEmpty() && currentMediaAttachmentNumber in attachments.indices) {
@@ -99,36 +101,39 @@ fun ShareBottomSheet(
             Text(text = stringResource(Res.string.visibility_x, humanReadableVisibility))
         }
         if (mediaAttachment?.license != null) {
-            ButtonRowElement(icon = Res.drawable.document_text_outline, text = stringResource(
-                Res.string.license, mediaAttachment.license.title
-            ), onClick = {
-                viewModel.openUrl(mediaAttachment.license.url, context)
-            })
+            ButtonRowElement(
+                icon = Res.drawable.document_text_outline, text = stringResource(
+                    Res.string.license, mediaAttachment.license.title
+                ), onClick = {
+                    viewModel.openUrl(mediaAttachment.license.url)
+                })
         }
 
         HorizontalDivider(Modifier.padding(12.dp))
 
-        ButtonRowElement(icon = Res.drawable.open_outline, text = stringResource(
-            Res.string.open_in_browser
-        ), onClick = {
-            viewModel.openUrl(url, context)
-        })
+        ButtonRowElement(
+            icon = Res.drawable.open_outline, text = stringResource(
+                Res.string.open_in_browser
+            ), onClick = {
+                viewModel.openUrl(url)
+            })
 
-        ButtonRowElement(icon = Res.drawable.share_social_outline,
+        ButtonRowElement(
+            icon = Res.drawable.share_social_outline,
             text = stringResource(Res.string.share_this_post),
             onClick = {
                 viewModel.shareText(url)
             })
 
         if (mediaAttachment != null && PlatformFeatures.downloadToGallery && mediaAttachment.type == "image") {
-            ButtonRowElement(icon = Res.drawable.cloud_download_outline,
+            ButtonRowElement(
+                icon = Res.drawable.cloud_download_outline,
                 text = stringResource(Res.string.download_image),
                 onClick = {
 
                     viewModel.saveImage(
                         post.account.username,
-                        viewModel.post!!.mediaAttachments[currentMediaAttachmentNumber].url!!,
-                        context
+                        viewModel.post!!.mediaAttachments[currentMediaAttachmentNumber].url!!
                     )
                 })
         }
@@ -140,7 +145,7 @@ fun ShareBottomSheet(
                 icon = Res.drawable.pencil_outline,
                 text = stringResource(Res.string.edit_post),
                 onClick = {
-                    Navigate.navigate("edit_post_screen/${post.id}", navController = navController)
+                    navController.navigate(Destination.EditPost(post.id))
                 }
             )
             ButtonRowElement(
@@ -151,6 +156,30 @@ fun ShareBottomSheet(
                 },
                 color = MaterialTheme.colorScheme.error
             )
+        } else {
+            HorizontalDivider(Modifier.padding(12.dp))
+
+            ButtonRowElement(
+                icon = Res.drawable.warning,
+                text = stringResource(Res.string.report_this_post),
+                onClick = {
+                    isReportDialogOpen = true
+                },
+                color = MaterialTheme.colorScheme.error
+            )
+        }
+    }
+
+    if (isReportDialogOpen) {
+        ReportDialog(
+            dismissDialog = {
+                isReportDialogOpen = false
+                viewModel.reportState = null
+            },
+            reportState = viewModel.reportState
+        ) { category ->
+            viewModel.reportPost(category)
+            viewModel.reportState = null
         }
     }
 }

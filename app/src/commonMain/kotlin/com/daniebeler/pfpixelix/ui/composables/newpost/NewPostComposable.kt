@@ -72,10 +72,10 @@ import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.Visibility
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
+import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposableDialog
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.ui.composables.textfield_location.TextFieldLocationsComposable
 import com.daniebeler.pfpixelix.utils.KmpUri
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
 import com.daniebeler.pfpixelix.utils.getPlatformUriObject
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import com.daniebeler.pfpixelix.utils.toKmpUri
@@ -109,8 +109,6 @@ fun NewPostComposable(
     uris: List<KmpUri>? = null,
     viewModel: NewPostViewModel = injectViewModel(key = "new-post-viewmodel-key") { newPostViewModel }
 ) {
-    val context = LocalKmpContext.current
-
     var expanded by remember { mutableStateOf(false) }
     var showReleaseAlert by remember {
         mutableStateOf(false)
@@ -118,9 +116,7 @@ fun NewPostComposable(
 
     LaunchedEffect(uris) {
         uris?.let {
-            uris.forEach {
-                viewModel.addImage(uri = it, context = context)
-            }
+            uris.forEach { viewModel.addImage(uri = it) }
         }
     }
 
@@ -151,7 +147,7 @@ fun NewPostComposable(
                     { index -> viewModel.moveMediaAttachmentUp(index) },
                     { index -> viewModel.moveMediaAttachmentDown(index) },
                     { index -> viewModel.deleteMedia(index) },
-                    { kmpUri: KmpUri -> viewModel.addImage(kmpUri, context) })
+                    { kmpUri: KmpUri -> viewModel.addImage(kmpUri) })
 
                 Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     NewPostTextField(
@@ -282,8 +278,15 @@ fun NewPostComposable(
 
             LoadingComposable(isLoading = viewModel.createPostState.isLoading)
             //LoadingComposable(isLoading = viewModel.mediaUploadState.isLoading)
-            ErrorComposable(message = viewModel.mediaUploadState.error)
-            ErrorComposable(message = viewModel.createPostState.error)
+            ErrorComposableDialog(
+                errorMessage = viewModel.mediaUploadState.error,
+                onDismiss = { viewModel.mediaUploadState = viewModel.mediaUploadState.copy(error = "") }
+            )
+
+            ErrorComposableDialog(
+                errorMessage = viewModel.createPostState.error,
+                onDismiss = { viewModel.createPostState = viewModel.createPostState.copy(error = "") }
+            )
         }
     }
 }
@@ -392,7 +395,8 @@ fun ImagesPager(
                             AsyncImage(
                                 model = image.imageUri.getPlatformUriObject(),
                                 contentDescription = "video thumbnail",
-                                modifier = Modifier.width(100.dp)
+                                modifier = Modifier.fillMaxWidth(),
+                                contentScale = ContentScale.Inside
                             )
                         } else {
                             AsyncImage(

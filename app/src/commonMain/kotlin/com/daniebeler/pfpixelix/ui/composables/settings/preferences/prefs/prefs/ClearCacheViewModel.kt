@@ -1,15 +1,15 @@
 package com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs.prefs
 
 import androidx.lifecycle.ViewModel
-import com.daniebeler.pfpixelix.domain.service.platform.Platform
+import com.daniebeler.pfpixelix.domain.service.file.FileService
 import me.tatarka.inject.annotations.Inject
 
 @Inject
 class ClearCacheViewModel(
-    private val platform: Platform
+    private val fileService: FileService
 ): ViewModel() {
-    fun getCacheSizeInBytes() = platform.getCacheSizeInBytes()
+    fun getCacheSizeInBytes() = fileService.getCacheSizeInBytes()
     fun cleanCache() {
-        platform.cleanCache()
+        fileService.cleanCache()
     }
 }

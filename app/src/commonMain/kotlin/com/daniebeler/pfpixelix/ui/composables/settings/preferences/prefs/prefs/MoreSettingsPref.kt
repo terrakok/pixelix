@@ -1,6 +1,7 @@
 package com.daniebeler.pfpixelix.ui.composables.settings.preferences.prefs
 
 import androidx.compose.runtime.Composable
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.ui.composables.settings.preferences.basic.SettingPref
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
@@ -21,6 +22,6 @@ fun MoreSettingsPref(openUrl: () -> Unit) {
 @Composable
 private fun MoreSettingsPrefPreview() {
     MoreSettingsPref(openUrl = {
-        println("URL opened: url")
+        Logger.v("URL opened: url")
     })
 }

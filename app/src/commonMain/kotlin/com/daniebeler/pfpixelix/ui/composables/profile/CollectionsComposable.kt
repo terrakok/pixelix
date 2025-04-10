@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
@@ -74,7 +74,7 @@ fun CollectionsComposable(
                         Modifier
                             .padding(12.dp)
                             .clickable {
-                                Navigate.navigate("collection_screen/" + it.id, navController)
+                                navController.navigate(Destination.Collection(it.id))
                             }, horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         AsyncImage(

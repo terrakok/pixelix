@@ -9,9 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.InfinitePostsList
-import com.daniebeler.pfpixelix.ui.composables.profile.ViewEnum
 import com.daniebeler.pfpixelix.ui.composables.states.EmptyState
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.explore_trending_profiles
@@ -35,7 +34,7 @@ fun HomeTimelineComposable(
                 message = stringResource(Res.string.follow_accounts_or_hashtags_to_fill_your_home_timeline),
                 buttonText = stringResource(Res.string.explore_trending_profiles),
                 onClick = {
-                    Navigate.navigate("search_screen/1", navController)
+                    navController.navigate(Destination.Search(1))
                 }),
             getItemsPaginated = {
                 viewModel.getItemsPaginated()

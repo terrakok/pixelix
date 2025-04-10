@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.ui.composables.followers.FollowerElementComposable
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.and
@@ -203,8 +203,7 @@ fun MutualFollowersComposable(
 
                     annotatedString.getStringAnnotations("account", it, it)
                         .firstOrNull()?.let { annotation ->
-                            println(annotation.item)
-                            Navigate.navigate("profile_screen/" + annotation.item, navController, false)
+                            navController.navigate(Destination.Profile(annotation.item))
                         }
                 })
         }

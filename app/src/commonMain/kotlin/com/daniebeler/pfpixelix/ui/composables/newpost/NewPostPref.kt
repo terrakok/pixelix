@@ -49,9 +49,7 @@ fun NewPostPref(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.defaultMinSize(minHeight = 54.dp)
             ) {
-                if (leadingIcon != null) {
-                    Icon(vectorResource(leadingIcon), contentDescription = null)
-                }
+                Icon(vectorResource(leadingIcon), contentDescription = null)
                 Column(
                     modifier = Modifier
                         .weight(1f)

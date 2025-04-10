@@ -5,10 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.daniebeler.pfpixelix.domain.service.utils.Resource
+import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.Message
 import com.daniebeler.pfpixelix.domain.model.NewMessage
 import com.daniebeler.pfpixelix.domain.service.dm.DirectMessagesService
+import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import me.tatarka.inject.annotations.Inject
@@ -45,40 +46,44 @@ class ChatViewModel @Inject constructor(
     fun getChatPaginated(accountId: String) {
         if (chatState.chat != null && !chatState.isLoading && !chatState.endReached) {
             if (chatState.chat!!.messages.isNotEmpty()) {
-                directMessagesService.getChat(accountId, chatState.chat!!.messages.last().id).onEach { result ->
-                    chatState = when (result) {
-                        is Resource.Success -> {
-                            val endReached = result.data?.messages!!.isEmpty()
+                directMessagesService.getChat(accountId, chatState.chat!!.messages.last().id)
+                    .onEach { result ->
+                        chatState = when (result) {
+                            is Resource.Success -> {
+                                val endReached = result.data?.messages!!.isEmpty()
 
-                            val existingMessageIds = chatState.chat?.messages?.map { it.id }?.toSet() ?: emptySet()
-                            val newMessages = result.data.messages.filter { it.id !in existingMessageIds }
-                            val messages = (chatState.chat?.messages ?: emptyList()) + newMessages
+                                val existingMessageIds =
+                                    chatState.chat?.messages?.map { it.id }?.toSet() ?: emptySet()
+                                val newMessages =
+                                    result.data.messages.filter { it.id !in existingMessageIds }
+                                val messages =
+                                    (chatState.chat?.messages ?: emptyList()) + newMessages
 
-                            val chat = chatState.chat?.copy()
-                            if (chat != null) {
-                                chat.messages = messages
+                                val chat = chatState.chat?.copy()
+                                if (chat != null) {
+                                    chat.messages = messages
+                                    ChatState(
+                                        chat = chat,
+                                        endReached = endReached
+                                    )
+                                } else {
+                                    ChatState(
+                                        chat = result.data
+                                    )
+                                }
+                            }
+
+                            is Resource.Error -> {
+                                ChatState(error = result.message ?: "An unexpected error occurred")
+                            }
+
+                            is Resource.Loading -> {
                                 ChatState(
-                                    chat = chat,
-                                    endReached = endReached
-                                )
-                            } else {
-                                ChatState(
-                                    chat = result.data
+                                    isLoading = true, chat = chatState.chat
                                 )
                             }
                         }
-
-                        is Resource.Error -> {
-                            ChatState(error = result.message ?: "An unexpected error occurred")
-                        }
-
-                        is Resource.Loading -> {
-                            ChatState(
-                                isLoading = true, chat = chatState.chat
-                            )
-                        }
-                    }
-                }.launchIn(viewModelScope)
+                    }.launchIn(viewModelScope)
             }
         }
     }
@@ -91,13 +96,11 @@ class ChatViewModel @Inject constructor(
         directMessagesService.sendMessage(newMsg).onEach { result ->
             newMessageState = when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        val messages = emptyList<Message>() + result.data + chatState.chat!!.messages
-                        val chat = chatState.chat?.copy()
-                        if (chat != null) {
-                            chat.messages = messages
-                            chatState = ChatState(chat = chat)
-                        }
+                    val messages = emptyList<Message>() + result.data + chatState.chat!!.messages
+                    val chat = chatState.chat?.copy()
+                    if (chat != null) {
+                        chat.messages = messages
+                        chatState = ChatState(chat = chat)
                     }
                     NewMessageState(message = result.data)
                 }
@@ -120,22 +123,20 @@ class ChatViewModel @Inject constructor(
         directMessagesService.deleteMessage(id).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    if (result.data != null) {
-                        val messages = chatState.chat!!.messages.filter { it.reportId != id }
-                        val chat = chatState.chat?.copy()
-                        if (chat != null) {
-                            chat.messages = messages
-                            chatState = ChatState(chat = chat)
-                        }
+                    val messages = chatState.chat!!.messages.filter { it.reportId != id }
+                    val chat = chatState.chat?.copy()
+                    if (chat != null) {
+                        chat.messages = messages
+                        chatState = ChatState(chat = chat)
                     }
                 }
 
                 is Resource.Error -> {
-                    println(result.message)
+                    Logger.e(result.message)
                 }
 
                 is Resource.Loading -> {
-                    println("is loading")
+                    Logger.v("is loading")
                 }
             }
         }.launchIn(viewModelScope)

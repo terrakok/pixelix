@@ -53,8 +53,7 @@ import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.ui.composables.InfiniteListHandler
 import com.daniebeler.pfpixelix.ui.composables.states.EndOfListComposable
 import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposable
-import com.daniebeler.pfpixelix.utils.LocalKmpContext
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.imeAwareInsets
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -63,6 +62,7 @@ import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.beginning_of_chat_note
 import pixelix.app.generated.resources.chevron_back_outline
 import pixelix.app.generated.resources.default_avatar
+import pixelix.app.generated.resources.message
 
 @OptIn(ExperimentalMaterial3Api::class)
 
@@ -73,7 +73,6 @@ fun ChatComposable(
     viewModel: ChatViewModel = injectViewModel(key = "chat$accountId") { chatViewModel }
 ) {
     val lazyListState = rememberLazyListState()
-    val context = LocalKmpContext.current
     LaunchedEffect(Unit) {
         viewModel.getChat(accountId)
     }
@@ -83,7 +82,7 @@ fun ChatComposable(
             if (viewModel.chatState.chat != null) {
                 Row(
                     modifier = Modifier.clickable {
-                        Navigate.navigate("profile_screen/$accountId", navController)
+                        navController.navigate(Destination.Profile(accountId))
                     }, verticalAlignment = Alignment.CenterVertically
                 ) {
                     AsyncImage(
@@ -99,7 +98,7 @@ fun ChatComposable(
 
                     Column {
 
-                        Text(text = viewModel.chatState.chat!!.username ?: "")
+                        Text(text = viewModel.chatState.chat!!.name ?: "")
                         Text(
                             text = viewModel.chatState.chat!!.url.substringAfter("https://")
                                 .substringBefore("/"),
@@ -181,6 +180,7 @@ fun ChatComposable(
                                     Text(
                                         text = stringResource(Res.string.beginning_of_chat_note),
                                         textAlign = TextAlign.Center,
+                                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                                         modifier = Modifier.fillMaxWidth()
                                     )
                                 }
@@ -192,7 +192,7 @@ fun ChatComposable(
                 Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Bottom) {
                     OutlinedTextField(value = viewModel.newMessage,
                         onValueChange = { viewModel.newMessage = it },
-                        label = { Text("Message") },
+                        label = { Text(stringResource(Res.string.message)) },
                         singleLine = false,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedContainerColor = MaterialTheme.colorScheme.surfaceContainer,

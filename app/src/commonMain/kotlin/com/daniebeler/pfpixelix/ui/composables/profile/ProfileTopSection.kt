@@ -33,20 +33,22 @@ import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.domain.model.Account
 import com.daniebeler.pfpixelix.domain.model.Relationship
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
-import com.daniebeler.pfpixelix.utils.Navigate
+import com.daniebeler.pfpixelix.ui.navigation.Destination
 import com.daniebeler.pfpixelix.utils.StringFormat
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import pixelix.app.generated.resources.Res
 import pixelix.app.generated.resources.admin
 import pixelix.app.generated.resources.blocked
 import pixelix.app.generated.resources.default_avatar
-import pixelix.app.generated.resources.followers
+import pixelix.app.generated.resources.follower
 import pixelix.app.generated.resources.following
 import pixelix.app.generated.resources.follows_you
+import pixelix.app.generated.resources.joined_date
 import pixelix.app.generated.resources.muted
 import pixelix.app.generated.resources.posts
 
@@ -80,35 +82,31 @@ fun ProfileTopSection(
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
-                        Text(text = stringResource(Res.string.posts), fontSize = 12.sp)
+                        Text(text = pluralStringResource(Res.plurals.posts, account.postsCount), fontSize = 12.sp)
                     }
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.clickable {
-                            Navigate.navigate(
-                                "followers_screen/" + "followers/" + account.id, navController
-                            )
+                            navController.navigate(Destination.Followers(account.id, true))
                         }) {
                         Text(
                             text = StringFormat.groupDigits(account.followersCount),
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
-                        Text(text = stringResource(Res.string.followers), fontSize = 12.sp)
+                        Text(text = pluralStringResource(Res.plurals.follower, account.followersCount), fontSize = 12.sp)
                     }
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.clickable {
-                            Navigate.navigate(
-                                "followers_screen/" + "following/" + account.id, navController
-                            )
+                            navController.navigate(Destination.Followers(account.id, false))
                         }) {
                         Text(
                             text = StringFormat.groupDigits(account.followingCount),
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
-                        Text(text = stringResource(Res.string.following), fontSize = 12.sp)
+                        Text(text = pluralStringResource(Res.plurals.following, account.followingCount), fontSize = 12.sp)
                     }
                 }
             }
@@ -194,7 +192,10 @@ fun ProfileTopSection(
                     year()
                 }
                 Text(
-                    text = "Joined ${formatter.format(date)}",
+                    text = stringResource(
+                        Res.string.joined_date,
+                        formatter.format(date)
+                    ),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
