@@ -4,7 +4,8 @@ import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
 import coil3.PlatformContext
-import io.github.vinceglb.filekit.core.PlatformFile
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.dialogs.uri
 
 actual typealias KmpUri = Uri
 actual val EmptyKmpUri: KmpUri = Uri.EMPTY

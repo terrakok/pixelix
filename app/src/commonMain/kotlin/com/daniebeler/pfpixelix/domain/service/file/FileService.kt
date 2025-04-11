@@ -1,16 +1,20 @@
 package com.daniebeler.pfpixelix.domain.service.file
 
 import com.daniebeler.pfpixelix.utils.KmpUri
+import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.cacheDir
+import io.github.vinceglb.filekit.filesDir
+import io.github.vinceglb.filekit.path
 import okio.Path
+import okio.Path.Companion.toPath
 
-interface FileService {
-    val dataStoreDir: Path
-    val imageCacheDir: Path
+abstract class FileService {
+    val dataStoreDir: Path = FileKit.filesDir.path.toPath().resolve("datastore")
+    val imageCacheDir: Path = FileKit.cacheDir.path.toPath().resolve("image_cache")
 
-    fun getFile(uri: KmpUri): PlatformFile?
-    fun downloadFile(name: String?, url: String)
-    fun getCacheSizeInBytes(): Long
-    fun cleanCache()
+    abstract fun getFile(uri: KmpUri): PlatformFile?
+    abstract fun getCacheSizeInBytes(): Long
+    abstract fun cleanCache()
 }
 
 interface PlatformFile {

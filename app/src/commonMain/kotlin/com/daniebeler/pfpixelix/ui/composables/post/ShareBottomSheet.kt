@@ -26,6 +26,7 @@ import com.daniebeler.pfpixelix.domain.model.Visibility
 import com.daniebeler.pfpixelix.domain.service.platform.PlatformFeatures
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.navigation.Destination
+import io.github.vinceglb.filekit.dialogs.compose.rememberFileSaverLauncher
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -57,7 +58,8 @@ fun ShareBottomSheet(
     viewModel: PostViewModel,
     post: Post,
     currentMediaAttachmentNumber: Int,
-    navController: NavController
+    navController: NavController,
+    closeBottomSheet: () -> Unit
 ) {
 
     var humanReadableVisibility by remember {
@@ -106,6 +108,7 @@ fun ShareBottomSheet(
                     Res.string.license, mediaAttachment.license.title
                 ), onClick = {
                     viewModel.openUrl(mediaAttachment.license.url)
+                    closeBottomSheet()
                 })
         }
 
@@ -116,6 +119,7 @@ fun ShareBottomSheet(
                 Res.string.open_in_browser
             ), onClick = {
                 viewModel.openUrl(url)
+                closeBottomSheet()
             })
 
         ButtonRowElement(
@@ -123,19 +127,29 @@ fun ShareBottomSheet(
             text = stringResource(Res.string.share_this_post),
             onClick = {
                 viewModel.shareText(url)
+                closeBottomSheet()
             })
 
-        if (mediaAttachment != null && PlatformFeatures.downloadToGallery && mediaAttachment.type == "image") {
+        if (
+            PlatformFeatures.downloadToGallery &&
+            mediaAttachment?.url != null
+        ) {
+            val fileSaverLauncher = rememberFileSaverLauncher { file ->
+                if (file != null) {
+                    viewModel.saveImage(file, mediaAttachment.url)
+                }
+                closeBottomSheet()
+            }
             ButtonRowElement(
                 icon = Res.drawable.cloud_download_outline,
                 text = stringResource(Res.string.download_image),
                 onClick = {
-
-                    viewModel.saveImage(
-                        post.account.username,
-                        viewModel.post!!.mediaAttachments[currentMediaAttachmentNumber].url!!
+                    fileSaverLauncher.launch(
+                        suggestedName = post.account.username + "_" + mediaAttachment.id,
+                        extension = mediaAttachment.url.substringAfterLast('.')
                     )
-                })
+                }
+            )
         }
 
         if (minePost) {

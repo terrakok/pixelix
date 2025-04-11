@@ -1,8 +1,11 @@
 package com.daniebeler.pfpixelix.domain.service.file
 
-import ca.gosyer.appdirs.AppDirs
 import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.utils.KmpUri
+import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.cacheDir
+import io.github.vinceglb.filekit.filesDir
+import io.github.vinceglb.filekit.path
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okio.Path
@@ -14,18 +17,9 @@ import java.io.File
 import java.nio.file.Files
 import javax.imageio.ImageIO
 
-class DesktopFileService : FileService {
-    private val appDirs = AppDirs("com.daniebeler.pfpixelix", null)
-    private fun appDocDir() = appDirs.getUserDataDir().toPath()
-
-    override val dataStoreDir: Path = appDocDir().resolve("dataStore")
-    override val imageCacheDir: Path = appDocDir().resolve("imageCache")
-
+class DesktopFileService : FileService() {
     override fun getFile(uri: KmpUri): PlatformFile? {
         return DesktopFile(uri).takeIf { it.isExist() }
-    }
-
-    override fun downloadFile(name: String?, url: String) {
     }
 
     override fun getCacheSizeInBytes(): Long {

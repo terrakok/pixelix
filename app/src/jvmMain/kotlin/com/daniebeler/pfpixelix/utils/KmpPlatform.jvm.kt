@@ -1,7 +1,7 @@
 package com.daniebeler.pfpixelix.utils
 
 import coil3.PlatformContext
-import io.github.vinceglb.filekit.core.PlatformFile
+import io.github.vinceglb.filekit.PlatformFile
 import java.net.URI
 
 private data class DesktopUri(override val uri: URI) : KmpUri() {

@@ -133,7 +133,6 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.okhttp)
-            implementation(libs.appdirs)
             implementation(libs.slf4j.simple)
             implementation(libs.vlcj)
             implementation(libs.jna)

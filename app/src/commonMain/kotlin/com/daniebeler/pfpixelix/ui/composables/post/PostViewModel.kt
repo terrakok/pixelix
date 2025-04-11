@@ -12,7 +12,7 @@ import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.model.ReportObjectType
 import com.daniebeler.pfpixelix.domain.service.account.AccountService
 import com.daniebeler.pfpixelix.domain.service.editor.PostEditorService
-import com.daniebeler.pfpixelix.domain.service.file.FileService
+import com.daniebeler.pfpixelix.domain.service.file.FileDownloader
 import com.daniebeler.pfpixelix.domain.service.platform.Platform
 import com.daniebeler.pfpixelix.domain.service.post.PostService
 import com.daniebeler.pfpixelix.domain.service.preferences.UserPreferences
@@ -20,6 +20,7 @@ import com.daniebeler.pfpixelix.domain.service.session.AuthService
 import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.ui.composables.post.reply.OwnReplyState
 import com.daniebeler.pfpixelix.ui.composables.post.reply.RepliesState
+import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -35,7 +36,7 @@ class PostViewModel @Inject constructor(
     private val authService: AuthService,
     private val accountService: AccountService,
     private val platform: Platform,
-    private val fileService: FileService
+    private val fileDownloader: FileDownloader
 ) : ViewModel() {
 
     var post: Post? by mutableStateOf(null)
@@ -433,8 +434,8 @@ class PostViewModel @Inject constructor(
         platform.openUrl(url)
     }
 
-    fun saveImage(name: String?, url: String) {
-        fileService.downloadFile(name, url)
+    fun saveImage(file: PlatformFile, url: String) {
+        fileDownloader.download(file, url)
     }
 
     fun shareText(text: String) {
