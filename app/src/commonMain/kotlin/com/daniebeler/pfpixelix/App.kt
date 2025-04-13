@@ -167,16 +167,33 @@ fun App(
                                 )
                             }
                         )
-                        val launchUser = remember { activeUser }
+                        var launchUser by remember { mutableStateOf(activeUser) }
                         LaunchedEffect(activeUser) {
-                            if (launchUser == activeUser) return@LaunchedEffect
-                            val rootScreen =
-                                if (activeUser == null) Destination.FirstLogin else Destination.HomeTabFeeds
-                            navController.navigate(rootScreen) {
+                            if (launchUser == activeUser) {
+                                //start destination is already correct.
+                                //we don't need to open a new screen
+                                return@LaunchedEffect
+                            }
+                            launchUser = activeUser
+
+                            Logger.d { "Switch user: $activeUser" }
+                            navController.apply {
+                                //clear saved tab's states
+                                clearBackStack<Destination.HomeTabFeeds>()
+                                clearBackStack<Destination.HomeTabSearch>()
+                                clearBackStack<Destination.HomeTabNewPost>()
+                                clearBackStack<Destination.HomeTabNotifications>()
+                                clearBackStack<Destination.HomeTabOwnProfile>()
                                 val root = navController.currentBackStack.value
-                                    .firstOrNull { it.destination.route != null }
-                                    ?.destination?.route
-                                if (root != null) {
+                                    .firstNotNullOf { it.destination.route }
+
+                                val rootScreen =
+                                    if (activeUser == null) Destination.FirstLogin
+                                    else Destination.HomeTabFeeds
+
+                                Logger.d { "Drop the root: $root" }
+                                Logger.d { "And open a new root screen: $rootScreen" }
+                                navigate(rootScreen) {
                                     popUpTo(root) { inclusive = true }
                                 }
                             }
