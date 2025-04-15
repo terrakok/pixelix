@@ -1,6 +1,10 @@
 package com.daniebeler.pfpixelix.domain.service.file
 
 import com.daniebeler.pfpixelix.utils.KmpUri
+import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.cacheDir
+import io.github.vinceglb.filekit.filesDir
+import io.github.vinceglb.filekit.path
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.get
 import kotlinx.cinterop.refTo
@@ -43,24 +47,9 @@ import platform.ImageIO.kCGImageSourceThumbnailMaxPixelSize
 import platform.posix.memcpy
 
 @OptIn(ExperimentalForeignApi::class)
-class IosFileService : FileService {
-    private fun appDocDir() = NSFileManager.defaultManager.URLForDirectory(
-        directory = NSDocumentDirectory,
-        inDomain = NSUserDomainMask,
-        appropriateForURL = null,
-        create = false,
-        error = null,
-    )!!.path!!.toPath()
-
-    override val dataStoreDir: Path = appDocDir().resolve("dataStore")
-    override val imageCacheDir: Path = appDocDir().resolve("imageCache")
-
-
+class IosFileService : FileService() {
     override fun getFile(uri: KmpUri): PlatformFile? {
         return IosFile(uri).takeIf { it.isExist() }
-    }
-
-    override fun downloadFile(name: String?, url: String) {
     }
 
     override fun getCacheSizeInBytes(): Long {

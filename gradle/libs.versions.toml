@@ -9,7 +9,7 @@ lifecycleMultiplatform = "2.9.0-alpha06"
 navigationMultiplatform = "2.9.0-alpha16"
 
 #JetBrains
-kotlinx-coroutines = "1.10.1"
+kotlinx-coroutines = "1.10.2"
 kotlinxCollectionsImmutable = "0.3.8"
 kotlinxSerializationJson = "1.8.0"
 ktor = "3.1.1"
@@ -24,7 +24,7 @@ androidx-annotation = "1.9.1"
 coil = "3.1.0"
 datastorePreferences = "1.1.4"
 multiplatformSettings = "1.3.0"
-filekitCompose = "0.8.8"
+filekitCompose = "0.10.0-beta01"
 krop = "0.2.0-alpha01"
 
 #android
@@ -40,7 +40,6 @@ okio = "3.10.2"
 workRuntimeKtx = "2.10.0"
 
 #desktop
-appdirs = "1.2.0"
 slf4jSimple = "2.0.17"
 vlcj = "4.10.1"
 jna = "5.17.0"
@@ -106,9 +105,8 @@ multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", vers
 multiplatform-settings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
 multiplatform-settings-datastore = { module = "com.russhwolf:multiplatform-settings-datastore", version.ref = "multiplatformSettings" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
-filekit-compose = { module = "io.github.vinceglb:filekit-compose", version.ref = "filekitCompose" }
+filekit-compose = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "filekitCompose" }
 krop = { module = "com.attafitamim.krop:ui", version.ref = "krop" }
-appdirs = { module = "ca.gosyer:kotlin-multiplatform-appdirs", version.ref = "appdirs" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
 vlcj = { module = "uk.co.caprica:vlcj", version.ref = "vlcj" }
 

@@ -617,7 +617,8 @@ fun PostComposable(
                         viewModel,
                         post,
                         pagerState.currentPage,
-                        navController
+                        navController,
+                        { showBottomSheet = 0 }
                     )
                 } else {
                     ShareBottomSheet(
@@ -626,7 +627,8 @@ fun PostComposable(
                         viewModel,
                         post,
                         pagerState.currentPage,
-                        navController
+                        navController,
+                        { showBottomSheet = 0 }
                     )
                 }
             } else if (showBottomSheet == 3) {

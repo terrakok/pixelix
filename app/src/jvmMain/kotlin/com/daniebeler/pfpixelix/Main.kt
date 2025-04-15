@@ -12,21 +12,20 @@ import com.daniebeler.pfpixelix.domain.service.icon.DesktopAppIconManager
 import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.configureJavaLogger
 import com.daniebeler.pfpixelix.utils.configureLogger
+import io.github.vinceglb.filekit.FileKit
 import java.awt.Desktop
 import java.awt.Dimension
 
 fun main() {
-    //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-desktop-swing-interoperability.html
-    System.setProperty("compose.swing.render.on.graphics", "true")
-    System.setProperty("compose.interop.blending", "true")
     application {
+        FileKit.init("com.daniebeler.pfpixelix")
+        configureJavaLogger()
+
         val appComponent = AppComponent.Companion.create(
             object : KmpContext() {},
             DesktopFileService(),
             DesktopAppIconManager()
         )
-
-        configureJavaLogger()
 
         SingletonImageLoader.setSafe {
             appComponent.provideImageLoader()
