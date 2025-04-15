@@ -36,6 +36,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -107,12 +108,6 @@ fun App(
         LocalAppComponent provides appComponent
     ) {
         PixelixTheme {
-            val navController = rememberNavController()
-            val scope = rememberCoroutineScope()
-            val drawerState = rememberDrawerState(DrawerValue.Closed)
-            val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-            var showAccountSwitchBottomSheet by remember { mutableStateOf(false) }
-
             var activeUser by remember { mutableStateOf<String?>("unknown") }
             LaunchedEffect(Unit) {
                 val authService = appComponent.authService
@@ -123,103 +118,82 @@ fun App(
             }
             if (activeUser == "unknown") return@PixelixTheme
 
-            ReverseModalNavigationDrawer(
-                gesturesEnabled = drawerState.isOpen,
-                drawerState = drawerState,
-                drawerContent = {
-                    ModalDrawerSheet(
-                        drawerState = drawerState,
-                        drawerShape = shapes.extraLarge.end(0.dp),
-                    ) {
-                        PreferencesComposable(navController, drawerState, {
-                            scope.launch {
-                                drawerState.close()
-                            }
-                        })
-                    }
-                }
-            ) {
+            key(activeUser) {
+                val scope = rememberCoroutineScope()
+                val drawerState = rememberDrawerState(DrawerValue.Closed)
+                val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                var showAccountSwitchBottomSheet by remember { mutableStateOf(false) }
+                val navController = rememberNavController()
 
-                Scaffold(
-                    contentWindowInsets = WindowInsets(0),
-                    bottomBar = {
-                        BottomBar(
-                            navController = navController,
-                            openAccountSwitchBottomSheet = {
-                                showAccountSwitchBottomSheet = true
-                            },
-                        )
-                    },
-                    content = { paddingValues ->
-                        val startDestination =
-                            if (activeUser == null) Destination.FirstLogin
-                            else Destination.HomeTabFeeds
-                        NavHost(
-                            modifier = Modifier.fillMaxSize().padding(paddingValues)
-                                .consumeWindowInsets(WindowInsets.navigationBars),
-                            navController = navController,
-                            startDestination = startDestination,
-                            builder = {
-                                appGraph(
-                                    navController,
-                                    { scope.launch { drawerState.open() } },
-                                    exitApp
-                                )
-                            }
-                        )
-                        var launchUser by remember { mutableStateOf(activeUser) }
-                        LaunchedEffect(activeUser) {
-                            if (launchUser == activeUser) {
-                                //start destination is already correct.
-                                //we don't need to open a new screen
-                                return@LaunchedEffect
-                            }
-                            launchUser = activeUser
-
-                            Logger.d { "Switch user: $activeUser" }
-                            navController.apply {
-                                //clear saved tab's states
-                                clearBackStack<Destination.HomeTabFeeds>()
-                                clearBackStack<Destination.HomeTabSearch>()
-                                clearBackStack<Destination.HomeTabNewPost>()
-                                clearBackStack<Destination.HomeTabNotifications>()
-                                clearBackStack<Destination.HomeTabOwnProfile>()
-                                val root = navController.currentBackStack.value
-                                    .firstNotNullOf { it.destination.route }
-
-                                val rootScreen =
-                                    if (activeUser == null) Destination.FirstLogin
-                                    else Destination.HomeTabFeeds
-
-                                Logger.d { "Drop the root: $root" }
-                                Logger.d { "And open a new root screen: $rootScreen" }
-                                navigate(rootScreen) {
-                                    popUpTo(root) { inclusive = true }
+                ReverseModalNavigationDrawer(
+                    gesturesEnabled = drawerState.isOpen,
+                    drawerState = drawerState,
+                    drawerContent = {
+                        ModalDrawerSheet(
+                            drawerState = drawerState,
+                            drawerShape = shapes.extraLarge.end(0.dp),
+                        ) {
+                            PreferencesComposable(navController, drawerState, {
+                                scope.launch {
+                                    drawerState.close()
                                 }
-                            }
-
-                            if (activeUser != null) {
-                                appComponent.systemFileShare.shareFilesRequests.collect { uris ->
-                                    navController.navigate(
-                                        Destination.NewPost(uris.map { it.toString() })
-                                    )
-                                }
-                            }
+                            })
                         }
                     }
-                )
-            }
-            if (showAccountSwitchBottomSheet) {
-                ModalBottomSheet(
-                    onDismissRequest = {
-                        showAccountSwitchBottomSheet = false
-                    }, sheetState = sheetState
                 ) {
-                    AccountSwitchBottomSheet(
-                        navController = navController,
-                        closeBottomSheet = { showAccountSwitchBottomSheet = false },
-                        null
+                    Scaffold(
+                        contentWindowInsets = WindowInsets(0),
+                        bottomBar = {
+                            BottomBar(
+                                navController = navController,
+                                openAccountSwitchBottomSheet = {
+                                    showAccountSwitchBottomSheet = true
+                                },
+                            )
+                        },
+                        content = { paddingValues ->
+                            val startDestination =
+                                if (activeUser == null) Destination.FirstLogin
+                                else Destination.HomeTabFeeds
+                            NavHost(
+                                modifier = Modifier.fillMaxSize().padding(paddingValues)
+                                    .consumeWindowInsets(WindowInsets.navigationBars),
+                                navController = navController,
+                                startDestination = startDestination,
+                                builder = {
+                                    appGraph(
+                                        navController,
+                                        { scope.launch { drawerState.open() } },
+                                        exitApp
+                                    )
+                                }
+                            )
+                        }
                     )
+                }
+
+                LaunchedEffect(Unit) {
+                    appComponent.systemFileShare.shareFilesRequests.collect { uris ->
+                        if (activeUser != null) {
+                            navController.navigate(
+                                Destination.NewPost(uris.map { it.toString() })
+                            )
+                        }
+                    }
+                }
+
+                if (showAccountSwitchBottomSheet) {
+                    ModalBottomSheet(
+                        onDismissRequest = {
+                            showAccountSwitchBottomSheet = false
+                        }, sheetState = sheetState
+                    ) {
+                        AccountSwitchBottomSheet(
+                            navController = navController,
+                            closeBottomSheet = { showAccountSwitchBottomSheet = false },
+                            null
+                        )
+                    }
                 }
             }
         }
