@@ -1,36 +1,21 @@
 package com.daniebeler.pfpixelix.domain.service.file
 
 import android.content.ContentResolver
-import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
-import android.widget.Toast
 import co.touchlab.kermit.Logger
-import coil3.ImageLoader
 import coil3.SingletonImageLoader
 import coil3.request.ImageRequest
-import coil3.request.SuccessResult
-import coil3.request.allowHardware
 import coil3.toBitmap
 import coil3.video.videoFrameMillis
 import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.KmpUri
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Clock
-import okio.Path
-import okio.Path.Companion.toPath
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileNotFoundException
 
 class AndroidFileService(
     private val context: KmpContext

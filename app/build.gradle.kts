@@ -93,6 +93,9 @@ kotlin {
 
             //image crop
             implementation(libs.krop)
+
+            //video player
+            implementation(libs.composemediaplayer)
         }
 
         androidMain.dependencies {
@@ -111,12 +114,8 @@ kotlin {
             implementation(libs.material)
 
             //media
-            implementation(libs.androidx.media3.exoplayer)
-            implementation(libs.androidx.media3.exoplayer.dash)
-            implementation(libs.androidx.media3.ui)
-            implementation(libs.android.image.cropper)
-            implementation(libs.coil.video)
             implementation(libs.coil.gif)
+            implementation(libs.coil.video)
 
             // widget
             implementation(libs.androidx.glance.appwidget)
@@ -134,9 +133,6 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.slf4j.simple)
-            implementation(libs.vlcj)
-            implementation(libs.jna)
-            implementation(libs.jna.platform)
         }
     }
 

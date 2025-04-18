@@ -31,7 +31,7 @@ fun AppViewController(urlCallback: IosUrlCallback): UIViewController {
         IosAppIconManager()
     )
 
-    configureLogger()
+    configureLogger(true)
 
     SingletonImageLoader.setSafe {
         appComponent.provideImageLoader()
