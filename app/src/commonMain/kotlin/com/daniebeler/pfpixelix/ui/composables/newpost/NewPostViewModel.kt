@@ -287,8 +287,13 @@ class NewPostViewModel @Inject constructor(
         postEditorService.createPost(createPostDto).onEach { result ->
             createPostState = when (result) {
                 is Resource.Success -> {
-                    navController.navigate(Destination.OwnProfile)
-                    CreatePostState(post = result.data, isLoading = true)
+                    navController.navigate(Destination.HomeTabOwnProfile) {
+                        restoreState = false
+                        popUpTo<Destination.HomeTabNewPost> {
+                            inclusive = true
+                        }
+                    }
+                    CreatePostState()
                 }
 
                 is Resource.Error -> {
