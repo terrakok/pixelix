@@ -2,7 +2,6 @@ package com.daniebeler.pfpixelix
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -14,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.UnfoldMore
 import androidx.compose.material3.DrawerValue
@@ -27,14 +28,13 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +55,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import co.touchlab.kermit.Logger
 import coil3.compose.AsyncImage
 import com.daniebeler.pfpixelix.di.AppComponent
 import com.daniebeler.pfpixelix.di.LocalAppComponent
@@ -89,6 +88,10 @@ import pixelix.app.generated.resources.notifications_outline
 import pixelix.app.generated.resources.profile
 import pixelix.app.generated.resources.search
 import pixelix.app.generated.resources.search_outline
+
+val LocalSnackbarPresenter = compositionLocalOf<(String) -> Unit> {
+    error("No LocalSnackbarPresenter provided")
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -125,51 +128,64 @@ fun App(
                 var showAccountSwitchBottomSheet by remember { mutableStateOf(false) }
                 val navController = rememberNavController()
 
-                ReverseModalNavigationDrawer(
-                    gesturesEnabled = drawerState.isOpen,
-                    drawerState = drawerState,
-                    drawerContent = {
-                        ModalDrawerSheet(
-                            drawerState = drawerState,
-                            drawerShape = shapes.extraLarge.end(0.dp),
-                        ) {
-                            PreferencesComposable(navController, drawerState, {
-                                scope.launch {
-                                    drawerState.close()
-                                }
-                            })
-                        }
+
+                val snackbarHostState = remember { SnackbarHostState() }
+                val snackBarPresenter: (String) -> Unit = { msg ->
+                    scope.launch {
+                        snackbarHostState.showSnackbar(msg)
                     }
+                }
+
+                CompositionLocalProvider(
+                    LocalSnackbarPresenter provides snackBarPresenter
                 ) {
-                    Scaffold(
-                        contentWindowInsets = WindowInsets(0),
-                        bottomBar = {
-                            BottomBar(
-                                navController = navController,
-                                openAccountSwitchBottomSheet = {
-                                    showAccountSwitchBottomSheet = true
-                                },
-                            )
-                        },
-                        content = { paddingValues ->
-                            val startDestination =
-                                if (activeUser == null) Destination.FirstLogin
-                                else Destination.HomeTabFeeds
-                            NavHost(
-                                modifier = Modifier.fillMaxSize().padding(paddingValues)
-                                    .consumeWindowInsets(WindowInsets.navigationBars),
-                                navController = navController,
-                                startDestination = startDestination,
-                                builder = {
-                                    appGraph(
-                                        navController,
-                                        { scope.launch { drawerState.open() } },
-                                        exitApp
-                                    )
-                                }
-                            )
+                    ReverseModalNavigationDrawer(
+                        gesturesEnabled = drawerState.isOpen,
+                        drawerState = drawerState,
+                        drawerContent = {
+                            ModalDrawerSheet(
+                                drawerState = drawerState,
+                                drawerShape = shapes.extraLarge.end(0.dp),
+                            ) {
+                                PreferencesComposable(navController, drawerState, {
+                                    scope.launch {
+                                        drawerState.close()
+                                    }
+                                })
+                            }
                         }
-                    )
+                    ) {
+                        Scaffold(
+                            contentWindowInsets = WindowInsets(0),
+                            snackbarHost = { SnackbarHost(snackbarHostState) },
+                            bottomBar = {
+                                BottomBar(
+                                    navController = navController,
+                                    openAccountSwitchBottomSheet = {
+                                        showAccountSwitchBottomSheet = true
+                                    },
+                                )
+                            },
+                            content = { paddingValues ->
+                                val startDestination =
+                                    if (activeUser == null) Destination.FirstLogin
+                                    else Destination.HomeTabFeeds
+                                NavHost(
+                                    modifier = Modifier.fillMaxSize().padding(paddingValues)
+                                        .consumeWindowInsets(WindowInsets.navigationBars),
+                                    navController = navController,
+                                    startDestination = startDestination,
+                                    builder = {
+                                        appGraph(
+                                            navController,
+                                            { scope.launch { drawerState.open() } },
+                                            exitApp
+                                        )
+                                    }
+                                )
+                            }
+                        )
+                    }
                 }
 
                 LaunchedEffect(Unit) {

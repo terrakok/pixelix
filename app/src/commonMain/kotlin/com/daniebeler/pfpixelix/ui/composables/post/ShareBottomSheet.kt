@@ -20,13 +20,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.daniebeler.pfpixelix.LocalSnackbarPresenter
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.model.Visibility
 import com.daniebeler.pfpixelix.domain.service.platform.PlatformFeatures
 import com.daniebeler.pfpixelix.ui.composables.ButtonRowElement
 import com.daniebeler.pfpixelix.ui.navigation.Destination
-import io.github.vinceglb.filekit.dialogs.compose.rememberFileSaverLauncher
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -43,13 +43,13 @@ import pixelix.app.generated.resources.license
 import pixelix.app.generated.resources.open_in_browser
 import pixelix.app.generated.resources.open_outline
 import pixelix.app.generated.resources.pencil_outline
+import pixelix.app.generated.resources.report_this_post
 import pixelix.app.generated.resources.share_social_outline
 import pixelix.app.generated.resources.share_this_post
 import pixelix.app.generated.resources.trash_outline
 import pixelix.app.generated.resources.unlisted
 import pixelix.app.generated.resources.visibility_x
 import pixelix.app.generated.resources.warning
-import pixelix.app.generated.resources.report_this_post
 
 @Composable
 fun ShareBottomSheet(
@@ -134,20 +134,14 @@ fun ShareBottomSheet(
             PlatformFeatures.downloadToGallery &&
             mediaAttachment?.url != null
         ) {
-            val fileSaverLauncher = rememberFileSaverLauncher { file ->
-                if (file != null) {
-                    viewModel.saveImage(file, mediaAttachment.url)
-                }
-                closeBottomSheet()
-            }
+            val snackbarPresenter = LocalSnackbarPresenter.current
             ButtonRowElement(
                 icon = Res.drawable.cloud_download_outline,
                 text = stringResource(Res.string.download_image),
                 onClick = {
-                    fileSaverLauncher.launch(
-                        suggestedName = post.account.username + "_" + mediaAttachment.id,
-                        extension = mediaAttachment.url.substringAfterLast('.')
-                    )
+                    viewModel.saveImage(mediaAttachment.url)
+                    snackbarPresenter("Image saved to the gallery")
+                    closeBottomSheet()
                 }
             )
         }
