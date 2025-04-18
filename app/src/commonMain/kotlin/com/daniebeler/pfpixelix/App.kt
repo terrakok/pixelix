@@ -128,12 +128,24 @@ fun App(
                 var showAccountSwitchBottomSheet by remember { mutableStateOf(false) }
                 val navController = rememberNavController()
 
-
                 val snackbarHostState = remember { SnackbarHostState() }
                 val snackBarPresenter: (String) -> Unit = { msg ->
                     scope.launch {
                         snackbarHostState.showSnackbar(msg)
                     }
+                }
+
+                //Note that wrapping something in key
+                // won't actually clean up any ViewModel instances associated with destinations -
+                // they'll continue to exist and run for the entire lifetime of the containing
+                // Activity/Fragment because you didn't actually destroy them properly,
+                // you just dropped any access to them
+                LaunchedEffect(activeUser) {
+                    navController.clearBackStack<Destination.HomeTabFeeds>()
+                    navController.clearBackStack<Destination.HomeTabSearch>()
+                    navController.clearBackStack<Destination.HomeTabNewPost>()
+                    navController.clearBackStack<Destination.HomeTabNotifications>()
+                    navController.clearBackStack<Destination.HomeTabOwnProfile>()
                 }
 
                 CompositionLocalProvider(
