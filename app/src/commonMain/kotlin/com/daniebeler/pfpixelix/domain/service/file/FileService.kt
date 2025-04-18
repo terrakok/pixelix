@@ -1,27 +1,64 @@
 package com.daniebeler.pfpixelix.domain.service.file
 
+import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.KmpUri
+import com.daniebeler.pfpixelix.utils.getMimeType
+import com.daniebeler.pfpixelix.utils.toKmpUri
+import com.daniebeler.pfpixelix.utils.toPlatformFile
 import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.cacheDir
+import io.github.vinceglb.filekit.delete
+import io.github.vinceglb.filekit.exists
 import io.github.vinceglb.filekit.filesDir
+import io.github.vinceglb.filekit.isRegularFile
+import io.github.vinceglb.filekit.list
 import io.github.vinceglb.filekit.path
+import io.github.vinceglb.filekit.resolve
+import io.github.vinceglb.filekit.size
+import me.tatarka.inject.annotations.Inject
 import okio.Path
 import okio.Path.Companion.toPath
 
-abstract class FileService {
-    val dataStoreDir: Path = FileKit.filesDir.path.toPath().resolve("datastore")
-    val imageCacheDir: Path = FileKit.cacheDir.path.toPath().resolve("image_cache")
+@Inject
+class FileService(
+    private val context: KmpContext
+) {
+    companion object {
+        val dataStoreDir = FileKit.filesDir.resolve("datastore")
+        val imageCacheDir = FileKit.cacheDir.resolve("image_cache")
+    }
 
-    abstract fun getFile(uri: KmpUri): PlatformFile?
-    abstract fun getCacheSizeInBytes(): Long
-    abstract fun cleanCache()
+    suspend fun getCacheSizeInBytes(): Long = imageCacheDir.sizeRecursively()
+    suspend fun cleanCache() {
+        imageCacheDir.deleteRecursively()
+    }
+
+    fun getMimeType(file: PlatformFile): String = context.getMimeType(file.toKmpUri())
+
+    private suspend fun PlatformFile.sizeRecursively(): Long {
+        return when {
+            !exists() -> 0L
+            isRegularFile() -> size()
+            else -> list().sumOf { it.sizeRecursively() }
+        }
+    }
+
+    private suspend fun PlatformFile.deleteRecursively() {
+        when {
+            !exists() -> {
+                return
+            }
+            isRegularFile() -> {
+                delete(false)
+            }
+            else -> {
+                list().forEach { it.deleteRecursively() }
+                delete(false)
+            }
+        }
+    }
 }
 
-interface PlatformFile {
-    fun isExist(): Boolean
-    fun getName(): String
-    fun getSize(): Long
-    fun getMimeType(): String
-    suspend fun readBytes(): ByteArray
-    suspend fun getThumbnail(): ByteArray?
-}
+internal fun PlatformFile(kmpUri: KmpUri): PlatformFile = kmpUri.toPlatformFile()
+internal fun PlatformFile.toOkIoPath(): Path = path.toPath()

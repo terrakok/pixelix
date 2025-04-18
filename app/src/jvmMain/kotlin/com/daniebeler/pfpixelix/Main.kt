@@ -9,11 +9,9 @@ import androidx.compose.ui.window.rememberWindowState
 import coil3.SingletonImageLoader
 import com.daniebeler.pfpixelix.di.AppComponent
 import com.daniebeler.pfpixelix.di.create
-import com.daniebeler.pfpixelix.domain.service.file.DesktopFileService
 import com.daniebeler.pfpixelix.domain.service.icon.DesktopAppIconManager
 import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.configureJavaLogger
-import com.daniebeler.pfpixelix.utils.configureLogger
 import io.github.vinceglb.filekit.FileKit
 import java.awt.Desktop
 import java.awt.Dimension
@@ -25,7 +23,6 @@ fun main() {
 
         val appComponent = AppComponent.Companion.create(
             object : KmpContext() {},
-            DesktopFileService(),
             DesktopAppIconManager()
         )
 

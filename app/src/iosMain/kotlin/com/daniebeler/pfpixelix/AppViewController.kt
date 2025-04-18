@@ -7,7 +7,6 @@ import androidx.compose.ui.window.ComposeUIViewController
 import coil3.SingletonImageLoader
 import com.daniebeler.pfpixelix.di.AppComponent
 import com.daniebeler.pfpixelix.di.create
-import com.daniebeler.pfpixelix.domain.service.file.IosFileService
 import com.daniebeler.pfpixelix.domain.service.icon.IosAppIconManager
 import com.daniebeler.pfpixelix.utils.KmpContext
 import com.daniebeler.pfpixelix.utils.configureLogger
@@ -27,11 +26,10 @@ fun AppViewController(urlCallback: IosUrlCallback): UIViewController {
         object : KmpContext() {
             override val viewController get() = viewController!!
         },
-        IosFileService(),
         IosAppIconManager()
     )
 
-    configureLogger(true)
+    configureLogger()
 
     SingletonImageLoader.setSafe {
         appComponent.provideImageLoader()
