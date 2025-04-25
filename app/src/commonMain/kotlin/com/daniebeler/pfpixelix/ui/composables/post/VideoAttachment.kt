@@ -66,27 +66,30 @@ fun VideoAttachment(
                     }
                     .isVisible(threshold = 50) { videoFrameIsVisible = it }
             )
-            IconButton(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(8.dp),
-                onClick = {
-                    viewModel.toggleVolume(!viewModel.volume)
-                },
-                colors = IconButtonDefaults.filledTonalIconButtonColors()
-            ) {
-                if (viewModel.volume) {
-                    Icon(
-                        Icons.AutoMirrored.Outlined.VolumeUp,
-                        contentDescription = "Volume on",
-                        Modifier.size(18.dp)
-                    )
-                } else {
-                    Icon(
-                        Icons.AutoMirrored.Outlined.VolumeOff,
-                        contentDescription = "Volume off",
-                        Modifier.size(18.dp)
-                    )
+            val hasAudio = (player.metadata.audioChannels ?: 0) > 0
+            if (hasAudio) {
+                IconButton(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(8.dp),
+                    onClick = {
+                        viewModel.toggleVolume(!viewModel.volume)
+                    },
+                    colors = IconButtonDefaults.filledTonalIconButtonColors()
+                ) {
+                    if (viewModel.volume) {
+                        Icon(
+                            Icons.AutoMirrored.Outlined.VolumeUp,
+                            contentDescription = "Volume on",
+                            Modifier.size(18.dp)
+                        )
+                    } else {
+                        Icon(
+                            Icons.AutoMirrored.Outlined.VolumeOff,
+                            contentDescription = "Volume off",
+                            Modifier.size(18.dp)
+                        )
+                    }
                 }
             }
         }
