@@ -17,6 +17,8 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
+import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.dialogs.init
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -24,6 +26,7 @@ import java.lang.ref.WeakReference
 
 class AppActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        FileKit.init(this)
         MyApplication.currentActivity = WeakReference(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

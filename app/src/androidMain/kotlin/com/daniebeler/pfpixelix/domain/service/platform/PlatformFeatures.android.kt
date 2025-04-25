@@ -5,7 +5,6 @@ actual object PlatformFeatures {
     actual val inAppBrowser = true
     actual val downloadToGallery = true
     actual val customAppIcon = true
-    actual val autoplayVideosPref = true
     actual val addCollection = true
     actual val customAccentColors = false
 }
