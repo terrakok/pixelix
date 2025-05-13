@@ -1,3 +1,4 @@
+import com.google.devtools.ksp.gradle.KspAATask
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
 
 plugins {
@@ -237,4 +238,9 @@ compose.desktop {
             }
         }
     }
+}
+
+tasks.configureEach {
+    if (this is KspAATask && name != "kspCommonMainKotlinMetadata")
+        dependsOn("kspCommonMainKotlinMetadata")
 }

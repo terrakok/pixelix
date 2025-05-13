@@ -7,8 +7,8 @@ import com.daniebeler.pfpixelix.domain.service.file.FileService
 import com.daniebeler.pfpixelix.domain.service.file.PlatformFile
 import com.daniebeler.pfpixelix.domain.service.utils.loadResource
 import com.daniebeler.pfpixelix.utils.KmpUri
-import io.github.vinceglb.filekit.CompressFormat
 import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.ImageFormat
 import io.github.vinceglb.filekit.compressImage
 import io.github.vinceglb.filekit.exists
 import io.github.vinceglb.filekit.nameWithoutExtension
@@ -38,7 +38,7 @@ class PostEditorService(
                 quality = 85,
                 maxWidth = 400,
                 maxHeight = 400,
-                compressFormat = CompressFormat.PNG
+                imageFormat = ImageFormat.PNG
             )
         } else null
 
