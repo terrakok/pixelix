@@ -1,6 +1,8 @@
 package com.daniebeler.pfpixelix
 
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.ComposeUiFlags
+import androidx.compose.ui.useSnapshotCache
 import androidx.compose.ui.window.ComposeViewport
 import coil3.SingletonImageLoader
 import com.daniebeler.pfpixelix.di.AppComponent
@@ -11,6 +13,11 @@ import com.daniebeler.pfpixelix.utils.configureLogger
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun webApp() {
+    // Avoid the experimental RenderNode snapshot path involved in the current Skiko WASM crash.
+    // The failure surfaces while replaying a cached layer in SkCanvas::saveLayer/malloc. This flag
+    // must be set before ComposeViewport creates the root owner and its SkiaGraphicsContext.
+    ComposeUiFlags.useSnapshotCache = false
+
     val appComponent = AppComponent.create(
         object : KmpContext() {},
         WebAppIconManager()
