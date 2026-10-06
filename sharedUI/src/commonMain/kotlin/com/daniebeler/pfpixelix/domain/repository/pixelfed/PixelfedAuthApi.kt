@@ -12,6 +12,7 @@ import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.Header
 import de.jensklingenberg.ktorfit.http.POST
 import de.jensklingenberg.ktorfit.http.Query
+import com.daniebeler.pfpixelix.domain.service.general.NetworkProxyPlugin
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
@@ -25,6 +26,7 @@ interface PixelfedAuthApi {
     companion object {
         fun createPixelfedAuthApi(baseUrl: Url, json: Json): PixelfedAuthApi {
             val httpClient = HttpClient {
+                install(NetworkProxyPlugin)
                 install(ContentNegotiation) { json(json) }
                 install(Logging) {
                     logger = object : io.ktor.client.plugins.logging.Logger {

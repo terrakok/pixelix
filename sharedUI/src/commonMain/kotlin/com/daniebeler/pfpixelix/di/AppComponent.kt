@@ -6,7 +6,9 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import co.touchlab.kermit.Logger
 import coil3.ImageLoader
+import coil3.annotation.ExperimentalCoilApi
 import coil3.memory.MemoryCache
+import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.request.CachePolicy
 import com.daniebeler.pfpixelix.domain.model.SavedSearches
 import com.daniebeler.pfpixelix.domain.model.SessionStorage
@@ -39,6 +41,7 @@ import com.daniebeler.pfpixelix.domain.service.general.PostEditorServiceDelegate
 import com.daniebeler.pfpixelix.domain.service.general.PostService
 import com.daniebeler.pfpixelix.domain.service.general.PostServiceDelegate
 import com.daniebeler.pfpixelix.domain.service.general.Session
+import com.daniebeler.pfpixelix.domain.service.general.NetworkProxyPlugin
 import com.daniebeler.pfpixelix.domain.service.general.TimelineService
 import com.daniebeler.pfpixelix.domain.service.general.TimelineServiceDelegate
 import com.daniebeler.pfpixelix.domain.service.general.WidgetService
@@ -96,6 +99,7 @@ class PixelixViewModelFactory(
         Map<KClass<out ManualViewModelAssistedFactory>, () -> ManualViewModelAssistedFactory>,
 ) : MetroViewModelFactory()
 
+@OptIn(ExperimentalCoilApi::class)
 @DependencyGraph(AppScope::class)
 abstract class AppComponent : ViewModelGraph {
     abstract val context: KmpContext
@@ -190,6 +194,7 @@ abstract class AppComponent : ViewModelGraph {
             PixelfedAuthInterceptor(session, json, sessionStorage, globalNavigator)
 
         return HttpClient {
+            install(NetworkProxyPlugin)
 
             expectSuccess = true
             install(ContentNegotiation) { json(json) }
@@ -254,6 +259,7 @@ abstract class AppComponent : ViewModelGraph {
             VernissageAuthInterceptor(session, json, sessionStorage, globalNavigator)
 
         return HttpClient {
+            install(NetworkProxyPlugin)
 
             expectSuccess = true
             install(ContentNegotiation) { json(json) }
@@ -293,6 +299,7 @@ abstract class AppComponent : ViewModelGraph {
     @SimpleClient
     fun provideSimpleHttpClient(): HttpClient {
         return HttpClient {
+            install(NetworkProxyPlugin)
             expectSuccess = true
         }
     }
@@ -326,6 +333,7 @@ abstract class AppComponent : ViewModelGraph {
     @SingleIn(AppScope::class)
     fun provideImageLoader(): ImageLoader =
         ImageLoader.Builder(context.coilContext)
+            .components { add(KtorNetworkFetcherFactory(provideSimpleHttpClient())) }
             .memoryCachePolicy(CachePolicy.ENABLED)
             .memoryCache(
                 MemoryCache.Builder()

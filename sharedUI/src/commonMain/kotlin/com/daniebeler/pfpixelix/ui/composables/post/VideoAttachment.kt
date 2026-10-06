@@ -39,6 +39,7 @@ import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
 import co.touchlab.kermit.Logger
+import com.daniebeler.pfpixelix.domain.service.general.NetworkProxy
 import com.daniebeler.pfpixelix.ui.composables.widgets.LocalVideoPlaybackCoordinator
 import com.daniebeler.pfpixelix.utils.KeepScreenOn
 import kotlinx.coroutines.flow.filterIsInstance
@@ -103,7 +104,7 @@ fun VideoPlayerContent(
     }
     LaunchedEffect(player, url) {
         try {
-            player.playUri(url, playWhenReady = latestShouldAutoplay)
+            player.playUri(NetworkProxy.url(url), playWhenReady = latestShouldAutoplay)
         } catch (error: PlaybackException) {
             Logger.e(error) { "Unable to open video: $url" }
         }
