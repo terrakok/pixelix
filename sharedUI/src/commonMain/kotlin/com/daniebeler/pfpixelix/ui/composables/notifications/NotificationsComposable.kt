@@ -143,7 +143,7 @@ fun NotificationsComposable(
                             onCheckedChange = {
                                 viewModel.changeFilter(NotificationsFilterEnum.All)
                             },
-                            colors = ToggleButtonDefaults.toggleButtonColors(
+                            colors = ToggleButtonDefaults.colors(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
                             ),
                             content = {
@@ -157,7 +157,7 @@ fun NotificationsComposable(
                             onCheckedChange = {
                                 viewModel.changeFilter(NotificationsFilterEnum.Followers)
                             },
-                            colors = ToggleButtonDefaults.toggleButtonColors(
+                            colors = ToggleButtonDefaults.colors(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
                             ),
                             content = {
@@ -171,7 +171,7 @@ fun NotificationsComposable(
                             onCheckedChange = {
                                 viewModel.changeFilter(NotificationsFilterEnum.Mentions)
                             },
-                            colors = ToggleButtonDefaults.toggleButtonColors(
+                            colors = ToggleButtonDefaults.colors(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
                             ),
                             content = {
@@ -185,7 +185,7 @@ fun NotificationsComposable(
                             onCheckedChange = {
                                 viewModel.changeFilter(NotificationsFilterEnum.Likes)
                             },
-                            colors = ToggleButtonDefaults.toggleButtonColors(
+                            colors = ToggleButtonDefaults.colors(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
                             ),
                             content = {
@@ -199,7 +199,7 @@ fun NotificationsComposable(
                             onCheckedChange = {
                                 viewModel.changeFilter(NotificationsFilterEnum.Reposts)
                             },
-                            colors = ToggleButtonDefaults.toggleButtonColors(
+                            colors = ToggleButtonDefaults.colors(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
                             ),
                             content = {
