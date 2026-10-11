@@ -1,4 +1,5 @@
 
+import org.jetbrains.compose.desktop.application.dsl.AotMode
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Rpm
@@ -25,6 +26,11 @@ dependencies {
 compose.desktop {
     application {
         mainClass = "MainKt"
+
+        //https://github.com/JetBrains/compose-multiplatform/pull/5644
+        buildTypes.release.aot {
+            mode = AotMode.AppCdsAuto
+        }
 
         nativeDistributions {
             targetFormats(Dmg, Msi, Rpm)
