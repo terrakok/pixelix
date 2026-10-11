@@ -1,14 +1,14 @@
 [versions]
-kotlin = "2.4.20"
-ksp = "2.3.6"
-agp = "9.4.1"
+kotlin = "2.5.0-Beta2"
+ksp = "2.3.12"
+agp = "9.1.1" #MAXIMUM supported by IntellIJ IDEA
 
 #https://github.com/JetBrains/compose-multiplatform/releases
-composeMultiplatform = "1.13.0-alpha02"
+composeMultiplatform = "1.13.0-beta01"
 lifecycleMultiplatform = "2.11.0"
-material3 = "1.13.0-alpha02"
-materialVersion = "1.13.0-alpha02"
-navigation3 = "1.2.0-rc01"
+material3 = "1.13.0-beta01"
+materialVersion = "1.13.0-beta01"
+navigation3 = "1.2.0"
 navigation3Browser = "1.1.0"
 composeNavigationEvent = "1.1.0"
 
