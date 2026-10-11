@@ -29,7 +29,7 @@ coil = "3.6.3"
 datastorePreferences = "1.3.0-alpha11"
 filekitCompose = "0.16.0"
 krop = "0.2.0"
-composemediaplayer = "0.11.4"
+mediamp = "0.6.0" # local version
 
 #android
 activityCompose = "1.13.0"
@@ -104,7 +104,8 @@ okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 filekit-compose = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "filekitCompose" }
 krop = { module = "com.attafitamim.krop:ui", version.ref = "krop" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
-composemediaplayer = { module = "io.github.kdroidfilter:composemediaplayer", version.ref = "composemediaplayer" }
+mediamp-all = { module = "org.openani.mediamp:mediamp-all", version.ref = "mediamp" }
+mediamp-mpv-runtime = { module = "org.openani.mediamp:mediamp-mpv-runtime", version.ref = "mediamp" }
 runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
 ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
 ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "composeMultiplatform" }

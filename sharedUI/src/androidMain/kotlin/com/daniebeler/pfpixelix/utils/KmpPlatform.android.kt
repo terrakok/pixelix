@@ -8,7 +8,7 @@ import coil3.PlatformContext
 import com.daniebeler.pfpixelix.domain.model.request.FieldState
 import com.daniebeler.pfpixelix.domain.model.request.GPSData
 import com.daniebeler.pfpixelix.domain.model.request.MediaAttachmentMetadataRequest
-import io.github.kdroidfilter.composemediaplayer.util.getUri
+import io.github.vinceglb.filekit.AndroidFile
 import io.github.vinceglb.filekit.PlatformFile
 import java.io.ByteArrayInputStream
 
@@ -17,7 +17,10 @@ actual typealias KmpUri = Uri
 actual val EmptyKmpUri: KmpUri = Uri.EMPTY
 actual fun KmpUri.getPlatformUriObject(): Any = this
 actual fun String.toKmpUri(): KmpUri = this.toUri()
-actual fun PlatformFile.toKmpUri(): KmpUri = this.getUri().toUri()
+actual fun PlatformFile.toKmpUri(): KmpUri = when (val file = androidFile) {
+    is AndroidFile.FileWrapper -> Uri.fromFile(file.file)
+    is AndroidFile.UriWrapper -> file.uri
+}
 actual fun KmpUri.toPlatformFile(): PlatformFile = PlatformFile(this)
 
 actual typealias KmpContext = Context

@@ -132,7 +132,7 @@ kotlin {
             implementation(libs.krop)
 
             //video player
-            implementation(libs.composemediaplayer)
+            implementation(libs.mediamp.all)
         }
 
         webMain.dependencies {
@@ -177,6 +177,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.slf4j.simple)
             implementation(libs.metadata.extractor)
+            runtimeOnly(libs.mediamp.mpv.runtime)
             //blurhash
             implementation(libs.vanniktech.blurhash)
         }
