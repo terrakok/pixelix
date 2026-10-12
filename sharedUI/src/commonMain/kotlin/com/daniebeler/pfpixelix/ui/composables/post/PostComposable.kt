@@ -1149,8 +1149,8 @@ private fun ImageWrapper(
             }
         ).size(Size.ORIGINAL).precision(Precision.EXACT).build(),
         contentDescription = null,
-        modifier = Modifier.fillMaxWidth(),
-        contentScale = ContentScale.FillWidth,
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.Fit,
         onSuccess = { state ->
             setContentSize(state)
             onSuccess()
