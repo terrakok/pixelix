@@ -82,8 +82,8 @@ import com.daniebeler.pfpixelix.ui.composables.states.ErrorComposableDialog
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 import com.daniebeler.pfpixelix.ui.navigation.AppNavigator
 import com.daniebeler.pfpixelix.ui.navigation.Destination
-import com.daniebeler.pfpixelix.utils.BlurHashDecoder
 import com.daniebeler.pfpixelix.utils.formatLocalized
+import com.daniebeler.pfpixelix.utils.rememberBlurHashBitmap
 import com.daniebeler.pfpixelix.utils.timeAgo
 import com.daniebeler.pfpixelix.utils.zoomable.rememberZoomState
 import kotlinx.coroutines.CoroutineScope
@@ -449,7 +449,7 @@ private fun PostSensitiveOverlay(post: Post, viewModel: PostViewModel, isMasonry
         modifier = Modifier.fillMaxWidth().zIndex(80f)
             .clip(RoundedCornerShape(if (isMasonry) 8.dp else 16.dp))
     ) {
-        val blurHashBitmap = BlurHashDecoder.decode(post.mediaAttachments[0].blurHash)
+        val blurHashBitmap = rememberBlurHashBitmap(post.mediaAttachments[0].blurHash)
         val aspectRatio = post.mediaAttachments[0].aspectRatio?.toFloat() ?: 1.5f
 
         if (blurHashBitmap != null) {
@@ -1020,7 +1020,7 @@ fun PostImage(
     Box(
         modifier = Modifier.fillMaxWidth().zIndex(80f).clip(roundedCornerShape)
     ) {
-        val blurHashBitmap = BlurHashDecoder.decode(mediaAttachment.blurHash)
+        val blurHashBitmap = rememberBlurHashBitmap(mediaAttachment.blurHash)
 
         if (!imageLoaded && blurHashBitmap != null) {
             Image(
