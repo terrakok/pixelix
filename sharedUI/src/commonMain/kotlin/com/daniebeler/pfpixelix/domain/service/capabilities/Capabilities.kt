@@ -56,4 +56,5 @@ data class NewPostCapabilities(
     val showMetadata: Boolean,
     val showCategoriesDropdown: Boolean,
     val supportLicenses: Boolean,
+    val supportVideos: Boolean
 )

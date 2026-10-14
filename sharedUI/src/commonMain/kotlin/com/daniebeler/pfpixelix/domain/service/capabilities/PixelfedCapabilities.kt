@@ -38,5 +38,6 @@ val PixelfedCapabilities = Capabilities(
         showMetadata = false,
         showCategoriesDropdown = false,
         supportLicenses = false,
+        supportVideos = true
     )
 )

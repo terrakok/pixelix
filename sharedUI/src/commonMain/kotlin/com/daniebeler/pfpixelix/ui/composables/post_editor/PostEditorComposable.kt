@@ -354,7 +354,7 @@ fun PostEditorComposable(
                                 .background(MaterialTheme.colorScheme.background)
                         ) { tabIndex ->
                             if (viewModel.mediaItems.isEmpty()) {
-                                EmptyImageTab { file, metadata ->
+                                EmptyImageTab(supportVideos = viewModel.capabilities.value.newPost.supportVideos) { file, metadata ->
                                     viewModel.addImage(
                                         file,
                                         metadata
@@ -386,7 +386,7 @@ fun PostEditorComposable(
                                         availableLicenses = viewModel.licensesState.licenses
                                     )
                                 } else {
-                                    EmptyImageTab { file, metadata ->
+                                    EmptyImageTab(supportVideos = viewModel.capabilities.value.newPost.supportVideos) { file, metadata ->
                                         viewModel.addImage(
                                             file, metadata
                                         )

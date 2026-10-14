@@ -7,6 +7,7 @@ import android.graphics.Color.TRANSPARENT
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.webkit.MimeTypeMap
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -100,20 +101,30 @@ actual fun EdgeToEdgeDialogProperties(
     decorFitsSystemWindows = false
 )
 
-private fun saveUriToCache(uri: Uri, contentResolver: ContentResolver, cacheDir: File, appActivity: AppActivity): Uri? {
+private fun saveUriToCache(uri: Uri, contentResolver: ContentResolver, cacheDir: File, appActivity: AppActivity, mimeType: String): Uri? {
     try {
-        val inputStream: InputStream? = contentResolver.openInputStream(uri)
-        inputStream?.use { input ->
-            val file = File(cacheDir, "shared_image_${System.currentTimeMillis()}.jpg")
+        var fileExtension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType)
+        if (fileExtension == null) {
+            fileExtension = if (mimeType.startsWith("video/")) {
+                "mp4"
+            } else if (mimeType.startsWith("image/")) {
+                "jpg"
+            } else {
+                "bin"
+            }
+        }
+        val file = File(cacheDir, "shared_image_${System.currentTimeMillis()}.${fileExtension}")
+
+        contentResolver.openInputStream(uri)?.use { input ->
             FileOutputStream(file).use { output ->
                 input.copyTo(output)
             }
-            return FileProvider.getUriForFile(
-                appActivity,
-                "${appActivity.packageName}.provider",
-                file
-            )
         }
+        return FileProvider.getUriForFile(
+            appActivity,
+            "${appActivity.packageName}.provider",
+            file
+        )
     } catch (e: Throwable) {
         e.printStackTrace()
     }
@@ -141,7 +152,7 @@ private fun handleSharePhotoIntent(
                     ) as? Uri
                 }
                 singleUri?.let { uri ->
-                    val cachedUri = saveUriToCache(uri, contentResolver, cacheDir, appActivity)
+                    val cachedUri = saveUriToCache(uri, contentResolver, cacheDir, appActivity, type)
                     imageUris =
                         cachedUri?.let { listOf(it) } ?: emptyList() // Wrap single image in a list
                 }
@@ -160,7 +171,7 @@ private fun handleSharePhotoIntent(
             }
             imageUris = receivedUris?.mapNotNull {
                 saveUriToCache(
-                    it, contentResolver, cacheDir, appActivity
+                    it, contentResolver, cacheDir, appActivity, type
                 )
             } ?: emptyList()
         }

@@ -107,7 +107,7 @@ fun HomeComposable(
                         }
 
                         IconButton(onClick = {
-                            navController.navigate(Destination.HomeTabNewPost) {
+                            navController.navigate(Destination.HomeTabNewPost()) {
                                 launchSingleTop = true
                                 restoreState = false
                                 popUpTo(navController.graph.findStartDestination().id) {

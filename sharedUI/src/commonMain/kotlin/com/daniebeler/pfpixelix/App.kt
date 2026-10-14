@@ -191,7 +191,7 @@ fun App(
                 LaunchedEffect(activeUser) {
                     navController.clearBackStack(Destination.HomeTabFeeds)
                     navController.clearBackStack(Destination.HomeTabSearch)
-                    navController.clearBackStack(Destination.HomeTabNewPost)
+                    navController.clearBackStack(Destination.HomeTabNewPost())
                     navController.clearBackStack(Destination.HomeTabNotifications)
                     navController.clearBackStack(Destination.HomeTabOwnProfile)
                 }
@@ -276,9 +276,14 @@ fun App(
                 LaunchedEffect(Unit) {
                     appComponent.systemFileShare.shareFilesRequests.collect { uris ->
                         if (activeUser != null) {
-                            navController.navigate(
-                                Destination.NewPost(uris.map { it.toString() })
-                            )
+                            navController.navigate(Destination.HomeTabNewPost(uris.map { it.toString() })) {
+                                launchSingleTop = true
+                                restoreState = false
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    inclusive = false
+                                    saveState = true
+                                }
+                            }
                         }
                     }
                 }

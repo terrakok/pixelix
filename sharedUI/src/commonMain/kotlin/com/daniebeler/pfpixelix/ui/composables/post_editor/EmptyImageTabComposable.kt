@@ -41,7 +41,10 @@ import pixelix.app.generated.resources.select_images_description
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun EmptyImageTab(addImage: (KmpUri, MediaAttachmentMetadataRequest) -> Unit) {
+fun EmptyImageTab(
+    supportVideos: Boolean,
+    addImage: (KmpUri, MediaAttachmentMetadataRequest) -> Unit
+) {
     val scope = rememberCoroutineScope()
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -53,7 +56,11 @@ fun EmptyImageTab(addImage: (KmpUri, MediaAttachmentMetadataRequest) -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val launcher = rememberFilePickerLauncher(
-                type = FileKitType.ImageAndVideo, mode = FileKitMode.Multiple()
+                type = if (supportVideos) {
+                    FileKitType.ImageAndVideo
+                } else {
+                    FileKitType.Image
+                }, mode = FileKitMode.Multiple()
             ) { files ->
                 files?.forEach { file ->
                     scope.launch(Dispatchers.Default) {

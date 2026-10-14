@@ -145,7 +145,7 @@ sealed interface Destination : NavKey {
     data object HomeTabSearch : Destination
 
     @Serializable
-    data object HomeTabNewPost : Destination
+    data class HomeTabNewPost(val uris: List<String> = emptyList()) : Destination
 
     @Serializable
     data object HomeTabNotifications : Destination
@@ -166,7 +166,7 @@ internal fun appEntryProvider(
     }
 
     entry<Destination.NewPost> { args ->
-        val imageUris: List<KmpUri>? = args.uris.map { it.toKmpUri() }
+        val imageUris: List<KmpUri> = args.uris.map { it.toKmpUri() }
         PostEditorComposable(navigator, imageUris)
     }
 
@@ -184,8 +184,9 @@ internal fun appEntryProvider(
         ExploreComposable(navigator, 0)
     }
 
-    entry<Destination.HomeTabNewPost> {
-        PostEditorComposable(navigator, emptyList())
+    entry<Destination.HomeTabNewPost> { args ->
+        val imageUris: List<KmpUri> = args.uris.map { it.toKmpUri() }
+        PostEditorComposable(navigator, imageUris)
     }
 
     entry<Destination.HomeTabNotifications> {

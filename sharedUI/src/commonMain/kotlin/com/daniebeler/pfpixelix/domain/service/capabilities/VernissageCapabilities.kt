@@ -31,5 +31,6 @@ val VernissageCapabilities = Capabilities(
         showMetadata = true,
         showCategoriesDropdown = true,
         supportLicenses = true,
+        supportVideos = false
     )
 )

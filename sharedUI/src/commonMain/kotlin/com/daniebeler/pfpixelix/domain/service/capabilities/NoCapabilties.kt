@@ -31,5 +31,6 @@ val NoCapabilities = Capabilities(
         showMetadata = false,
         showCategoriesDropdown = false,
         supportLicenses = false,
+        supportVideos = false
     )
 )

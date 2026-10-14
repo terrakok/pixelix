@@ -62,7 +62,7 @@ internal val navigationSavedStateConfiguration = SavedStateConfiguration {
 internal val topLevelDestinations: Set<Destination> = setOf(
     Destination.HomeTabFeeds,
     Destination.HomeTabSearch,
-    Destination.HomeTabNewPost,
+    Destination.HomeTabNewPost(),
     Destination.HomeTabNotifications,
     Destination.HomeTabOwnProfile,
 )
