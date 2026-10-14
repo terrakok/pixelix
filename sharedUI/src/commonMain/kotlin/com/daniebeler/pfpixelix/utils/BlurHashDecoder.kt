@@ -30,13 +30,20 @@ fun rememberBlurHashBitmap(
     }
 
     LaunchedEffect(blurHash, width, height, punch) {
-        bitmap = BlurHashDecoder.decode(blurHash, width, height, punch)
+        bitmap = decodeBlurHash(blurHash, width, height, punch)
     }
 
     return bitmap
 }
 
-private object BlurHashDecoder {
+internal expect suspend fun decodeBlurHash(
+    blurHash: String?,
+    width: Int?,
+    height: Int?,
+    punch: Float
+): ImageBitmap?
+
+internal object BlurHashDecoder {
     suspend fun decode(
         blurHash: String?,
         width: Int? = 30,
