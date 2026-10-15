@@ -34,6 +34,7 @@ compose.desktop {
             //data store https://issuetracker.google.com/280205600
             modules("jdk.unsupported")
             modules("jdk.unsupported.desktop")
+            modules("jdk.security.auth")
 
             linux {
                 iconFile.set(project.file("desktopAppIcons/LinuxIcon.png"))
