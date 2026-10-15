@@ -176,7 +176,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.slf4j.simple)
-
+            implementation(libs.metadata.extractor)
             //blurhash
             implementation(libs.vanniktech.blurhash)
         }

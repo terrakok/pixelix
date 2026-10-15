@@ -40,7 +40,8 @@ fun formatDecimalToExposureFraction(decimalStr: String?): String? {
 }
 
 
-fun convertApexToFNumber(apertureValueStr: String): String? {
+fun convertApexToFNumber(apertureValueStr: String?): String? {
+    if (apertureValueStr == null) return null
     val parts = apertureValueStr.split("/")
 
     val apexValue = if (parts.size == 2) {

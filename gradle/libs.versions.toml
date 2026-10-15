@@ -43,7 +43,7 @@ workRuntimeKtx = "2.12.0"
 #desktop
 slf4jSimple = "2.0.20"
 exifinterface = "1.4.2"
-
+metadataExtractor = "2.21.0"
 blurhash = "0.3.0"
 
 [libraries]
@@ -111,6 +111,7 @@ ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatfo
 ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "composeMultiplatform" }
 androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
 vanniktech-blurhash = { module = "com.vanniktech:blurhash", version.ref = "blurhash" }
+metadata-extractor = { module = "com.drewnoakes:metadata-extractor", version.ref = "metadataExtractor" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
