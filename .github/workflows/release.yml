@@ -11,58 +11,26 @@ on:
         default: 'vx.x.x'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    container:
-      image: registry.gitlab.com/fdroid/fdroidserver:buildserver-trixie
+  fastlane:
+    runs-on:
+      ubuntu-latest
     permissions:
       contents: write
       id-token: write
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup
-        run: |
-          apt-get update -q
-          apt-get install -y openjdk-21-jdk-headless ruby ruby-dev  ruby-bundler build-essential
-          update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
-          sed -i -e '/jetbrains/d' -e '/foojay/d' settings.gradle.kts
-          bundler install
-
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: ruby/setup-ruby@v1
+        with: { bundler-cache: true }
       - name: Decode keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > androidApp/release.keystore
-
-      - name: Build
-        run: cd androidApp && ../gradlew assembleRelease
-        env:
-          ANDROID_HOME: /opt/android-sdk
-          KEYSTORE_PATH: release.keystore
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-
-#      - name: Sign
-#        run: |
-#          TAG=${{ github.event.inputs.tag || github.ref_name }}
-#          /opt/android-sdk/build-tools/$(ls /opt/android-sdk/build-tools/ | tail -1)/apksigner sign \
-#            --ks androidApp/release.keystore \
-#            --ks-pass "pass:${{ secrets.KEYSTORE_PASSWORD }}" \
-#            --key-pass "pass:${{ secrets.KEY_PASSWORD }}" \
-#            --ks-key-alias "${{ secrets.KEY_ALIAS }}" \
-#            --out signed_release.apk \
-#            androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk
-#          rm keystore.jks
-#        env:
-#          ANDROID_HOME: /opt/android-sdk
-
       - id: auth
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: 'projects/66072674254/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
           service_account: 'fastlane@pixelix-509511.iam.gserviceaccount.com'
-
       - name: Run Fastlane Release Lane
         env:
           KEYSTORE_PATH: release.keystore
@@ -71,13 +39,139 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REF_NAME: ${{ github.event.inputs.tag || github.ref_name }}
-          ANDROID_HOME: /opt/android-sdk
         run: bundle exec fastlane android release
+  apk:
+    needs: fastlane
+    runs-on: ubuntu-latest
+    container:
+      image: registry.gitlab.com/fdroid/fdroidserver:buildserver-trixie
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: |
+          apt-get update -q
+          apt-get install -y openjdk-21-jdk-headless
+          update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
+          sed -i -e '/jetbrains/d' -e '/foojay/d' settings.gradle.kts
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > androidApp/release.keystore
 
-#      - name: Release
-#        uses: softprops/action-gh-release@v2
+      - name: Build APK
+        run: cd androidApp && ../gradlew assembleRelease
+        env:
+          ANDROID_HOME: /opt/android-sdk
+          KEYSTORE_PATH: release.keystore
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      - name: Rename APK
+        run: cp androidApp/build/outputs/apk/release/androidApp-release.apk "pixelix_${TAG}.apk"
+        env:
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: pixelix_${{ github.event.inputs.tag || github.ref_name }}.apk
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          fail_on_unmatched_files: true
+  flatpak:
+    needs: fastlane
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - run: |
+          GRADLE_HOME=$(mktemp -d)
+          ./gradlew -Dgradle.user.home="$GRADLE_HOME" :desktopApp:createDistributable :captureFlatpakSources
+      - uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
+        with:
+         bundle: pixelix.flatpak
+         manifest-path: ./flatpak-assets/dev.ghostbyte.pixelix.yml
+         cache-key: flatpak-builder-${{ github.sha }}
+
+      - name: Upload Flatpak
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          files: pixelix.flatpak
+          fail_on_unmatched_files: true
+#    steps:
+#  build:
+#    runs-on: ubuntu-latest
+#    container:
+#      image: registry.gitlab.com/fdroid/fdroidserver:buildserver-trixie
+#    permissions:
+#      contents: write
+#      id-token: write
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Setup
+#        run: |
+#          apt-get update -q
+#          apt-get install -y openjdk-21-jdk-headless ruby ruby-dev  ruby-bundler build-essential
+#          update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
+#          sed -i -e '/jetbrains/d' -e '/foojay/d' settings.gradle.kts
+#          bundler install
+#
+#      - name: Decode keystore
+#        run: |
+#          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > androidApp/release.keystore
+#
+#      - name: Build APK
+#        run: cd androidApp && ../gradlew assembleRelease
+#        env:
+#          ANDROID_HOME: /opt/android-sdk
+#          KEYSTORE_PATH: release.keystore
+#          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+#          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+#          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+#
+##      - name: Sign
+##        run: |
+##          TAG=${{ github.event.inputs.tag || github.ref_name }}
+##          /opt/android-sdk/build-tools/$(ls /opt/android-sdk/build-tools/ | tail -1)/apksigner sign \
+##            --ks androidApp/release.keystore \
+##            --ks-pass "pass:${{ secrets.KEYSTORE_PASSWORD }}" \
+##            --key-pass "pass:${{ secrets.KEY_PASSWORD }}" \
+##            --ks-key-alias "${{ secrets.KEY_ALIAS }}" \
+##            --out signed_release.apk \
+##            androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk
+##          rm keystore.jks
+##        env:
+##          ANDROID_HOME: /opt/android-sdk
+#
+#      - id: auth
+#        uses: google-github-actions/auth@v2
 #        with:
-#          files: pixelix_${{ github.event.inputs.tag || github.ref_name }}.apk
-#          draft: true
-#          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
-#          fail_on_unmatched_files: false
+#          workload_identity_provider: 'projects/66072674254/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+#          service_account: 'fastlane@pixelix-509511.iam.gserviceaccount.com'
+#
+#      - name: Run Fastlane Release Lane
+#        env:
+#          KEYSTORE_PATH: release.keystore
+#          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+#          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+#          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          GITHUB_REF_NAME: ${{ github.event.inputs.tag || github.ref_name }}
+#          ANDROID_HOME: /opt/android-sdk
+#        run: bundle exec fastlane android release
+#
+##      - name: Release
+##        uses: softprops/action-gh-release@v2
+##        with:
+##          files: pixelix_${{ github.event.inputs.tag || github.ref_name }}.apk
+##          draft: true
+##          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+##          fail_on_unmatched_files: false

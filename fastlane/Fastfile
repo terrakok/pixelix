@@ -46,13 +46,7 @@ platform :android do
 
   desc "Create a draft GitHub release with pre-built APK"
   lane :github_release do
-    version_code = get_android_version_code
-    version_name = get_android_version_name
     notes = get_release_notes(version_code: version_code)
-
-    original_apk_path = File.expand_path("../androidApp/build/outputs/apk/release/androidApp-release.apk", __dir__)
-    renamed_apk_path = File.expand_path("../androidApp/build/outputs/apk/release/pixelix_#{version_name}.apk", __dir__)
-    FileUtils.cp(original_apk_path, renamed_apk_path)
 
     set_github_release(
       repository_name: "ghostbyte-dev/pixelix",
@@ -60,7 +54,6 @@ platform :android do
       tag_name: ENV["GITHUB_REF_NAME"],
       name: "Pixelix " + (ENV["GITHUB_REF_NAME"] || "Dev Build"),
       description: notes,
-      upload_assets: [renamed_apk_path],
       is_draft: true
     )
   end
