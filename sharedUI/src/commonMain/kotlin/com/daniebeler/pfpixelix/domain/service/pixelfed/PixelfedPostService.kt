@@ -17,6 +17,8 @@ import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.domain.service.utils.loadPaginatedListResources
 import com.daniebeler.pfpixelix.domain.service.utils.loadResource
 import com.daniebeler.pfpixelix.utils.executeAndParsePagination
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
@@ -49,10 +51,30 @@ class PixelfedPostService(
         accountId: String, username: String, maxPostId: String?, limit: Int
     ) = getPostsByAccountId(accountId, maxPostId, limit).filterSensitive(prefs.hideSensitiveContent)
 
+    //    private fun getPostsByAccountId(
+//        accountId: String, maxPostId: String?, limit: Int
+//    ) = loadPaginatedListResources<Post> {
+//        api.getPostsByAccountId(accountId, maxPostId, limit, maxPostId == null).map { it.toDomain() }
+//    }
     private fun getPostsByAccountId(
-        accountId: String, maxPostId: String?, limit: Int
+        identifier: String, maxPostId: String?, limit: Int
     ) = loadPaginatedListResources<Post> {
-        api.getPostsByAccountId(accountId, maxPostId, limit, maxPostId == null).map { it.toDomain() }
+        if (maxPostId.isNullOrBlank()) {
+            coroutineScope {
+                val onlyPinnedDeferred =
+                    async { api.getPostsByAccountId(identifier, null, limit, true) }
+                val notPinnedDeferred =
+                    async { api.getPostsByAccountId(identifier, null, limit, false) }
+
+                val onlyPinned = onlyPinnedDeferred.await()
+                val notPinned = notPinnedDeferred.await()
+
+                val allPosts = onlyPinned.map { it.toDomain() } + notPinned.map { it.toDomain() }
+                allPosts
+            }
+        } else {
+            api.getPostsByAccountId(identifier, maxPostId, limit).map { it.toDomain() }
+        }
     }
 
     override fun getLikedPosts(maxId: String?) = flow {
@@ -148,5 +170,7 @@ class PixelfedPostService(
     }
 
     override fun getLikedBy(postId: String) =
-        loadPaginatedListResources<Account> { api.getAccountsWhoLikedPost(postId).map { it.toDomain() } }
+        loadPaginatedListResources<Account> {
+            api.getAccountsWhoLikedPost(postId).map { it.toDomain() }
+        }
 }
