@@ -9,8 +9,6 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 import co.touchlab.kermit.Logger
 import com.daniebeler.pfpixelix.domain.model.Instance
 import com.daniebeler.pfpixelix.domain.model.License
@@ -42,9 +40,12 @@ import io.github.vinceglb.filekit.nameWithoutExtension
 import io.github.vinceglb.filekit.readBytes
 import io.github.vinceglb.filekit.size
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Inject
 import kotlin.time.Clock
@@ -106,6 +107,8 @@ class PostEditorViewModel @Inject constructor(
     private var originalMediaIds = listOf<String>()
     private var originalMediaMetadata = mapOf<String, MediaAttachmentMetadataRequest>()
 
+    private var uploadJobs = mutableMapOf<KmpUri, Job>()
+
     val isEdited: Boolean by derivedStateOf {
         if (mode == EditorMode.CREATE) {
             true
@@ -136,6 +139,11 @@ class PostEditorViewModel @Inject constructor(
 
         userPreferences.defaultLicenseFlow.onEach { defaultLicense = it }
             .launchIn(viewModelScope)
+    }
+
+    fun cancel() {
+        uploadJobs.forEach { it.value.cancel()}
+        mediaItems = mutableStateListOf()
     }
 
 
@@ -554,7 +562,7 @@ class PostEditorViewModel @Inject constructor(
     }
 
     private fun uploadImage(uri: KmpUri) {
-        viewModelScope.launch {
+        val blurhashJob = viewModelScope.launch {
             val blurhash = createBlurHash(uri) ?: "default_or_fallback_id"
 
             val index = mediaItems.indexOfFirst { it.imageUri == uri }
@@ -567,7 +575,7 @@ class PostEditorViewModel @Inject constructor(
             }
         }
 
-        postEditorService.uploadMedia(uri).onEach { result ->
+        val uploadJob = postEditorService.uploadMedia(uri).onEach { result ->
             mediaUploadState = when (result) {
                 is Resource.Success -> {
 //                    if (result.data.type?.take(5) == "video") {
@@ -604,6 +612,9 @@ class PostEditorViewModel @Inject constructor(
                 }
             }
         }.flowOn(Dispatchers.io).launchIn(viewModelScope)
+
+        uploadJob.invokeOnCompletion { blurhashJob.cancel() }
+        uploadJobs[uri] = uploadJob
     }
 
     private suspend fun createBlurHash(uri: KmpUri): String? {
