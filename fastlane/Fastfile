@@ -54,7 +54,7 @@ platform :android do
       repository_name: "ghostbyte-dev/pixelix",
       api_bearer: ENV["GITHUB_TOKEN"],
       tag_name: ENV["GITHUB_REF_NAME"],
-      name: "Pixelix " + (ENV["GITHUB_REF_NAME"] || "Dev Build"),
+      name: "Pixelix " + (ENV["TAG"] || "Dev Build"),
       description: notes,
       is_draft: true
     )

@@ -52,7 +52,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REF_NAME: ${{ github.event.inputs.tag || github.ref_name }}
+          TAG: ${{ env.TAG }}
         run: bundle exec fastlane android release
   apk:
     needs: fastlane
