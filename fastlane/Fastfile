@@ -46,6 +46,8 @@ platform :android do
 
   desc "Create a draft GitHub release with pre-built APK"
   lane :github_release do
+    version_code = get_android_version_code
+    version_name = get_android_version_name
     notes = get_release_notes(version_code: version_code)
 
     set_github_release(
