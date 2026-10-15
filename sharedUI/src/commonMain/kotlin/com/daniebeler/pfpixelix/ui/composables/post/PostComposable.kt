@@ -578,7 +578,7 @@ private fun PostMediaContent(
                 fullQuality = fullQuality,
                 navController = navController,
                 pinned = post.pinned
-           )
+            )
         }
     }
 }
@@ -1138,7 +1138,8 @@ private fun ImageWrapper(
     mediaAttachment: MediaAttachment,
     fullQuality: Boolean,
     setContentSize: (painter: AsyncImagePainter.State.Success) -> Unit,
-    onSuccess: () -> Unit
+    onSuccess: () -> Unit,
+    fillSizePopup: Boolean = false
 ) {
     AsyncImage(
         model = ImageRequest.Builder(LocalPlatformContext.current).data(
@@ -1149,8 +1150,16 @@ private fun ImageWrapper(
             }
         ).size(Size.ORIGINAL).precision(Precision.EXACT).build(),
         contentDescription = null,
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.Fit,
+        modifier = if (fillSizePopup) {
+            Modifier.fillMaxSize()
+        } else {
+            Modifier.fillMaxWidth()
+        },
+        contentScale = if (fillSizePopup) {
+            ContentScale.Fit
+        } else {
+            ContentScale.FillWidth
+        },
         onSuccess = { state ->
             setContentSize(state)
             onSuccess()
@@ -1193,13 +1202,14 @@ fun MediaDialog(
                 .clickable { closeDialog() }, contentAlignment = Alignment.Center
         ) {
             LoadingComposable(isLoading)
-            Box(modifier = Modifier.zIndex(2f).zoomable(zoomState).clickable { }) {
+            Box(modifier = Modifier.zIndex(2f).zoomable(zoomState)) {
                 if (mediaAttachment.type != "video") {
                     ImageWrapper(
                         mediaAttachment,
                         true,
                         { zoomState.setContentSize(it.painter.intrinsicSize) },
-                        { isLoading = false })
+                        { isLoading = false }, fillSizePopup = true
+                    )
                 } else {
                     VideoAttachment(
                         mediaAttachment, postViewModel, { isLoading = false }, isMasonry = false
