@@ -22,7 +22,9 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 21 }
       - uses: ruby/setup-ruby@v1
-        with: { bundler-cache: true }
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
       - name: Decode keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > androidApp/release.keystore
