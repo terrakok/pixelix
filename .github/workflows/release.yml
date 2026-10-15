@@ -61,6 +61,8 @@ jobs:
       image: registry.gitlab.com/fdroid/fdroidserver:buildserver-trixie
     permissions:
       contents: write
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup
@@ -83,13 +85,12 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
       - name: Rename APK
         run: cp androidApp/build/outputs/apk/release/androidApp-release.apk "pixelix_${TAG}.apk"
-        env:
-          TAG: ${{ github.event.inputs.tag || github.ref_name }}
       - name: Upload APK to Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload "${{ github.event.inputs.tag || github.ref_name }}" "pixelix_${{ github.event.inputs.tag || github.ref_name }}.apk" --clobber
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          gh release upload "$TAG" "pixelix_${TAG}.apk" --clobber
   flatpak:
     needs: fastlane
     runs-on: ubuntu-latest
@@ -98,6 +99,8 @@ jobs:
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
       options: --privileged
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -107,23 +110,16 @@ jobs:
           ./gradlew -Dgradle.user.home="$GRADLE_HOME" :desktopApp:createDistributable :captureFlatpakSources
       - uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
         with:
-         bundle: pixelix_${{ github.event.inputs.tag || github.ref_name }}.flatpak
+         bundle: pixelix_${TAG}.flatpak
          manifest-path: ./flatpak-assets/dev.ghostbyte.pixelix.yml
          cache-key: flatpak-builder-${{ github.sha }}
 
-#      - name: Upload Flatpak
-#        uses: softprops/action-gh-release@v2
-#        with:
-#          draft: true
-#          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
-#          files: pixelix.flatpak
-#          fail_on_unmatched_files: true
-
-      - name: Upload APK to Release
+      - name: Upload Flatpak to Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload "${{ github.event.inputs.tag || github.ref_name }}" "pixelix_${{ github.event.inputs.tag || github.ref_name }}.flatpak" --clobber
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          gh release upload "$TAG" "pixelix_${TAG}.flatpak" --clobber
 #    steps:
 #  build:
 #    runs-on: ubuntu-latest
