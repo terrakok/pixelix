@@ -110,7 +110,7 @@ jobs:
           ./gradlew -Dgradle.user.home="$GRADLE_HOME" :desktopApp:createDistributable :captureFlatpakSources
       - uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
         with:
-         bundle: pixelix_${{ TAG }}.flatpak
+         bundle: pixelix_${{ env.TAG }}.flatpak
          manifest-path: ./flatpak-assets/dev.ghostbyte.pixelix.yml
          cache-key: flatpak-builder-${{ github.sha }}
 
