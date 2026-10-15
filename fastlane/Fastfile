@@ -73,6 +73,6 @@ platform :android do
   end
   lane :release do
     github_release
-    playstore
+#    playstore
   end
 end
