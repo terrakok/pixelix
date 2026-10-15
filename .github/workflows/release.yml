@@ -85,13 +85,11 @@ jobs:
         run: cp androidApp/build/outputs/apk/release/androidApp-release.apk "pixelix_${TAG}.apk"
         env:
           TAG: ${{ github.event.inputs.tag || github.ref_name }}
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        with:
-          draft: true
-          files: pixelix_${{ github.event.inputs.tag || github.ref_name }}.apk
-          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
-          fail_on_unmatched_files: true
+      - name: Upload APK to Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.event.inputs.tag || github.ref_name }}" "pixelix_${{ github.event.inputs.tag || github.ref_name }}.apk" --clobber
   flatpak:
     needs: fastlane
     runs-on: ubuntu-latest
@@ -109,17 +107,23 @@ jobs:
           ./gradlew -Dgradle.user.home="$GRADLE_HOME" :desktopApp:createDistributable :captureFlatpakSources
       - uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
         with:
-         bundle: pixelix.flatpak
+         bundle: pixelix_${{ github.event.inputs.tag || github.ref_name }}.flatpak
          manifest-path: ./flatpak-assets/dev.ghostbyte.pixelix.yml
          cache-key: flatpak-builder-${{ github.sha }}
 
-      - name: Upload Flatpak
-        uses: softprops/action-gh-release@v2
-        with:
-          draft: true
-          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
-          files: pixelix.flatpak
-          fail_on_unmatched_files: true
+#      - name: Upload Flatpak
+#        uses: softprops/action-gh-release@v2
+#        with:
+#          draft: true
+#          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+#          files: pixelix.flatpak
+#          fail_on_unmatched_files: true
+
+      - name: Upload APK to Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.event.inputs.tag || github.ref_name }}" "pixelix_${{ github.event.inputs.tag || github.ref_name }}.flatpak" --clobber
 #    steps:
 #  build:
 #    runs-on: ubuntu-latest
