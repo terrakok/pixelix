@@ -17,16 +17,17 @@ internal inline fun <reified T> loadResource(
     crossinline call: suspend () -> T
 ): Flow<Resource<T>> = flow {
     emit(Resource.Loading())
-    try {
+    val result: Resource<T> = try {
         val data = call()
-        emit(Resource.Success(data))
+        Resource.Success(data)
     } catch (e: ClientRequestException) {
         val errorBody = e.response.bodyAsText()
         val errorMessage = parseErrorMessage(errorBody) ?: "Client Error"
-        emit(Resource.Error(errorMessage))
+        Resource.Error(errorMessage)
     } catch (e: Throwable) {
-        emit(Resource.Error(e.message ?: "Unknown Error"))
+        Resource.Error(e.message ?: "Unknown Error")
     }
+    emit(result)
 }
 
 

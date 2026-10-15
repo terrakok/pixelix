@@ -14,6 +14,10 @@ import com.daniebeler.pfpixelix.domain.service.platform.Platform
 import com.daniebeler.pfpixelix.domain.service.preferences.UserPreferences
 import com.daniebeler.pfpixelix.domain.service.utils.Resource
 import com.daniebeler.pfpixelix.ui.composables.profile.ViewEnum
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -225,21 +229,26 @@ class CollectionViewModel @Inject constructor(
     }
 
     fun confirmEdit() {
-        collectionPostsState = collectionPostsState.copy(posts = editState.editPosts)
+        collectionPostsState = CollectionPostsState(isLoading = true)
         editState = editState.copy(editMode = false)
-        editState.addedIds.forEach {
-            addPostsOfCollection(
-                it
-            )
+
+        viewModelScope.launch {
+            coroutineScope {
+                editState.addedIds.forEach { id -> launch { addPostsOfCollection(id) } }
+                editState.removedIds.forEach { id -> launch { removePostsOfCollection(id) } }
+                if (editState.name != collectionState.collection?.title) {
+                    launch { updateCollection(editState.name) }
+                }
+            }
         }
-        editState.removedIds.forEach {
-            removePostOfCollection(it)
-        }
+
+        collectionState =
+            collectionState.copy(collection = collectionState.collection!!.copy(title = editState.name))
+
         if (editState.name != collectionState.collection!!.title) {
             updateCollection(editState.name)
         }
-        collectionState =
-            collectionState.copy(collection = collectionState.collection!!.copy(title = editState.name))
+        getPostsFirstLoad(false)
     }
 
     private fun updateCollection(newName: String) {
@@ -267,46 +276,71 @@ class CollectionViewModel @Inject constructor(
         }
     }
 
-    private fun addPostsOfCollection(postId: String) {
-        if (collectionState.id != null) {
-            collectionService.addPostOfCollection(collectionState.id!!, postId).onEach { result ->
-                when (result) {
-                    is Resource.Success -> {
-                        //getPostsFirstLoad(false)
-                    }
+    private suspend fun addPostsOfCollection(postId: String): Resource<*>? {
+        val collectionId = collectionState.id ?: return null
 
-                    is Resource.Error -> {
-                        editState = editState.copy(updateError = result.message)
-                    }
+        val result = collectionService.addPostOfCollection(collectionId, postId)
+            .firstOrNull { it !is Resource.Loading }
+            ?: Resource.Error("No result received")
 
-                    is Resource.Loading -> {
-
-                    }
-                }
-            }.launchIn(viewModelScope)
+        if (result is Resource.Error) {
+            editState = editState.copy(updateError = result.message)
         }
+        return result
     }
 
-    private fun removePostOfCollection(postId: String) {
-        if (collectionState.id != null) {
-            collectionService.removePostOfCollection(collectionState.id!!, postId)
-                .onEach { result ->
-                    when (result) {
-                        is Resource.Success -> {
-                            //getPostsFirstLoad(false)
-                        }
+    private suspend fun removePostsOfCollection(postId: String): Resource<*>? {
+        val collectionId = collectionState.id ?: return null
 
-                        is Resource.Error -> {
-                            editState = editState.copy(updateError = result.message)
-                        }
+        val result = collectionService.removePostOfCollection(collectionId, postId)
+            .firstOrNull { it !is Resource.Loading }
+            ?: Resource.Error("No result received")
 
-                        is Resource.Loading -> {
-
-                        }
-                    }
-                }.launchIn(viewModelScope)
+        if (result is Resource.Error) {
+            editState = editState.copy(updateError = result.message)
         }
+        return result
     }
+//    private fun addPostsOfCollection(postId: String) {
+//        if (collectionState.id != null) {
+//            collectionService.addPostOfCollection(collectionState.id!!, postId).onEach { result ->
+//                when (result) {
+//                    is Resource.Success -> {
+//                        //getPostsFirstLoad(false)
+//                    }
+//
+//                    is Resource.Error -> {
+//                        editState = editState.copy(updateError = result.message)
+//                    }
+//
+//                    is Resource.Loading -> {
+//
+//                    }
+//                }
+//            }.launchIn(viewModelScope)
+//        }
+//    }
+//
+//    private fun removePostOfCollection(postId: String) {
+//        if (collectionState.id != null) {
+//            collectionService.removePostOfCollection(collectionState.id!!, postId)
+//                .onEach { result ->
+//                    when (result) {
+//                        is Resource.Success -> {
+//                            //getPostsFirstLoad(false)
+//                        }
+//
+//                        is Resource.Error -> {
+//                            editState = editState.copy(updateError = result.message)
+//                        }
+//
+//                        is Resource.Loading -> {
+//
+//                        }
+//                    }
+//                }.launchIn(viewModelScope)
+//        }
+//    }
 
     fun toggleEditMode() {
         val newEditState = editState.copy()
