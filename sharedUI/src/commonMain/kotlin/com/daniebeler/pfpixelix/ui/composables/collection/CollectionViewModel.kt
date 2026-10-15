@@ -229,26 +229,27 @@ class CollectionViewModel @Inject constructor(
     }
 
     fun confirmEdit() {
+        val newName = editState.name
+        val oldName = collectionState.collection?.title
+        val addedIds = editState.addedIds
+        val removedIds = editState.removedIds
+
         collectionPostsState = CollectionPostsState(isLoading = true)
         editState = editState.copy(editMode = false)
+        collectionState = collectionState.copy(
+            collection = collectionState.collection!!.copy(title = newName)
+        )
 
         viewModelScope.launch {
             coroutineScope {
-                editState.addedIds.forEach { id -> launch { addPostsOfCollection(id) } }
-                editState.removedIds.forEach { id -> launch { removePostsOfCollection(id) } }
-                if (editState.name != collectionState.collection?.title) {
-                    launch { updateCollection(editState.name) }
+                addedIds.forEach { id -> launch { addPostsOfCollection(id) } }
+                removedIds.forEach { id -> launch { removePostsOfCollection(id) } }
+                if (newName != oldName) {
+                    launch { updateCollection(newName) }
                 }
             }
+            getPostsFirstLoad(false)
         }
-
-        collectionState =
-            collectionState.copy(collection = collectionState.collection!!.copy(title = editState.name))
-
-        if (editState.name != collectionState.collection!!.title) {
-            updateCollection(editState.name)
-        }
-        getPostsFirstLoad(false)
     }
 
     private fun updateCollection(newName: String) {
