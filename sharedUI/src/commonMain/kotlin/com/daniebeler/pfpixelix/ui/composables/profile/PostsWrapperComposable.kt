@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.daniebeler.pfpixelix.ui.navigation.AppNavigator
 import com.daniebeler.pfpixelix.domain.model.Post
+import com.daniebeler.pfpixelix.domain.model.distinctByUiKey
 import com.daniebeler.pfpixelix.domain.model.uiKey
 import com.daniebeler.pfpixelix.ui.composables.post.MasonryPost
 import com.daniebeler.pfpixelix.ui.composables.widgets.CustomPost
@@ -45,10 +46,11 @@ fun LazyStaggeredGridScope.postsWrapperComposable(
     editRemove: (postId: String) -> Unit = { },
     onClick: ((id: String) -> Unit)? = null
 ) {
+    val uniquePosts = posts.distinctByUiKey()
 
     if (view == ViewEnum.Grid) {
         postsGridInScope(
-            posts = posts,
+            posts = uniquePosts,
             isLoading = isLoading,
             isRefreshing = isRefreshing,
             endReached = endReached,
@@ -64,7 +66,7 @@ fun LazyStaggeredGridScope.postsWrapperComposable(
 
     if (view == ViewEnum.Timeline) {
         postsListInScope(
-            posts = posts,
+            posts = uniquePosts,
             isLoading = isLoading,
             isRefreshing = isRefreshing,
             endReached = endReached,
@@ -76,7 +78,7 @@ fun LazyStaggeredGridScope.postsWrapperComposable(
 
     if (view == ViewEnum.Masonry) {
         postsMasonryInScope(
-            posts = posts,
+            posts = uniquePosts,
             isLoading = isLoading,
             isRefreshing = isRefreshing,
             endReached = endReached,
@@ -87,7 +89,7 @@ fun LazyStaggeredGridScope.postsWrapperComposable(
 
     if (view == ViewEnum.LargeMasonry) {
         postsLargeMasonryInScope(
-            posts = posts,
+            posts = uniquePosts,
             isLoading = isLoading,
             isRefreshing = isRefreshing,
             endReached = endReached,
