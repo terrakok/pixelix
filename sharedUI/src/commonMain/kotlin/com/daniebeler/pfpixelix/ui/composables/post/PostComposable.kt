@@ -44,6 +44,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -52,6 +53,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.LayoutCoordinates
@@ -90,6 +92,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import net.engawapg.lib.zoomable.snapBackZoomable
 import net.engawapg.lib.zoomable.zoomable
@@ -1037,6 +1040,13 @@ fun PostImage(
         }
 
         val zoomState = rememberZoomState()
+        var loadOriginalSize by remember(mediaAttachment) { mutableStateOf(false) }
+        if (mediaAttachment.type != "video") {
+            LaunchedEffect(mediaAttachment, zoomState) {
+                snapshotFlow { zoomState.scale > 1f }.first { it }
+                loadOriginalSize = true
+            }
+        }
         val showAltTextIcon = remember { mutableStateOf(true) }
 
         if (zoomState.scale != 1f) {
@@ -1073,6 +1083,7 @@ fun PostImage(
                     fullQuality,
                     { zoomState.setContentSize(it.painter.intrinsicSize) },
                     { imageLoaded = true },
+                    loadOriginalSize = loadOriginalSize,
                     modifier = Modifier.fillMaxSize())
             } else {
                 VideoAttachment(
@@ -1147,16 +1158,33 @@ private fun ImageWrapper(
     setContentSize: (painter: AsyncImagePainter.State.Success) -> Unit,
     onSuccess: () -> Unit,
     fillSizePopup: Boolean = false,
+    loadOriginalSize: Boolean = false,
     modifier: Modifier = Modifier.fillMaxWidth()
 ) {
-    AsyncImage(
-        model = ImageRequest.Builder(LocalPlatformContext.current).data(
-            if (fullQuality) {
-                mediaAttachment.url
-            } else {
-                mediaAttachment.previewUrl ?: mediaAttachment.url
+    val context = LocalPlatformContext.current
+    var lastLoadedPainter by remember(mediaAttachment) { mutableStateOf<Painter?>(null) }
+    val originalSize = fillSizePopup || loadOriginalSize
+    val imageUrl = if (fullQuality || originalSize) {
+        mediaAttachment.url
+    } else {
+        mediaAttachment.previewUrl ?: mediaAttachment.url
+    }
+    val imageRequest = remember(context, imageUrl, originalSize) {
+        ImageRequest.Builder(context)
+            .data(imageUrl)
+            .apply {
+                if (originalSize) {
+                    size(Size.ORIGINAL)
+                    precision(Precision.EXACT)
+                }
             }
-        ).size(Size.ORIGINAL).precision(Precision.EXACT).build(),
+            .build()
+    }
+
+    AsyncImage(
+        model = imageRequest,
+        placeholder = lastLoadedPainter,
+        error = lastLoadedPainter,
         contentDescription = null,
         modifier = if (fillSizePopup) {
             modifier.fillMaxSize()
@@ -1169,6 +1197,7 @@ private fun ImageWrapper(
             ContentScale.FillWidth
         },
         onSuccess = { state ->
+            lastLoadedPainter = state.painter
             setContentSize(state)
             onSuccess()
         })
