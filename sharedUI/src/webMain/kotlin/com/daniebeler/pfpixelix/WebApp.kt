@@ -32,7 +32,11 @@ fun webApp() {
         appComponent.systemUrlHandler.onRedirect(it)
     }
 
-    ComposeViewport {
+    ComposeViewport(
+        configure = {
+            isA11YEnabled = false
+        }
+    ) {
         App(
             appComponent = appComponent,
             exitApp = { /* browser Back leaves the app from its root */ },
