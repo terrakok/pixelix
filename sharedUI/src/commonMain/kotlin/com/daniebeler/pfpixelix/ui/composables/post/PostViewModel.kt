@@ -129,6 +129,9 @@ class PostViewModel(
         viewModelScope.launch {
             prefs.blurSensitiveContentFlow.collect { blurSensitiveContent = it }
         }
+        viewModelScope.launch {
+            prefs.enableVolumeFlow.collect { volume = it }
+        }
     }
 
     fun toggleVolume(newVolume: Boolean) {
@@ -138,15 +141,6 @@ class PostViewModel(
 
     fun updatePost(post: Post) {
         this.post = post
-        getVolume()
-    }
-
-    private fun getVolume() {
-        viewModelScope.launch {
-            prefs.enableVolumeFlow.collect { res ->
-                volume = res
-            }
-        }
     }
 
     fun getInstance() {
