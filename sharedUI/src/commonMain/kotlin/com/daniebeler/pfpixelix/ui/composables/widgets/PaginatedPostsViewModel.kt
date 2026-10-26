@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import me.tatarka.inject.annotations.Inject
 
 abstract class PaginatedPostsViewModel(
     private val prefs: UserPreferences,

@@ -73,7 +73,6 @@ import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.size.Precision
 import coil3.size.Size
-import com.daniebeler.pfpixelix.di.injectViewModel
 import com.daniebeler.pfpixelix.domain.model.MediaAttachment
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.ui.composables.hashtagMentionText.HashtagsMentionsTextView
@@ -86,6 +85,8 @@ import com.daniebeler.pfpixelix.utils.formatLocalized
 import com.daniebeler.pfpixelix.utils.rememberBlurHashBitmap
 import com.daniebeler.pfpixelix.utils.timeAgo
 import com.daniebeler.pfpixelix.utils.zoomable.rememberZoomState
+import dev.zacsweers.metrox.viewmodel.metroViewModel
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -133,7 +134,6 @@ import pixelix.app.generated.resources.software
 import pixelix.app.generated.resources.tag
 import pixelix.app.generated.resources.this_action_cannot_be_undone
 import pixelix.app.generated.resources.trash
-import kotlin.time.Duration.Companion.milliseconds
 
 private val HeartRedColor = Color(0xFFDD2E44)
 
@@ -151,7 +151,7 @@ fun PostComposable(
     modifier: Modifier = Modifier,
     updatePost: (post: Post) -> Unit = {},
     fullQuality: Boolean,
-    viewModel: PostViewModel = injectViewModel(key = "post" + post.id) { postViewModel }
+    viewModel: PostViewModel = metroViewModel(key = "post" + post.id)
 ) {
     var postId by remember { mutableStateOf(post.id) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -290,7 +290,7 @@ fun MasonryPost(
     post: Post,
     navController: AppNavigator,
     roundedCornerShape: RoundedCornerShape,
-    viewModel: PostViewModel = injectViewModel(key = "post" + post.id) { postViewModel }
+    viewModel: PostViewModel = metroViewModel(key = "post" + post.id)
 ) {
     var postId by remember { mutableStateOf(post.id) }
 
