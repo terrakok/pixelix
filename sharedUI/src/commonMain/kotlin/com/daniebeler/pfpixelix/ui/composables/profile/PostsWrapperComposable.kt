@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridScope
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -22,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.daniebeler.pfpixelix.ui.navigation.AppNavigator
 import com.daniebeler.pfpixelix.domain.model.Post
-import com.daniebeler.pfpixelix.domain.model.distinctByUiKey
 import com.daniebeler.pfpixelix.domain.model.uiKey
 import com.daniebeler.pfpixelix.ui.composables.post.MasonryPost
 import com.daniebeler.pfpixelix.ui.composables.widgets.CustomPost
@@ -30,6 +30,7 @@ import com.daniebeler.pfpixelix.ui.composables.post.PostComposable
 import com.daniebeler.pfpixelix.ui.composables.states.EndOfListComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
 
+// Posts are deduplicated by the caller; non-timeline views receive only posts with media.
 fun LazyStaggeredGridScope.postsWrapperComposable(
     posts: List<Post>,
     isLoading: Boolean,
@@ -46,11 +47,9 @@ fun LazyStaggeredGridScope.postsWrapperComposable(
     editRemove: (postId: String) -> Unit = { },
     onClick: ((id: String) -> Unit)? = null
 ) {
-    val uniquePosts = posts.distinctByUiKey()
-
     if (view == ViewEnum.Grid) {
         postsGridInScope(
-            posts = uniquePosts,
+            filteredPosts = posts,
             isLoading = isLoading,
             isRefreshing = isRefreshing,
             endReached = endReached,
@@ -66,7 +65,7 @@ fun LazyStaggeredGridScope.postsWrapperComposable(
 
     if (view == ViewEnum.Timeline) {
         postsListInScope(
-            posts = uniquePosts,
+            posts = posts,
             isLoading = isLoading,
             isRefreshing = isRefreshing,
             endReached = endReached,
@@ -78,7 +77,7 @@ fun LazyStaggeredGridScope.postsWrapperComposable(
 
     if (view == ViewEnum.Masonry) {
         postsMasonryInScope(
-            posts = uniquePosts,
+            filteredPosts = posts,
             isLoading = isLoading,
             isRefreshing = isRefreshing,
             endReached = endReached,
@@ -89,7 +88,7 @@ fun LazyStaggeredGridScope.postsWrapperComposable(
 
     if (view == ViewEnum.LargeMasonry) {
         postsLargeMasonryInScope(
-            posts = uniquePosts,
+            filteredPosts = posts,
             isLoading = isLoading,
             isRefreshing = isRefreshing,
             endReached = endReached,
@@ -100,7 +99,7 @@ fun LazyStaggeredGridScope.postsWrapperComposable(
 }
 
 private fun LazyStaggeredGridScope.postsGridInScope(
-    posts: List<Post>,
+    filteredPosts: List<Post>,
     isLoading: Boolean,
     isRefreshing: Boolean,
     endReached: Boolean,
@@ -112,7 +111,6 @@ private fun LazyStaggeredGridScope.postsGridInScope(
     editRemove: (postId: String) -> Unit = { },
     onClick: ((id: String) -> Unit)? = null
 ) {
-    val filteredPosts = posts.filter { it.mediaAttachments.isNotEmpty() }
     val spacing = 4.dp
     val cornerRadius = 16.dp
 
@@ -128,7 +126,11 @@ private fun LazyStaggeredGridScope.postsGridInScope(
     } else 0
 
     if (featuredCount >= 3 && contentWidth > 0.dp) {
-        item(key = "first_line_key", span = StaggeredGridItemSpan.FullLine) {
+        item(
+            key = "first_line_key",
+            contentType = "featured_posts",
+            span = StaggeredGridItemSpan.FullLine
+        ) {
             val bigSize = columnWidth * 2 + spacing
             val smallColumnsCount = columnCount - 2
             val remainingCount = filteredPosts.size - featuredCount
@@ -211,8 +213,11 @@ private fun LazyStaggeredGridScope.postsGridInScope(
         // 3. REMAINING ITEMS (Below the featured block)
         if (featuredCount < filteredPosts.size) {
             val remaining = filteredPosts.subList(featuredCount, filteredPosts.size)
-            items(remaining, key = { it.uiKey }) { post ->
-                val remIndex = remaining.indexOf(post)
+            itemsIndexed(
+                items = remaining,
+                key = { _, post -> post.uiKey },
+                contentType = { _, _ -> "grid_post" }
+            ) { remIndex, post ->
                 val remCol = remIndex % columnCount
                 val isBottomRow = remIndex + columnCount >= remaining.size
                 val isAbsoluteLast = remIndex == remaining.size - 1
@@ -237,10 +242,14 @@ private fun LazyStaggeredGridScope.postsGridInScope(
             }
         }
     } else {
-        items(filteredPosts, key = { it.uiKey }) { post ->
-            val shape = calculateOuterGridShape(
-                filteredPosts.indexOf(post), filteredPosts.size, columnCount
-            )
+        itemsIndexed(
+            items = filteredPosts,
+            key = { _, post -> post.uiKey },
+            contentType = { _, _ -> "grid_post" }
+        ) { index, post ->
+            val shape = remember(index, filteredPosts.size, columnCount) {
+                calculateOuterGridShape(index, filteredPosts.size, columnCount)
+            }
             CustomPost(
                 post = post,
                 navController = navController,
@@ -255,12 +264,12 @@ private fun LazyStaggeredGridScope.postsGridInScope(
 
     if (endReached && filteredPosts.size > 10) {
         item(
-            key = "end_of_list_key", span = StaggeredGridItemSpan.FullLine
+            key = "end_of_list_key", contentType = "end_of_list", span = StaggeredGridItemSpan.FullLine
         ) { EndOfListComposable() }
     }
 
     if (!isRefreshing && isLoading) {
-        item(key = "loading_key", span = StaggeredGridItemSpan.FullLine) {
+        item(key = "loading_key", contentType = "loading", span = StaggeredGridItemSpan.FullLine) {
             LoadingComposable(Modifier.fillMaxWidth().padding(vertical = 50.dp))
         }
     }
@@ -279,7 +288,7 @@ private fun LazyStaggeredGridScope.postsListInScope(
 
     if (posts.isNotEmpty()) {
 
-        items(posts, key = { it.uiKey }) { post ->
+        items(posts, key = { it.uiKey }, contentType = { "timeline_post" }) { post ->
             val zIndex = remember {
                 mutableFloatStateOf(1f)
             }
@@ -300,38 +309,40 @@ private fun LazyStaggeredGridScope.postsListInScope(
     }
 
     if (isLoading && !isRefreshing) {
-        item(key = "loading_key", span = StaggeredGridItemSpan.FullLine) {
+        item(key = "loading_key", contentType = "loading", span = StaggeredGridItemSpan.FullLine) {
             LoadingComposable(Modifier.fillMaxWidth().padding(vertical = 50.dp))
         }
     }
 
     if (endReached && posts.size > 3) {
-        item(key = "end_of_list_key", span = StaggeredGridItemSpan.FullLine) {
+        item(key = "end_of_list_key", contentType = "end_of_list", span = StaggeredGridItemSpan.FullLine) {
             EndOfListComposable()
         }
     }
 }
 
 private fun LazyStaggeredGridScope.postsMasonryInScope(
-    posts: List<Post>,
+    filteredPosts: List<Post>,
     isLoading: Boolean,
     isRefreshing: Boolean,
     endReached: Boolean,
     columnCount: Int,
     navController: AppNavigator,
 ) {
-
-    val filteredPosts = posts.filter { it.mediaAttachments.isNotEmpty() }
     if (filteredPosts.isNotEmpty()) {
 
-        items(items = filteredPosts, key = { it.uiKey }) { post ->
+        itemsIndexed(
+            items = filteredPosts,
+            key = { _, post -> post.uiKey },
+            contentType = { _, _ -> "masonry_post" }
+        ) { index, post ->
             val zIndex = remember {
                 mutableFloatStateOf(1f)
             }
 
-            val shape = remember(filteredPosts.size) {
+            val shape = remember(index, filteredPosts.size, columnCount) {
                 calculateOuterGridShape(
-                    index = filteredPosts.indexOf(post),
+                    index = index,
                     totalCount = filteredPosts.size,
                     columnCount = columnCount
                 )
@@ -348,38 +359,40 @@ private fun LazyStaggeredGridScope.postsMasonryInScope(
     }
 
     if (isLoading && !isRefreshing) {
-        item(key = "loading_list_key", span = StaggeredGridItemSpan.FullLine) {
+        item(key = "loading_list_key", contentType = "loading", span = StaggeredGridItemSpan.FullLine) {
             LoadingComposable(Modifier.fillMaxWidth().padding(vertical = 50.dp))
         }
     }
 
     if (endReached && filteredPosts.size > 3) {
-        item(key = "end_of_list_key", span = StaggeredGridItemSpan.FullLine) {
+        item(key = "end_of_list_key", contentType = "end_of_list", span = StaggeredGridItemSpan.FullLine) {
             EndOfListComposable()
         }
     }
 }
 
 private fun LazyStaggeredGridScope.postsLargeMasonryInScope(
-    posts: List<Post>,
+    filteredPosts: List<Post>,
     isLoading: Boolean,
     isRefreshing: Boolean,
     endReached: Boolean,
     columnCount: Int = 1,
     navController: AppNavigator,
 ) {
-
-    val filteredPosts = posts.filter { it.mediaAttachments.isNotEmpty() }
     if (filteredPosts.isNotEmpty()) {
 
-        items(filteredPosts, key = { it.uiKey }) { post ->
+        itemsIndexed(
+            items = filteredPosts,
+            key = { _, post -> post.uiKey },
+            contentType = { _, _ -> "large_masonry_post" }
+        ) { index, post ->
             val zIndex = remember {
                 mutableFloatStateOf(1f)
             }
 
-            val shape = remember(filteredPosts.size) {
+            val shape = remember(index, filteredPosts.size, columnCount) {
                 calculateOuterGridShape(
-                    index = filteredPosts.indexOf(post),
+                    index = index,
                     totalCount = filteredPosts.size,
                     columnCount = columnCount
                 )
@@ -395,13 +408,13 @@ private fun LazyStaggeredGridScope.postsLargeMasonryInScope(
         }
     }
     if (isLoading && !isRefreshing) {
-        item(key = "loading_key", span = StaggeredGridItemSpan.FullLine) {
+        item(key = "loading_key", contentType = "loading", span = StaggeredGridItemSpan.FullLine) {
             LoadingComposable(Modifier.fillMaxWidth().padding(vertical = 50.dp))
         }
     }
 
     if (endReached && filteredPosts.size > 3) {
-        item(key = "end_of_list_key", span = StaggeredGridItemSpan.FullLine) {
+        item(key = "end_of_list_key", contentType = "end_of_list", span = StaggeredGridItemSpan.FullLine) {
             EndOfListComposable()
         }
     }
