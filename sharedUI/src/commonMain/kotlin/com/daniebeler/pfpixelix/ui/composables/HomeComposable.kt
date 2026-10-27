@@ -208,7 +208,7 @@ fun HomeComposable(
 
             HorizontalPager(
                 state = pagerState,
-                beyondViewportPageCount = 3,
+                beyondViewportPageCount = 0,
                 userScrollEnabled = viewModel.isSwipeBetweenTabsEnabled,
                 modifier = Modifier.background(MaterialTheme.colorScheme.background)
             ) { tabIndex ->
