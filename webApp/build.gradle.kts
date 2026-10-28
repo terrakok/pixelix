@@ -48,7 +48,7 @@ abstract class ServiceWorkerDistributionTask : DefaultTask() {
 
         val distributionFiles = output
             .walkTopDown()
-            .filter { it.isFile }
+            .filter { it.isFile && it.name != "oauth-callback.html" && it.name != "oauth-launcher.html" }
             .sortedBy { it.relativeTo(output).invariantSeparatorsPath }
             .toList()
 
@@ -84,6 +84,10 @@ abstract class ServiceWorkerDistributionTask : DefaultTask() {
             ];
             const PRECACHE_URLS = new Set(
                 PRECACHE_PATHS.map(path => new URL(path, self.location.href).href)
+            );
+            const OAUTH_URLS = new Set(
+                ["./oauth-callback", "./oauth-callback.html", "./oauth-launcher", "./oauth-launcher.html"]
+                    .map(path => new URL(path, self.registration.scope).href)
             );
 
             function validateResponse(url, response) {
@@ -125,7 +129,14 @@ abstract class ServiceWorkerDistributionTask : DefaultTask() {
             });
 
             self.addEventListener("fetch", event => {
-                if (event.request.method !== "GET" || !PRECACHE_URLS.has(event.request.url)) return;
+                if (event.request.method !== "GET") return;
+                const url = new URL(event.request.url);
+                if (OAUTH_URLS.has(url.origin + url.pathname)) {
+                    // OAuth must never use Cache Storage or the browser's HTTP cache.
+                    event.respondWith(fetch(event.request, { cache: "no-store" }));
+                    return;
+                }
+                if (!PRECACHE_URLS.has(event.request.url)) return;
                 event.respondWith((async () => {
                     const cache = await caches.open(CACHE_NAME);
                     const cached = await cache.match(event.request);

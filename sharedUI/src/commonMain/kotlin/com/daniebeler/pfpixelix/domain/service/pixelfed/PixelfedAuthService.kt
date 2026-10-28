@@ -18,6 +18,7 @@ import com.daniebeler.pfpixelix.ui.events.SystemUrlHandler
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import io.ktor.http.*
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -45,6 +46,8 @@ class PixelfedAuthService(
                 clientName,
                 platform.redirectUrl
             ).let { return@let PreparedAuthData(it.clientId, it.clientSecret) }
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             error("Failed to register App")
         }
@@ -59,14 +62,10 @@ class PixelfedAuthService(
             }
         }.build()
 
-        urlHandler.isAuthInProgress = true
         if (preparedAuthData == null) platform.openUrl(authUrl.toString())
         val redirectString = urlHandler.redirects.first()
         platform.dismissBrowser()
 
-        if (redirectString == "CANCELLED") {
-            error("User canceled the authentication flow.")
-        }
         val redirect = Url(redirectString)
         val code = redirect.parameters["code"] ?: error("Redirect doesn't have a code")
 

@@ -22,13 +22,7 @@ fun webApp() {
         appComponent.provideImageLoader()
     }
 
-    setOAuthRedirectCallback {
-        appComponent.systemUrlHandler.onRedirect(it)
-    }
-    setOAuthRedirectMessageListener {
-        appComponent.systemUrlHandler.onRedirect(it)
-    }
-    setOAuthRedirectBroadcastListener {
+    setOAuthRedirectListener {
         appComponent.systemUrlHandler.onRedirect(it)
     }
 
@@ -45,29 +39,28 @@ fun webApp() {
 }
 
 
-private fun setOAuthRedirectCallback(cb: (String) -> Unit): Unit =
-    js("{ window.pixelixOAuthCallback = cb; }")
-
-private fun setOAuthRedirectMessageListener(cb: (String) -> Unit): Unit = js(
+private fun setOAuthRedirectListener(cb: (String) -> Unit): Unit = js(
     """{
-        window.addEventListener('message', function(event) {
-            if (event.origin !== window.location.origin) return;
-            if (!event.data || event.data.type !== 'pixelix-oauth-redirect') return;
-            cb(event.data.url);
+        var key = 'pixelix-oauth-redirect';
+        function consumeRedirect() {
+            var redirect = window.localStorage.getItem(key);
+            if (!redirect) return;
+            window.localStorage.removeItem(key);
+            var url;
+            try { url = new URL(redirect); } catch (e) { return; }
+            if (url.origin !== window.location.origin) return;
+            // Cloudflare Pages redirects .html assets to extensionless URLs.
+            if (url.pathname !== '/oauth-callback.html' && url.pathname !== '/oauth-callback') return;
+            cb(redirect);
+        }
+        // Storage is durable even when Android suspends the app tab during sign in.
+        window.addEventListener('storage', function(event) {
+            if (event.key === key) consumeRedirect();
         });
-    }"""
-)
-
-private fun setOAuthRedirectBroadcastListener(cb: (String) -> Unit): Unit = js(
-    """{
-        if (typeof BroadcastChannel === 'undefined') return;
-        if (window.pixelixOAuthChannel) window.pixelixOAuthChannel.close();
-        var channel = new BroadcastChannel('pixelix-oauth');
-        channel.onmessage = function(event) {
-            if (!event.data || event.data.type !== 'pixelix-oauth-redirect') return;
-            cb(event.data.url);
-        };
-        // Keep the channel alive for the lifetime of the PWA page.
-        window.pixelixOAuthChannel = channel;
+        window.addEventListener('focus', consumeRedirect);
+        window.addEventListener('pageshow', consumeRedirect);
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') consumeRedirect();
+        });
     }"""
 )

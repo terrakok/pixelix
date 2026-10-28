@@ -65,14 +65,10 @@ class VernissageAuthService(
             }
         }.build()
 
-        urlHandler.isAuthInProgress = true
         if (preparedAuthData == null) platform.openUrl(authUrl.toString())
         val redirectString = urlHandler.redirects.first()
         platform.dismissBrowser()
 
-        if (redirectString == "CANCELLED") {
-            error("User canceled the authentication flow.")
-        }
         val redirect = Url(redirectString)
         val code = redirect.parameters["code"] ?: error("Redirect doesn't have a code")
 

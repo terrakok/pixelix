@@ -21,6 +21,7 @@ actual class Platform actual constructor(
 
     actual fun prepareAuthBrowser(host: String, backendType: BackendType): Boolean {
         clearPreparedAuthData()
+        clearAuthRedirect()
         val launcherUrl = buildLauncherUrl(host, backendType.name.lowercase(), redirectUrl)
         authPopup = openInNewTab(launcherUrl)
         return authPopup != null && !isWindowClosed(authPopup)
@@ -74,6 +75,9 @@ private fun clearPreparedAuthData(): Unit = js(
     }"""
 )
 
+private fun clearAuthRedirect(): Unit =
+    js("{ window.localStorage.removeItem('pixelix-oauth-redirect'); }")
+
 private fun takePreparedAuthData(): PreparedAuthData? {
     val clientId = readLocalStorage("pixelix-oauth-client-id") ?: return null
     return PreparedAuthData(clientId, readLocalStorage("pixelix-oauth-client-secret"))
@@ -85,8 +89,7 @@ private fun readLocalStorage(key: String): String? =
 private const val AUTH_PREPARATION_ATTEMPTS = 120
 private const val AUTH_PREPARATION_POLL_MS = 250L
 
-// The OAuth authorize page opens in a popup; the callback page posts the redirect URL back to
-// this window (wired up in createWebAppComponent) and the coroutine in the main tab resumes.
+// The callback stores the redirect for the main tab to consume, even after it was suspended.
 internal actual val Platform.redirectUrl: String
     get() = "${windowOrigin()}/oauth-callback.html"
 

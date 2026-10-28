@@ -76,6 +76,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import pixelix.app.generated.resources.Res
+import pixelix.app.generated.resources.cancel
 import pixelix.app.generated.resources.chevron_right
 import pixelix.app.generated.resources.close
 import pixelix.app.generated.resources.error
@@ -334,6 +335,15 @@ fun ServerInputLayout(
                         Modifier.fillMaxSize()
                     )
                 }
+            }
+        }
+
+        if (viewModel.isLoading) {
+            TextButton(
+                onClick = { viewModel.cancelAuth() },
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text(stringResource(Res.string.cancel))
             }
         }
 

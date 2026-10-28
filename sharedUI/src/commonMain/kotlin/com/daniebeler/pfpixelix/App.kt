@@ -52,9 +52,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.scene.SinglePaneSceneStrategy
 import androidx.navigation3.ui.NavDisplay
@@ -72,8 +69,6 @@ import com.daniebeler.pfpixelix.ui.navigation.rememberAppNavigationState
 import com.daniebeler.pfpixelix.ui.theme.PixelixTheme
 import com.daniebeler.pfpixelix.utils.end
 import dev.zacsweers.metrox.viewmodel.LocalMetroViewModelFactory
-import kotlin.time.Duration.Companion.milliseconds
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.DrawableResource
@@ -111,29 +106,6 @@ fun App(
             systemUrlHandler.uriHandler = null
         }
     }
-
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val coroutineScope = rememberCoroutineScope()
-
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                if (appComponent.systemUrlHandler.isAuthInProgress) {
-                    coroutineScope.launch {
-                        delay(200.milliseconds)
-                        appComponent.systemUrlHandler.cancelWaiting()
-                    }
-                }
-            }
-        }
-
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
-
 
     CompositionLocalProvider(
         LocalAppComponent provides appComponent,

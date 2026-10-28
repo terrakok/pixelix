@@ -13,10 +13,13 @@ import com.daniebeler.pfpixelix.domain.service.general.BackendType
 import com.daniebeler.pfpixelix.domain.service.general.Session
 import com.daniebeler.pfpixelix.domain.service.platform.Platform
 import com.daniebeler.pfpixelix.domain.service.suggestions.ServersSuggestionsManager
+import com.daniebeler.pfpixelix.ui.events.SystemUrlHandler
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.binding
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 enum class LoginStep {
@@ -31,6 +34,7 @@ class LoginViewModel(
     val serversSuggestionsManager: ServersSuggestionsManager,
     private val platform: Platform,
     private val session: Session,
+    private val urlHandler: SystemUrlHandler,
 ) : ViewModel() {
 
     var currentStep by mutableStateOf(LoginStep.PLATFORM_SELECTION)
@@ -51,7 +55,14 @@ class LoginViewModel(
 
     var error by mutableStateOf<String?>(null)
 
+    private var authJob: Job? = null
+
+    fun cancelAuth() {
+        authJob?.cancel()
+    }
+
     fun onClose() {
+        cancelAuth()
         session.setBackendType(originalPlatform)
     }
 
@@ -61,6 +72,7 @@ class LoginViewModel(
     }
 
     fun goBackToPlatformSelection() {
+        cancelAuth()
         currentStep = LoginStep.PLATFORM_SELECTION
 
         serverHost = TextFieldValue()
@@ -84,22 +96,35 @@ class LoginViewModel(
     }
 
     fun auth() {
+        if (isLoading) return
+        isLoading = true
+        error = null
+        urlHandler.beginAuth()
         // This must happen synchronously in the click handler for mobile popup policies.
         val backendType = selectedPlatform ?: BackendType.PIXELFED
-        if (!platform.prepareAuthBrowser(serverHost.text, backendType)) {
-            error = "The browser blocked the login window. Allow pop-ups and try again."
+        try {
+            check(platform.prepareAuthBrowser(serverHost.text, backendType)) {
+                "The browser blocked the login window. Allow pop-ups and try again."
+            }
+        } catch (e: Exception) {
+            urlHandler.finishAuth()
+            platform.dismissBrowser()
+            isLoading = false
+            error = e.message
             return
         }
         session.setBackendType(backendType)
-        viewModelScope.launch {
+        authJob = viewModelScope.launch {
             try {
-                isLoading = true
-                error = null
                 authService.auth(serverHost.text)
-            } catch (e: Throwable) {
-                platform.dismissBrowser()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
                 error = e.message
             } finally {
+                urlHandler.finishAuth()
+                platform.dismissBrowser()
+                authJob = null
                 isLoading = false
             }
         }

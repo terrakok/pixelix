@@ -4,37 +4,39 @@ import androidx.compose.ui.platform.UriHandler
 import com.daniebeler.pfpixelix.di.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 
 @Inject
 @SingleIn(AppScope::class)
 class SystemUrlHandler {
-    private val redirectsFlow = MutableSharedFlow<String>()
-    val redirects = redirectsFlow.asSharedFlow()
+    // Keep a callback that arrives before the auth coroutine starts waiting.
+    private val redirectsChannel = Channel<String>(Channel.CONFLATED)
+    val redirects = redirectsChannel.receiveAsFlow()
 
     var uriHandler: UriHandler? = null
 
     var isAuthInProgress: Boolean = false
+        private set
+
+    fun beginAuth() {
+        finishAuth()
+        isAuthInProgress = true
+    }
+
+    fun finishAuth() {
+        isAuthInProgress = false
+        while (redirectsChannel.tryReceive().isSuccess) { /* discard previous attempt */ }
+    }
 
     fun openBrowser(url: String) {
         uriHandler?.openUri(url)
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     fun onRedirect(url: String) {
+        if (!isAuthInProgress) return
         isAuthInProgress = false
-        GlobalScope.launch { redirectsFlow.emit(url) }
+        redirectsChannel.trySend(url)
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    fun cancelWaiting() {
-        if (isAuthInProgress) {
-            isAuthInProgress = false
-            GlobalScope.launch { redirectsFlow.emit("CANCELLED") }
-        }
-    }
 }

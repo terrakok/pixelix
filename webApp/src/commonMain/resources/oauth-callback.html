@@ -2,45 +2,21 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Signing in…</title>
     </head>
     <body>
-        <p>You can close this window.</p>
+        <p>Return to Pixelix to finish signing in. You can close this window.</p>
         <script>
-            // Return the redirect to the Pixelix window. A direct same-origin callback is fastest;
-            // postMessage is retained as a fallback for installed PWAs/mobile browser contexts.
-            (function () {
-                var delivered = false;
-                var message = { type: 'pixelix-oauth-redirect', url: window.location.href };
-                try {
-                    if (window.opener && !window.opener.closed) {
-                        if (typeof window.opener.pixelixOAuthCallback === 'function') {
-                            window.opener.pixelixOAuthCallback(window.location.href);
-                        } else {
-                            window.opener.postMessage(message, window.location.origin);
-                        }
-                        delivered = true;
-                    }
-                } catch (e) { /* opener unavailable or isolated */ }
-
-                // Standalone PWAs may open OAuth in a browser context without window.opener.
-                // BroadcastChannel still reaches the original same-origin PWA window.
-                try {
-                    if (typeof BroadcastChannel !== 'undefined') {
-                        var channel = new BroadcastChannel('pixelix-oauth');
-                        channel.postMessage(message);
-                        channel.close();
-                        delivered = true;
-                    }
-                } catch (e) { /* BroadcastChannel unavailable */ }
-
-                if (delivered) {
-                    window.close();
-                } else {
-                    document.querySelector('p').textContent =
-                        'Return to Pixelix to finish signing in.';
-                }
-            })();
+            // Persist before closing: the app tab may be suspended and window.opener
+            // may have been severed by the OAuth provider's isolation policy.
+            try {
+                window.localStorage.setItem('pixelix-oauth-redirect', window.location.href);
+                window.close();
+            } catch (error) {
+                document.querySelector('p').textContent =
+                    'Could not finish sign in. Allow browser storage and try again.';
+            }
         </script>
     </body>
 </html>
