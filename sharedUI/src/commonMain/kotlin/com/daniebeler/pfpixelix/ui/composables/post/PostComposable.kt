@@ -47,19 +47,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.LayoutCoordinates
-import androidx.compose.ui.layout.boundsInRoot
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -1201,26 +1195,6 @@ private fun ImageWrapper(
             setContentSize(state)
             onSuccess()
         })
-}
-
-fun Modifier.isVisible(
-    threshold: Int, onVisibilityChange: (Boolean) -> Unit
-) = composed {
-    Modifier.onGloballyPositioned { layoutCoordinates: LayoutCoordinates ->
-        val layoutHeight = layoutCoordinates.size.height
-        val thresholdHeight = layoutHeight * threshold / 100
-        val layoutTop = layoutCoordinates.positionInRoot().y
-        val layoutBottom = layoutTop + layoutHeight
-
-        val parent = layoutCoordinates.parentLayoutCoordinates
-        parent?.boundsInRoot()?.let { rect: Rect ->
-            val parentTop = rect.top
-            val parentBottom = rect.bottom
-            val isVisible =
-                parentBottom - layoutTop > thresholdHeight && parentTop < layoutBottom - thresholdHeight
-            onVisibilityChange(isVisible)
-        }
-    }
 }
 
 @Composable
