@@ -15,20 +15,24 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.viewmodel.compose.rememberViewModelStoreOwner
 import com.daniebeler.pfpixelix.ui.navigation.AppNavigator
 import com.daniebeler.pfpixelix.domain.model.Post
 import com.daniebeler.pfpixelix.domain.model.uiKey
 import com.daniebeler.pfpixelix.ui.composables.post.MasonryPost
 import com.daniebeler.pfpixelix.ui.composables.widgets.CustomPost
 import com.daniebeler.pfpixelix.ui.composables.post.PostComposable
+import com.daniebeler.pfpixelix.ui.composables.post.PostViewModel
 import com.daniebeler.pfpixelix.ui.composables.states.EndOfListComposable
 import com.daniebeler.pfpixelix.ui.composables.states.LoadingComposable
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 // Posts are deduplicated by the caller; non-timeline views receive only posts with media.
 fun LazyStaggeredGridScope.postsWrapperComposable(
@@ -296,6 +300,7 @@ private fun LazyStaggeredGridScope.postsListInScope(
                 PostComposable(
                     post = post,
                     postGetsDeleted = postGetsDeleted,
+                    viewModel = rememberLazyPostViewModel(post.uiKey),
                     navController = navController,
                     updatePost = updatePost,
                     setZindex = {
@@ -351,6 +356,7 @@ private fun LazyStaggeredGridScope.postsMasonryInScope(
             Box(modifier = Modifier.zIndex(zIndex.floatValue)) {
                 MasonryPost(
                     post = post,
+                    viewModel = rememberLazyPostViewModel(post.uiKey),
                     roundedCornerShape = shape,
                     navController = navController,
                 )
@@ -401,6 +407,7 @@ private fun LazyStaggeredGridScope.postsLargeMasonryInScope(
             Box(modifier = Modifier.zIndex(zIndex.floatValue)) {
                 MasonryPost(
                     post = post,
+                    viewModel = rememberLazyPostViewModel(post.uiKey),
                     roundedCornerShape = shape,
                     navController = navController,
                 )
@@ -420,6 +427,12 @@ private fun LazyStaggeredGridScope.postsLargeMasonryInScope(
     }
 }
 
+@Composable
+private fun rememberLazyPostViewModel(key: String): PostViewModel {
+    //local ViewModelStoreOwner. VM will be destroyed when the composable is gone
+    val owner = rememberViewModelStoreOwner()
+    return metroViewModel(viewModelStoreOwner = owner, key = key)
+}
 
 fun calculateOuterGridShape(
     index: Int, totalCount: Int, columnCount: Int, cornerRadius: Dp = 16.dp
