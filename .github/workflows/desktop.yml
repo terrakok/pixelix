@@ -1,0 +1,102 @@
+name: desktop
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    name: Build ${{ matrix.format }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            format: dmg
+            task: ./gradlew :desktopApp:packageReleaseDmg
+          - os: windows-latest
+            format: msi
+            task: ./gradlew.bat :desktopApp:packageReleaseMsi
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up JBR
+        uses: actions/setup-java@v5
+        with:
+          distribution: jetbrains
+          java-version: '21'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_CACHE_ENCRYPTION_KEY }}
+      - name: Build package
+        shell: bash
+        run: ${{ matrix.task }} --stacktrace
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ matrix.format }}
+          path: desktopApp/build/compose/binaries/main-release/${{ matrix.format }}/*.${{ matrix.format }}
+          if-no-files-found: error
+
+  flatpak:
+    name: Build flatpak
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-25.08
+      options: --privileged
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up JBR
+        uses: actions/setup-java@v5
+        with:
+          distribution: jetbrains
+          java-version: '21'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Capture Flatpak sources
+        run: |
+          GRADLE_HOME=$(mktemp -d)
+          ./gradlew -Dgradle.user.home="$GRADLE_HOME" :desktopApp:createDistributable :captureFlatpakSources --stacktrace
+      - name: Build Flatpak bundle
+        uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
+        with:
+          bundle: pixelix.flatpak
+          manifest-path: ./flatpak-assets/dev.ghostbyte.pixelix.yml
+          cache-key: flatpak-builder-${{ github.sha }}
+          upload-artifact: false
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-flatpak
+          path: '*.flatpak'
+          if-no-files-found: error
+
+  release:
+    name: Publish desktop packages
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [native, flatpak]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download packages
+        uses: actions/download-artifact@v4
+        with:
+          pattern: desktop-*
+          path: packages
+          merge-multiple: true
+      - name: Upload packages to release
+        uses: softprops/action-gh-release@v2
+        with:
+          fail_on_unmatched_files: true
+          files: |
+            packages/*.dmg
+            packages/*.msi
+            packages/*.flatpak
