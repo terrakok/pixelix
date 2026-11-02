@@ -27,5 +27,58 @@
         </circle>
     </svg>
     </body>
+
+    <script>
+        (() => {
+            const calls = window.webglInvalidationCalls = {
+                invalidateFramebuffer: 0,
+                invalidateSubFramebuffer: 0,
+                discardFramebufferEXT: 0
+            };
+
+            // WebGL 2
+            const gl2 = window.WebGL2RenderingContext?.prototype;
+            for (const name of [
+                "invalidateFramebuffer",
+                "invalidateSubFramebuffer"
+            ]) {
+                if (gl2 && typeof gl2[name] === "function") {
+                    gl2[name] = function () {
+                        calls[name]++;
+                    };
+                }
+            }
+
+            // WebGL 1: перехватываем получение объекта расширения.
+            const patched = new WeakSet();
+
+            for (const Context of [
+                window.WebGLRenderingContext,
+                window.WebGL2RenderingContext
+            ]) {
+                if (!Context) continue;
+
+                const proto = Context.prototype;
+                const original = proto.getExtension;
+
+                proto.getExtension = function (...args) {
+                    const extension = original.apply(this, args);
+
+                    if (extension &&
+                        typeof extension.discardFramebufferEXT === "function" &&
+                        !patched.has(extension)) {
+                        extension.discardFramebufferEXT = function () {
+                            calls.discardFramebufferEXT++;
+                        };
+                        patched.add(extension);
+                    }
+
+                    return extension;
+                };
+            }
+
+            console.info("WebGL invalidation disabled", calls);
+        })();
+    </script>
     <script src="webApp.js"></script>
 </html>
