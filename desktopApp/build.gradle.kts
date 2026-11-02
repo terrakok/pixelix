@@ -35,7 +35,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(Dmg, Msi, Rpm)
             packageName = "Pixelix"
-            packageVersion = "1.0.0"
+            packageVersion = providers.gradleProperty("app.versionName").get()
 
             //data store https://issuetracker.google.com/280205600
             modules("jdk.unsupported")
